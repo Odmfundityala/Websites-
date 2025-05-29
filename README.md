@@ -1,2 +1,2 @@
 # Websites-
-These are websites i created foa fee
+These are websites i created for fee. 
