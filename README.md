@@ -1,2 +1,1 @@
-# Websites-
-These are websites i created for fee. 
+Siyabulela S.S.S Website
