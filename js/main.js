@@ -4,16 +4,41 @@ document.addEventListener('DOMContentLoaded', () => {
     const navToggle = document.getElementById('navToggle');
     const navLinks = document.getElementById('navLinks');
 
-    navToggle.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-    });
+    if (navToggle && navLinks) {
+        navToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            navLinks.classList.toggle('active');
+            
+            // Update aria attributes for accessibility
+            const isActive = navLinks.classList.contains('active');
+            navToggle.setAttribute('aria-expanded', isActive);
+        });
 
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!navToggle.contains(e.target) && !navLinks.contains(e.target)) {
-            navLinks.classList.remove('active');
-        }
-    });
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navToggle.contains(e.target) && !navLinks.contains(e.target)) {
+                navLinks.classList.remove('active');
+                navToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Close mobile menu when clicking on navigation links
+        navLinks.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') {
+                navLinks.classList.remove('active');
+                navToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 950) {
+                navLinks.classList.remove('active');
+                navToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
 
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -25,7 +50,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     behavior: 'smooth'
                 });
                 // Close mobile menu after clicking a link
-                navLinks.classList.remove('active');
+                if (navLinks) {
+                    navLinks.classList.remove('active');
+                    if (navToggle) {
+                        navToggle.setAttribute('aria-expanded', 'false');
+                    }
+                }
             }
         });
     });
