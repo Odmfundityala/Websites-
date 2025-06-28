@@ -478,15 +478,6 @@ footer {
 
 /* Mobile Navigation */
 @media (max-width: 768px) {
-    .navbar {
-        padding: 0.5rem 1rem;
-        justify-content: space-between;
-    }
-
-    .logo {
-        margin-right: 0;
-    }
-
     .logo-image {
         width: 45px;
         height: 45px;
@@ -495,43 +486,6 @@ footer {
     .logo-text h1,
     .logo-text span {
         font-size: 1.5rem;
-    }
-
-    .nav-toggle {
-        display: block;
-    }
-
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        gap: 0.5rem;
-        width: 100%;
-        padding: 1rem 0;
-        margin-left: 0;
-        position: static;
-        background: none;
-        box-shadow: none;
-    }
-
-    .nav-links.active {
-        display: flex;
-    }
-
-    .nav-links a,
-    .nav-links a[href="index.html"],
-    .nav-links a[href="./index.html"],
-    .nav-links a[href="/"],
-    .nav-links a[href="./"] {
-        padding: 0.75rem 1rem;
-        width: 100%;
-        text-align: center;
-        color: var(--text-light);
-    }
-
-    .nav-links a:hover,
-    .nav-links a.active {
-        background-color: rgba(99, 179, 237, 0.2);
-        color: var(--sky-blue-light);
     }
 
     .hero-content h1 {
@@ -2067,11 +2021,14 @@ main {
     .navbar {
         padding: 0.5rem 1rem;
         flex-wrap: wrap;
+        position: relative;
     }
     
     .nav-toggle {
         display: block;
         order: 3;
+        cursor: pointer;
+        z-index: 1001;
     }
     
     .nav-links {
@@ -2088,15 +2045,17 @@ main {
         margin-left: 0;
         z-index: 1000;
         box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        border-radius: 0 0 8px 8px;
     }
     
     .nav-links.active {
-        display: flex;
+        display: flex !important;
     }
     
     .nav-links li {
         width: 100%;
         height: auto;
+        display: flex;
     }
     
     .nav-links a {
@@ -2109,9 +2068,15 @@ main {
         justify-content: flex-start;
         height: auto;
         border-bottom: 1px solid rgba(255,255,255,0.1);
+        display: flex;
+        align-items: center;
     }
     
     .nav-links a:hover {
         background-color: rgba(99, 179, 237, 0.2);
+    }
+    
+    .nav-links a:before {
+        display: none;
     }
 } 
