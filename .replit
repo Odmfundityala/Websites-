@@ -2,3 +2,15 @@ modules = ["web", "nodejs-20"]
 
 [nix]
 channel = "stable-24_05"
+
+[workflows]
+runButton = "Start Website"
+
+[[workflows.workflow]]
+name = "Start Website"
+author = 43356620
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "node server.js"
