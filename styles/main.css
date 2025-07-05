@@ -1152,9 +1152,56 @@ main {
 
 .subjects-list li i {
     margin-right: 1rem;
-    color: var(--sky-blue-light);
     width: 20px;
     text-align: center;
+    font-size: 1.1rem;
+    transition: transform 0.3s ease;
+}
+
+/* Subject-specific icon colors */
+.subjects-list li i.fa-book {
+    color: #3b82f6; /* Blue for languages */
+}
+
+.subjects-list li i.fa-atom {
+    color: #10b981; /* Green for Physical Science */
+}
+
+.subjects-list li i.fa-microscope {
+    color: #ef4444; /* Red for Life Science */
+}
+
+.subjects-list li i.fa-seedling {
+    color: #22c55e; /* Bright green for Agricultural Science */
+}
+
+.subjects-list li i.fa-calculator {
+    color: #f59e0b; /* Orange for Mathematics */
+}
+
+.subjects-list li i.fa-heart {
+    color: #ec4899; /* Pink for Life Orientation */
+}
+
+.subjects-list li i.fa-briefcase {
+    color: #8b5cf6; /* Purple for Business Studies */
+}
+
+.subjects-list li i.fa-map-marked-alt {
+    color: #06b6d4; /* Cyan for Tourism */
+}
+
+.subjects-list li i.fa-shopping-cart {
+    color: #f97316; /* Orange for Consumer Studies */
+}
+
+.subjects-list li i.fa-chart-line {
+    color: #6366f1; /* Indigo for Economics */
+}
+
+/* Hover effects for subject icons */
+.subjects-list li:hover i {
+    transform: scale(1.2);
 }
 
 .excellence-section {
