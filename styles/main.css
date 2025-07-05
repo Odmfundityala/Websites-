@@ -1045,24 +1045,58 @@ main {
 }
 
 .class-card {
-    background: var(--cream);
-    border-radius: 12px;
-    border: 1px solid var(--navy-primary);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 18px;
+    border: 1px solid rgba(99, 179, 237, 0.2);
+    box-shadow: 0 8px 30px rgba(26, 54, 93, 0.08), 0 2px 6px rgba(0, 0, 0, 0.05);
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.class-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--sky-blue-primary) 0%, var(--gold-accent) 50%, var(--sky-blue-primary) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
 }
 
 .class-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(26, 54, 93, 0.15), 0 5px 15px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(145deg, #ffffff 0%, #f1f5f9 100%);
+}
+
+.class-card:hover::before {
+    opacity: 1;
 }
 
 .class-header {
-    background: var(--navy-primary);
-    padding: 1.5rem;
+    background: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-light) 100%);
+    padding: 2rem 1.5rem;
     text-align: center;
     position: relative;
+    overflow: hidden;
+}
+
+.class-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.6s ease;
+}
+
+.class-card:hover .class-header::before {
+    left: 100%;
 }
 
 .class-header h3 {
@@ -1074,13 +1108,22 @@ main {
 }
 
 .class-type {
-    background: var(--sky-blue-light);
+    background: linear-gradient(45deg, var(--gold-accent), #f7d462);
     color: var(--navy-primary);
-    padding: 0.4rem 1rem;
-    border-radius: 20px;
+    padding: 0.5rem 1.2rem;
+    border-radius: 25px;
     font-size: 0.9rem;
-    font-weight: 500;
-    letter-spacing: 0.2px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    box-shadow: 0 2px 8px rgba(236, 201, 75, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.class-card:hover .class-type {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(236, 201, 75, 0.4);
 }
 
 .subjects-list {
@@ -2309,61 +2352,134 @@ main {
     }
 }
 
-/* Card Base Styles - Unified styling for all cards */
+/* Card Base Styles - Enhanced styling for all cards */
 .uniform-card, .sports-card, .about-card, .contact-card, .admission-card, .fees-card, .info-card, .sports-uniform-card, .announcement-card {
-    background: var(--cream);
-    border-radius: 15px;
+    background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 20px;
     padding: 2.5rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-    border: 1px solid rgba(26, 54, 93, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 8px 30px rgba(26, 54, 93, 0.08), 0 2px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(99, 179, 237, 0.2);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     margin-bottom: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Add subtle gradient overlay */
+.uniform-card::before, .sports-card::before, .about-card::before, .contact-card::before, 
+.admission-card::before, .fees-card::before, .info-card::before, .sports-uniform-card::before,
+.announcement-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--sky-blue-primary) 0%, var(--gold-accent) 50%, var(--sky-blue-primary) 100%);
+    border-radius: 20px 20px 0 0;
+    opacity: 0;
+    transition: opacity 0.4s ease;
 }
 
 /* Card Hover Effects */
 .uniform-card:hover, .sports-card:hover, .about-card:hover, .contact-card:hover, 
 .admission-card:hover, .fees-card:hover, .info-card:hover, .sports-uniform-card:hover,
 .announcement-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-    border-color: rgba(26, 54, 93, 0.2);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(26, 54, 93, 0.15), 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-color: rgba(99, 179, 237, 0.4);
+    background: linear-gradient(145deg, #ffffff 0%, #f1f5f9 100%);
+}
+
+.uniform-card:hover::before, .sports-card:hover::before, .about-card:hover::before, .contact-card:hover::before, 
+.admission-card:hover::before, .fees-card:hover::before, .info-card:hover::before, .sports-uniform-card:hover::before,
+.announcement-card:hover::before {
+    opacity: 1;
 }
 
 /* Card Icons */
 .uniform-icon, .sports-icon, .contact-icon {
-    width: 70px;
-    height: 70px;
-    background: linear-gradient(135deg, var(--navy-primary), var(--navy-light));
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--sky-blue-primary) 0%, var(--navy-primary) 100%);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 2rem;
-    border: 2px solid var(--sky-blue-light);
-    transition: transform 0.3s ease;
+    border: 3px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(99, 179, 237, 0.3);
+}
+
+/* Add animated border */
+.uniform-icon::before, .sports-icon::before, .contact-icon::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold-accent), var(--sky-blue-light), var(--gold-accent));
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
 }
 
 /* Card Icon Hover */
 .uniform-card:hover .uniform-icon,
 .sports-card:hover .sports-icon,
 .contact-card:hover .contact-icon {
-    transform: scale(1.08);
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 8px 25px rgba(99, 179, 237, 0.4);
+}
+
+.uniform-card:hover .uniform-icon::before,
+.sports-card:hover .sports-icon::before,
+.contact-card:hover .contact-icon::before {
+    opacity: 1;
 }
 
 /* Card Icons */
 .uniform-icon i, .sports-icon i, .contact-icon i {
-    font-size: 1.8rem;
+    font-size: 2rem;
     color: var(--text-light);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* Card Headings */
 .uniform-card h3, .sports-card h3, .about-card h3, .contact-card h3,
 .admission-card h3, .fees-card h3, .info-card h3, .sports-uniform-card h3 {
     color: var(--navy-primary);
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-    font-weight: 600;
-    letter-spacing: 0.3px;
+    font-size: 1.6rem;
+    margin-bottom: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-align: center;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.uniform-card h3::after, .sports-card h3::after, .about-card h3::after, .contact-card h3::after,
+.admission-card h3::after, .fees-card h3::after, .info-card h3::after, .sports-uniform-card h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--sky-blue-primary), var(--gold-accent));
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.uniform-card:hover h3::after, .sports-card:hover h3::after, .about-card:hover h3::after, .contact-card:hover h3::after,
+.admission-card:hover h3::after, .fees-card:hover h3::after, .info-card:hover h3::after, .sports-uniform-card:hover h3::after {
+    width: 60px;
 }
 
 /* Card Lists */
@@ -2389,11 +2505,22 @@ main {
 .uniform-card ul li:before, .sports-card ul li:before, .about-card ul li:before,
 .contact-card ul li:before, .admission-card ul li:before, .fees-card ul li:before,
 .info-card ul li:before, .sports-uniform-card ul li:before {
-    content: "•";
-    color: var(--sky-blue-primary);
+    content: "";
     position: absolute;
     left: 0;
-    font-size: 1.2rem;
+    top: 0.6rem;
+    width: 8px;
+    height: 8px;
+    background: linear-gradient(45deg, var(--sky-blue-primary), var(--gold-accent));
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(99, 179, 237, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.uniform-card:hover ul li:before, .sports-card:hover ul li:before, .about-card:hover ul li:before,
+.contact-card:hover ul li:before, .admission-card:hover ul li:before, .fees-card:hover ul li:before,
+.info-card:hover ul li:before, .sports-uniform-card:hover ul li:before {
+    transform: scale(1.3);
 }
 
 /* Card Grid Layouts */
