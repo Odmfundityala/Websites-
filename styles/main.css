@@ -985,6 +985,264 @@ main {
     }
 }
 
+/* Academics Page Styles */
+.academics-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 5%;
+}
+
+.academics-intro {
+    text-align: center;
+    margin-bottom: 4rem;
+    padding: 3rem 0;
+    background: var(--cream);
+    border-radius: 12px;
+    border: 1px solid var(--navy-primary);
+}
+
+.academics-intro h2 {
+    color: var(--navy-primary);
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.5px;
+}
+
+.academics-intro p {
+    color: var(--navy-light);
+    font-size: 1.2rem;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.grade-section {
+    margin-bottom: 5rem;
+}
+
+.grade-title {
+    color: var(--navy-primary);
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 2.5rem;
+    text-align: center;
+    letter-spacing: 0.5px;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid var(--sky-blue-light);
+}
+
+.grade-title i {
+    margin-right: 1rem;
+    color: var(--sky-blue-light);
+}
+
+.class-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2.5rem;
+    margin-top: 2rem;
+}
+
+.class-card {
+    background: var(--cream);
+    border-radius: 12px;
+    border: 1px solid var(--navy-primary);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.class-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+.class-header {
+    background: var(--navy-primary);
+    padding: 1.5rem;
+    text-align: center;
+    position: relative;
+}
+
+.class-header h3 {
+    color: white;
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.3px;
+}
+
+.class-type {
+    background: var(--sky-blue-light);
+    color: var(--navy-primary);
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+}
+
+.subjects-list {
+    list-style: none;
+    padding: 1.5rem;
+}
+
+.subjects-list li {
+    color: var(--navy-light);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(52, 73, 94, 0.1);
+    display: flex;
+    align-items: center;
+    transition: color 0.3s ease;
+}
+
+.subjects-list li:last-child {
+    border-bottom: none;
+}
+
+.subjects-list li:hover {
+    color: var(--navy-primary);
+}
+
+.subjects-list li i {
+    margin-right: 1rem;
+    color: var(--sky-blue-light);
+    width: 20px;
+    text-align: center;
+}
+
+.excellence-section {
+    margin-top: 6rem;
+    padding: 4rem 0;
+    background: var(--cream);
+    border-radius: 12px;
+    border: 1px solid var(--navy-primary);
+    text-align: center;
+}
+
+.excellence-section h2 {
+    color: var(--navy-primary);
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    letter-spacing: 0.5px;
+}
+
+.excellence-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.excellence-card {
+    background: white;
+    padding: 2.5rem 2rem;
+    border-radius: 12px;
+    border: 1px solid var(--navy-primary);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.excellence-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.excellence-card i {
+    font-size: 3rem;
+    color: var(--sky-blue-light);
+    margin-bottom: 1.5rem;
+}
+
+.excellence-card h3 {
+    color: var(--navy-primary);
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    letter-spacing: 0.3px;
+}
+
+.excellence-card p {
+    color: var(--navy-light);
+    font-size: 1rem;
+    line-height: 1.6;
+    letter-spacing: 0.2px;
+}
+
+/* Responsive Design for Academics Page */
+@media (max-width: 768px) {
+    .academics-content {
+        padding: 2rem 5%;
+    }
+
+    .academics-intro {
+        padding: 2rem 1rem;
+        margin-bottom: 3rem;
+    }
+
+    .academics-intro h2 {
+        font-size: 2rem;
+    }
+
+    .academics-intro p {
+        font-size: 1.1rem;
+    }
+
+    .grade-title {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+    }
+
+    .class-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .class-card {
+        margin: 0;
+    }
+
+    .subjects-list {
+        padding: 1rem;
+    }
+
+    .subjects-list li {
+        font-size: 1rem;
+        margin-bottom: 0.8rem;
+        padding: 0.6rem 0;
+    }
+
+    .excellence-section {
+        margin-top: 4rem;
+        padding: 3rem 1rem;
+    }
+
+    .excellence-section h2 {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .excellence-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 0 1rem;
+    }
+
+    .excellence-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .excellence-card i {
+        font-size: 2.5rem;
+    }
+}
+
 /* Admissions Content */
 .admissions-content {
     max-width: 1200px;
