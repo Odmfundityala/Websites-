@@ -2298,30 +2298,30 @@ main {
         position: fixed !important;
         top: 70px;
         right: 1rem;
-        left: 1rem;
+        left: auto !important;
         background: var(--gradient-primary) !important;
         flex-direction: column !important;
         gap: 0 !important;
-        width: calc(100vw - 2rem) !important;
-        max-width: 350px !important;
+        width: 280px !important;
+        max-width: 280px !important;
         padding: 0 !important;
         margin: 0 !important;
         z-index: 9999 !important;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.25);
-        border-radius: 0 0 16px 16px;
+        box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+        border-radius: 0 0 18px 18px;
         max-height: 0;
         overflow: hidden;
         opacity: 0;
-        transform: translateY(-10px) scale(0.95);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transform: translateY(-15px) scale(0.92);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         order: 3;
-        border: 1px solid rgba(255,255,255,0.15);
+        border: 1px solid rgba(255,255,255,0.2);
         border-top: none;
-        backdrop-filter: blur(10px);
+        backdrop-filter: blur(15px);
     }
     
     .nav-links.active {
-        max-height: 400px !important;
+        max-height: 350px !important;
         opacity: 1 !important;
         transform: translateY(0) scale(1) !important;
         display: flex !important;
@@ -2353,42 +2353,45 @@ main {
         width: 100% !important;
         min-width: 0 !important;
         white-space: nowrap !important;
-        padding: 1rem 1.5rem !important;
-        font-size: 1.1rem !important;
+        padding: 0.9rem 1.5rem !important;
+        font-size: 1rem !important;
         text-align: left !important;
         justify-content: flex-start !important;
         height: auto !important;
         display: block !important;
         color: var(--text-light) !important;
         text-decoration: none !important;
-        transition: all 0.3s ease !important;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
         border-radius: 0 !important;
         background: none !important;
         visibility: visible !important;
         /* Better touch target */
-        min-height: 48px;
+        min-height: 44px;
         display: flex;
         align-items: center;
         font-weight: 500;
-        letter-spacing: 0.3px;
+        letter-spacing: 0.2px;
     }
     
     .nav-links a:hover,
     .nav-links a:focus {
-        background-color: rgba(99, 179, 237, 0.25) !important;
+        background-color: rgba(99, 179, 237, 0.2) !important;
         color: var(--gold-accent) !important;
-        padding-left: 2rem !important;
+        padding-left: 1.8rem !important;
+        transform: translateX(3px) !important;
     }
     
     .nav-links a.active {
-        background-color: rgba(236, 201, 75, 0.2) !important;
+        background-color: rgba(236, 201, 75, 0.25) !important;
         color: var(--gold-accent) !important;
         font-weight: 600 !important;
+        border-left: 3px solid var(--gold-accent) !important;
     }
     
     .nav-links a:active {
-        background-color: rgba(99, 179, 237, 0.35) !important;
-        transform: scale(0.98);
+        background-color: rgba(99, 179, 237, 0.3) !important;
+        transform: scale(0.97) translateX(2px) !important;
+        transition: all 0.1s ease !important;
     }
     
     .nav-links a:before {
@@ -2414,11 +2417,17 @@ main {
     }
     
     /* Better mobile navigation positioning */
-    @media (max-width: 950px) {
+    @media (max-width: 320px) {
         .nav-links {
             right: 0.5rem !important;
             left: 0.5rem !important;
             width: calc(100vw - 1rem) !important;
+            max-width: calc(100vw - 1rem) !important;
+        }
+        
+        .nav-links a {
+            padding: 0.8rem 1.2rem !important;
+            font-size: 0.95rem !important;
         }
     }
     
@@ -2430,14 +2439,17 @@ main {
         left: 0;
         width: 100vw;
         height: 100vh;
-        background: rgba(0, 0, 0, 0.5);
+        background: rgba(0, 0, 0, 0.4);
         z-index: -1;
         opacity: 0;
-        animation: fadeInOverlay 0.3s ease forwards;
+        animation: fadeInOverlay 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     }
     
     @keyframes fadeInOverlay {
-        to {
+        0% {
+            opacity: 0;
+        }
+        100% {
             opacity: 1;
         }
     }
