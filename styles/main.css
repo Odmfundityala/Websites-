@@ -229,10 +229,14 @@ section:nth-child(even) {
 }
 
 .info-card i, .about-card i, .admission-card i, .fees-card i {
-    color: var(--gold-accent);
+    color: var(--navy-primary);
     font-size: 2.5rem;
     margin-bottom: 1rem;
     transition: color 0.3s ease;
+}
+
+.info-card:hover i, .about-card:hover i, .admission-card:hover i, .fees-card:hover i {
+    color: var(--sky-blue-primary);
 }
 
 .info-card:hover, .about-card:hover, .admission-card:hover, .fees-card:hover {
@@ -241,7 +245,7 @@ section:nth-child(even) {
 }
 
 .info-card:hover i, .about-card:hover i, .admission-card:hover i, .fees-card:hover i {
-    color: var(--gold-accent);
+    color: var(--sky-blue-primary);
 }
 
 .info-card h3, .about-card h3, .admission-card h3, .fees-card h3 {
@@ -821,7 +825,7 @@ main {
 
 .about-card i {
     font-size: 2.8rem;
-    color: var(--gold-accent);
+    color: var(--navy-primary);
     margin-bottom: 1.5rem;
     transition: transform 0.3s ease;
 }
@@ -898,7 +902,7 @@ main {
 
 .stat-item p {
     color: var(--navy-light);
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 500;
 }
 
@@ -1472,7 +1476,7 @@ main {
 
 .admission-card i {
     font-size: 2.5rem;
-    color: var(--gold-accent);
+    color: var(--navy-primary);
     margin-bottom: 1rem;
 }
 
@@ -1655,7 +1659,7 @@ main {
 
 .fees-card i {
     font-size: 2.5rem;
-    color: var(--gold-accent);
+    color: var(--navy-primary);
     margin-bottom: 1rem;
 }
 
@@ -2131,35 +2135,35 @@ main {
     .academic-performance h2 {
         font-size: 2rem;
     }
-    
+
     .performance-intro p {
         font-size: 1.1rem;
     }
-    
+
     .chart-container {
         padding: 1.5rem;
         margin: 2rem auto;
     }
-    
+
     .performance-stats {
         grid-template-columns: 1fr;
         gap: 1.5rem;
     }
-    
+
     .stat-highlight {
         flex-direction: column;
         text-align: center;
         gap: 1rem;
     }
-    
+
     .stat-content {
         text-align: center;
     }
-    
+
     .achievement-message {
         padding: 2rem;
     }
-    
+
     .achievement-message p {
         font-size: 1.2rem;
     }
@@ -2603,7 +2607,6 @@ main {
     right: 0;
     height: 4px;
     background: linear-gradient(90deg, var(--sky-blue-primary) 0%, var(--gold-accent) 50%, var(--sky-blue-primary) 100%);
-    border-radius: 20px 20px 0 0;
     opacity: 0;
     transition: opacity 0.4s ease;
 }
