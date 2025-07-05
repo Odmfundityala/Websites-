@@ -2227,63 +2227,148 @@ main {
 }
 
 .sports-card {
-    background: var(--cream);
-    border-radius: 12px;
+    background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 20px;
     padding: 2.5rem;
     text-align: center;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    border: 1px solid var(--navy-primary);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08), 0 2px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(99, 179, 237, 0.2);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.sports-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--sky-blue-primary) 0%, var(--gold-accent) 50%, var(--sky-blue-primary) 100%);
+    border-radius: 20px 20px 0 0;
+    opacity: 0;
+    transition: opacity 0.4s ease;
 }
 
 .sports-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15), 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-color: rgba(99, 179, 237, 0.4);
+    background: linear-gradient(145deg, #ffffff 0%, #f1f5f9 100%);
+}
+
+.sports-card:hover::before {
+    opacity: 1;
 }
 
 .sports-icon {
-    width: 80px;
-    height: 80px;
-    background: var(--navy-primary);
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 2rem;
-    border: 2px solid var(--gold-accent);
-    transition: transform 0.3s ease;
+    border: 3px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+/* Sport-specific icon colors */
+.sports-card:nth-child(1) .sports-icon {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+}
+
+.sports-card:nth-child(2) .sports-icon {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+.sports-card:nth-child(3) .sports-icon {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+}
+
+/* Add animated border */
+.sports-icon::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--gold-accent), var(--sky-blue-light), var(--gold-accent));
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
 }
 
 .sports-card:hover .sports-icon {
-    transform: scale(1.1);
+    transform: scale(1.15) rotate(8deg);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+.sports-card:hover .sports-icon::before {
+    opacity: 1;
 }
 
 .sports-icon i {
-    font-size: 2.2rem;
+    font-size: 2.5rem;
     color: var(--text-light);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.sports-card:hover .sports-icon i {
+    transform: scale(1.1);
 }
 
 .sports-card h3 {
     color: var(--navy-primary);
-    font-size: 1.6rem;
-    margin-bottom: 1.2rem;
-    font-weight: 600;
-    letter-spacing: 0.3px;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.sports-card h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--sky-blue-primary), var(--gold-accent));
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.sports-card:hover h3::after {
+    width: 70px;
 }
 
 .sports-card p {
     color: var(--navy-light);
     font-size: 1.1rem;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-    letter-spacing: 0.2px;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    letter-spacing: 0.3px;
+    font-weight: 400;
 }
 
 .sports-details {
     text-align: left;
-    border-top: 1px solid rgba(26, 54, 93, 0.1);
-    padding-top: 1.5rem;
-    margin-top: 1.5rem;
+    border-top: 1px solid rgba(26, 54, 93, 0.08);
+    padding-top: 1.8rem;
+    margin-top: 1.8rem;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+    padding: 1.8rem;
 }
 
 .sports-details ul {
@@ -2293,18 +2378,41 @@ main {
 .sports-details ul li {
     color: var(--navy-light);
     font-size: 1.1rem;
-    margin-bottom: 0.8rem;
-    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+    padding-left: 2rem;
     position: relative;
     line-height: 1.6;
     letter-spacing: 0.2px;
+    font-weight: 500;
 }
 
 .sports-details ul li:before {
-    content: "•";
-    color: var(--gold-accent);
+    content: "";
     position: absolute;
     left: 0;
+    top: 0.6rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+}
+
+/* Sport-specific bullet colors */
+.sports-card:nth-child(1) .sports-details ul li:before {
+    background: linear-gradient(45deg, #22c55e, #16a34a);
+}
+
+.sports-card:nth-child(2) .sports-details ul li:before {
+    background: linear-gradient(45deg, #f59e0b, #d97706);
+}
+
+.sports-card:nth-child(3) .sports-details ul li:before {
+    background: linear-gradient(45deg, #dc2626, #b91c1c);
+}
+
+.sports-card:hover .sports-details ul li:before {
+    transform: scale(1.3);
 }
 
 /* Sports Uniform Section */
