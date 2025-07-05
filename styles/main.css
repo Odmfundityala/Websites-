@@ -2027,19 +2027,19 @@ main {
     }
     
     .nav-toggle {
-        display: block;
+        display: block !important;
         order: 3;
         cursor: pointer;
         z-index: 1001;
     }
     
     .nav-links {
-        position: absolute;
+        position: absolute !important;
         top: 100%;
         left: 0;
         right: 0;
         background: var(--gradient-primary);
-        flex-direction: column;
+        flex-direction: column !important;
         gap: 0;
         width: 100%;
         padding: 1rem 0;
@@ -2055,9 +2055,10 @@ main {
     }
     
     .nav-links.active {
-        max-height: 500px;
-        opacity: 1;
-        transform: translateY(0);
+        max-height: 500px !important;
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+        display: flex !important;
     }
     
     .nav-links li {
