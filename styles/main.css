@@ -511,6 +511,52 @@ footer {
     .section-title {
         font-size: 2rem;
     }
+    
+    /* Improve touch targets for mobile */
+    .cta-button {
+        padding: 1.2rem 2.5rem;
+        font-size: 1.1rem;
+        min-height: 48px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Better spacing for mobile cards */
+    .info-card, .about-card, .admission-card, .fees-card,
+    .uniform-card, .sports-card, .contact-card {
+        padding: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    /* Mobile-friendly contact items */
+    .contact-item {
+        padding: 1.2rem;
+        flex-direction: column;
+        gap: 0.8rem;
+        text-align: center;
+    }
+    
+    .contact-item i {
+        font-size: 1.8rem;
+    }
+    
+    .contact-item p {
+        font-size: 1rem;
+    }
+    
+    /* Better mobile grid layouts */
+    .quick-info {
+        padding: 2rem 5%;
+    }
+    
+    .announcements {
+        padding: 2rem 5%;
+    }
+    
+    .contact-preview {
+        padding: 2rem 5%;
+    }
 }
 
 @media (max-width: 480px) {
@@ -548,6 +594,53 @@ footer {
     
     .nav-links a:hover {
         padding-left: 2rem !important;
+    }
+    
+    /* Optimize small screen layouts */
+    .hero {
+        padding: 2rem 1rem;
+    }
+    
+    .hero-content {
+        padding: 1.5rem;
+    }
+    
+    .page-header {
+        padding: 1rem;
+    }
+    
+    .page-header-content {
+        padding: 1.5rem;
+    }
+    
+    /* Better mobile typography */
+    .page-header-content h1 {
+        font-size: 2rem;
+    }
+    
+    .page-header-content p {
+        font-size: 1rem;
+    }
+    
+    /* Improve mobile card spacing */
+    .info-card, .about-card, .admission-card, .fees-card,
+    .uniform-card, .sports-card, .contact-card {
+        padding: 1.5rem;
+    }
+    
+    /* Better mobile contact layout */
+    .contact-details {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .contact-item {
+        padding: 1rem;
+    }
+    
+    /* Mobile-friendly footer */
+    footer {
+        padding: 2rem 1rem 1rem;
     }
 }
 
@@ -1271,6 +1364,55 @@ main {
 .hero-content .cta-button {
     animation: buttonGlow 3s infinite;
     margin-top: 1rem;
+}
+
+/* Mobile touch improvements */
+@media (max-width: 768px) {
+    /* Improve touch targets for all interactive elements */
+    .cta-button,
+    .nav-links a,
+    .nav-toggle,
+    .contact-phone a,
+    .contact-email a,
+    .footer-section a {
+        -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+    
+    /* Smooth scrolling for mobile */
+    html {
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Prevent zoom on input focus */
+    input, select, textarea {
+        font-size: 16px;
+    }
+    
+    /* Better mobile viewport handling */
+    body {
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+    }
+    
+    /* Improve mobile card interactions */
+    .info-card:hover, .about-card:hover, .admission-card:hover, 
+    .fees-card:hover, .uniform-card:hover, .sports-card:hover, 
+    .contact-card:hover {
+        transform: none;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+    
+    /* Mobile-friendly active states */
+    .info-card:active, .about-card:active, .admission-card:active,
+    .fees-card:active, .uniform-card:active, .sports-card:active,
+    .contact-card:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
+    }
 }
 
 .announcements {
@@ -2125,24 +2267,42 @@ main {
         border: none;
         color: var(--text-light);
         font-size: 1.5rem;
-        padding: 0.5rem;
+        padding: 0.75rem;
         margin-left: auto;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        /* Better touch target */
+        min-width: 44px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .nav-toggle:hover {
+        background: rgba(255,255,255,0.1);
+    }
+    
+    .nav-toggle:active {
+        background: rgba(255,255,255,0.2);
+        transform: scale(0.95);
     }
     
     .nav-links {
         position: absolute !important;
         top: 100%;
         right: 1rem;
-        left: auto;
+        left: 1rem;
         background: var(--gradient-primary) !important;
         flex-direction: column !important;
         gap: 0 !important;
-        width: 280px !important;
+        width: calc(100vw - 2rem) !important;
+        max-width: 350px !important;
         padding: 0 !important;
         margin: 0 !important;
         z-index: 1001;
         box-shadow: 0 8px 25px rgba(0,0,0,0.25);
-        border-radius: 0 0 12px 12px;
+        border-radius: 0 0 16px 16px;
         max-height: 0;
         overflow: hidden;
         opacity: 0;
@@ -2151,6 +2311,7 @@ main {
         order: 3;
         border: 1px solid rgba(255,255,255,0.15);
         border-top: none;
+        backdrop-filter: blur(10px);
     }
     
     .nav-links.active {
@@ -2179,15 +2340,15 @@ main {
     }
     
     .nav-links li:last-child a {
-        border-radius: 0 0 12px 12px;
+        border-radius: 0 0 16px 16px;
     }
     
     .nav-links a {
         width: 100% !important;
         min-width: 0 !important;
         white-space: nowrap !important;
-        padding: 0.8rem 1.5rem !important;
-        font-size: 1rem !important;
+        padding: 1rem 1.5rem !important;
+        font-size: 1.1rem !important;
         text-align: left !important;
         justify-content: flex-start !important;
         height: auto !important;
@@ -2198,12 +2359,24 @@ main {
         border-radius: 0 !important;
         background: none !important;
         visibility: visible !important;
+        /* Better touch target */
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        letter-spacing: 0.3px;
     }
     
-    .nav-links a:hover {
+    .nav-links a:hover,
+    .nav-links a:focus {
         background-color: rgba(99, 179, 237, 0.25) !important;
         color: var(--gold-accent) !important;
         padding-left: 2rem !important;
+    }
+    
+    .nav-links a:active {
+        background-color: rgba(99, 179, 237, 0.35) !important;
+        transform: scale(0.98);
     }
     
     .nav-links a:before {
