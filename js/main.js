@@ -9,6 +9,14 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             e.stopPropagation();
             navLinks.classList.toggle('active');
+            
+            // Prevent body scroll when menu is open
+            if (navLinks.classList.contains('active')) {
+                document.body.classList.add('nav-open');
+            } else {
+                document.body.classList.remove('nav-open');
+            }
+            
             console.log('Menu toggled:', navLinks.classList.contains('active'));
         });
 
@@ -16,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener('click', (e) => {
             if (!navToggle.contains(e.target) && !navLinks.contains(e.target)) {
                 navLinks.classList.remove('active');
+                document.body.classList.remove('nav-open');
             }
         });
 
@@ -23,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         navLinks.addEventListener('click', (e) => {
             if (e.target.tagName === 'A') {
                 navLinks.classList.remove('active');
+                document.body.classList.remove('nav-open');
             }
         });
 
@@ -30,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('resize', () => {
             if (window.innerWidth > 950) {
                 navLinks.classList.remove('active');
+                document.body.classList.remove('nav-open');
             }
         });
         
