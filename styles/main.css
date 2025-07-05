@@ -2327,6 +2327,7 @@ main {
         display: flex !important;
         flex-direction: column !important;
         overflow-y: auto !important;
+        padding-bottom: 0 !important;
     }
     
     .nav-links li {
@@ -2343,10 +2344,14 @@ main {
     
     .nav-links li:last-child {
         border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
     }
     
     .nav-links li:last-child a {
         border-radius: 0 0 16px 16px;
+        margin-bottom: 0;
+        padding-bottom: 0.9rem;
     }
     
     .nav-links a {
