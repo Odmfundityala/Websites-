@@ -1,48 +1,54 @@
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Mobile Navigation Toggle
+    // Mobile Navigation Toggle - Optimized
     const navToggle = document.getElementById('navToggle');
     const navLinks = document.getElementById('navLinks');
+    let menuOpen = false;
+    let resizeTimeout;
 
     if (navToggle && navLinks) {
+        // Debounced toggle function
+        const toggleMenu = () => {
+            menuOpen = !menuOpen;
+            navLinks.classList.toggle('active', menuOpen);
+            document.body.classList.toggle('nav-open', menuOpen);
+        };
+
         navToggle.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
-            navLinks.classList.toggle('active');
-            
-            // Prevent body scroll when menu is open
-            if (navLinks.classList.contains('active')) {
-                document.body.classList.add('nav-open');
-            } else {
-                document.body.classList.remove('nav-open');
-            }
-            
-            console.log('Menu toggled:', navLinks.classList.contains('active'));
+            toggleMenu();
         });
 
-        // Close mobile menu when clicking outside
+        // Optimized outside click handler
         document.addEventListener('click', (e) => {
-            if (!navToggle.contains(e.target) && !navLinks.contains(e.target)) {
+            if (menuOpen && !navToggle.contains(e.target) && !navLinks.contains(e.target)) {
+                menuOpen = false;
                 navLinks.classList.remove('active');
                 document.body.classList.remove('nav-open');
             }
-        });
+        }, { passive: true });
 
-        // Close mobile menu when clicking on a navigation link
+        // Optimized navigation link handler
         navLinks.addEventListener('click', (e) => {
-            if (e.target.tagName === 'A') {
+            if (e.target.tagName === 'A' && menuOpen) {
+                menuOpen = false;
                 navLinks.classList.remove('active');
                 document.body.classList.remove('nav-open');
             }
         });
 
-        // Handle window resize to close mobile menu on desktop
+        // Debounced resize handler
         window.addEventListener('resize', () => {
-            if (window.innerWidth > 950) {
-                navLinks.classList.remove('active');
-                document.body.classList.remove('nav-open');
-            }
-        });
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                if (window.innerWidth > 950 && menuOpen) {
+                    menuOpen = false;
+                    navLinks.classList.remove('active');
+                    document.body.classList.remove('nav-open');
+                }
+            }, 150);
+        }, { passive: true });
         
         // Set active navigation link based on current page
         const currentPage = window.location.pathname.split('/').pop() || 'index.html';
@@ -57,157 +63,98 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Initialize Pass Rate Chart
+    // Lazy load chart when needed
     const passRateChart = document.getElementById('passRateChart');
     if (passRateChart) {
-        const ctx = passRateChart.getContext('2d');
-        
-        // Pass rate data
-        const passRateData = {
-            labels: ['2018', '2019', '2020', '2021', '2022', '2023', '2024'],
-            datasets: [{
-                label: 'Pass Rate (%)',
-                data: [45.95, 50.0, 90.0, 87.5, 79.8, 85.7, 81.8],
-                borderColor: '#3b82f6',
-                backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                borderWidth: 4,
-                fill: true,
-                tension: 0.4,
-                pointBackgroundColor: '#ffffff',
-                pointBorderColor: '#3b82f6',
-                pointBorderWidth: 3,
-                pointRadius: 8,
-                pointHoverRadius: 12,
-                pointHoverBackgroundColor: '#ecc94b',
-                pointHoverBorderColor: '#1a365d',
-                pointHoverBorderWidth: 4
-            }]
-        };
+        // Use Intersection Observer for lazy loading
+        const chartObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    initializeChart();
+                    chartObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        chartObserver.observe(passRateChart);
+
+        function initializeChart() {
+            const ctx = passRateChart.getContext('2d');
+            
+            // Simplified pass rate data
+            const passRateData = {
+                labels: ['2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+                datasets: [{
+                    label: 'Pass Rate (%)',
+                    data: [45.95, 50.0, 90.0, 87.5, 79.8, 85.7, 81.8],
+                    borderColor: '#3b82f6',
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.3,
+                    pointRadius: 6,
+                    pointHoverRadius: 8,
+                    pointBackgroundColor: '#ffffff',
+                    pointBorderColor: '#3b82f6'
+                }]
+            };
 
         const config = {
-            type: 'line',
-            data: passRateData,
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Siyabulela S.S.S. - Matric Pass Rate Performance (2018-2024)',
-                        font: {
-                            size: 18,
-                            weight: 'bold',
-                            family: 'Montserrat'
+                type: 'line',
+                data: passRateData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Matric Pass Rate Performance (2018-2024)',
+                            font: { size: 16, weight: 'bold' },
+                            color: '#1a365d'
                         },
-                        color: '#1a365d',
-                        padding: {
-                            top: 10,
-                            bottom: 30
-                        }
-                    },
-                    legend: {
-                        display: true,
-                        position: 'bottom',
-                        labels: {
-                            font: {
-                                size: 14,
-                                weight: 'bold'
-                            },
-                            color: '#2d3748',
-                            usePointStyle: true,
-                            pointStyle: 'circle'
-                        }
-                    },
-                    tooltip: {
-                        backgroundColor: 'rgba(26, 54, 93, 0.95)',
-                        titleColor: '#ffffff',
-                        bodyColor: '#ffffff',
-                        borderColor: '#ecc94b',
-                        borderWidth: 2,
-                        cornerRadius: 12,
-                        displayColors: false,
-                        callbacks: {
-                            label: function(context) {
-                                const value = context.parsed.y;
-                                const year = context.label;
-                                let message = `${value}% Pass Rate`;
-                                
-                                // Add contextual messages
-                                if (year === '2020') {
-                                    message += ' 🏆 Peak Achievement!';
-                                } else if (year === '2024') {
-                                    message += ' 📈 Latest Success!';
-                                } else if (value >= 80) {
-                                    message += ' ⭐ Excellent Performance!';
+                        legend: {
+                            display: true,
+                            position: 'bottom',
+                            labels: { color: '#2d3748' }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(26, 54, 93, 0.9)',
+                            titleColor: '#ffffff',
+                            bodyColor: '#ffffff',
+                            displayColors: false,
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.parsed.y}% Pass Rate`;
                                 }
-                                
-                                return message;
                             }
-                        }
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        max: 100,
-                        ticks: {
-                            font: {
-                                size: 12,
-                                weight: 'bold'
-                            },
-                            color: '#2d3748',
-                            callback: function(value) {
-                                return value + '%';
-                            }
-                        },
-                        grid: {
-                            color: 'rgba(99, 179, 237, 0.2)',
-                            borderDash: [5, 5]
-                        },
-                        title: {
-                            display: true,
-                            text: 'Pass Rate (%)',
-                            font: {
-                                size: 14,
-                                weight: 'bold'
-                            },
-                            color: '#1a365d'
                         }
                     },
-                    x: {
-                        ticks: {
-                            font: {
-                                size: 12,
-                                weight: 'bold'
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                color: '#2d3748',
+                                callback: function(value) {
+                                    return value + '%';
+                                }
                             },
-                            color: '#2d3748'
+                            grid: { color: 'rgba(99, 179, 237, 0.2)' }
                         },
-                        grid: {
-                            display: false
-                        },
-                        title: {
-                            display: true,
-                            text: 'Academic Year',
-                            font: {
-                                size: 14,
-                                weight: 'bold'
-                            },
-                            color: '#1a365d'
+                        x: {
+                            ticks: { color: '#2d3748' },
+                            grid: { display: false }
                         }
+                    },
+                    animation: {
+                        duration: 1000,
+                        easing: 'easeInOutQuart'
                     }
-                },
-                interaction: {
-                    intersect: false,
-                    mode: 'index'
-                },
-                animation: {
-                    duration: 2000,
-                    easing: 'easeInOutQuart'
                 }
-            }
-        };
+            };
 
-        new Chart(ctx, config);
+            new Chart(ctx, config);
+        }
     }
 
     // Smooth scrolling for anchor links

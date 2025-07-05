@@ -4,12 +4,19 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Siyabulela Senior Secondary School</title>
+        
+        <!-- Preload critical resources -->
+        <link rel="preload" href="styles/main.css" as="style" />
+        <link rel="preload" href="images/scool buildings.jpg" as="image" />
+        <link rel="preload" href="js/main.js" as="script" />
+        
         <link rel="stylesheet" href="styles/main.css" />
         <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+            media="print" onload="this.media='all'"
         />
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js" async></script>
     </head>
     <body>
         <header class="header">

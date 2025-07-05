@@ -2881,49 +2881,28 @@ main {
     }
 }
 
-/* Card Base Styles - Enhanced styling for all cards */
-.uniform-card, .sports-card, .about-card, .contact-card, .admission-card, .fees-card, .info-card, .sports-uniform-card, .announcement-card {
-    background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
-    border-radius: 20px;
+/* Card Base Styles - Optimized for performance */
+.card-base {
+    background: var(--cream);
+    border-radius: 12px;
     padding: 2.5rem;
-    box-shadow: 0 8px 30px rgba(26, 54, 93, 0.08), 0 2px 6px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(99, 179, 237, 0.2);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border: 1px solid var(--navy-primary);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     margin-bottom: 1rem;
     position: relative;
-    overflow: hidden;
 }
 
-/* Add subtle gradient overlay */
-.uniform-card::before, .sports-card::before, .about-card::before, .contact-card::before, 
-.admission-card::before, .fees-card::before, .info-card::before, .sports-uniform-card::before,
-.announcement-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--sky-blue-primary) 0%, var(--gold-accent) 50%, var(--sky-blue-primary) 100%);
-    border-radius: 20px 20px 0 0;
-    opacity: 0;
-    transition: opacity 0.4s ease;
+.uniform-card, .sports-card, .about-card, .contact-card, .admission-card, .fees-card, .info-card, .sports-uniform-card, .announcement-card {
+    @extend .card-base;
 }
 
-/* Card Hover Effects */
+/* Simplified hover effects */
 .uniform-card:hover, .sports-card:hover, .about-card:hover, .contact-card:hover, 
 .admission-card:hover, .fees-card:hover, .info-card:hover, .sports-uniform-card:hover,
 .announcement-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 15px 40px rgba(26, 54, 93, 0.15), 0 5px 15px rgba(0, 0, 0, 0.1);
-    border-color: rgba(99, 179, 237, 0.4);
-    background: linear-gradient(145deg, #ffffff 0%, #f1f5f9 100%);
-}
-
-.uniform-card:hover::before, .sports-card:hover::before, .about-card:hover::before, .contact-card:hover::before, 
-.admission-card:hover::before, .fees-card:hover::before, .info-card:hover::before, .sports-uniform-card:hover::before,
-.announcement-card:hover {
-    opacity: 1;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
 }
 
 /* Card Icons */
