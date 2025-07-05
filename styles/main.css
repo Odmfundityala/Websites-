@@ -2158,7 +2158,8 @@ main {
         opacity: 1 !important;
         transform: translateY(0) scale(1) !important;
         display: flex !important;
-        overflow-y: auto;
+        flex-direction: column !important;
+        overflow-y: auto !important;
     }
     
     .nav-links li {
@@ -2196,6 +2197,7 @@ main {
         transition: all 0.3s ease !important;
         border-radius: 0 !important;
         background: none !important;
+        visibility: visible !important;
     }
     
     .nav-links a:hover {
