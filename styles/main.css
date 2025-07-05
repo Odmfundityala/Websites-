@@ -2130,31 +2130,33 @@ main {
     }
     
     .nav-links {
-        position: fixed !important;
-        top: 70px;
-        left: 0;
-        right: 0;
+        position: absolute !important;
+        top: 100%;
+        right: 1rem;
+        left: auto;
         background: var(--gradient-primary) !important;
         flex-direction: column !important;
         gap: 0 !important;
-        width: 100% !important;
+        width: 280px !important;
         padding: 0 !important;
         margin: 0 !important;
         z-index: 1001;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+        border-radius: 0 0 12px 12px;
         max-height: 0;
         overflow: hidden;
         opacity: 0;
-        transform: translateY(-20px);
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        transform: translateY(-10px) scale(0.95);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         order: 3;
-        border-top: 1px solid rgba(255,255,255,0.1);
+        border: 1px solid rgba(255,255,255,0.15);
+        border-top: none;
     }
     
     .nav-links.active {
-        max-height: 100vh !important;
+        max-height: 400px !important;
         opacity: 1 !important;
-        transform: translateY(0) !important;
+        transform: translateY(0) scale(1) !important;
         display: flex !important;
         overflow-y: auto;
     }
@@ -2164,19 +2166,27 @@ main {
         height: auto !important;
         display: block !important;
         margin: 0 !important;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    
+    .nav-links li:first-child a {
+        border-radius: 0 0 0 0;
     }
     
     .nav-links li:last-child {
         border-bottom: none;
     }
     
+    .nav-links li:last-child a {
+        border-radius: 0 0 12px 12px;
+    }
+    
     .nav-links a {
         width: 100% !important;
         min-width: 0 !important;
         white-space: nowrap !important;
-        padding: 1.2rem 2rem !important;
-        font-size: 1.1rem !important;
+        padding: 0.8rem 1.5rem !important;
+        font-size: 1rem !important;
         text-align: left !important;
         justify-content: flex-start !important;
         height: auto !important;
@@ -2189,24 +2199,17 @@ main {
     }
     
     .nav-links a:hover {
-        background-color: rgba(99, 179, 237, 0.2) !important;
+        background-color: rgba(99, 179, 237, 0.25) !important;
         color: var(--gold-accent) !important;
-        padding-left: 2.5rem !important;
+        padding-left: 2rem !important;
     }
     
     .nav-links a:before {
         display: none !important;
     }
     
-    /* Ensure mobile menu overlay */
-    .nav-links.active::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0,0,0,0.5);
-        z-index: -1;
+    /* Mobile menu positioning adjustments */
+    .nav-links.active {
+        box-shadow: 0 8px 25px rgba(0,0,0,0.25);
     }
 } 
