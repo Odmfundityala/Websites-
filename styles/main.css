@@ -900,7 +900,6 @@ main {
     color: var(--navy-light);
     font-size: 1.2rem;
     font-weight: 500;
-    letter-spacing: 0.5px;
 }
 
 /* School Info */
@@ -1265,71 +1264,177 @@ main {
     letter-spacing: 0.2px;
 }
 
-/* Responsive Design for Academics Page */
+/* Academic Performance Section */
+.performance-section {
+    margin-top: 3rem;
+    padding: 3rem 0;
+    background: var(--cream);
+    border-radius: 12px;
+    border: 1px solid var(--navy-primary);
+}
+
+.performance-section h3 {
+    color: var(--navy-primary);
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 2rem;
+    letter-spacing: 0.5px;
+}
+
+.performance-intro {
+    text-align: center;
+    color: var(--navy-light);
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+.results-table-container {
+    overflow-x: auto;
+    margin: 0 2rem 3rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+.results-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.results-table thead {
+    background: linear-gradient(135deg, var(--navy-primary), var(--navy-light));
+}
+
+.results-table th {
+    padding: 1.5rem;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
+.results-table td {
+    padding: 1.2rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(26, 54, 93, 0.1);
+    font-size: 1.1rem;
+    color: var(--navy-light);
+}
+
+.results-table tbody tr:hover {
+    background: rgba(99, 179, 237, 0.05);
+    transition: background 0.3s ease;
+}
+
+.pass-rate {
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.pass-rate.excellent {
+    color: #16a34a;
+    background: rgba(34, 197, 94, 0.1);
+    border-radius: 6px;
+    padding: 0.5rem;
+}
+
+.pass-rate.good {
+    color: #d97706;
+    background: rgba(245, 158, 11, 0.1);
+    border-radius: 6px;
+    padding: 0.5rem;
+}
+
+.performance-highlights {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin: 0 2rem;
+}
+
+.highlight-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border: 1px solid rgba(26, 54, 93, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.highlight-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.highlight-card i {
+    font-size: 3rem;
+    color: var(--gold-accent);
+    margin-bottom: 1.5rem;
+}
+
+.highlight-card h4 {
+    color: var(--navy-primary);
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    letter-spacing: 0.3px;
+}
+
+.highlight-card p {
+    color: var(--navy-light);
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+/* Responsive Design for Academics */
 @media (max-width: 768px) {
-    .academics-content {
-        padding: 2rem 5%;
-    }
-
-    .academics-intro {
-        padding: 2rem 1rem;
-        margin-bottom: 3rem;
-    }
-
-    .academics-intro h2 {
-        font-size: 2rem;
-    }
-
-    .academics-intro p {
-        font-size: 1.1rem;
-    }
-
-    .grade-title {
-        font-size: 1.8rem;
-        margin-bottom: 2rem;
-    }
-
-    .class-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-
     .class-card {
-        margin: 0;
+        padding: 2rem;
     }
 
-    .subjects-list {
-        padding: 1rem;
+    .class-header h3 {
+        font-size: 1.4rem;
     }
 
     .subjects-list li {
         font-size: 1rem;
-        margin-bottom: 0.8rem;
-        padding: 0.6rem 0;
     }
 
-    .excellence-section {
-        margin-top: 4rem;
-        padding: 3rem 1rem;
+    .results-table-container {
+        margin: 0 1rem 2rem 1rem;
     }
 
-    .excellence-section h2 {
-        font-size: 2rem;
-        margin-bottom: 2rem;
+    .results-table th,
+    .results-table td {
+        padding: 1rem 0.5rem;
+        font-size: 0.9rem;
     }
 
-    .excellence-grid {
+    .performance-highlights {
         grid-template-columns: 1fr;
-        gap: 2rem;
-        padding: 0 1rem;
+        margin: 0 1rem;
     }
 
-    .excellence-card {
-        padding: 2rem 1.5rem;
+    .highlight-card {
+        padding: 2rem;
     }
 
-    .excellence-card i {
-        font-size: 2.5rem;
+    .performance-section h3 {
+        font-size: 1.6rem;
+    }
+
+    .performance-intro {
+        font-size: 1.1rem;
+        margin: 0 1rem 2rem 1rem;
     }
 }
 
@@ -1955,7 +2060,7 @@ main {
 }
 
 .contact-details {
-    text-align: left;
+    text-align: left,
     padding-top: 1rem;
     border-top: 1px solid rgba(26, 54, 93, 0.1);
 }
@@ -2508,7 +2613,7 @@ main {
 
     .uniform-icon i,
     .sports-icon i {
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
 
     .uniform-card h3,
@@ -2562,7 +2667,7 @@ main {
 
 .uniform-card:hover::before, .sports-card:hover::before, .about-card:hover::before, .contact-card:hover::before, 
 .admission-card:hover::before, .fees-card:hover::before, .info-card:hover::before, .sports-uniform-card:hover::before,
-.announcement-card:hover::before {
+.announcement-card:hover {
     opacity: 1;
 }
 
