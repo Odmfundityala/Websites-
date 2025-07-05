@@ -1873,6 +1873,374 @@ main {
     }
 }
 
+/* Stakeholders Page Styles */
+.stakeholders-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 5%;
+    color: var(--navy-primary);
+}
+
+.stakeholders-intro {
+    text-align: center;
+    margin-bottom: 5rem;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.stakeholder-section {
+    margin-bottom: 6rem;
+}
+
+.stakeholder-category-title {
+    color: var(--navy-primary);
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.stakeholder-category-title i {
+    color: var(--gold-accent);
+    font-size: 2rem;
+}
+
+.stakeholder-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+    margin: 3rem 0;
+}
+
+.stakeholder-card {
+    background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 20px;
+    padding: 2.5rem;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(26, 54, 93, 0.08), 0 2px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(99, 179, 237, 0.2);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.stakeholder-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--sky-blue-primary) 0%, var(--gold-accent) 50%, var(--sky-blue-primary) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.stakeholder-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(26, 54, 93, 0.15), 0 5px 15px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(145deg, #ffffff 0%, #f1f5f9 100%);
+}
+
+.stakeholder-card:hover::before {
+    opacity: 1;
+}
+
+.stakeholder-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-light) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 2rem;
+    border: 3px solid var(--gold-accent);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 6px 20px rgba(26, 54, 93, 0.2);
+}
+
+.stakeholder-card:hover .stakeholder-icon {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 8px 25px rgba(26, 54, 93, 0.3);
+}
+
+.stakeholder-icon i {
+    font-size: 2.2rem;
+    color: var(--text-light);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.stakeholder-card h3 {
+    color: var(--navy-primary);
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+.stakeholder-card p {
+    color: var(--navy-light);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    letter-spacing: 0.2px;
+}
+
+.stakeholder-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: linear-gradient(135deg, var(--sky-blue-primary) 0%, var(--navy-primary) 100%);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.3px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(99, 179, 237, 0.3);
+}
+
+.stakeholder-link:hover {
+    background: linear-gradient(135deg, var(--navy-primary) 0%, var(--sky-blue-primary) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(99, 179, 237, 0.4);
+}
+
+.contact-info {
+    background: rgba(99, 179, 237, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
+    color: var(--navy-primary);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+/* Universities Section */
+.university-intro {
+    text-align: center;
+    color: var(--navy-light);
+    font-size: 1.2rem;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.university-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin: 3rem 0;
+}
+
+.university-card {
+    background: var(--cream);
+    border-radius: 12px;
+    padding: 1.8rem;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border: 1px solid var(--navy-primary);
+    transition: all 0.3s ease;
+}
+
+.university-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+.university-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--gold-accent) 0%, #f7d462 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    transition: transform 0.3s ease;
+}
+
+.university-card:hover .university-icon {
+    transform: scale(1.1);
+}
+
+.university-icon i {
+    font-size: 1.3rem;
+    color: var(--navy-primary);
+}
+
+.university-card h4 {
+    color: var(--navy-primary);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+}
+
+.university-link {
+    color: var(--sky-blue-primary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.university-link:hover {
+    color: var(--navy-primary);
+    text-decoration: underline;
+}
+
+.view-all-universities {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.view-all-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    background: linear-gradient(135deg, var(--gold-accent) 0%, #f7d462 100%);
+    color: var(--navy-primary);
+    padding: 1.2rem 2.5rem;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.3px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(236, 201, 75, 0.3);
+}
+
+.view-all-btn:hover {
+    background: linear-gradient(135deg, #f7d462 0%, var(--gold-accent) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(236, 201, 75, 0.4);
+}
+
+/* Partnership Message */
+.partnership-message {
+    background: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-light) 100%);
+    color: white;
+    padding: 4rem 3rem;
+    border-radius: 20px;
+    text-align: center;
+    margin-top: 5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.partnership-message::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.6s ease;
+}
+
+.partnership-message:hover::before {
+    left: 100%;
+}
+
+.partnership-message h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: white;
+    font-weight: 700;
+}
+
+.partnership-message p {
+    font-size: 1.3rem;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.95;
+}
+
+.partnership-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.partnership-stats .stat-item {
+    text-align: center;
+}
+
+.partnership-stats .stat-item h3 {
+    color: var(--gold-accent);
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.partnership-stats .stat-item p {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 0;
+    opacity: 0.9;
+}
+
+/* Responsive Design for Stakeholders Page */
+@media (max-width: 768px) {
+    .stakeholder-category-title {
+        font-size: 1.8rem;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .stakeholder-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .stakeholder-card {
+        padding: 2rem;
+    }
+
+    .university-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.2rem;
+    }
+
+    .partnership-message {
+        padding: 3rem 2rem;
+    }
+
+    .partnership-message h2 {
+        font-size: 2rem;
+    }
+
+    .partnership-message p {
+        font-size: 1.2rem;
+    }
+
+    .partnership-stats {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
 .announcements {
     padding: 4rem 5%;
     background: var(--cream);
