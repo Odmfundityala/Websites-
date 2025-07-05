@@ -2052,7 +2052,7 @@ main {
 
 .stat-icon i {
     font-size: 2rem;
-    color: transparent;
+    color: var(--gold-accent);
 }
 
 .stat-content {
