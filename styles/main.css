@@ -2316,13 +2316,13 @@ main {
     }
 
     .nav-links.active {
-        max-height: 315px !important;
+        max-height: 280px !important;
         opacity: 1 !important;
         transform: translateY(0) scale(1) !important;
         display: flex !important;
         flex-direction: column !important;
         overflow-y: auto !important;
-        padding-bottom: 0 !important;
+        padding: 0 !important;
     }
 
     .nav-links li {
@@ -2353,8 +2353,8 @@ main {
         width: 100% !important;
         min-width: 0 !important;
         white-space: nowrap !important;
-        padding: 0.8rem 1.5rem !important;
-        font-size: 1rem !important;
+        padding: 0.6rem 1.2rem !important;
+        font-size: 0.95rem !important;
         text-align: left !important;
         justify-content: flex-start !important;
         height: auto !important;
@@ -2366,7 +2366,7 @@ main {
         background: none !important;
         visibility: visible !important;
         /* Better touch target */
-        min-height: 44px;
+        min-height: 40px;
         display: flex;
         align-items: center;
         font-weight: 500;
@@ -2377,7 +2377,7 @@ main {
     .nav-links a:focus {
         background-color: rgba(99, 179, 237, 0.2) !important;
         color: var(--gold-accent) !important;
-        padding-left: 1.8rem !important;
+        padding-left: 1.5rem !important;
         transform: translateX(3px) !important;
     }
 
