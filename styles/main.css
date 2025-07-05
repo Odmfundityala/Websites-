@@ -1913,9 +1913,261 @@ main {
     font-size: 1.1rem;
 }
 
+/* Academic Performance Section */
+.academic-performance {
+    background: var(--cream);
+    padding: 5rem 5%;
+    text-align: center;
+    margin: 0;
+}
+
+.academic-performance h2 {
+    color: var(--navy-primary);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.5px;
+}
+
+.performance-intro {
+    max-width: 800px;
+    margin: 0 auto 3rem;
+}
+
+.performance-intro p {
+    color: var(--navy-light);
+    font-size: 1.2rem;
+    line-height: 1.7;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+}
+
+.chart-container {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    margin: 3rem auto;
+    max-width: 900px;
+    box-shadow: 0 10px 30px rgba(26, 54, 93, 0.1);
+    border: 1px solid rgba(99, 179, 237, 0.2);
+    position: relative;
+}
+
+.chart-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--sky-blue-primary) 0%, var(--gold-accent) 50%, var(--sky-blue-primary) 100%);
+    border-radius: 20px 20px 0 0;
+}
+
+#passRateChart {
+    max-height: 400px;
+    width: 100% !important;
+    height: 400px !important;
+}
+
+.performance-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.stat-highlight {
+    background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 18px;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    box-shadow: 0 8px 25px rgba(26, 54, 93, 0.08);
+    border: 1px solid rgba(99, 179, 237, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-highlight::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--sky-blue-primary) 0%, var(--gold-accent) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.stat-highlight:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(26, 54, 93, 0.15);
+}
+
+.stat-highlight:hover::before {
+    opacity: 1;
+}
+
+.stat-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-light) 100%);
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-icon::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, var(--gold-accent), var(--sky-blue-light));
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.stat-highlight:hover .stat-icon::before {
+    opacity: 1;
+}
+
+.stat-icon i {
+    font-size: 2rem;
+    color: var(--text-light);
+}
+
+.stat-content {
+    text-align: left;
+}
+
+.stat-content h3 {
+    color: var(--navy-primary);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    letter-spacing: 0.5px;
+}
+
+.stat-content p {
+    color: var(--navy-light);
+    font-size: 1.1rem;
+    margin: 0;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+}
+
+.achievement-message {
+    background: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-light) 100%);
+    color: white;
+    padding: 2.5rem;
+    border-radius: 18px;
+    margin: 3rem auto 0;
+    max-width: 800px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.achievement-message::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.6s ease;
+}
+
+.achievement-message:hover::before {
+    left: 100%;
+}
+
+.achievement-message p {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+    letter-spacing: 0.3px;
+}
+
+.view-details-btn {
+    display: inline-block;
+    background: var(--gold-accent);
+    color: var(--navy-primary);
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.3px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(236, 201, 75, 0.3);
+}
+
+.view-details-btn:hover {
+    background: #f7d462;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(236, 201, 75, 0.4);
+}
+
+/* Responsive Design for Academic Performance */
+@media (max-width: 768px) {
+    .academic-performance h2 {
+        font-size: 2rem;
+    }
+    
+    .performance-intro p {
+        font-size: 1.1rem;
+    }
+    
+    .chart-container {
+        padding: 1.5rem;
+        margin: 2rem auto;
+    }
+    
+    .performance-stats {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .stat-highlight {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    .stat-content {
+        text-align: center;
+    }
+    
+    .achievement-message {
+        padding: 2rem;
+    }
+    
+    .achievement-message p {
+        font-size: 1.2rem;
+    }
+}
+
 /* Contact Preview Section */
 .contact-preview {
-    background: var(--cream);
+    background: var(--sky-blue-bg);
     padding: 4rem 5%;
     text-align: center;
 }
