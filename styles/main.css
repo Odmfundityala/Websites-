@@ -327,7 +327,7 @@ section:nth-child(even) {
     transform: translateX(-50%);
     width: 150px;
     height: 4px;
-    background: var(--gold-accent);
+    background: var(--sky-blue-light);
     border-radius: 2px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
