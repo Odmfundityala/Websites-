@@ -2346,7 +2346,7 @@ main {
     .nav-links li:last-child a {
         border-radius: 0 0 16px 16px;
         margin-bottom: 0 !important;
-        padding-bottom: 0.6rem !important;
+        padding-bottom: 0 !important;
     }
 
     .nav-links a {
