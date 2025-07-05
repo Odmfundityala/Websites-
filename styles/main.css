@@ -131,13 +131,13 @@ body {
     flex-wrap: nowrap;
     overflow: hidden;
     list-style: none;
-    gap: 1.2rem;
+    gap: 0.8rem;
     align-items: center;
     margin: 0;
-    padding: 0 1rem;
+    padding: 0 0.5rem;
     margin-left: auto;
     height: 100%;
-    width: 100%;
+    width: auto;
     background: none;
     box-shadow: none;
 }
@@ -154,18 +154,18 @@ body {
     color: var(--text-light);
     text-decoration: none;
     font-weight: 500;
-    padding: 0.5rem 1.1rem;
+    padding: 0.4rem 0.8rem;
     border-radius: 4px;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-    font-size: 1rem;
-    letter-spacing: 0.2px;
+    font-size: 0.9rem;
+    letter-spacing: 0.1px;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 40px;
-    min-width: 120px;
+    height: 36px;
+    min-width: 80px;
     white-space: nowrap;
     box-sizing: border-box;
 }
@@ -3505,25 +3505,25 @@ main {
 
 @media (max-width: 1200px) {
     .nav-links {
-        gap: 0.6rem;
+        gap: 0.5rem;
     }
     .nav-links a {
-        min-width: 85px;
-        font-size: 0.95rem;
-        padding: 0.5rem 0.7rem;
+        min-width: 75px;
+        font-size: 0.85rem;
+        padding: 0.4rem 0.6rem;
         letter-spacing: 0.1px;
     }
 }
 
 @media (max-width: 1100px) {
     .nav-links {
-        gap: 0.4rem;
+        gap: 0.3rem;
     }
     .nav-links a {
-        min-width: 70px;
-        font-size: 0.9rem;
-        padding: 0.4rem 0.6rem;
-        letter-spacing: 0.1px;
+        min-width: 65px;
+        font-size: 0.8rem;
+        padding: 0.3rem 0.5rem;
+        letter-spacing: 0.05px;
     }
 }
 
@@ -3588,22 +3588,22 @@ main {
         background: var(--gradient-primary) !important;
         flex-direction: column !important;
         gap: 0 !important;
-        width: 280px !important;
-        max-width: 280px !important;
-        padding: 0 !important;
+        width: 250px !important;
+        max-width: 250px !important;
+        padding: 0.5rem 0 !important;
         margin: 0 !important;
         z-index: 9999 !important;
-        box-shadow: 0 12px 35px rgba(0,0,0,0.3);
-        border-radius: 0 0 18px 18px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+        border-radius: 0 0 15px 15px;
         max-height: 0;
         overflow: hidden;
         opacity: 0;
-        transform: translateY(-15px) scale(0.92);
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        transform: translateY(-10px) scale(0.95);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         order: 3;
-        border: 1px solid rgba(255,255,255,0.2);
+        border: 1px solid rgba(255,255,255,0.15);
         border-top: none;
-        backdrop-filter: blur(15px);
+        backdrop-filter: blur(10px);
     }
 
     .nav-links.active {
@@ -3645,24 +3645,22 @@ main {
         width: 100% !important;
         min-width: 0 !important;
         white-space: nowrap !important;
-        padding: 0.6rem 1.2rem !important;
-        font-size: 0.95rem !important;
+        padding: 0.8rem 1.5rem !important;
+        font-size: 1rem !important;
         text-align: left !important;
         justify-content: flex-start !important;
         height: auto !important;
-        display: block !important;
+        display: flex !important;
+        align-items: center !important;
         color: var(--text-light) !important;
         text-decoration: none !important;
-        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        transition: all 0.2s ease !important;
         border-radius: 0 !important;
         background: none !important;
         visibility: visible !important;
-        /* Better touch target */
-        min-height: 40px;
-        display: flex;
-        align-items: center;
+        min-height: 44px;
         font-weight: 500;
-        letter-spacing: 0.2px;
+        letter-spacing: 0.1px;
     }
 
     .nav-links a:hover,
