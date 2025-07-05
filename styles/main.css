@@ -2316,7 +2316,7 @@ main {
     }
 
     .nav-links.active {
-        max-height: 350px !important;
+        max-height: 315px !important;
         opacity: 1 !important;
         transform: translateY(0) scale(1) !important;
         display: flex !important;
@@ -2353,7 +2353,7 @@ main {
         width: 100% !important;
         min-width: 0 !important;
         white-space: nowrap !important;
-        padding: 0.9rem 1.5rem !important;
+        padding: 0.8rem 1.5rem !important;
         font-size: 1rem !important;
         text-align: left !important;
         justify-content: flex-start !important;
