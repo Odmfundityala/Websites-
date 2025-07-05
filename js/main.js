@@ -32,6 +32,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 navLinks.classList.remove('active');
             }
         });
+        
+        // Set active navigation link based on current page
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        const navLinksElements = document.querySelectorAll('.nav-links a');
+        
+        navLinksElements.forEach(link => {
+            const linkHref = link.getAttribute('href');
+            if (linkHref === currentPage || 
+                (currentPage === '' && linkHref === 'index.html')) {
+                link.classList.add('active');
+            }
+        });
     }
 
     // Smooth scrolling for anchor links
