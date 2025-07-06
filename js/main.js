@@ -66,17 +66,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Initialize chart immediately when Chart.js is available
+    // Initialize chart when Chart.js is available
     const passRateChart = document.getElementById('passRateChart');
     if (passRateChart) {
-        // Wait a moment for Chart.js to fully load
-        setTimeout(() => {
-            if (typeof Chart !== 'undefined') {
-                initializeChart();
-            } else {
-                console.error('Chart.js library not loaded');
-            }
-        }, 500);
+        // Check if Chart.js is already loaded
+        if (typeof Chart !== 'undefined') {
+            initializeChart();
+        } else {
+            // Wait for Chart.js to load
+            const checkChart = setInterval(() => {
+                if (typeof Chart !== 'undefined') {
+                    clearInterval(checkChart);
+                    initializeChart();
+                }
+            }, 100);
+        }
 
         function initializeChart() {
             const ctx = passRateChart.getContext('2d');
