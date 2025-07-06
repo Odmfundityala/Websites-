@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
     // Mobile Navigation Toggle
     const navToggle = document.getElementById('navToggle');
@@ -54,23 +55,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Chart initialization
+    // Chart initialization with official academic results
     const passRateChart = document.getElementById('passRateChart');
     if (passRateChart) {
         function initializeChart() {
+            // Wait for Chart.js to be available
             if (typeof Chart === 'undefined') {
-                console.log('Chart.js not loaded yet, waiting...');
+                console.log('Chart.js not loaded yet, retrying...');
+                setTimeout(initializeChart, 200);
                 return;
             }
 
             try {
                 const ctx = passRateChart.getContext('2d');
 
+                // Official academic results from the provided document
                 const passRateData = {
-                    labels: ['2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+                    labels: ['2018', '2019', '2020', '2021', '2022', '2023'],
                     datasets: [{
                         label: 'Pass Rate (%)',
-                        data: [45.95, 50.0, 90.0, 87.5, 79.8, 85.7, 81.8],
+                        data: [45.95, 50.0, 90.0, 87.5, 79.8, 85.7],
                         borderColor: '#dc2626',
                         backgroundColor: 'rgba(220, 38, 38, 0.15)',
                         borderWidth: 4,
@@ -93,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         plugins: {
                             title: {
                                 display: true,
-                                text: 'Matric Pass Rate Performance (2018-2024)',
+                                text: 'Matric Pass Rate Performance (2018-2023)',
                                 font: { size: 18, weight: 'bold' },
                                 color: '#1a365d',
                                 padding: 20
@@ -171,37 +175,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 };
 
                 new Chart(ctx, config);
-                console.log('Academic performance chart initialized successfully!');
+                console.log('Academic performance chart initialized successfully with official data!');
             } catch (error) {
                 console.error('Error initializing chart:', error);
             }
         }
 
-        // Try to initialize chart immediately if Chart.js is already loaded
-        if (typeof Chart !== 'undefined') {
-            initializeChart();
-        } else {
-            // Wait for Chart.js to load
-            let attempts = 0;
-            const maxAttempts = 50;
-            const checkChart = setInterval(() => {
-                attempts++;
-                if (typeof Chart !== 'undefined') {
-                    clearInterval(checkChart);
-                    initializeChart();
-                } else if (attempts >= maxAttempts) {
-                    clearInterval(checkChart);
-                    console.error('Chart.js failed to load after 5 seconds');
-                }
-            }, 100);
-
-            // Also try when window loads
-            window.addEventListener('load', () => {
-                if (typeof Chart !== 'undefined') {
-                    initializeChart();
-                }
-            });
-        }
+        // Start initialization
+        initializeChart();
     }
 
     // Smooth scrolling for anchor links
