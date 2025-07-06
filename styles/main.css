@@ -2154,6 +2154,39 @@ main {
     box-shadow: 0 6px 20px rgba(0,0,0,0.1);
 }
 
+.university-logo {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 50%;
+    border: 3px solid var(--gold-accent);
+    box-shadow: 0 6px 20px rgba(26, 54, 93, 0.12);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    position: relative;
+}
+
+.university-logo img {
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.university-card:hover .university-logo {
+    transform: scale(1.1) rotate(3deg);
+    box-shadow: 0 8px 25px rgba(26, 54, 93, 0.2);
+    border-color: var(--sky-blue-primary);
+}
+
+.university-card:hover .university-logo img {
+    transform: scale(1.05);
+}
+
 .university-icon {
     width: 50px;
     height: 50px;
