@@ -59,4 +59,5 @@ const server = http.createServer((req, res) => {
 server.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running at http://0.0.0.0:${PORT}/`);
     console.log('Your website is now accessible!');
+    console.log('Chart should now be visible on the homepage!');
 });
