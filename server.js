@@ -1,9 +1,8 @@
-
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const PORT = 5000;
+const PORT = process.env.PORT || 3000;
 
 // MIME types for different file extensions
 const mimeTypes = {
@@ -21,19 +20,19 @@ const mimeTypes = {
 const server = http.createServer((req, res) => {
     // Remove query parameters and decode URL
     let filePath = decodeURIComponent(req.url.split('?')[0]);
-    
+
     // Default to index.html for root path
     if (filePath === '/') {
         filePath = '/index.html';
     }
-    
+
     // Remove leading slash and construct file path
     const fullPath = path.join(__dirname, filePath.slice(1));
-    
+
     // Get file extension
     const ext = path.extname(fullPath).toLowerCase();
     const contentType = mimeTypes[ext] || 'application/octet-stream';
-    
+
     // Check if file exists
     fs.access(fullPath, fs.constants.F_OK, (err) => {
         if (err) {
@@ -42,7 +41,7 @@ const server = http.createServer((req, res) => {
             res.end('<h1>404 - Page Not Found</h1>');
             return;
         }
-        
+
         // Read and serve the file
         fs.readFile(fullPath, (err, data) => {
             if (err) {
@@ -50,7 +49,7 @@ const server = http.createServer((req, res) => {
                 res.end('<h1>500 - Internal Server Error</h1>');
                 return;
             }
-            
+
             res.writeHead(200, { 'Content-Type': contentType });
             res.end(data);
         });
