@@ -66,20 +66,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Lazy load chart when needed
+    // Initialize chart immediately when Chart.js is available
     const passRateChart = document.getElementById('passRateChart');
     if (passRateChart) {
-        // Use Intersection Observer for lazy loading
-        const chartObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    initializeChart();
-                    chartObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-
-        chartObserver.observe(passRateChart);
+        // Wait a moment for Chart.js to fully load
+        setTimeout(() => {
+            if (typeof Chart !== 'undefined') {
+                initializeChart();
+            } else {
+                console.error('Chart.js library not loaded');
+            }
+        }, 500);
 
         function initializeChart() {
             const ctx = passRateChart.getContext('2d');
