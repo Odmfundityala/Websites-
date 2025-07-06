@@ -1,13 +1,10 @@
-
 document.addEventListener('DOMContentLoaded', () => {
-    // Mobile Navigation Toggle - Optimized
+    // Mobile Navigation Toggle
     const navToggle = document.getElementById('navToggle');
     const navLinks = document.getElementById('navLinks');
     let menuOpen = false;
-    let resizeTimeout;
 
     if (navToggle && navLinks) {
-        // Debounced toggle function
         const toggleMenu = () => {
             menuOpen = !menuOpen;
             navLinks.classList.toggle('active', menuOpen);
@@ -20,16 +17,14 @@ document.addEventListener('DOMContentLoaded', () => {
             toggleMenu();
         });
 
-        // Optimized outside click handler
         document.addEventListener('click', (e) => {
             if (menuOpen && !navToggle.contains(e.target) && !navLinks.contains(e.target)) {
                 menuOpen = false;
                 navLinks.classList.remove('active');
                 document.body.classList.remove('nav-open');
             }
-        }, { passive: true });
+        });
 
-        // Optimized navigation link handler
         navLinks.addEventListener('click', (e) => {
             if (e.target.tagName === 'A' && menuOpen) {
                 menuOpen = false;
@@ -38,19 +33,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Debounced resize handler
         window.addEventListener('resize', () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                if (window.innerWidth > 950 && menuOpen) {
-                    menuOpen = false;
-                    navLinks.classList.remove('active');
-                    document.body.classList.remove('nav-open');
-                }
-            }, 150);
-        }, { passive: true });
+            if (window.innerWidth > 950 && menuOpen) {
+                menuOpen = false;
+                navLinks.classList.remove('active');
+                document.body.classList.remove('nav-open');
+            }
+        });
 
-        // Set active navigation link based on current page
+        // Set active navigation link
         const currentPage = window.location.pathname.split('/').pop() || 'index.html';
         const navLinksElements = document.querySelectorAll('.nav-links a');
 
@@ -63,15 +54,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Initialize chart when Chart.js is available
+    // Chart initialization
     const passRateChart = document.getElementById('passRateChart');
     if (passRateChart) {
-        // Function to initialize the chart
         function initializeChart() {
+            if (typeof Chart === 'undefined') {
+                console.log('Chart.js not loaded yet, waiting...');
+                return;
+            }
+
             try {
                 const ctx = passRateChart.getContext('2d');
 
-                // Academic performance data from 2018-2024
                 const passRateData = {
                     labels: ['2018', '2019', '2020', '2021', '2022', '2023', '2024'],
                     datasets: [{
@@ -86,10 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         pointBorderColor: '#ffffff',
                         pointBorderWidth: 3,
                         pointRadius: 8,
-                        pointHoverRadius: 12,
-                        pointHoverBackgroundColor: '#dc2626',
-                        pointHoverBorderColor: '#ffffff',
-                        pointHoverBorderWidth: 4
+                        pointHoverRadius: 12
                     }]
                 };
 
@@ -112,10 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 position: 'bottom',
                                 labels: {
                                     color: '#dc2626',
-                                    font: {
-                                        size: 14,
-                                        weight: 'bold'
-                                    }
+                                    font: { size: 14, weight: 'bold' }
                                 }
                             }
                         },
@@ -125,10 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 max: 100,
                                 ticks: {
                                     color: '#1a365d',
-                                    font: {
-                                        size: 12,
-                                        weight: 'bold'
-                                    },
+                                    font: { size: 12, weight: 'bold' },
                                     callback: function(value) {
                                         return value + '%';
                                     }
@@ -141,40 +126,26 @@ document.addEventListener('DOMContentLoaded', () => {
                                     display: true,
                                     text: 'Pass Rate (%)',
                                     color: '#dc2626',
-                                    font: {
-                                        size: 14,
-                                        weight: 'bold'
-                                    }
+                                    font: { size: 14, weight: 'bold' }
                                 }
                             },
                             x: {
                                 ticks: { 
                                     color: '#1a365d',
-                                    font: {
-                                        size: 12,
-                                        weight: 'bold'
-                                    }
+                                    font: { size: 12, weight: 'bold' }
                                 },
                                 grid: { display: false },
                                 title: {
                                     display: true,
                                     text: 'Academic Years',
                                     color: '#dc2626',
-                                    font: {
-                                        size: 14,
-                                        weight: 'bold'
-                                    }
+                                    font: { size: 14, weight: 'bold' }
                                 }
                             }
                         },
                         animation: {
                             duration: 2000,
                             easing: 'easeInOutQuart'
-                        },
-                        elements: {
-                            line: {
-                                tension: 0.4
-                            }
                         },
                         interaction: {
                             intersect: false,
@@ -187,7 +158,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             borderColor: '#dc2626',
                             borderWidth: 2,
                             cornerRadius: 8,
-                            displayColors: true,
                             callbacks: {
                                 label: function(context) {
                                     return `Pass Rate: ${context.parsed.y}%`;
@@ -207,14 +177,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Multiple loading strategies to ensure chart displays
+        // Try to initialize chart immediately if Chart.js is already loaded
         if (typeof Chart !== 'undefined') {
-            // Chart.js already loaded
             initializeChart();
         } else {
-            // Wait for Chart.js to load - check every 100ms for up to 10 seconds
+            // Wait for Chart.js to load
             let attempts = 0;
-            const maxAttempts = 100;
+            const maxAttempts = 50;
             const checkChart = setInterval(() => {
                 attempts++;
                 if (typeof Chart !== 'undefined') {
@@ -222,13 +191,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     initializeChart();
                 } else if (attempts >= maxAttempts) {
                     clearInterval(checkChart);
-                    console.error('Chart.js failed to load after 10 seconds');
+                    console.error('Chart.js failed to load after 5 seconds');
                 }
             }, 100);
 
             // Also try when window loads
             window.addEventListener('load', () => {
-                if (typeof Chart !== 'undefined' && !passRateChart.chartInstance) {
+                if (typeof Chart !== 'undefined') {
                     initializeChart();
                 }
             });
@@ -244,7 +213,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 target.scrollIntoView({
                     behavior: 'smooth'
                 });
-                // Close mobile menu after clicking a link
                 if (navLinks) {
                     navLinks.classList.remove('active');
                 }
