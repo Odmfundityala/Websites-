@@ -2360,6 +2360,49 @@ main {
     .partnership-message p {
         font-size: 1.2rem;
     }
+}
+
+/* Bursary Tips Styles */
+.bursary-tips {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 15px;
+    padding: 2.5rem;
+    margin: 3rem auto;
+    max-width: 800px;
+    border-left: 5px solid var(--gold-accent);
+    box-shadow: 0 4px 15px rgba(26, 54, 93, 0.1);
+}
+
+.bursary-tips h3 {
+    color: var(--navy-primary);
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.bursary-tips ul {
+    list-style: none;
+    padding: 0;
+}
+
+.bursary-tips li {
+    color: var(--navy-light);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.bursary-tips li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--gold-accent);
+    font-weight: bold;
+    font-size: 1.2rem;
+    }
 
     .partnership-stats {
         grid-template-columns: 1fr;
