@@ -69,21 +69,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize chart when Chart.js is available
     const passRateChart = document.getElementById('passRateChart');
     if (passRateChart) {
-        // Check if Chart.js is already loaded
-        if (typeof Chart !== 'undefined') {
-            initializeChart();
-        } else {
-            // Wait for Chart.js to load
-            const checkChart = setInterval(() => {
-                if (typeof Chart !== 'undefined') {
-                    clearInterval(checkChart);
-                    initializeChart();
-                }
-            }, 100);
-        }
-
+        // Function to initialize the chart
         function initializeChart() {
-            const ctx = passRateChart.getContext('2d');
+            try {
+                const ctx = passRateChart.getContext('2d');
 
             // Simplified pass rate data
             const passRateData = {
@@ -214,6 +203,37 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             new Chart(ctx, config);
+                console.log('Chart initialized successfully!');
+            } catch (error) {
+                console.error('Error initializing chart:', error);
+            }
+        }
+
+        // Multiple loading strategies to ensure chart displays
+        if (typeof Chart !== 'undefined') {
+            // Chart.js already loaded
+            initializeChart();
+        } else {
+            // Wait for Chart.js to load - check every 100ms for up to 10 seconds
+            let attempts = 0;
+            const maxAttempts = 100;
+            const checkChart = setInterval(() => {
+                attempts++;
+                if (typeof Chart !== 'undefined') {
+                    clearInterval(checkChart);
+                    initializeChart();
+                } else if (attempts >= maxAttempts) {
+                    clearInterval(checkChart);
+                    console.error('Chart.js failed to load after 10 seconds');
+                }
+            }, 100);
+
+            // Also try when window loads
+            window.addEventListener('load', () => {
+                if (typeof Chart !== 'undefined' && !passRateChart.chartInstance) {
+                    initializeChart();
+                }
+            });
         }
     }
 
