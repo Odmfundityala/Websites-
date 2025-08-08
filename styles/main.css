@@ -213,9 +213,9 @@ body {
 section {
     background: var(--sky-blue-bg);
     color: var(--text-dark);
-    padding: 3rem 8%;
-    margin: 0 auto;
-    max-width: 1400px;
+    padding: 3rem 0;
+    margin: 0;
+    width: 100%;
     text-align: left;
 }
 
@@ -390,10 +390,10 @@ section:nth-child(even) {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
     align-items: stretch;
-    padding: 3rem 8%;
+    padding: 3rem 5%;
     background: var(--cream);
-    max-width: 1400px;
-    margin: 0 auto;
+    width: 100%;
+    margin: 0;
 }
 
 .stat-item, .info-item {
@@ -2498,12 +2498,12 @@ main {
 }
 
 .announcements {
-    padding: 3rem 8%;
+    padding: 3rem 5%;
     background: var(--cream);
     color: var(--navy-primary);
     text-align: left;
-    max-width: 1400px;
-    margin: 0 auto;
+    width: 100%;
+    margin: 0;
 }
 
 .announcements h2 {
@@ -2524,6 +2524,7 @@ main {
     max-width: 1200px;
     margin: 0 auto;
     align-items: stretch;
+    padding: 0 2rem;
 }
 
 .announcement-card {
@@ -2554,10 +2555,10 @@ main {
 /* Academic Performance Section */
 .academic-performance {
     background: var(--cream);
-    padding: 3rem 8%;
+    padding: 3rem 5%;
     text-align: left;
-    margin: 0 auto;
-    max-width: 1400px;
+    margin: 0;
+    width: 100%;
 }
 
 .academic-performance h2 {
@@ -2593,7 +2594,7 @@ main {
     gap: 2.5rem;
     margin: 3rem auto;
     max-width: 1000px;
-    padding: 2rem 0;
+    padding: 2rem;
 }
 
 .stat-highlight {
@@ -2786,6 +2787,8 @@ main {
     background: var(--sky-blue-bg);
     padding: 4rem 5%;
     text-align: center;
+    width: 100%;
+    margin: 0;
 }
 
 .contact-preview h2 {
