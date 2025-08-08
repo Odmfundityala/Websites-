@@ -771,8 +771,8 @@ main {
 
 /* About Content */
 .about-content {
-    max-width: 1200px;
-    margin: 0 auto;
+    width: 100%;
+    margin: 0;
     padding: 5rem 5%;
     color: var(--navy-primary);
 }
@@ -1002,19 +1002,19 @@ main {
 
 /* Academics Page Styles */
 .academics-content {
-    max-width: 1200px;
-    margin: 0 auto;
+    width: 100%;
+    margin: 0;
     padding: 4rem 5%;
 }
 
 .academics-intro {
     text-align: center;
-    margin: 0 auto 4rem auto;
+    margin: 0 0 4rem 0;
     padding: 3rem 2rem;
     background: var(--cream);
     border-radius: 12px;
     border: 1px solid var(--navy-primary);
-    max-width: 1200px;
+    width: 100%;
 }
 
 .academics-intro h2 {
@@ -1501,8 +1501,8 @@ main {
 
 /* Admissions Content */
 .admissions-content {
-    max-width: 1200px;
-    margin: 0 auto;
+    width: 100%;
+    margin: 0;
     padding: 4rem 5%;
 }
 
@@ -1697,8 +1697,8 @@ main {
 
 /* Fees Content */
 .fees-content {
-    max-width: 1200px;
-    margin: 0 auto;
+    width: 100%;
+    margin: 0;
     padding: 4rem 5%;
 }
 
@@ -1963,8 +1963,8 @@ main {
 
 /* Stakeholders Page Styles */
 .stakeholders-content {
-    max-width: 1200px;
-    margin: 0 auto;
+    width: 100%;
+    margin: 0;
     padding: 5rem 5%;
     color: var(--navy-primary);
 }
@@ -2833,8 +2833,8 @@ main {
 
 /* Contact Page Styles */
 .contact-content {
-    max-width: 1200px;
-    margin: 0 auto;
+    width: 100%;
+    margin: 0;
     padding: 5rem 5%;
     color: var(--navy-primary);
 }
@@ -3098,8 +3098,8 @@ main {
 
 /* Uniform & Sports Page Styles */
 .uniform-content {
-    max-width: 1200px;
-    margin: 0 auto;
+    width: 100%;
+    margin: 0;
     padding: 5rem 5%;
     color: var(--navy-primary);
 }
