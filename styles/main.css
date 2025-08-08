@@ -229,9 +229,14 @@ section:nth-child(even) {
     border: 1px solid var(--navy-primary);
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     color: var(--text-dark);
-    padding: 2rem;
-    border-radius: 10px;
+    padding: 2.5rem;
+    border-radius: 15px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 2rem;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .info-card i, .about-card i, .admission-card i, .fees-card i {
@@ -283,30 +288,6 @@ section:nth-child(even) {
     margin-top: 70px;
     position: relative;
     background-attachment: fixed; /* Parallax effect */
-}
-
-/* Add a subtle zoom animation to the background */
-@keyframes slowZoom {
-    from {
-        transform: scale(1);
-    }
-    to {
-        transform: scale(1.1);
-    }
-}
-
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: inherit;
-    background-size: cover;
-    background-position: center;
-    animation: slowZoom 20s forwards;
-    z-index: -1;
 }
 
 .hero-content {
@@ -397,11 +378,22 @@ section:nth-child(even) {
 
 /* Stats and Info Sections */
 .stats-grid, .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    align-items: stretch;
+    margin: 2rem 0;
+}
+
+.quick-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    align-items: stretch;
+    padding: 3rem 8%;
     background: var(--cream);
-    border: 1px solid var(--navy-primary);
-    color: var(--text-dark);
-    border-radius: 10px;
-    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 .stat-item, .info-item {
@@ -539,9 +531,25 @@ footer {
 
     /* Better spacing for mobile cards */
     .info-card, .about-card, .admission-card, .fees-card,
-    .uniform-card, .sports-card, .contact-card {
-        padding: 1.8rem;
+    .uniform-card, .sports-card, .contact-card, .announcement-card {
+        padding: 2rem;
         margin-bottom: 1.5rem;
+        min-height: auto;
+    }
+
+    /* Mobile grid layouts - single column */
+    .quick-info, .announcement-grid, .stats-grid, .info-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 2rem 5%;
+    }
+
+    .announcements {
+        padding: 2rem 5%;
+    }
+
+    .contact-preview {
+        padding: 2rem 5%;
     }
 
     /* Mobile-friendly contact items */
@@ -558,19 +566,6 @@ footer {
 
     .contact-item p {
         font-size: 1rem;
-    }
-
-    /* Better mobile grid layouts */
-    .quick-info {
-        padding: 2rem 5%;
-    }
-
-    .announcements {
-        padding: 2rem 5%;
-    }
-
-    .contact-preview {
-        padding: 2rem 5%;
     }
 }
 
@@ -2524,18 +2519,23 @@ main {
 
 .announcement-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2.5rem;
     max-width: 1200px;
     margin: 0 auto;
+    align-items: stretch;
 }
 
 .announcement-card {
     background: var(--text-light);
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
     border: 1px solid rgba(26, 54, 93, 0.1);
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .announcement-card h3 {
@@ -3494,13 +3494,17 @@ main {
 /* Card Base Styles - Optimized for performance */
 .card-base {
     background: var(--cream);
-    border-radius: 12px;
+    border-radius: 15px;
     padding: 2.5rem;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
     border: 1px solid var(--navy-primary);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
     position: relative;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .uniform-card, .sports-card, .about-card, .contact-card, .admission-card, .fees-card, .info-card, .sports-uniform-card, .announcement-card {
