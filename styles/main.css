@@ -2757,7 +2757,46 @@ main {
     text-align: justify;
 }
 
-/* Date preview styles removed - no longer needed */
+/* Read More Button Styling */
+.read-more-btn {
+    background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(26, 54, 93, 0.2);
+}
+
+.read-more-btn:hover {
+    background: linear-gradient(135deg, #2c5282 0%, #1a365d 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26, 54, 93, 0.3);
+}
+
+/* Admin Panel Expand Button */
+.expand-content-btn {
+    background: #f8fafc;
+    color: #1a365d;
+    border: 1px solid #e2e8f0;
+    padding: 0.4rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 0.75rem;
+    transition: all 0.3s ease;
+}
+
+.expand-content-btn:hover {
+    background: #1a365d;
+    color: white;
+    border-color: #1a365d;
+}
 
 /* Announcement Management Styles */
 .announcements-content {

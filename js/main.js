@@ -73,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Load announcements on homepage
     if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
         loadHomepageAnnouncements();
+        setupAnnouncementInteractions();
     }
 });
 
@@ -87,12 +88,18 @@ function loadHomepageAnnouncements() {
             // Display latest 2 announcements
             const latestAnnouncements = announcements.slice(0, 2);
             
-            announcementGrid.innerHTML = latestAnnouncements.map(ann => `
-                <div class="announcement-card">
+            announcementGrid.innerHTML = latestAnnouncements.map(ann => {
+                const isLongContent = ann.content.length > 300;
+                const shortContent = isLongContent ? ann.content.substring(0, 300) + '...' : ann.content;
+                
+                return `
+                <div class="announcement-card" data-id="${ann.id}">
                     <h3>${getAnnouncementIcon(ann.type)} ${ann.title}</h3>
-                    <p>${ann.content}</p>
+                    <p class="announcement-content ${isLongContent ? 'truncated' : ''}" data-full-content="${ann.content.replace(/"/g, '&quot;')}">${shortContent}</p>
+                    ${isLongContent ? '<button class="read-more-btn">Read More</button>' : ''}
                 </div>
-            `).join('');
+                `;
+            }).join('');
         } else if (announcementGrid) {
             // Show message when no announcements available
             announcementGrid.innerHTML = `
@@ -131,4 +138,27 @@ function getAnnouncementIcon(type) {
 
 function getDefaultAnnouncements() {
     return [];
+}
+
+// Setup interactions for announcement cards
+function setupAnnouncementInteractions() {
+    // Setup read more/less functionality
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('read-more-btn')) {
+            const card = e.target.closest('.announcement-card');
+            const contentElement = card.querySelector('.announcement-content');
+            const fullContent = contentElement.getAttribute('data-full-content');
+            
+            if (e.target.textContent === 'Read More') {
+                contentElement.innerHTML = fullContent;
+                contentElement.classList.remove('truncated');
+                e.target.textContent = 'Read Less';
+            } else {
+                const shortContent = fullContent.substring(0, 300) + '...';
+                contentElement.innerHTML = shortContent;
+                contentElement.classList.add('truncated');
+                e.target.textContent = 'Read More';
+            }
+        }
+    });
 }

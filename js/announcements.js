@@ -311,6 +311,27 @@ class AnnouncementManager {
             this.showMessage('All announcements cleared successfully!', 'success');
         }
     }
+
+    toggleContent(id) {
+        // Method to toggle content expansion in admin panel
+        const item = document.querySelector(`[data-id="${id}"]`);
+        if (item) {
+            const contentElement = item.querySelector('.content-preview');
+            const button = item.querySelector('.expand-content-btn');
+            const fullContent = contentElement.getAttribute('data-full-content');
+            
+            if (button.textContent === 'Show Full Content') {
+                contentElement.innerHTML = fullContent;
+                contentElement.classList.remove('truncated');
+                button.textContent = 'Show Less';
+            } else {
+                const shortContent = fullContent.substring(0, 200) + '...';
+                contentElement.innerHTML = shortContent;
+                contentElement.classList.add('truncated');
+                button.textContent = 'Show Full Content';
+            }
+        }
+    }
 }
 
 // Initialize the announcement manager when the page loads
