@@ -1221,23 +1221,102 @@
             color: #10b981;
             font-size: 0.8rem;
         }
-        /* Simple Formatting Help */
-        .formatting-help {
+        /* Rich Text Editor Styles */
+        .rich-text-toolbar {
+            display: flex;
+            gap: 0.25rem;
+            padding: 0.75rem;
             background: #f8fafc;
             border: 1px solid #e2e8f0;
+            border-bottom: none;
+            border-radius: 8px 8px 0 0;
+            align-items: center;
+        }
+
+        .format-btn {
+            background: white;
+            border: 1px solid #d1d5db;
             border-radius: 6px;
-            padding: 0.75rem;
-            margin-bottom: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
             font-size: 0.9rem;
+            color: #4b5563;
+            min-width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .formatting-help strong {
+        .format-btn:hover {
+            background: #1a365d;
+            color: white;
+            border-color: #1a365d;
+        }
+
+        .format-btn.active {
+            background: #1a365d;
+            color: white;
+            border-color: #1a365d;
+        }
+
+        .toolbar-separator {
+            width: 1px;
+            height: 24px;
+            background: #d1d5db;
+            margin: 0 0.5rem;
+        }
+
+        .rich-text-editor {
+            min-height: 180px;
+            padding: 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0 0 8px 8px;
+            background: white;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #374151;
+            outline: none;
+        }
+
+        .rich-text-editor:empty:before {
+            content: attr(data-placeholder);
+            color: #9ca3af;
+            white-space: pre-line;
+        }
+
+        .rich-text-editor:focus {
+            border-color: #1a365d;
+            box-shadow: 0 0 0 2px rgba(26, 54, 93, 0.1);
+        }
+
+        .rich-text-editor p {
+            margin: 0 0 1rem 0;
+        }
+
+        .rich-text-editor p:last-child {
+            margin-bottom: 0;
+        }
+
+        .rich-text-editor ul, .rich-text-editor ol {
+            margin: 0 0 1rem 1.5rem;
+            padding: 0;
+        }
+
+        .rich-text-editor li {
+            margin-bottom: 0.5rem;
+        }
+
+        .rich-text-editor strong {
             color: #1a365d;
-            margin-right: 0.5rem;
+            font-weight: 700;
         }
 
-        .formatting-help span {
-            color: #6b7280;
+        .rich-text-editor em {
+            color: #374151;
+            font-style: italic;
         }
     </style>
 </head>
@@ -1378,29 +1457,47 @@
                         <div class="form-group">
                             <label for="announcementContent">Content</label>
                             
-                            <!-- Simple Formatting Instructions -->
-                            <div class="formatting-help">
-                                <strong>Formatting Options:</strong>
-                                <span>**Bold Text**, *Italic Text*, Use line breaks for paragraphs</span>
+                            <!-- Rich Text Toolbar -->
+                            <div class="rich-text-toolbar">
+                                <button type="button" class="format-btn" data-command="bold" title="Bold">
+                                    <i class="fas fa-bold"></i>
+                                </button>
+                                <button type="button" class="format-btn" data-command="italic" title="Italic">
+                                    <i class="fas fa-italic"></i>
+                                </button>
+                                <div class="toolbar-separator"></div>
+                                <button type="button" class="format-btn" data-command="insertUnorderedList" title="Bullet List">
+                                    <i class="fas fa-list-ul"></i>
+                                </button>
+                                <button type="button" class="format-btn" data-command="insertOrderedList" title="Numbered List">
+                                    <i class="fas fa-list-ol"></i>
+                                </button>
                             </div>
                             
-                            <textarea id="announcementContent" name="content" rows="8" required placeholder="Enter announcement content...
+                            <!-- Rich Text Editor -->
+                            <div id="announcementContent" contenteditable="true" class="rich-text-editor" data-placeholder="Enter announcement content...
 
-Use **text** for bold, *text* for italic.
-Use line breaks to create paragraphs for better readability.
+Use the toolbar above for formatting:
+• Bold and italic text
+• Bullet points and numbered lists
 
-Example:
-**Important Notice:** This is a bold heading for key information.
+Example announcement:
+Important Notice: This is bold information.
 
-*Regular content* can include various formatting styles to make announcements more engaging and easier to read.
+Regular content can include various formatting to make announcements engaging.
 
-• Use bullet points for lists
-• Highlight important dates
-• Make key information stand out"></textarea>
+1. First numbered item
+2. Second numbered item
+
+• Bullet point
+• Another bullet point"></div>
+                            
+                            <!-- Hidden textarea for form submission -->
+                            <textarea id="announcementContentHidden" name="content" style="display: none;" required></textarea>
                             
                             <small style="color: #6b7280; font-size: 0.85rem; margin-top: 0.5rem; display: block;">
                                 <i class="fas fa-info-circle"></i>
-                                Use **text** for bold and *text* for italic. Text will be formatted automatically when displayed.
+                                Use the toolbar buttons to format your text. The content will be saved and displayed with formatting.
                             </small>
                         </div>
                         
