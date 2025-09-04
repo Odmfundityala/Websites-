@@ -1434,48 +1434,10 @@ main {
 }
 
 .excellence-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2.5rem;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 0 2rem;
+/* Excellence grid removed per user request */
 }
 
-.excellence-card {
-    background: white;
-    padding: 2.5rem 2rem;
-    border-radius: 12px;
-    border: 1px solid var(--navy-primary);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.excellence-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-}
-
-.excellence-card i {
-    font-size: 3rem;
-    color: var(--sky-blue-light);
-    margin-bottom: 1.5rem;
-}
-
-.excellence-card h3 {
-    color: var(--navy-primary);
-    font-size: 1.4rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    letter-spacing: 0.3px;
-}
-
-.excellence-card p {
-    color: var(--navy-light);
-    font-size: 1rem;
-    line-height: 1.6;
-    letter-spacing: 0.2px;
-}
+/* Excellence cards removed per user request */
 
 /* Academic Performance Section */
 .performance-section {
