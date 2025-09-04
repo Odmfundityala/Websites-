@@ -2,27 +2,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap');
 
 :root {
-    /* Primary Colors */
-    --navy-primary: #2c3e50; /* Muted navy */
-    --sky-blue-bg: #7fb3d3; /* Softer sky blue background */
-    --navy-light: #34495e; /* Muted navy for accents */
-
-    /* Secondary Colors */
-    --sky-blue-primary: #5a9bd4; /* Muted sky blue */
-    --sky-blue-dark: #4682b4; /* Steel blue */
-    --sky-blue-light: #87ceeb; /* Muted light blue */
+    /* Original School Theme Colors */
+    --navy-primary: #1a365d; /* Deep navy blue - main school color */
+    --navy-secondary: #2c5282; /* Medium navy for depth */
+    --navy-light: #3182ce; /* Lighter navy for accents */
+    
+    /* Background Colors */
+    --sky-blue-bg: #e6f3ff; /* Very light blue background */
+    --cream: #ffffff; /* Pure white for cards and sections */
+    --light-gray: #f7fafc; /* Very light gray alternative */
 
     /* Accent Colors */
-    --gold-accent: #d4af37; /* Muted gold */
-    --cream: #f8f9fa; /* Neutral cream */
-
+    --gold-accent: #d69e2e; /* School gold/yellow */
+    --gold-light: #f6e05e; /* Lighter gold for highlights */
+    
     /* Text Colors */
-    --text-light: #ffffff;
-    --text-dark: #2c3e50; /* Muted dark text */
+    --text-light: #ffffff; /* White text for dark backgrounds */
+    --text-dark: #1a365d; /* Navy text for light backgrounds */
+    --text-secondary: #2d3748; /* Dark gray for secondary text */
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-light) 100%);
-    --gradient-accent: linear-gradient(135deg, var(--sky-blue-light) 0%, var(--sky-blue-primary) 100%);
+    --gradient-primary: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-secondary) 100%);
+    --gradient-accent: linear-gradient(135deg, var(--navy-light) 0%, var(--navy-secondary) 100%);
 
     /* Typography */
     --font-primary: 'Montserrat', sans-serif;
@@ -47,7 +48,7 @@ body {
 
 /* Header and Navigation */
 .header {
-    background: #2c3e50;
+    background: var(--navy-primary);
     box-shadow: 0 2px 15px rgba(0,0,0,0.1);
     position: fixed;
     width: 100%;
@@ -211,7 +212,7 @@ body {
 
 /* Main Content Sections */
 section {
-    background: var(--sky-blue-bg);
+    background: var(--cream);
     color: var(--text-dark);
     padding: 3rem 0;
     margin: 0;
@@ -220,7 +221,7 @@ section {
 }
 
 section:nth-child(even) {
-    background: var(--cream);
+    background: var(--sky-blue-bg);
 }
 
 /* Cards */
@@ -358,7 +359,7 @@ section:nth-child(even) {
     text-decoration: none;
     border-radius: 5px;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 15px rgba(214, 158, 46, 0.3);
     border: none;
     display: inline-block;
     position: relative;
@@ -366,9 +367,9 @@ section:nth-child(even) {
 }
 
 .cta-button:hover {
-    background: #f7d462; /* Slightly lighter gold */
+    background: var(--gold-light);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    box-shadow: 0 6px 20px rgba(214, 158, 46, 0.4);
 }
 
 .cta-button:active {
