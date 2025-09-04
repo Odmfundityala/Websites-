@@ -103,14 +103,18 @@ function loadHomepageAnnouncements() {
                     ` : ''}
                     
                     <div class="card-header">
+                        <div class="announcement-title-container">
+                            <div class="announcement-icon">
+                                ${getAnnouncementIconSymbol(ann.type)}
+                            </div>
+                            <h3 class="announcement-title">${ann.title}</h3>
+                        </div>
                         <div class="announcement-meta">
-                            <span class="announcement-type type-${ann.type}">${ann.type}</span>
                             <span class="announcement-date">
                                 <i class="fas fa-calendar"></i>
-                                ${new Date(ann.date).toLocaleDateString()}
+                                ${new Date(ann.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                             </span>
                         </div>
-                        <h3 class="announcement-title">${ann.title}</h3>
                     </div>
                     
                     <div class="card-content">
@@ -186,6 +190,17 @@ function getAnnouncementIcon(type) {
         events: '🎉'
     };
     return icons[type] || '📢';
+}
+
+function getAnnouncementIconSymbol(type) {
+    const icons = {
+        general: '<i class="fas fa-bullhorn"></i>',
+        urgent: '<i class="fas fa-exclamation-triangle"></i>',
+        admissions: '<i class="fas fa-graduation-cap"></i>',
+        academic: '<i class="fas fa-book"></i>',
+        events: '<i class="fas fa-calendar-star"></i>'
+    };
+    return icons[type] || '<i class="fas fa-bullhorn"></i>';
 }
 
 function getDefaultAnnouncements() {
