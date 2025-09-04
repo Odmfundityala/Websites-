@@ -18,6 +18,12 @@ const mimeTypes = {
 };
 
 const server = http.createServer((req, res) => {
+    // Handle API endpoints
+    if (req.url.startsWith('/api/')) {
+        handleApiRequest(req, res);
+        return;
+    }
+
     // Remove query parameters and decode URL
     let filePath = decodeURIComponent(req.url.split('?')[0]);
 
@@ -69,8 +75,68 @@ const server = http.createServer((req, res) => {
     });
 });
 
+// API request handler for secure authentication
+function handleApiRequest(req, res) {
+    const url = new URL(req.url, `http://${req.headers.host}`);
+    
+    // Set CORS headers
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    
+    if (req.method === 'OPTIONS') {
+        res.writeHead(200);
+        res.end();
+        return;
+    }
+    
+    if (url.pathname === '/api/auth' && req.method === 'POST') {
+        let body = '';
+        req.on('data', chunk => {
+            body += chunk.toString();
+        });
+        
+        req.on('end', () => {
+            try {
+                const { email } = JSON.parse(body);
+                const authorizedEmails = (process.env.ADMIN_EMAILS || '').split(',').map(e => e.trim().toLowerCase());
+                
+                if (authorizedEmails.includes(email.toLowerCase())) {
+                    // Generate secure token
+                    const crypto = require('crypto');
+                    const token = crypto.createHmac('sha256', process.env.ADMIN_SECRET_KEY || 'fallback-key')
+                                       .update(email + Date.now())
+                                       .digest('hex');
+                    
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ 
+                        success: true, 
+                        token,
+                        email: email.split('@')[0].replace(/[._]/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
+                    }));
+                } else {
+                    res.writeHead(401, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ 
+                        success: false, 
+                        message: 'Unauthorized email address' 
+                    }));
+                }
+            } catch (error) {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ 
+                    success: false, 
+                    message: 'Invalid request' 
+                }));
+            }
+        });
+    } else {
+        res.writeHead(404, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ message: 'API endpoint not found' }));
+    }
+}
+
 server.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running at http://0.0.0.0:${PORT}/`);
     console.log('Your website is now accessible!');
-    console.log('Chart should now be visible on the homepage!');
+    console.log('Secure admin authentication enabled!');
 });

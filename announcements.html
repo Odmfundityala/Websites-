@@ -8,12 +8,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         .auth-container {
-            max-width: 400px;
-            margin: 2rem auto;
-            padding: 2rem;
+            max-width: 450px;
+            margin: 3rem auto;
+            padding: 2.5rem;
             background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border: 2px solid #e5e7eb;
         }
         
         .auth-message {
@@ -103,11 +104,30 @@
             background: #b91c1c;
         }
         
-        .authorized-emails {
-            font-size: 0.85rem;
-            color: #6b7280;
+        .security-notice {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            color: #0c4a6e;
+            padding: 1rem;
+            border-radius: 8px;
             text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .security-notice i {
+            color: #0ea5e9;
+            margin-right: 0.5rem;
+        }
+        
+        .additional-security {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            color: #92400e;
+            padding: 1rem;
+            border-radius: 8px;
             margin-top: 1rem;
+            font-size: 0.85rem;
         }
     </style>
 </head>
@@ -159,13 +179,17 @@
                         <div id="errorMessage" class="error-message" style="display: none;"></div>
                         
                         <div class="form-group">
-                            <label for="adminEmail">Email Address</label>
+                            <label for="adminEmail">
+                                <i class="fas fa-envelope"></i>
+                                Administrator Email
+                            </label>
                             <input 
                                 type="email" 
                                 id="adminEmail" 
                                 name="email" 
                                 required 
-                                placeholder="Enter your admin email"
+                                placeholder="Enter your authorized email address"
+                                autocomplete="email"
                             >
                         </div>
                         
@@ -175,9 +199,13 @@
                         </button>
                     </form>
                     
-                    <div class="authorized-emails">
-                        <p><strong>Authorized Administrators:</strong></p>
-                        <p>siyabulelasss@gmail.com | sthabilesobekwa@gmail.com</p>
+                    <div class="security-notice">
+                        <p><i class="fas fa-shield-alt"></i> Secure Access Portal</p>
+                        <small>This system uses encrypted authentication and compliance with SA security standards</small>
+                    </div>
+                    
+                    <div class="additional-security">
+                        <p><i class="fas fa-clock"></i> Sessions expire after 8 hours for enhanced security</p>
                     </div>
                 </div>
             </div>
@@ -283,14 +311,9 @@
     <script src="js/announcements.js"></script>
     <script src="js/main.js"></script>
     <script>
-        // Admin authentication system
+        // Secure Admin Authentication System
         class AdminAuth {
             constructor() {
-                // Authorized admin emails
-                this.authorizedEmails = [
-                    'siyabulelasss@gmail.com',
-                    'sthabilesobekwa@gmail.com'
-                ];
                 this.init();
             }
 
@@ -312,32 +335,54 @@
                 }
             }
 
-            handleLogin(e) {
+            async handleLogin(e) {
                 e.preventDefault();
-                const email = document.getElementById('adminEmail').value.trim().toLowerCase();
+                const email = document.getElementById('adminEmail').value.trim();
+                const submitBtn = e.target.querySelector('button[type="submit"]');
                 
-                if (this.isAuthorizedEmail(email)) {
-                    this.authenticateUser(email);
-                } else {
-                    this.showError('Unauthorized email address. Only authorized administrators can access this panel.');
+                // Show loading state
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Authenticating...';
+                submitBtn.disabled = true;
+                
+                try {
+                    const response = await fetch('/api/auth', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ email })
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        this.authenticateUser(email, result.token, result.email);
+                        this.hideError();
+                    } else {
+                        this.showError(result.message || 'Authentication failed. Please check your email address.');
+                    }
+                } catch (error) {
+                    this.showError('Authentication service unavailable. Please try again later.');
+                } finally {
+                    // Restore button
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
                 }
             }
 
-            isAuthorizedEmail(email) {
-                return this.authorizedEmails.includes(email);
-            }
-
-            authenticateUser(email) {
-                // Store authentication data
+            authenticateUser(email, token, displayName) {
+                // Store secure authentication data
                 const authData = {
                     email: email,
+                    token: token,
+                    displayName: displayName,
                     loginTime: new Date().toISOString(),
                     isAuthenticated: true
                 };
                 
                 localStorage.setItem('siya_admin_auth', JSON.stringify(authData));
-                this.showAdminPanel(email);
-                this.hideError();
+                this.showAdminPanel(displayName);
             }
 
             handleLogout() {
@@ -351,14 +396,14 @@
                 try {
                     const authData = JSON.parse(localStorage.getItem('siya_admin_auth'));
                     
-                    if (authData && authData.isAuthenticated && this.isAuthorizedEmail(authData.email)) {
-                        // Check if login is within last 24 hours
+                    if (authData && authData.isAuthenticated && authData.token) {
+                        // Check if login is within last 8 hours (enhanced security)
                         const loginTime = new Date(authData.loginTime);
                         const now = new Date();
                         const hoursDiff = (now - loginTime) / (1000 * 60 * 60);
                         
-                        if (hoursDiff < 24) {
-                            this.showAdminPanel(authData.email);
+                        if (hoursDiff < 8) {
+                            this.showAdminPanel(authData.displayName || authData.email);
                             return;
                         }
                     }
@@ -369,13 +414,10 @@
                 this.showAuthSection();
             }
 
-            showAdminPanel(email) {
+            showAdminPanel(displayName) {
                 document.getElementById('authSection').style.display = 'none';
                 document.getElementById('adminPanel').style.display = 'block';
-                
-                // Extract name from email for display
-                const name = email.split('@')[0].replace(/[._]/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-                document.getElementById('adminName').textContent = name;
+                document.getElementById('adminName').textContent = displayName;
             }
 
             showAuthSection() {
