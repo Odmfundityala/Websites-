@@ -52,9 +52,12 @@ const server = http.createServer((req, res) => {
 
             res.writeHead(200, { 
                 'Content-Type': contentType,
-                'Cache-Control': 'no-cache, no-store, must-revalidate',
+                'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
                 'Pragma': 'no-cache',
-                'Expires': '0'
+                'Expires': '0',
+                'ETag': '',
+                'Last-Modified': '',
+                'Vary': '*'
             });
             res.end(data);
         });
