@@ -24,6 +24,17 @@
             overflow: hidden;
         }
 
+        /* Admin Panel Body Override */
+        body.admin-active {
+            background: #f8fafc;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: stretch;
+        }
+
         body::before {
             content: '';
             position: absolute;
@@ -310,13 +321,70 @@
         .admin-panel {
             display: none;
             animation: fadeIn 0.5s ease-in-out;
-            min-height: 100vh;
+            height: 100vh;
             background: #f8fafc;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .admin-panel.active {
+            display: flex;
         }
 
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
+        }
+
+        /* Fixed Header */
+        .admin-panel header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .admin-panel .navbar {
+            padding: 0.75rem 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .admin-panel .navbar {
+                padding: 1rem 2rem;
+            }
+        }
+
+        /* Main Content with Proper Scrolling */
+        .admin-panel main {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            height: calc(100vh - 80px);
+            margin-top: 80px;
+        }
+
+        @media (min-width: 768px) {
+            .admin-panel main {
+                height: calc(100vh - 90px);
+                margin-top: 90px;
+            }
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #1a56db 0%, #1e40af 100%);
+            color: white;
+            padding: 2rem 1rem;
+            margin: 0;
+        }
+
+        @media (min-width: 768px) {
+            .page-header {
+                padding: 3rem 2rem;
+            }
         }
 
         /* Enhanced Admin Panel Styles */
@@ -327,6 +395,7 @@
             display: grid;
             gap: 1.5rem;
             grid-template-columns: 1fr;
+            min-height: calc(100vh - 200px);
         }
 
         @media (min-width: 768px) {
@@ -463,15 +532,36 @@
         }
 
         .announcements-list {
-            max-height: 70vh;
+            max-height: 60vh;
             overflow-y: auto;
             padding-right: 0.5rem;
+            position: relative;
         }
 
         @media (min-width: 768px) {
             .announcements-list {
                 max-height: 500px;
             }
+        }
+
+        /* Sticky Header for Announcements */
+        .announcements-header {
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 10;
+            padding: 1rem 0;
+            border-bottom: 2px solid #f1f5f9;
+            margin-bottom: 1rem;
+        }
+
+        .announcements-header h3 {
+            color: #1a56db;
+            margin: 0;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .announcement-item {
@@ -488,6 +578,30 @@
         @media (min-width: 768px) {
             .announcement-item {
                 padding: 1.5rem;
+            }
+        }
+
+        /* Mobile Card View for Announcements */
+        @media (max-width: 767px) {
+            .announcement-item {
+                padding: 1rem;
+                margin: 0 0 1rem 0;
+            }
+            
+            .announcement-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+            
+            .announcement-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .edit-btn, .delete-btn {
+                flex: 1;
+                max-width: 48%;
             }
         }
 
@@ -805,6 +919,31 @@
                 transform: translateY(0);
             }
         }
+
+        /* Footer Spacing for Admin Panel */
+        .admin-panel footer {
+            margin-top: 2rem;
+            background: white;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        /* Z-index Management */
+        .nav-links {
+            z-index: 200;
+        }
+
+        .admin-panel .nav-toggle {
+            z-index: 201;
+        }
+
+        /* Ensure proper spacing on all devices */
+        .announcements-content > * {
+            margin-bottom: 0;
+        }
+
+        .admin-welcome {
+            margin-bottom: 1.5rem !important;
+        }
     </style>
 </head>
 <body>
@@ -960,8 +1099,13 @@
                 <!-- Current Announcements -->
                 <div class="admin-section management-section">
                     <h2><i class="fas fa-list"></i> Manage Announcements</h2>
-                    <div id="announcementsList" class="announcements-list">
-                        <!-- Announcements will be loaded here -->
+                    <div class="announcements-list">
+                        <div class="announcements-header">
+                            <h3><i class="fas fa-table"></i> Current Announcements</h3>
+                        </div>
+                        <div id="announcementsList">
+                            <!-- Announcements will be loaded here -->
+                        </div>
                     </div>
                 </div>
 
@@ -1131,14 +1275,20 @@
 
             showAdminPanel(displayName) {
                 document.getElementById('authSection').style.display = 'none';
-                document.getElementById('adminPanel').style.display = 'block';
+                const adminPanel = document.getElementById('adminPanel');
+                adminPanel.style.display = 'flex';
+                adminPanel.classList.add('active');
                 document.getElementById('adminName').textContent = displayName;
-                document.body.style.background = '#f3f4f6';
+                document.body.classList.add('admin-active');
+                document.body.style.background = '#f8fafc';
             }
 
             showAuthSection() {
                 document.getElementById('authSection').style.display = 'block';
-                document.getElementById('adminPanel').style.display = 'none';
+                const adminPanel = document.getElementById('adminPanel');
+                adminPanel.style.display = 'none';
+                adminPanel.classList.remove('active');
+                document.body.classList.remove('admin-active');
                 document.body.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
             }
 
