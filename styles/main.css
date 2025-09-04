@@ -2490,7 +2490,7 @@ main {
     color: var(--gold-accent);
     font-weight: bold;
     font-size: 1.2rem;
-    }
+}
 
     .partnership-stats {
         grid-template-columns: 1fr;
