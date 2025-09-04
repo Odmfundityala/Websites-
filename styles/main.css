@@ -6,7 +6,7 @@
     --navy-primary: #1a365d; /* Deep navy blue - main school color */
     --navy-secondary: #2c5282; /* Medium navy for depth */
     --navy-light: #3182ce; /* Lighter navy for accents */
-    
+
     /* Background Colors */
     --sky-blue-bg: #e6f3ff; /* Very light blue background */
     --cream: #ffffff; /* Pure white for cards and sections */
@@ -15,7 +15,7 @@
     /* Accent Colors */
     --gold-accent: #d69e2e; /* School gold/yellow */
     --gold-light: #f6e05e; /* Lighter gold for highlights */
-    
+
     /* Text Colors */
     --text-light: #ffffff; /* White text for dark backgrounds */
     --text-dark: #1a365d; /* Navy text for light backgrounds */
@@ -1946,8 +1946,8 @@ main {
     }
 
     /* Improve mobile card interactions */
-    .info-card:hover, .about-card:hover, .admission-card:hover, 
-    .fees-card:hover, .uniform-card:hover, .sports-card:hover, 
+    .info-card:hover, .about-card:hover, .admission-card:hover,
+    .fees-card:hover, .uniform-card:hover, .sports-card:hover,
     .contact-card:hover {
         transform: none;
         box-shadow: 0 6px 20px rgba(0,0,0,0.1);
@@ -2553,1449 +2553,265 @@ main {
     font-size: 1.1rem;
 }
 
-/* Academic Performance Section */
-.academic-performance {
-    background: var(--cream);
-    padding: 3rem 5%;
-    text-align: left;
-    margin: 0;
-    width: 100%;
-}
-
-.academic-performance h2 {
-    color: var(--navy-primary);
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    letter-spacing: 0.5px;
-    text-align: center;
-}
-
-.performance-intro {
-    max-width: 800px;
-    margin: 0 auto 3rem auto;
-    text-align: center;
-    padding: 0 2rem;
-}
-
-.performance-intro p {
-    color: var(--navy-light);
-    font-size: 1.2rem;
-    line-height: 1.7;
-    font-weight: 400;
-    letter-spacing: 0.2px;
-    text-align: center;
-}
-
-/* Chart container styles removed */
-
-.performance-stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2.5rem;
-    margin: 3rem auto;
-    max-width: 1000px;
-    padding: 2rem;
-}
-
-.stat-highlight {
-    background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
-    border-radius: 18px;
-    padding: 2rem;
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    box-shadow: 0 8px 25px rgba(26, 54, 93, 0.08);
-    border: 1px solid rgba(99, 179, 237, 0.2);
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.stat-highlight::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--sky-blue-primary) 0%, var(--gold-accent) 100%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.stat-highlight:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 35px rgba(26, 54, 93, 0.15);
-}
-
-.stat-highlight:hover::before {
-    opacity: 1;
-}
-
-.stat-icon {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-light) 100%);
-    flex-shrink: 0;
-    position: relative;
-    overflow: hidden;
-}
-
-.stat-icon::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(45deg, var(--gold-accent), var(--sky-blue-light));
-    border-radius: 50%;
-    z-index: -1;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.stat-highlight:hover .stat-icon::before {
-    opacity: 1;
-}
-
-.stat-icon i {
-    font-size: 2rem;
-    color: #f5f5f5;
-}
-
-.stat-content {
-    text-align: left;
-}
-
-.stat-content h3 {
-    color: var(--navy-primary);
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin: 0 0 0.5rem 0;
-    letter-spacing: 0.5px;
-}
-
-.stat-content p {
-    color: var(--navy-light);
-    font-size: 1.1rem;
-    margin: 0;
-    font-weight: 500;
-    letter-spacing: 0.2px;
-}
-
-.achievement-message {
-    background: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-light) 100%);
-    color: white;
-    padding: 2.5rem;
-    border-radius: 18px;
-    margin: 3rem auto 0;
-    max-width: 800px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-}
-
-.achievement-message::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    transition: left 0.6s ease;
-}
-
-.achievement-message:hover::before {
-    left: 100%;
-}
-
-.achievement-message p {
-    font-size: 1.3rem;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-    font-weight: 400;
-    letter-spacing: 0.3px;
-}
-
-.view-details-btn {
-    display: inline-block;
-    background: var(--gold-accent);
-    color: var(--navy-primary);
-    padding: 1rem 2rem;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1.1rem;
-    letter-spacing: 0.3px;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(236, 201, 75, 0.3);
-}
-
-.view-details-btn:hover {
-    background: #f7d462;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(236, 201, 75, 0.4);
-}
-
-/* Responsive Design for Academic Performance */
-@media (max-width: 768px) {
-    .academic-performance h2 {
-        font-size: 2rem;
-    }
-
-    .performance-intro p {
-        font-size: 1.1rem;
-    }
-
-    .chart-container {
-        padding: 1.5rem;
-        margin: 2rem auto;
-    }
-
-    .performance-stats {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-
-    .stat-highlight {
-        flex-direction: column;
-        text-align: center;
-        gap: 1rem;
-    }
-
-    .stat-content {
-        text-align: center;
-    }
-
-    .achievement-message {
-        padding: 2rem;
-    }
-
-    .achievement-message p {
-        font-size: 1.2rem;
-    }
-}
-
-/* Contact Preview Section */
-.contact-preview {
-    background: var(--sky-blue-bg);
-    padding: 4rem 5%;
-    text-align: center;
-    width: 100%;
-    margin: 0;
-}
-
-.contact-preview h2 {
-    color: var(--navy-primary);
-    font-size: 2.2rem;
-    font-weight: 700;
-    margin-bottom: 2rem;
-    letter-spacing: 0.5px;
-}
-
-.contact-details {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-.contact-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    padding: 1.5rem;
-    background: var(--text-light);
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    border: 1px solid rgba(26, 54, 93, 0.1);
-}
-
-.contact-item i {
-    color: var(--gold-accent);
-    font-size: 1.5rem;
-}
-
-.contact-item p {
-    color: var(--navy-primary);
-    font-size: 1.1rem;
-    font-weight: 500;
-    margin: 0;
-}
-
-/* Contact Page Styles */
-.contact-content {
-    width: 100%;
-    margin: 0;
-    padding: 5rem 5%;
-    color: var(--navy-primary);
-}
-
-.contact-intro {
-    text-align: center;
-    margin: 0 auto 5rem auto;
-    max-width: 900px;
-    padding: 0 2rem;
-}
-
-.contact-intro .section-title {
-    color: var(--navy-primary);
-    font-size: 2.8rem;
-    font-weight: 700;
-    margin-bottom: 2rem;
-    letter-spacing: 0.5px;
-    position: relative;
-    padding-bottom: 1.5rem;
-}
-
-.contact-intro .section-title::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 3px;
-    background: var(--gold-accent);
-    border-radius: 2px;
-}
-
-.contact-intro .section-subtitle {
-    font-size: 1.2rem;
-    line-height: 1.8;
-    color: var(--navy-light);
-    font-weight: 400;
-    letter-spacing: 0.3px;
-    margin-bottom: 0;
-}
-
-.contact-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2.5rem;
-    margin-bottom: 5rem;
-}
-
-.contact-card {
-    background: var(--cream);
-    border-radius: 12px;
-    padding: 2.5rem;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    border: 1px solid var(--navy-primary);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.contact-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-}
-
-.contact-icon {
-    width: 80px;
-    height: 80px;
-    background: var(--navy-primary);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 2rem;
-    border: 2px solid var(--gold-accent);
-    transition: transform 0.3s ease;
-}
-
-.contact-card:hover .contact-icon {
-    transform: scale(1.1);
-}
-
-.contact-icon i {
-    font-size: 2.2rem;
-    color: var(--text-light);
-}
-
-.contact-card h3 {
-    color: var(--navy-primary);
-    font-size: 1.6rem;
-    margin-bottom: 1.5rem;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-}
-
-.contact-details {
-    text-align: left,
+.announcement-date-preview {
+    margin-top: 1rem;
     padding-top: 1rem;
     border-top: 1px solid rgba(26, 54, 93, 0.1);
 }
 
-.contact-name {
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--navy-primary);
-    margin-bottom: 0.5rem;
-    letter-spacing: 0.2px;
-}
-
-.contact-position {
+.announcement-date-preview small {
     color: var(--navy-light);
-    font-size: 1.1rem;
-    margin-bottom: 1.2rem;
-    letter-spacing: 0.2px;
+    font-size: 0.9rem;
 }
 
-.contact-phone,
-.contact-email {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    margin-bottom: 0.8rem;
-    font-size: 1.1rem;
+/* Announcement Management Styles */
+.announcements-content {
+    padding: 2rem 5%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.contact-phone i,
-.contact-email i {
-    color: var(--gold-accent);
-    font-size: 1.2rem;
-}
-
-.contact-phone a,
-.contact-email a {
-    color: var(--navy-primary);
-    text-decoration: none;
-    transition: color 0.3s ease;
-    letter-spacing: 0.2px;
-}
-
-.contact-phone a:hover,
-.contact-email a:hover {
-    color: var(--sky-blue-primary);
-}
-
-.school-location {
-    text-align: center;
-    margin-top: 5rem;
-}
-
-.school-location .section-title {
-    color: var(--navy-primary);
-    font-size: 2.4rem;
-    margin-bottom: 1.5rem;
-    position: relative;
-    padding-bottom: 1.5rem;
-}
-
-.school-location .section-title::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: var(--gold-accent);
-    border-radius: 2px;
-}
-
-.school-location .section-subtitle {
-    color: var(--navy-light);
-    font-size: 1.2rem;
-    margin-bottom: 3rem;
-    letter-spacing: 0.2px;
-}
-
-.address-card {
+.announcement-form-container {
     background: var(--cream);
-    border-radius: 12px;
-    padding: 3rem;
-    max-width: 600px;
-    margin: 2rem auto;
-    display: flex;
-    align-items: center;
-    gap: 2.5rem;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    border: 1px solid var(--navy-primary);
-}
-
-.address-icon {
-    width: 70px;
-    height: 70px;
-    background: var(--navy-primary);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    border: 2px solid var(--gold-accent);
-}
-
-.address-icon i {
-    font-size: 2rem;
-    color: var(--text-light);
-}
-
-.address-details {
-    text-align: left;
-}
-
-.address-details p {
-    margin-bottom: 0.8rem;
-    color: var(--navy-primary);
-    font-size: 1.2rem;
-    line-height: 1.6;
-    letter-spacing: 0.2px;
-}
-
-/* Responsive Design for Contact Page */
-@media (max-width: 768px) {
-    .contact-cards {
-        grid-template-columns: 1fr;
-    }
-
-    .contact-card {
-        padding: 2rem;
-    }
-
-    .contact-icon {
-        width: 70px;
-        height: 70px;
-        margin-bottom: 1.5rem;
-    }
-
-    .contact-icon i {
-        font-size: 2rem;
-    }
-
-    .contact-card h3 {
-        font-size: 1.4rem;
-    }
-
-    .contact-name {
-        font-size: 1.2rem;
-    }
-
-    .address-card {
-        flex-direction: column;
-        text-align: center;
-        padding: 2rem;
-        gap: 1.5rem;
-    }
-
-    .address-details {
-        text-align: center;
-    }
-
-    .address-details p {
-        font-size: 1.1rem;
-    }
-}
-
-/* Uniform & Sports Page Styles */
-.uniform-content {
-    width: 100%;
-    margin: 0;
-    padding: 5rem 5%;
-    color: var(--navy-primary);
-}
-
-.uniform-intro {
-    text-align: center;
-    margin: 0 auto 5rem auto;
-    max-width: 900px;
-    padding: 0 2rem;
-}
-
-.uniform-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2.5rem;
-    margin-bottom: 5rem;
-}
-
-.uniform-card {
-    background: var(--cream);
-    border-radius: 12px;
     padding: 2.5rem;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    border: 1px solid var(--navy-primary);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.uniform-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-}
-
-.uniform-icon {
-    width: 80px;
-    height: 80px;
-    background: var(--navy-primary);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 2rem;
-    border: 2px solid var(--gold-accent);
-    transition: transform 0.3s ease;
-}
-
-.uniform-card:hover .uniform-icon {
-    transform: scale(1.1);
-}
-
-.uniform-icon i {
-    font-size: 2.2rem;
-    color: var(--text-light);
-}
-
-.uniform-card h3 {
-    color: var(--navy-primary);
-    font-size: 1.6rem;
-    margin-bottom: 1.5rem;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-}
-
-.uniform-card ul {
-    list-style: none;
-    text-align: left;
-    margin-top: 1.5rem;
-}
-
-.uniform-card ul li {
-    color: var(--navy-light);
-    font-size: 1.1rem;
-    margin-bottom: 0.8rem;
-    padding-left: 1.5rem;
-    position: relative;
-    line-height: 1.6;
-    letter-spacing: 0.2px;
-}
-
-.uniform-card ul li:before {
-    content: "•";
-    color: var(--gold-accent);
-    position: absolute;
-    left: 0;
-}
-
-/* Sports Section Styles */
-.sports-section {
-    margin-top: 5rem;
-    padding-top: 3rem;
-    border-top: 1px solid rgba(26, 54, 93, 0.1);
-}
-
-.sports-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2.5rem;
-    margin: 3rem 0;
-}
-
-.sports-card {
-    background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
-    border-radius: 20px;
-    padding: 2.5rem;
-    text-align: center;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.08), 0 2px 6px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(99, 179, 237, 0.2);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-}
-
-.sports-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--sky-blue-primary) 0%, var(--gold-accent) 50%, var(--sky-blue-primary) 100%);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-}
-
-.sports-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.15), 0 5px 15px rgba(0, 0, 0, 0.1);
-    border-color: rgba(99, 179, 237, 0.4);
-    background: linear-gradient(145deg, #ffffff 0%, #f1f5f9 100%);
-}
-
-.sports-card:hover::before {
-    opacity: 1;
-}
-
-.sports-icon {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 2rem;
-    border: 3px solid transparent;
-    background-clip: padding-box;
-    position: relative;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-}
-
-/* Sport-specific icon colors */
-.sports-card:nth-child(1) .sports-icon {
-    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-}
-
-.sports-card:nth-child(2) .sports-icon {
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-}
-
-.sports-card:nth-child(3) .sports-icon {
-    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-}
-
-/* Add animated border */
-.sports-icon::before {
-    content: '';
-    position: absolute;
-    top: -3px;
-    left: -3px;
-    right: -3px;
-    bottom: -3px;
-    background: linear-gradient(45deg, var(--gold-accent), var(--sky-blue-light), var(--gold-accent));
-    border-radius: 50%;
-    z-index: -1;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-}
-
-.sports-card:hover .sports-icon {
-    transform: scale(1.15) rotate(8deg);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-}
-
-.sports-card:hover .sports-icon::before {
-    opacity: 1;
-}
-
-.sports-icon i {
-    font-size: 2.5rem;
-    color: var(--text-light);
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
-}
-
-.sports-card:hover .sports-icon i {
-    transform: scale(1.1);
-}
-
-.sports-card h3 {
-    color: var(--navy-primary);
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    position: relative;
-    padding-bottom: 1rem;
-}
-
-.sports-card h3::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50px;
-    height: 3px;
-    background: linear-gradient(90deg, var(--sky-blue-primary), var(--gold-accent));
-    border-radius: 2px;
-    transition: width 0.3s ease;
-}
-
-.sports-card:hover h3::after {
-    width: 70px;
-}
-
-.sports-card p {
-    color: var(--navy-light);
-    font-size: 1.1rem;
-    line-height: 1.7;
-    margin-bottom: 2rem;
-    letter-spacing: 0.3px;
-    font-weight: 400;
-}
-
-.sports-details {
-    text-align: left;
-    border-top: 1px solid rgba(26, 54, 93, 0.08);
-    padding-top: 1.8rem;
-    margin-top: 1.8rem;
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 12px;
-    padding: 1.8rem;
-}
-
-.sports-details ul {
-    list-style: none;
-}
-
-.sports-details ul li {
-    color: var(--navy-light);
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
-    padding-left: 2rem;
-    position: relative;
-    line-height: 1.6;
-    letter-spacing: 0.2px;
-    font-weight: 500;
-}
-
-.sports-details ul li:before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0.6rem;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    transition: transform 0.3s ease;
-}
-
-/* Uniform-specific bullet colors */
-.uniform-card:nth-child(1) ul li:before {
-    background: linear-gradient(45deg, #ec4899, #db2777);
-}
-
-.uniform-card:nth-child(2) ul li:before {
-    background: linear-gradient(45deg, #3b82f6, #2563eb);
-}
-
-.uniform-card:nth-child(3) ul li:before {
-    background: linear-gradient(45deg, #8b5cf6, #7c3aed);
-}
-
-/* Sport-specific bullet colors */
-.sports-card:nth-child(1) .sports-details ul li:before {
-    background: linear-gradient(45deg, #22c55e, #16a34a);
-}
-
-.sports-card:nth-child(2) .sports-details ul li:before {
-    background: linear-gradient(45deg, #f59e0b, #d97706);
-}
-
-.sports-card:nth-child(3) .sports-details ul li:before {
-    background: linear-gradient(45deg, #dc2626, #b91c1c);
-}
-
-.uniform-card:hover ul li:before,
-.sports-card:hover .sports-details ul li:before {
-    transform: scale(1.3);
-}
-
-/* Sports Uniform Section */
-.sports-uniform-section {
-    margin-top: 5rem;
-    padding-top: 3rem;
-    border-top: 1px solid rgba(26, 54, 93, 0.1);
-}
-
-.sports-uniform-card {
-    background: var(--cream);
-    border-radius: 12px;
-    padding: 2.5rem;
-    max-width: 800px;
-    margin: 2rem auto;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    border: 1px solid var(--navy-primary);
-}
-
-.sports-uniform-card h3 {
-    color: var(--navy-primary);
-    font-size: 1.6rem;
-    margin-bottom: 1.5rem;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-    text-align: center;
-}
-
-.sports-uniform-card ul {
-    list-style: none;
-    margin-bottom: 1.5rem;
-}
-
-.sports-uniform-card ul li {
-    color: var(--navy-light);
-    font-size: 1.1rem;
-    margin-bottom: 0.8rem;
-    padding-left: 1.5rem;
-    position: relative;
-    line-height: 1.6;
-    letter-spacing: 0.2px;
-}
-
-.sports-uniform-card ul li:before {
-    content: "•";
-    color: var(--gold-accent);
-    position: absolute;
-    left: 0;
-}
-
-.sports-uniform-card .note {
-    color: var(--navy-light);
-    font-size: 1rem;
-    font-style: italic;
-    text-align: center;
-    margin-top: 1.5rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(26, 54, 93, 0.1);
-}
-
-/* Responsive Design for Uniform & Sports Page */
-@media (max-width: 768px) {
-    .uniform-grid,
-    .sports-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .uniform-card,
-    .sports-card {
-        padding: 2rem;
-    }
-
-    .uniform-icon,
-    .sports-icon {
-        width: 70px;
-        height: 70px;
-        margin-bottom: 1.5rem;
-    }
-
-    .uniform-icon i,
-    .sports-icon i {
-        font-size: 1.5rem;
-    }
-
-    .uniform-card h3,
-    .sports-card h3 {
-        font-size: 1.4rem;
-    }
-
-    .sports-uniform-card {
-        padding: 2rem;
-    }
-}
-
-/* Card Base Styles - Optimized for performance */
-.card-base {
-    background: var(--cream);
     border-radius: 15px;
-    padding: 2.5rem;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-    border: 1px solid var(--navy-primary);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    margin-bottom: 3rem;
+}
+
+.announcement-form-container h2 {
+    color: var(--navy-primary);
     margin-bottom: 2rem;
-    position: relative;
-    min-height: 250px;
+    text-align: center;
+}
+
+.announcement-form {
+    display: grid;
+    gap: 1.5rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-group {
     display: flex;
     flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    color: var(--navy-primary);
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    padding: 0.8rem;
+    border: 2px solid rgba(26, 54, 93, 0.2);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    background: white;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--navy-primary);
+    box-shadow: 0 0 0 3px rgba(26, 54, 93, 0.1);
+}
+
+.current-announcements {
+    margin-bottom: 3rem;
+}
+
+.current-announcements h2 {
+    color: var(--navy-primary);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.announcements-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.announcement-item {
+    background: var(--cream);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border-left: 4px solid var(--navy-primary);
+}
+
+.announcement-item[data-type="urgent"] {
+    border-left-color: #dc2626;
+}
+
+.announcement-item[data-type="admissions"] {
+    border-left-color: var(--gold-accent);
+}
+
+.announcement-item[data-type="academic"] {
+    border-left-color: #16a34a;
+}
+
+.announcement-item[data-type="events"] {
+    border-left-color: #7c3aed;
+}
+
+.announcement-header {
+    display: flex;
     justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
 }
 
-.uniform-card, .sports-card, .about-card, .contact-card, .admission-card, .fees-card, .info-card, .sports-uniform-card, .announcement-card {
-    @extend .card-base;
+.announcement-header h3 {
+    color: var(--navy-primary);
+    margin: 0;
+    font-size: 1.3rem;
 }
 
-/* Simplified hover effects */
-.uniform-card:hover, .sports-card:hover, .about-card:hover, .contact-card:hover, 
-.admission-card:hover, .fees-card:hover, .info-card:hover, .sports-uniform-card:hover,
-.announcement-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+.announcement-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
-/* Card Icons */
-.uniform-icon, .sports-icon, .contact-icon {
-    width: 90px;
-    height: 90px;
+.announcement-type {
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: white;
+}
+
+.announcement-type.general {
+    background: var(--navy-primary);
+}
+
+.announcement-type.urgent {
+    background: #dc2626;
+}
+
+.announcement-type.admissions {
+    background: var(--gold-accent);
+}
+
+.announcement-type.academic {
+    background: #16a34a;
+}
+
+.announcement-type.events {
+    background: #7c3aed;
+}
+
+.delete-btn {
+    background: #dc2626;
+    color: white;
+    border: none;
+    padding: 0.5rem;
     border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 35px;
+    height: 35px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 2rem;
-    border: 3px solid transparent;
-    background-clip: padding-box;
-    position: relative;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
 }
 
-/* Uniform-specific icon colors */
-.uniform-card:nth-child(1) .uniform-icon {
-    background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+.delete-btn:hover {
+    background: #b91c1c;
+    transform: scale(1.1);
 }
 
-.uniform-card:nth-child(2) .uniform-icon {
-    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-}
-
-.uniform-card:nth-child(3) .uniform-icon {
-    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-}
-
-/* Sports-specific icon colors (maintain existing) */
-.sports-card:nth-child(1) .sports-icon {
-    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-}
-
-.sports-card:nth-child(2) .sports-icon {
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-}
-
-.sports-card:nth-child(3) .sports-icon {
-    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-}
-
-/* Contact icon styling */
-.contact-icon {
-    background: linear-gradient(135deg, var(--sky-blue-primary) 0%, var(--navy-primary) 100%);
-}
-
-/* Add animated border */
-.uniform-icon::before, .sports-icon::before, .contact-icon::before {
-    content: '';
-    position: absolute;
-    top: -3px;
-    left: -3px;
-    right: -3px;
-    bottom: -3px;
-    background: linear-gradient(45deg, var(--gold-accent), var(--sky-blue-light), var(--gold-accent));
-    border-radius: 50%;
-    z-index: -1;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-}
-
-/* Card Icon Hover */
-.uniform-card:hover .uniform-icon,
-.sports-card:hover .sports-icon,
-.contact-card:hover .contact-icon {
-    transform: scale(1.1) rotate(5deg);
-    box-shadow: 0 8px 25px rgba(99, 179, 237, 0.4);
-}
-
-.uniform-card:hover .uniform-icon::before,
-.sports-card:hover .sports-icon::before,
-.contact-card:hover .contact-icon::before {
-    opacity: 1;
-}
-
-/* Card Icons */
-.uniform-icon i, .sports-icon i, .contact-icon i {
-    font-size: 2rem;
-    color: var(--text-light);
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-/* Card Headings */
-.uniform-card h3, .sports-card h3, .about-card h3, .contact-card h3,
-.admission-card h3, .fees-card h3, .info-card h3, .sports-uniform-card h3 {
-    color: var(--navy-primary);
-    font-size: 1.6rem;
-    margin-bottom: 1.8rem;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    text-align: center;
-    position: relative;
-    padding-bottom: 1rem;
-}
-
-.uniform-card h3::after, .sports-card h3::after, .about-card h3::after, .contact-card h3::after,
-.admission-card h3::after, .fees-card h3::after, .info-card h3::after, .sports-uniform-card h3::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 40px;
-    height: 3px;
-    background: linear-gradient(90deg, var(--sky-blue-primary), var(--gold-accent));
-    border-radius: 2px;
-    transition: width 0.3s ease;
-}
-
-.uniform-card:hover h3::after, .sports-card:hover h3::after, .about-card:hover h3::after, .contact-card:hover h3::after,
-.admission-card:hover h3::after, .fees-card:hover h3::after, .info-card:hover h3::after, .sports-uniform-card:hover h3::after {
-    width: 60px;
-}
-
-/* Card Lists */
-.uniform-card ul, .sports-card ul, .about-card ul, .contact-card ul,
-.admission-card ul, .fees-card ul, .info-card ul, .sports-uniform-card ul {
-    list-style: none;
-    text-align: left;
-    margin-top: 1.2rem;
-}
-
-.uniform-card ul li, .sports-card ul li, .about-card ul li, .contact-card ul li,
-.admission-card ul li, .fees-card ul li, .info-card ul li, .sports-uniform-card ul li {
-    color: var(--navy-light);
-    font-size: 1.1rem;
+.announcement-meta {
     margin-bottom: 1rem;
-    padding-left: 1.8rem;
-    position: relative;
+    color: var(--navy-light);
+    font-size: 0.9rem;
+}
+
+.announcement-text {
+    color: var(--text-dark);
     line-height: 1.6;
-    letter-spacing: 0.2px;
+    margin: 0;
 }
 
-/* List Item Bullets */
-.uniform-card ul li:before, .sports-card ul li:before, .about-card ul li:before,
-.contact-card ul li:before, .admission-card ul li:before, .fees-card ul li:before,
-.info-card ul li:before, .sports-uniform-card ul li:before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0.6rem;
-    width: 8px;
-    height: 8px;
-    background: linear-gradient(45deg, var(--sky-blue-primary), var(--gold-accent));
-    border-radius: 50%;
-    box-shadow: 0 2px 4px rgba(99, 179, 237, 0.3);
-    transition: transform 0.3s ease;
+.announcement-preview {
+    background: var(--sky-blue-bg);
+    padding: 2.5rem;
+    border-radius: 15px;
 }
 
-.uniform-card:hover ul li:before, .sports-card:hover ul li:before, .about-card:hover ul li:before,
-.contact-card:hover ul li:before, .admission-card:hover ul li:before, .fees-card:hover ul li:before,
-.info-card:hover ul li:before, .sports-uniform-card:hover ul li:before {
-    transform: scale(1.3);
-}
-
-/* Card Grid Layouts */
-.uniform-grid, .sports-grid, .about-grid, .contact-cards,
-.admission-grid, .fees-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin: 3rem 0;
-}
-
-/* Card Content Sections */
-.sports-details, .contact-details {
-    text-align: left;
-    padding-top: 1.5rem;
-    margin-top: 1.5rem;
-    border-top: 1px solid rgba(26, 54, 93, 0.08);
-}
-
-/* Card Paragraphs */
-.uniform-card p, .sports-card p, .about-card p, .contact-card p,
-.admission-card p, .fees-card p, .info-card p {
-    color: var(--navy-light);
-    font-size: 1.1rem;
-    line-height: 1.7;
-    margin-bottom: 1.2rem;
-    letter-spacing: 0.2px;
-}
-
-/* Section Titles and Subtitles */
-.section-title {
+.announcement-preview h2 {
     color: var(--navy-primary);
-    font-size: 2.2rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    letter-spacing: 0.5px;
     text-align: center;
+    margin-bottom: 2rem;
 }
 
-.section-subtitle {
+.no-announcements {
+    text-align: center;
     color: var(--navy-light);
-    font-size: 1.2rem;
-    line-height: 1.7;
-    margin-bottom: 3rem;
-    text-align: center;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+    font-style: italic;
+    padding: 2rem;
+    background: rgba(26, 54, 93, 0.05);
+    border-radius: 10px;
 }
 
-/* Responsive Adjustments */
+/* Message notifications */
+.message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    animation: slideIn 0.3s ease;
+}
+
+.message.success {
+    background: #16a34a;
+}
+
+.message.error {
+    background: #dc2626;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
 @media (max-width: 768px) {
-    .uniform-card, .sports-card, .about-card, .contact-card,
-    .admission-card, .fees-card, .info-card, .sports-uniform-card {
-        padding: 2rem;
+    .announcement-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
     }
 
-    .uniform-icon, .sports-icon, .contact-icon {
-        width: 60px;
-        height: 60px;
-        margin-bottom: 1.5rem;
-    }
-
-    .uniform-icon i, .sports-icon i, .contact-icon i {
-        font-size: 1.5rem;
-    }
-
-    .section-title {
-        font-size: 2rem;
-    }
-
-    .section-subtitle {
-        font-size: 1.1rem;
-    }
-}
-
-@media (max-width: 1200px) {
-    .nav-links {
-        gap: 0.5rem;
-    }
-    .nav-links a {
-        min-width: 75px;
-        font-size: 0.85rem;
-        padding: 0.4rem 0.6rem;
-        letter-spacing: 0.1px;
-    }
-}
-
-@media (max-width: 1100px) {
-    .nav-links {
-        gap: 0.3rem;
-    }
-    .nav-links a {
-        min-width: 65px;
-        font-size: 0.8rem;
-        padding: 0.3rem 0.5rem;
-        letter-spacing: 0.05px;
-    }
-}
-
-@media (max-width: 950px) {
-    .header {
-        position: fixed;
+    .announcement-actions {
         width: 100%;
-        top: 0;
-        z-index: 1000;
-        height: auto;
-        min-height: 70px;
+        justify-content: space-between;
     }
 
-    .navbar {
-        padding: 0.5rem 1rem;
-        flex-wrap: nowrap;
-        position: relative;
-        height: 70px;
-        align-items: center;
-    }
-
-    .logo {
-        flex: 1;
-        order: 1;
-    }
-
-    .nav-toggle {
-        display: flex !important;
-        order: 2;
-        cursor: pointer;
-        z-index: 10000;
-        background: none;
-        border: none;
-        color: var(--text-light);
-        font-size: 1.5rem;
-        padding: 0.75rem;
-        margin-left: auto;
-        border-radius: 8px;
-        transition: all 0.3s ease;
-        /* Better touch target */
-        min-width: 44px;
-        min-height: 44px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .nav-toggle:hover {
-        background: rgba(255,255,255,0.1);
-    }
-
-    .nav-toggle:active {
-        background: rgba(255,255,255,0.2);
-        transform: scale(0.95);
-    }
-
-    .nav-links {
-        position: fixed !important;
-        top: 70px;
-        right: 1rem;
-        left: auto !important;
-        background: var(--gradient-primary) !important;
-        flex-direction: column !important;
-        gap: 0 !important;
-        width: 250px !important;
-        max-width: 250px !important;
-        padding: 0.5rem 0 !important;
-        margin: 0 !important;
-        z-index: 9999 !important;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.25);
-        border-radius: 0 0 15px 15px;
-        max-height: 0;
-        overflow: hidden;
-        opacity: 0;
-        transform: translateY(-10px) scale(0.95);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        order: 3;
-        border: 1px solid rgba(255,255,255,0.15);
-        border-top: none;
-        backdrop-filter: blur(10px);
-    }
-
-    .nav-links.active {
-        max-height: 280px !important;
-        opacity: 1 !important;
-        transform: translateY(0) scale(1) !important;
-        display: flex !important;
-        flex-direction: column !important;
-        overflow-y: auto !important;
-        padding: 0 !important;
-        margin: 0 !important;
-    }
-
-    .nav-links li {
-        width: 100% !important;
-        height: auto !important;
-        display: block !important;
-        margin: 0 !important;
-        border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .nav-links li:first-child a {
-        border-radius: 0 0 0 0;
-    }
-
-    .nav-links li:last-child {
-        border-bottom: none;
-        margin-bottom: 0 !important;
-        padding-bottom: 0 !important;
-    }
-
-    .nav-links li:last-child a {
-        border-radius: 0 0 16px 16px;
-        margin-bottom: 0 !important;
-        padding-bottom: 0.6rem !important;
-    }
-
-    .nav-links a {
-        width: 100% !important;
-        min-width: 0 !important;
-        white-space: nowrap !important;
-        padding: 0.8rem 1.5rem !important;
-        font-size: 1rem !important;
-        text-align: left !important;
-        justify-content: flex-start !important;
-        height: auto !important;
-        display: flex !important;
-        align-items: center !important;
-        color: var(--text-light) !important;
-        text-decoration: none !important;
-        transition: all 0.2s ease !important;
-        border-radius: 0 !important;
-        background: none !important;
-        visibility: visible !important;
-        min-height: 44px;
-        font-weight: 500;
-        letter-spacing: 0.1px;
-    }
-
-    .nav-links a:hover,
-    .nav-links a:focus {
-        background-color: rgba(99, 179, 237, 0.2) !important;
-        color: var(--gold-accent) !important;
-        padding-left: 1.5rem !important;
-        transform: translateX(3px) !important;
-    }
-
-    .nav-links a.active {
-        background-color: rgba(236, 201, 75, 0.25) !important;
-        color: var(--gold-accent) !important;
-        font-weight: 600 !important;
-        border-left: 3px solid var(--gold-accent) !important;
-    }
-
-    .nav-links a:active {
-        background-color: rgba(99, 179, 237, 0.3) !important;
-        transform: scale(0.97) translateX(2px) !important;
-        transition: all 0.1s ease !important;
-    }
-
-    .nav-links a:before {
-        display: none !important;
-    }
-
-    /* Mobile menu positioning adjustments */
-    .nav-links.active {
-        box-shadow: 0 8px 25px rgba(0,0,0,0.25);
-    }
-
-    /* Prevent text selection on mobile menu */
-    .nav-toggle {
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-    }
-
-    /* Smooth transitions for mobile menu */
-    .nav-links a {
-        transition: all 0.3s ease !important;
-    }
-
-    /* Better mobile navigation positioning */
-    @media (max-width: 320px) {
-        .nav-links {
-            right: 0.5rem !important;
-            left: 0.5rem !important;
-            width: calc(100vw - 1rem) !important;
-            max-width: calc(100vw - 1rem) !important;
-        }
-
-        .nav-links a {
-            padding: 0.8rem 1.2rem !important;
-            font-size: 0.95rem !important;
-        }
-    }
-
-    /* Add overlay when mobile menu is open */
-    .nav-links.active::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.4);
-        z-index: -1;
-        opacity: 0;
-        animation: fadeInOverlay 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-    }
-
-    @keyframes fadeInOverlay {
-        0% {
-            opacity: 0;
-        }
-        100% {
-            opacity: 1;
-        }
-    }
-
-    /* Prevent body scroll when mobile menu is open */
-    body.nav-open {
-        overflow: hidden;
+    .announcement-form {
+        padding: 0 1rem;
     }
 }

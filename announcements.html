@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Announcement Management - Siyabulela SSS</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <img src="images/Logo.jpg" alt="Siyabulela SSS Logo" class="logo-image">
+                <div class="logo-text">
+                    <h1>Siyabulela</h1>
+                    <span>S.S.S.</span>
+                </div>
+            </div>
+            <div class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="academics.html">Academics</a></li>
+                <li><a href="admissions.html">Admissions</a></li>
+                <li><a href="fees.html">School Fees</a></li>
+                <li><a href="uniform.html">Sport</a></li>
+                <li><a href="stakeholders.html">Stakeholders</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="announcements.html" class="active">Announcements</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="page-header-content">
+                <h1>Announcement Management</h1>
+                <p>Create and manage school announcements</p>
+            </div>
+        </section>
+
+        <section class="announcements-content">
+            <!-- Add New Announcement Form -->
+            <div class="announcement-form-container">
+                <h2>Create New Announcement</h2>
+                <form id="announcementForm" class="announcement-form">
+                    <div class="form-group">
+                        <label for="announcementTitle">Title</label>
+                        <input type="text" id="announcementTitle" name="title" required placeholder="Enter announcement title">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="announcementContent">Content</label>
+                        <textarea id="announcementContent" name="content" rows="6" required placeholder="Enter announcement details"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="announcementType">Type</label>
+                        <select id="announcementType" name="type">
+                            <option value="general">General</option>
+                            <option value="urgent">Urgent</option>
+                            <option value="admissions">Admissions</option>
+                            <option value="academic">Academic</option>
+                            <option value="events">Events</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="announcementDate">Date</label>
+                        <input type="date" id="announcementDate" name="date" required>
+                    </div>
+                    
+                    <button type="submit" class="cta-button">
+                        <i class="fas fa-plus"></i>
+                        Add Announcement
+                    </button>
+                </form>
+            </div>
+
+            <!-- Current Announcements -->
+            <div class="current-announcements">
+                <h2>Current Announcements</h2>
+                <div id="announcementsList" class="announcements-list">
+                    <!-- Announcements will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Preview Section -->
+            <div class="announcement-preview">
+                <h2>Website Preview</h2>
+                <div class="announcement-grid" id="previewGrid">
+                    <!-- Preview will show here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="admissions.html">Admissions</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <p>Administrator: Ms. Sthabile Sobekwa</p>
+                <p><i class="fas fa-phone"></i> 074 948 6003</p>
+                <p><i class="fas fa-envelope"></i> siyabulelasss@gmail.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Location</h3>
+                <p>Ngcisininde A/A Ndiki Location</p>
+                <p>Nqamakwe, 4990</p>
+                <p>Eastern Cape Province, South Africa</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Siyabulela Senior Secondary School. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/announcements.js"></script>
+</body>
+</html>
