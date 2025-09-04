@@ -26,6 +26,11 @@ const server = http.createServer((req, res) => {
         filePath = '/index.html';
     }
 
+    // Handle URLs without .html extension
+    if (!path.extname(filePath) && filePath !== '/') {
+        filePath += '.html';
+    }
+
     // Remove leading slash and construct file path
     const fullPath = path.join(__dirname, filePath.slice(1));
 
