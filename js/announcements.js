@@ -154,31 +154,49 @@ class AnnouncementManager {
         }
 
         container.innerHTML = this.announcements.map(ann => `
-            <div class="announcement-item" data-type="${ann.type}">
-                <div class="announcement-header">
-                    <h3 class="announcement-title">${ann.title}</h3>
-                    <span class="announcement-type ${ann.type}">${ann.type.toUpperCase()}</span>
-                </div>
-                <div class="announcement-content">${ann.content}</div>
-                <div class="announcement-meta">
-                    <span class="announcement-date">
-                        <i class="fas fa-calendar"></i>
-                        ${new Date(ann.date).toLocaleDateString()}
-                    </span>
-                    ${ann.dateModified ? `
-                        <span class="announcement-modified">
-                            <i class="fas fa-clock"></i>
-                            Modified: ${new Date(ann.dateModified).toLocaleDateString()}
+            <div class="announcement-card elegant" data-type="${ann.type}" data-id="${ann.id}">
+                <div class="card-header">
+                    <div class="announcement-meta">
+                        <span class="announcement-type type-${ann.type}">${ann.type}</span>
+                        <span class="announcement-date">
+                            <i class="fas fa-calendar"></i>
+                            ${new Date(ann.date).toLocaleDateString()}
                         </span>
-                    ` : ''}
+                    </div>
+                    <h3 class="announcement-title">${ann.title}</h3>
                 </div>
-                <div class="announcement-actions">
-                    <button class="edit-btn" onclick="announcementManager.editAnnouncement(${ann.id})" title="Edit announcement">
-                        <i class="fas fa-edit"></i> Edit
-                    </button>
-                    <button class="delete-btn" onclick="announcementManager.deleteAnnouncement(${ann.id})" title="Delete announcement">
-                        <i class="fas fa-trash"></i> Delete
-                    </button>
+                
+                <div class="card-content">
+                    <div class="content-display">
+                        ${this.formatContentForDisplay(ann.content)}
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <div class="social-sharing">
+                        <span class="share-label">Share:</span>
+                        <button class="share-btn facebook" onclick="announcementManager.shareToFacebook('${ann.id}')" title="Share on Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                        <button class="share-btn twitter" onclick="announcementManager.shareToTwitter('${ann.id}')" title="Share on Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </button>
+                        <button class="share-btn whatsapp" onclick="announcementManager.shareToWhatsApp('${ann.id}')" title="Share on WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </button>
+                        <button class="share-btn copy" onclick="announcementManager.copyAnnouncementLink('${ann.id}')" title="Copy Link">
+                            <i class="fas fa-link"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="admin-actions">
+                        <button class="edit-btn" onclick="announcementManager.editAnnouncement(${ann.id})" title="Edit announcement">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="delete-btn" onclick="announcementManager.deleteAnnouncement(${ann.id})" title="Delete announcement">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </div>
                 </div>
             </div>
         `).join('');
@@ -407,6 +425,162 @@ class AnnouncementManager {
         if (editor && hiddenTextarea) {
             hiddenTextarea.value = editor.innerHTML;
         }
+    }
+
+    formatContentForDisplay(content) {
+        // Clean up HTML content for elegant display
+        let cleanContent = content;
+        
+        // Remove empty paragraphs and fix spacing
+        cleanContent = cleanContent.replace(/<p><\/p>/g, '');
+        cleanContent = cleanContent.replace(/<p><br><\/p>/g, '');
+        cleanContent = cleanContent.replace(/<div><br><\/div>/g, '');
+        cleanContent = cleanContent.replace(/<br><\/div>/g, '</div>');
+        cleanContent = cleanContent.replace(/<div><br>/g, '<div>');
+        
+        // Convert divs to paragraphs for better styling
+        cleanContent = cleanContent.replace(/<div>/g, '<p>').replace(/<\/div>/g, '</p>');
+        
+        // Remove excessive line breaks
+        cleanContent = cleanContent.replace(/(<br\s*\/?>){2,}/g, '<br>');
+        
+        // If content has no structure, add paragraph tags
+        if (!cleanContent.includes('<p>') && !cleanContent.includes('<ul>') && !cleanContent.includes('<ol>')) {
+            cleanContent = cleanContent.split('<br>').filter(line => line.trim()).map(line => `<p>${line}</p>`).join('');
+        }
+        
+        // Calculate text length for truncation
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = cleanContent;
+        const textContent = tempDiv.textContent || tempDiv.innerText || '';
+        
+        // Truncate if too long
+        if (textContent.length > 400) {
+            const truncateLength = 350;
+            let truncated = textContent.substring(0, truncateLength);
+            const lastSpace = truncated.lastIndexOf(' ');
+            if (lastSpace > truncateLength - 50) {
+                truncated = truncated.substring(0, lastSpace);
+            }
+            
+            const truncatedHtml = this.preserveFormattingForTruncated(cleanContent, truncated);
+            
+            return `
+                <div class="content-preview">
+                    ${truncatedHtml}...
+                </div>
+                <div class="content-full" style="display: none;">
+                    ${cleanContent}
+                </div>
+                <button class="read-more-btn" onclick="this.previousElementSibling.style.display='block'; this.previousElementSibling.previousElementSibling.style.display='none'; this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                    <i class="fas fa-chevron-down"></i> Read More
+                </button>
+                <button class="read-less-btn" style="display: none;" onclick="this.previousElementSibling.previousElementSibling.previousElementSibling.style.display='block'; this.previousElementSibling.previousElementSibling.style.display='none'; this.previousElementSibling.style.display='inline-block'; this.style.display='none';">
+                    <i class="fas fa-chevron-up"></i> Read Less
+                </button>
+            `;
+        }
+        
+        return cleanContent;
+    }
+
+    preserveFormattingForTruncated(originalHtml, targetText) {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = originalHtml;
+        
+        let result = '';
+        let charCount = 0;
+        
+        const processNode = (node) => {
+            if (charCount >= targetText.length) return;
+            
+            if (node.nodeType === Node.TEXT_NODE) {
+                const remainingChars = targetText.length - charCount;
+                const text = node.textContent.substring(0, remainingChars);
+                result += text;
+                charCount += text.length;
+            } else if (node.nodeType === Node.ELEMENT_NODE) {
+                const tagName = node.tagName.toLowerCase();
+                if (['p', 'strong', 'em', 'b', 'i', 'ul', 'ol', 'li'].includes(tagName)) {
+                    result += `<${tagName}>`;
+                    for (let child of node.childNodes) {
+                        processNode(child);
+                        if (charCount >= targetText.length) break;
+                    }
+                    result += `</${tagName}>`;
+                } else {
+                    for (let child of node.childNodes) {
+                        processNode(child);
+                        if (charCount >= targetText.length) break;
+                    }
+                }
+            }
+        };
+        
+        for (let child of tempDiv.childNodes) {
+            processNode(child);
+            if (charCount >= targetText.length) break;
+        }
+        
+        return result;
+    }
+
+    // Social Media Sharing Functions
+    shareToFacebook(announcementId) {
+        const announcement = this.announcements.find(a => a.id == announcementId);
+        if (!announcement) return;
+        
+        const text = this.getPlainTextContent(announcement);
+        const shareText = `${announcement.title}\n\n${text}`;
+        const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.origin)}&quote=${encodeURIComponent(shareText)}`;
+        window.open(url, '_blank', 'width=600,height=400');
+    }
+
+    shareToTwitter(announcementId) {
+        const announcement = this.announcements.find(a => a.id == announcementId);
+        if (!announcement) return;
+        
+        const text = this.getPlainTextContent(announcement);
+        const shareText = `${announcement.title}\n\n${text}`.substring(0, 250) + (text.length > 200 ? '...' : '');
+        const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
+        window.open(url, '_blank', 'width=600,height=400');
+    }
+
+    shareToWhatsApp(announcementId) {
+        const announcement = this.announcements.find(a => a.id == announcementId);
+        if (!announcement) return;
+        
+        const text = this.getPlainTextContent(announcement);
+        const shareText = `*${announcement.title}*\n\n${text}`;
+        const url = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+        window.open(url, '_blank');
+    }
+
+    copyAnnouncementLink(announcementId) {
+        const announcement = this.announcements.find(a => a.id == announcementId);
+        if (!announcement) return;
+        
+        const text = this.getPlainTextContent(announcement);
+        const shareText = `${announcement.title}\n\n${text}`;
+        
+        navigator.clipboard.writeText(shareText).then(() => {
+            this.showMessage('Announcement copied to clipboard!', 'success');
+        }).catch(() => {
+            // Fallback for older browsers
+            const textArea = document.createElement('textarea');
+            textArea.value = shareText;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            this.showMessage('Announcement copied to clipboard!', 'success');
+        });
+    }
+
+    getPlainTextContent(announcement) {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = announcement.content;
+        return tempDiv.textContent || tempDiv.innerText || '';
     }
 }
 
