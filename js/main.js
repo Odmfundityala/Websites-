@@ -95,7 +95,7 @@ function loadHomepageAnnouncements() {
                 return `
                 <div class="announcement-card" data-id="${ann.id}">
                     <h3>${getAnnouncementIcon(ann.type)} ${ann.title}</h3>
-                    <p class="announcement-content ${isLongContent ? 'truncated' : ''}" data-full-content="${ann.content.replace(/"/g, '&quot;')}">${shortContent}</p>
+                    <div class="announcement-content ${isLongContent ? 'truncated' : ''}" data-full-content="${ann.content.replace(/"/g, '&quot;')}">${shortContent}</div>
                     ${isLongContent ? '<button class="read-more-btn">Read More</button>' : ''}
                     
                     <div class="announcement-sharing">
@@ -184,18 +184,37 @@ function setupAnnouncementInteractions() {
 // Social Media Sharing Functions
 function shareToFacebook(title, content) {
     const url = encodeURIComponent(window.location.href);
-    const text = encodeURIComponent(`${title}\n\n${content}\n\nSiyabulela Senior Secondary School`);
+    // Strip HTML tags for clean sharing
+    const cleanContent = content.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
+    const text = encodeURIComponent(`${title}\n\n${cleanContent}\n\nSiyabulela Senior Secondary School`);
     window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`, '_blank', 'width=600,height=400');
 }
 
 function shareToTwitter(title, content) {
     const url = encodeURIComponent(window.location.href);
-    const text = encodeURIComponent(`${title}\n\n${content}\n\n#SiyabulelaSSS #SchoolNews`);
+    // Strip HTML tags for clean sharing
+    const cleanContent = content.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
+    const text = encodeURIComponent(`${title}\n\n${cleanContent}\n\n#SiyabulelaSSS #SchoolNews`);
     window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank', 'width=600,height=400');
 }
 
 function shareToWhatsApp(title, content) {
-    const text = encodeURIComponent(`*${title}*\n\n${content}\n\nSiyabulela Senior Secondary School\n${window.location.href}`);
+    // Convert HTML formatting to WhatsApp markdown
+    let whatsappContent = content
+        .replace(/<strong>(.*?)<\/strong>/g, '*$1*')
+        .replace(/<b>(.*?)<\/b>/g, '*$1*')
+        .replace(/<em>(.*?)<\/em>/g, '_$1_')
+        .replace(/<i>(.*?)<\/i>/g, '_$1_')
+        .replace(/<u>(.*?)<\/u>/g, '$1')
+        .replace(/<p>/g, '')
+        .replace(/<\/p>/g, '\n\n')
+        .replace(/<br\s*\/?>/g, '\n')
+        .replace(/<li>(.*?)<\/li>/g, '• $1\n')
+        .replace(/<[^>]*>/g, '')
+        .replace(/&nbsp;/g, ' ')
+        .trim();
+    
+    const text = encodeURIComponent(`*${title}*\n\n${whatsappContent}\n\nSiyabulela Senior Secondary School\n${window.location.href}`);
     window.open(`https://wa.me/?text=${text}`, '_blank');
 }
 

@@ -332,6 +332,73 @@ class AnnouncementManager {
             }
         }
     }
+
+    setupRichTextEditor() {
+        const editor = document.getElementById('announcementContent');
+        const hiddenTextarea = document.getElementById('announcementContentHidden');
+        const toolbar = document.querySelector('.rich-text-toolbar');
+
+        if (!editor || !hiddenTextarea || !toolbar) return;
+
+        // Setup toolbar buttons
+        toolbar.addEventListener('click', (e) => {
+            if (e.target.closest('.format-btn')) {
+                e.preventDefault();
+                const btn = e.target.closest('.format-btn');
+                const command = btn.dataset.command;
+                
+                editor.focus();
+                document.execCommand(command, false, null);
+                
+                // Update button states
+                this.updateToolbarState();
+                
+                // Update hidden textarea
+                this.updateHiddenTextarea();
+            }
+        });
+
+        // Update hidden textarea when content changes
+        editor.addEventListener('input', () => {
+            this.updateHiddenTextarea();
+        });
+
+        // Handle paste to clean up formatting
+        editor.addEventListener('paste', (e) => {
+            e.preventDefault();
+            const text = e.clipboardData.getData('text/plain');
+            document.execCommand('insertText', false, text);
+            this.updateHiddenTextarea();
+        });
+
+        // Update toolbar state on selection change
+        document.addEventListener('selectionchange', () => {
+            if (document.activeElement === editor) {
+                this.updateToolbarState();
+            }
+        });
+    }
+
+    updateToolbarState() {
+        const formatBtns = document.querySelectorAll('.format-btn');
+        formatBtns.forEach(btn => {
+            const command = btn.dataset.command;
+            if (document.queryCommandState(command)) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    }
+
+    updateHiddenTextarea() {
+        const editor = document.getElementById('announcementContent');
+        const hiddenTextarea = document.getElementById('announcementContentHidden');
+        
+        if (editor && hiddenTextarea) {
+            hiddenTextarea.value = editor.innerHTML;
+        }
+    }
 }
 
 // Initialize the announcement manager when the page loads

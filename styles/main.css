@@ -2776,6 +2776,40 @@ main {
     line-height: 2.5;
 }
 
+/* Rich text formatting in announcements */
+.announcement-content strong {
+    color: #1a365d;
+    font-weight: 700;
+}
+
+.announcement-content em {
+    font-style: italic;
+    color: #4a5568;
+}
+
+.announcement-content u {
+    text-decoration: underline;
+    text-decoration-color: #d69e2e;
+}
+
+.announcement-content ul, .announcement-content ol {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+}
+
+.announcement-content li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+.announcement-content p {
+    margin-bottom: 1rem;
+}
+
+.announcement-content p:last-child {
+    margin-bottom: 0;
+}
+
 /* Social Sharing Section */
 .announcement-sharing {
     display: flex;

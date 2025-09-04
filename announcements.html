@@ -1221,6 +1221,98 @@
             color: #10b981;
             font-size: 0.8rem;
         }
+        /* Rich Text Editor Styles */
+        .rich-text-toolbar {
+            display: flex;
+            gap: 0.25rem;
+            padding: 0.5rem;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-bottom: none;
+            border-radius: 8px 8px 0 0;
+            align-items: center;
+        }
+
+        .format-btn {
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            padding: 0.4rem 0.6rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+            color: #4b5563;
+        }
+
+        .format-btn:hover {
+            background: #1a365d;
+            color: white;
+            border-color: #1a365d;
+        }
+
+        .format-btn.active {
+            background: #1a365d;
+            color: white;
+            border-color: #1a365d;
+        }
+
+        .toolbar-separator {
+            width: 1px;
+            height: 24px;
+            background: #d1d5db;
+            margin: 0 0.5rem;
+        }
+
+        .rich-text-editor {
+            min-height: 200px;
+            padding: 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0 0 8px 8px;
+            background: white;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #374151;
+            outline: none;
+        }
+
+        .rich-text-editor:empty:before {
+            content: attr(data-placeholder);
+            color: #9ca3af;
+            white-space: pre-line;
+        }
+
+        .rich-text-editor:focus {
+            border-color: #1a365d;
+            box-shadow: 0 0 0 2px rgba(26, 54, 93, 0.1);
+        }
+
+        .rich-text-editor p {
+            margin: 0 0 1rem 0;
+        }
+
+        .rich-text-editor p:last-child {
+            margin-bottom: 0;
+        }
+
+        .rich-text-editor ul, .rich-text-editor ol {
+            margin: 0 0 1rem 1.5rem;
+            padding: 0;
+        }
+
+        .rich-text-editor li {
+            margin-bottom: 0.5rem;
+        }
+
+        .rich-text-editor strong {
+            color: #1a365d;
+            font-weight: 700;
+        }
+
+        .rich-text-editor em {
+            color: #374151;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
@@ -1359,19 +1451,57 @@
                         
                         <div class="form-group">
                             <label for="announcementContent">Content</label>
-                            <textarea id="announcementContent" name="content" rows="8" required placeholder="Enter announcement content...
+                            
+                            <!-- Rich Text Toolbar -->
+                            <div class="rich-text-toolbar">
+                                <button type="button" class="format-btn" data-command="bold" title="Bold">
+                                    <i class="fas fa-bold"></i>
+                                </button>
+                                <button type="button" class="format-btn" data-command="italic" title="Italic">
+                                    <i class="fas fa-italic"></i>
+                                </button>
+                                <button type="button" class="format-btn" data-command="underline" title="Underline">
+                                    <i class="fas fa-underline"></i>
+                                </button>
+                                <div class="toolbar-separator"></div>
+                                <button type="button" class="format-btn" data-command="insertUnorderedList" title="Bullet List">
+                                    <i class="fas fa-list-ul"></i>
+                                </button>
+                                <button type="button" class="format-btn" data-command="insertOrderedList" title="Numbered List">
+                                    <i class="fas fa-list-ol"></i>
+                                </button>
+                                <div class="toolbar-separator"></div>
+                                <button type="button" class="format-btn" data-command="justifyLeft" title="Align Left">
+                                    <i class="fas fa-align-left"></i>
+                                </button>
+                                <button type="button" class="format-btn" data-command="justifyCenter" title="Align Center">
+                                    <i class="fas fa-align-center"></i>
+                                </button>
+                                <button type="button" class="format-btn" data-command="justifyRight" title="Align Right">
+                                    <i class="fas fa-align-right"></i>
+                                </button>
+                            </div>
+                            
+                            <!-- Rich Text Editor -->
+                            <div id="announcementContent" contenteditable="true" class="rich-text-editor" data-placeholder="Enter announcement content...
 
-Use line breaks to create paragraphs for better readability.
+Use the toolbar above for formatting options like **bold**, *italic*, and lists.
 
 Example:
-This is the first paragraph with important information.
+**Important Notice:** This is a bold heading for key information.
 
-This is the second paragraph with additional details.
+*Regular content* can include various formatting styles to make announcements more engaging and easier to read.
 
-End with any important notes or dates."></textarea>
+• Use bullet points for lists
+• Highlight important dates
+• Make key information stand out"></div>
+                            
+                            <!-- Hidden textarea for form submission -->
+                            <textarea id="announcementContentHidden" name="content" style="display: none;" required></textarea>
+                            
                             <small style="color: #6b7280; font-size: 0.85rem; margin-top: 0.5rem; display: block;">
                                 <i class="fas fa-info-circle"></i>
-                                Tip: Press Enter twice to create new paragraphs. This will make your announcements easier to read and more professional.
+                                Use the formatting toolbar to make your announcements more professional and engaging. Bold important information and use lists for clarity.
                             </small>
                         </div>
                         
