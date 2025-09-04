@@ -1588,6 +1588,63 @@ p {
     text-align: left;
 }
 
+/* Announcement card text alignment fixes */
+.announcement-card p, .announcement-card div, .announcement-card span {
+    text-align: left !important;
+    line-height: 1.6;
+    margin: 0.8rem 0;
+}
+
+.announcement-card .content-display p, 
+.announcement-card .announcement-content p,
+.announcement-card .card-content p {
+    text-align: left !important;
+    color: #4b5563;
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+}
+
+.announcement-card ul, .announcement-card ol {
+    text-align: left !important;
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+}
+
+.announcement-card li {
+    text-align: left !important;
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+}
+
+.announcement-card .announcement-title {
+    text-align: left !important;
+    line-height: 1.4;
+}
+
+.announcement-card .announcement-meta,
+.announcement-card .announcement-date {
+    text-align: left !important;
+}
+
+/* Elegant home announcement cards specific alignment */
+.announcement-card.elegant-home .content-display,
+.announcement-card.elegant-home .content-display p,
+.announcement-card.elegant-home .content-display div {
+    text-align: left !important;
+    line-height: 1.6;
+}
+
+.announcement-card.elegant-home .content-display ul,
+.announcement-card.elegant-home .content-display ol {
+    text-align: left !important;
+    padding-left: 1.25rem;
+}
+
+.announcement-card.elegant-home .content-display li {
+    text-align: left !important;
+    margin-bottom: 0.375rem;
+}
+
 /* Keep necessary centered elements */
 .page-header h1, .page-header p, h1, h2 {
     text-align: center;
