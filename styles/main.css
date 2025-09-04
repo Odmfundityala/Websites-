@@ -2755,8 +2755,25 @@ main {
     color: #4a5568;
     line-height: 1.8;
     font-size: 1.15rem;
-    margin: 0 0 2rem 0;
+    margin: 0 0 1.5rem 0;
     text-align: justify;
+    white-space: pre-line;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.announcement-card p:last-of-type {
+    margin-bottom: 2rem;
+}
+
+/* Enhanced content formatting */
+.announcement-content {
+    font-family: 'Open Sans', sans-serif;
+    letter-spacing: 0.01em;
+}
+
+.announcement-content br {
+    line-height: 2.5;
 }
 
 /* Social Sharing Section */

@@ -101,13 +101,13 @@ function loadHomepageAnnouncements() {
                     <div class="announcement-sharing">
                         <span class="share-label">Share this announcement:</span>
                         <div class="share-buttons">
-                            <button class="share-btn facebook" onclick="shareToFacebook('${ann.title.replace(/'/g, '\\\'').replace(/"/g, '\\"')}', '${ann.content.replace(/'/g, '\\\'').replace(/"/g, '\\"').substring(0, 200)}...')" title="Share on Facebook">
+                            <button class="share-btn facebook" onclick="shareToFacebook('${ann.title.replace(/'/g, '\\\'').replace(/"/g, '\\"')}', \`${ann.content.replace(/'/g, '\\\'').replace(/"/g, '\\"').replace(/`/g, '\\`')}\`)" title="Share on Facebook">
                                 <i class="fab fa-facebook-f"></i>
                             </button>
-                            <button class="share-btn twitter" onclick="shareToTwitter('${ann.title.replace(/'/g, '\\\'').replace(/"/g, '\\"')}', '${ann.content.replace(/'/g, '\\\'').replace(/"/g, '\\"').substring(0, 200)}...')" title="Share on Twitter">
+                            <button class="share-btn twitter" onclick="shareToTwitter('${ann.title.replace(/'/g, '\\\'').replace(/"/g, '\\"')}', \`${ann.content.replace(/'/g, '\\\'').replace(/"/g, '\\"').replace(/`/g, '\\`')}\`)" title="Share on Twitter">
                                 <i class="fab fa-twitter"></i>
                             </button>
-                            <button class="share-btn whatsapp" onclick="shareToWhatsApp('${ann.title.replace(/'/g, '\\\'').replace(/"/g, '\\"')}', '${ann.content.replace(/'/g, '\\\'').replace(/"/g, '\\"').substring(0, 200)}...')" title="Share on WhatsApp">
+                            <button class="share-btn whatsapp" onclick="shareToWhatsApp('${ann.title.replace(/'/g, '\\\'').replace(/"/g, '\\"')}', \`${ann.content.replace(/'/g, '\\\'').replace(/"/g, '\\"').replace(/`/g, '\\`')}\`)" title="Share on WhatsApp">
                                 <i class="fab fa-whatsapp"></i>
                             </button>
                             <button class="share-btn copy-link" onclick="copyAnnouncementLink(${ann.id})" title="Copy Link">
