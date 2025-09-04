@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function loadHomepageAnnouncements() {
     try {
         const stored = localStorage.getItem('siya_announcements');
-        const announcements = stored ? JSON.parse(stored) : getDefaultAnnouncements();
+        const announcements = stored ? JSON.parse(stored) : [];
         
         const announcementGrid = document.querySelector('.announcement-grid');
         if (announcementGrid && announcements.length > 0) {
@@ -96,9 +96,28 @@ function loadHomepageAnnouncements() {
                     </div>
                 </div>
             `).join('');
+        } else if (announcementGrid) {
+            // Show message when no announcements available
+            announcementGrid.innerHTML = `
+                <div class="no-announcements-message">
+                    <i class="fas fa-bullhorn"></i>
+                    <h3>No Announcements Yet</h3>
+                    <p>Check back soon for the latest school announcements and updates.</p>
+                </div>
+            `;
         }
     } catch (error) {
         console.error('Error loading homepage announcements:', error);
+        const announcementGrid = document.querySelector('.announcement-grid');
+        if (announcementGrid) {
+            announcementGrid.innerHTML = `
+                <div class="no-announcements-message">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Unable to Load</h3>
+                    <p>Please refresh the page to try loading announcements again.</p>
+                </div>
+            `;
+        }
     }
 }
 
@@ -114,22 +133,5 @@ function getAnnouncementIcon(type) {
 }
 
 function getDefaultAnnouncements() {
-    return [
-        {
-            id: 1,
-            title: "🎓 Admissions 2026 - Now Open!",
-            content: "Admissions are open for Grade 8 & Grade 10 only. Application forms available from 22/07/2025. Closing date: 29/08/2025 (Extended: 05/09/2025). Important dates: 06/09/2025 - All learners must come to school at 10am in the Great Hall. 10/09/2025 - Admitted learners list will be posted. 12/09/2025 - Parents must submit proof of payment.",
-            type: "admissions",
-            date: "2025-07-22",
-            dateCreated: new Date().toISOString()
-        },
-        {
-            id: 2,
-            title: "🏆 Celebrating Academic Excellence",
-            content: "We are proud to announce our continued academic success with an 81.8% pass rate in 2024! Our students continue to achieve remarkable results that inspire our entire community.",
-            type: "academic",
-            date: new Date().toISOString().split('T')[0],
-            dateCreated: new Date().toISOString()
-        }
-    ];
+    return [];
 }

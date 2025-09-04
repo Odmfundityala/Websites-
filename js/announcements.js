@@ -247,24 +247,7 @@ class AnnouncementManager {
     }
 
     getDefaultAnnouncements() {
-        return [
-            {
-                id: 1,
-                title: "🎓 Admissions 2026 - Now Open!",
-                content: "Admissions are open for Grade 8 & Grade 10 only. Application forms available from 22/07/2025. Closing date: 29/08/2025 (Extended: 05/09/2025). Important dates: 06/09/2025 - All learners must come to school at 10am in the Great Hall. 10/09/2025 - Admitted learners list will be posted. 12/09/2025 - Parents must submit proof of payment.",
-                type: "admissions",
-                date: "2025-07-22",
-                dateCreated: new Date().toISOString()
-            },
-            {
-                id: 2,
-                title: "🏆 Celebrating Academic Excellence",
-                content: "We are proud to announce our continued academic success with an 81.8% pass rate in 2024! Our students continue to achieve remarkable results that inspire our entire community.",
-                type: "academic",
-                date: new Date().toISOString().split('T')[0],
-                dateCreated: new Date().toISOString()
-            }
-        ];
+        return [];
     }
 
     showMessage(message, type) {
