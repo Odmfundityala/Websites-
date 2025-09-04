@@ -76,7 +76,8 @@ html {
     position: relative;
     height: 70px;
     width: 100%;
-    overflow: hidden;
+    overflow: visible;
+    gap: 1rem;
 }
 
 .logo {
@@ -88,6 +89,8 @@ html {
     height: 100%;
     cursor: pointer;
     transition: transform 0.2s ease;
+    order: 1;
+    flex-shrink: 0;
 }
 
 .logo:hover {
@@ -151,11 +154,11 @@ html {
     align-items: center;
     margin: 0;
     padding: 0;
-    margin-left: auto;
     height: 100%;
     width: auto;
     background: none;
     box-shadow: none;
+    order: 2;
 }
 
 .nav-links li {
@@ -219,9 +222,10 @@ html {
     transition: all 0.3s ease;
     width: 48px;
     height: 48px;
-    display: flex;
     align-items: center;
     justify-content: center;
+    margin-left: auto;
+    order: 3;
 }
 
 .nav-toggle:hover {
@@ -642,6 +646,16 @@ footer {
         font-size: 1.6rem;
         width: 44px;
         height: 44px;
+        margin-left: auto;
+        order: 3;
+    }
+
+    .nav-links {
+        order: 2;
+    }
+
+    .logo {
+        order: 1;
     }
 
     .nav-links {
