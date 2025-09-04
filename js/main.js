@@ -27,12 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         navLinks.addEventListener('click', (e) => {
             if (e.target.tagName === 'A' && menuOpen) {
-                // Allow the link to navigate first, then close the menu
-                setTimeout(() => {
-                    menuOpen = false;
-                    navLinks.classList.remove('active');
-                    document.body.classList.remove('nav-open');
-                }, 100);
+                menuOpen = false;
+                navLinks.classList.remove('active');
+                document.body.classList.remove('nav-open');
             }
         });
 
