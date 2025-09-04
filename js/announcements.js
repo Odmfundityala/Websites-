@@ -1,8 +1,8 @@
-
-// Announcement Management System
+// Announcement Management System with Enhanced Security
 class AnnouncementManager {
     constructor() {
         this.announcements = this.loadAnnouncements();
+        this.editingId = null;
         this.init();
     }
 
@@ -12,7 +12,10 @@ class AnnouncementManager {
         this.updatePreview();
         
         // Set today's date as default
-        document.getElementById('announcementDate').value = new Date().toISOString().split('T')[0];
+        const dateInput = document.getElementById('announcementDate');
+        if (dateInput) {
+            dateInput.value = new Date().toISOString().split('T')[0];
+        }
     }
 
     setupEventListeners() {
@@ -25,21 +28,30 @@ class AnnouncementManager {
     handleFormSubmit(e) {
         e.preventDefault();
         
+        // Check authentication before allowing any operations
+        if (!this.isAuthenticated()) {
+            this.showMessage('Please log in to manage announcements', 'error');
+            return;
+        }
+        
         const formData = new FormData(e.target);
         const announcement = {
-            id: Date.now(),
+            id: this.editingId || Date.now(),
             title: formData.get('title'),
             content: formData.get('content'),
             type: formData.get('type'),
             date: formData.get('date'),
-            dateCreated: new Date().toISOString()
+            dateCreated: this.editingId ? this.announcements.find(a => a.id === this.editingId)?.dateCreated : new Date().toISOString(),
+            dateModified: this.editingId ? new Date().toISOString() : null
         };
 
-        this.addAnnouncement(announcement);
-        e.target.reset();
+        if (this.editingId) {
+            this.updateAnnouncement(announcement);
+        } else {
+            this.addAnnouncement(announcement);
+        }
         
-        // Reset date to today
-        document.getElementById('announcementDate').value = new Date().toISOString().split('T')[0];
+        this.resetForm();
     }
 
     addAnnouncement(announcement) {
@@ -48,17 +60,82 @@ class AnnouncementManager {
         this.displayAnnouncements();
         this.updatePreview();
         
-        // Show success message
         this.showMessage('Announcement added successfully!', 'success');
     }
 
+    updateAnnouncement(announcement) {
+        const index = this.announcements.findIndex(ann => ann.id === announcement.id);
+        if (index !== -1) {
+            this.announcements[index] = announcement;
+            this.saveAnnouncements();
+            this.displayAnnouncements();
+            this.updatePreview();
+            
+            this.showMessage('Announcement updated successfully!', 'success');
+        }
+    }
+
+    editAnnouncement(id) {
+        if (!this.isAuthenticated()) {
+            this.showMessage('Please log in to edit announcements', 'error');
+            return;
+        }
+
+        const announcement = this.announcements.find(ann => ann.id === id);
+        if (announcement) {
+            this.editingId = id;
+            
+            // Populate form with announcement data
+            document.getElementById('announcementTitle').value = announcement.title;
+            document.getElementById('announcementContent').value = announcement.content;
+            document.getElementById('announcementType').value = announcement.type;
+            document.getElementById('announcementDate').value = announcement.date;
+            
+            // Update form button text
+            const submitBtn = document.querySelector('#announcementForm button[type="submit"]');
+            if (submitBtn) {
+                submitBtn.innerHTML = '<i class="fas fa-save"></i> Update Announcement';
+            }
+            
+            // Scroll to form
+            document.getElementById('announcementForm').scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
     deleteAnnouncement(id) {
-        this.announcements = this.announcements.filter(ann => ann.id !== id);
-        this.saveAnnouncements();
-        this.displayAnnouncements();
-        this.updatePreview();
-        
-        this.showMessage('Announcement deleted successfully!', 'success');
+        if (!this.isAuthenticated()) {
+            this.showMessage('Please log in to delete announcements', 'error');
+            return;
+        }
+
+        if (confirm('Are you sure you want to delete this announcement? This action cannot be undone.')) {
+            this.announcements = this.announcements.filter(ann => ann.id !== id);
+            this.saveAnnouncements();
+            this.displayAnnouncements();
+            this.updatePreview();
+            
+            this.showMessage('Announcement deleted successfully!', 'success');
+        }
+    }
+
+    resetForm() {
+        const form = document.getElementById('announcementForm');
+        if (form) {
+            form.reset();
+            this.editingId = null;
+            
+            // Reset button text
+            const submitBtn = form.querySelector('button[type="submit"]');
+            if (submitBtn) {
+                submitBtn.innerHTML = '<i class="fas fa-plus"></i> Add Announcement';
+            }
+            
+            // Reset date to today
+            const dateInput = document.getElementById('announcementDate');
+            if (dateInput) {
+                dateInput.value = new Date().toISOString().split('T')[0];
+            }
+        }
     }
 
     displayAnnouncements() {
@@ -76,7 +153,10 @@ class AnnouncementManager {
                     <h3>${ann.title}</h3>
                     <div class="announcement-actions">
                         <span class="announcement-type ${ann.type}">${ann.type.toUpperCase()}</span>
-                        <button class="delete-btn" onclick="announcementManager.deleteAnnouncement(${ann.id})">
+                        <button class="edit-btn" onclick="announcementManager.editAnnouncement(${ann.id})" title="Edit announcement">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="delete-btn" onclick="announcementManager.deleteAnnouncement(${ann.id})" title="Delete announcement">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
@@ -86,6 +166,12 @@ class AnnouncementManager {
                         <i class="fas fa-calendar"></i>
                         ${new Date(ann.date).toLocaleDateString()}
                     </span>
+                    ${ann.dateModified ? `
+                        <span class="announcement-modified">
+                            <i class="fas fa-clock"></i>
+                            Modified: ${new Date(ann.dateModified).toLocaleDateString()}
+                        </span>
+                    ` : ''}
                 </div>
                 <p class="announcement-text">${ann.content}</p>
             </div>
@@ -123,6 +209,22 @@ class AnnouncementManager {
             events: '🎉'
         };
         return icons[type] || '📢';
+    }
+
+    isAuthenticated() {
+        try {
+            const authData = JSON.parse(localStorage.getItem('siya_admin_auth'));
+            if (!authData || !authData.isAuthenticated) return false;
+            
+            // Check if login is within last 24 hours
+            const loginTime = new Date(authData.loginTime);
+            const now = new Date();
+            const hoursDiff = (now - loginTime) / (1000 * 60 * 60);
+            
+            return hoursDiff < 24;
+        } catch (error) {
+            return false;
+        }
     }
 
     loadAnnouncements() {
@@ -168,22 +270,66 @@ class AnnouncementManager {
     showMessage(message, type) {
         // Create and show a temporary message
         const messageDiv = document.createElement('div');
-        messageDiv.className = `message ${type}`;
+        messageDiv.className = `admin-message ${type}`;
+        messageDiv.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: 5px;
+            color: white;
+            z-index: 1000;
+            font-weight: 600;
+            background: ${type === 'success' ? '#10b981' : '#ef4444'};
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            animation: slideIn 0.3s ease-out;
+        `;
+        
         messageDiv.innerHTML = `
             <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
             ${message}
         `;
         
+        // Add animation styles
+        if (!document.querySelector('#messageAnimations')) {
+            const style = document.createElement('style');
+            style.id = 'messageAnimations';
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
         document.body.appendChild(messageDiv);
         
         setTimeout(() => {
             messageDiv.remove();
-        }, 3000);
+        }, 4000);
     }
 
     // Method to get announcements for other pages
     getPublicAnnouncements(limit = 4) {
         return this.announcements.slice(0, limit);
+    }
+
+    // Clear all announcements (admin only)
+    clearAllAnnouncements() {
+        if (!this.isAuthenticated()) {
+            this.showMessage('Please log in to perform this action', 'error');
+            return;
+        }
+
+        if (confirm('Are you sure you want to delete ALL announcements? This action cannot be undone.')) {
+            this.announcements = [];
+            this.saveAnnouncements();
+            this.displayAnnouncements();
+            this.updatePreview();
+            
+            this.showMessage('All announcements cleared successfully!', 'success');
+        }
     }
 }
 

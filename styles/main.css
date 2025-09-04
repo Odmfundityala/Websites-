@@ -3097,3 +3097,47 @@ main {
         padding: 0 1rem;
     }
 }
+
+/* Admin Panel Enhancements */
+.edit-btn {
+    background: #0ea5e9;
+    color: white;
+    border: none;
+    padding: 0.4rem 0.6rem;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 0.5rem;
+    font-size: 0.8rem;
+    transition: background-color 0.3s;
+}
+
+.edit-btn:hover {
+    background: #0284c7;
+}
+
+.delete-btn {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 0.4rem 0.6rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: background-color 0.3s;
+}
+
+.delete-btn:hover {
+    background: #dc2626;
+}
+
+.announcement-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.announcement-modified {
+    margin-left: 1rem;
+    color: #6b7280;
+    font-size: 0.85rem;
+}
