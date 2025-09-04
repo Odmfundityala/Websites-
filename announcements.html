@@ -1058,6 +1058,158 @@
         .admin-welcome {
             margin-bottom: 1.5rem !important;
         }
+
+        /* Admin Tabs Styling */
+        .admin-tabs {
+            background: white;
+            border-bottom: 2px solid #e6f3ff;
+            padding: 0.5rem 1rem 0;
+            margin: 0;
+        }
+
+        .tab-container {
+            display: flex;
+            gap: 0.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px 8px 0 0;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #6b7280;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-btn:hover {
+            background: #f8fafc;
+            color: #1a365d;
+        }
+
+        .tab-btn.active {
+            background: #e6f3ff;
+            color: #1a365d;
+            border-bottom-color: #1a365d;
+        }
+
+        .tab-btn i {
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .tab-container {
+                flex-direction: column;
+                gap: 0.25rem;
+            }
+            
+            .tab-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+                border-radius: 6px;
+                border-bottom: none;
+                border-left: 3px solid transparent;
+            }
+            
+            .tab-btn.active {
+                border-left-color: #1a365d;
+                border-bottom: none;
+            }
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Under Construction Styling */
+        .under-construction {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60vh;
+            padding: 2rem;
+        }
+
+        .construction-content {
+            text-align: center;
+            max-width: 600px;
+            background: white;
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .construction-icon {
+            font-size: 4rem;
+            color: #d69e2e;
+            margin-bottom: 1.5rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .construction-content h2 {
+            color: #1a365d;
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .construction-content p {
+            color: #6b7280;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .features-preview {
+            text-align: left;
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 2px solid #e6f3ff;
+        }
+
+        .features-preview h3 {
+            color: #1a365d;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .features-preview ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .features-preview li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+            color: #4b5563;
+            font-size: 0.9rem;
+        }
+
+        .features-preview li i {
+            color: #10b981;
+            font-size: 0.8rem;
+        }
     </style>
 </head>
 <body>
@@ -1152,14 +1304,26 @@
         </header>
 
         <main style="padding-top: 100px;">
-            <section class="page-header">
-                <div class="page-header-content">
-                    <h1>Admin Panel</h1>
-                    <p>Secure announcement management for authorized administrators</p>
+            <!-- Admin Navigation Tabs -->
+            <section class="admin-tabs">
+                <div class="tab-container">
+                    <button class="tab-btn active" data-tab="announcements">
+                        <i class="fas fa-bullhorn"></i>
+                        Announcements
+                    </button>
+                    <button class="tab-btn" data-tab="admissions">
+                        <i class="fas fa-graduation-cap"></i>
+                        Admissions
+                    </button>
+                    <button class="tab-btn" data-tab="school">
+                        <i class="fas fa-school"></i>
+                        School Management
+                    </button>
                 </div>
             </section>
 
-            <section class="announcements-content">
+            <!-- Tab Content Sections -->
+            <section class="tab-content" id="announcements-tab">
                 <!-- Welcome Message -->
                 <div class="admin-welcome">
                     <button id="logoutBtn" class="logout-btn">
@@ -1167,9 +1331,11 @@
                         Logout
                     </button>
                     <h2>Welcome, <span id="adminName"></span>!</h2>
-                    <p>You have administrator access to manage school announcements.</p>
+                    <p>Manage school announcements and communications.</p>
                     <div style="clear: both;"></div>
                 </div>
+
+                <div class="announcements-content">
 
                 <!-- Add New Announcement Form -->
                 <div class="admin-section">
@@ -1229,6 +1395,49 @@
                     <p style="color: #6b7280; margin-bottom: 1.5rem;">This is how announcements will appear on the homepage:</p>
                     <div class="announcement-grid" id="previewGrid">
                         <!-- Preview will show here -->
+                    </div>
+                </div>
+
+                </div>
+            </section>
+
+            <!-- Admissions Management Tab -->
+            <section class="tab-content" id="admissions-tab" style="display: none;">
+                <div class="under-construction">
+                    <div class="construction-content">
+                        <i class="fas fa-hard-hat construction-icon"></i>
+                        <h2>Admissions Management</h2>
+                        <p>This system is currently under construction.</p>
+                        <div class="features-preview">
+                            <h3>Coming Soon:</h3>
+                            <ul>
+                                <li><i class="fas fa-check"></i> Student Application Management</li>
+                                <li><i class="fas fa-check"></i> Document Verification</li>
+                                <li><i class="fas fa-check"></i> Admission Status Tracking</li>
+                                <li><i class="fas fa-check"></i> Parent Communication Portal</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- School Management Tab -->
+            <section class="tab-content" id="school-tab" style="display: none;">
+                <div class="under-construction">
+                    <div class="construction-content">
+                        <i class="fas fa-cogs construction-icon"></i>
+                        <h2>School Management System</h2>
+                        <p>This comprehensive system is currently under construction.</p>
+                        <div class="features-preview">
+                            <h3>Coming Soon:</h3>
+                            <ul>
+                                <li><i class="fas fa-check"></i> Student Records Management</li>
+                                <li><i class="fas fa-check"></i> Teacher & Staff Portal</li>
+                                <li><i class="fas fa-check"></i> Academic Performance Tracking</li>
+                                <li><i class="fas fa-check"></i> Financial Management</li>
+                                <li><i class="fas fa-check"></i> Timetable & Scheduling</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -1419,10 +1628,58 @@
             }
         }
 
-        // Initialize authentication system
-        let adminAuth;
+        // Tab Management System
+        class TabManager {
+            constructor() {
+                this.init();
+            }
+
+            init() {
+                this.setupTabListeners();
+                this.showTab('announcements'); // Show announcements tab by default
+            }
+
+            setupTabListeners() {
+                const tabBtns = document.querySelectorAll('.tab-btn');
+                tabBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const tabName = btn.getAttribute('data-tab');
+                        this.showTab(tabName);
+                    });
+                });
+            }
+
+            showTab(tabName) {
+                // Hide all tab contents
+                const tabContents = document.querySelectorAll('.tab-content');
+                tabContents.forEach(content => {
+                    content.style.display = 'none';
+                    content.classList.remove('active');
+                });
+
+                // Remove active class from all buttons
+                const tabBtns = document.querySelectorAll('.tab-btn');
+                tabBtns.forEach(btn => {
+                    btn.classList.remove('active');
+                });
+
+                // Show selected tab content
+                const selectedTab = document.getElementById(`${tabName}-tab`);
+                const selectedBtn = document.querySelector(`[data-tab="${tabName}"]`);
+                
+                if (selectedTab && selectedBtn) {
+                    selectedTab.style.display = 'block';
+                    selectedTab.classList.add('active');
+                    selectedBtn.classList.add('active');
+                }
+            }
+        }
+
+        // Initialize systems
+        let adminAuth, tabManager;
         document.addEventListener('DOMContentLoaded', () => {
             adminAuth = new AdminAuth();
+            tabManager = new TabManager();
         });
     </script>
 </body>
