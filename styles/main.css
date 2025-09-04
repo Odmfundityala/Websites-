@@ -386,15 +386,126 @@ section:nth-child(even) {
     margin: 2rem 0;
 }
 
-.quick-info {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    align-items: stretch;
-    padding: 3rem 5%;
+/* Academic Performance Section */
+.academic-performance {
     background: var(--cream);
+    padding: 4rem 5%;
+    text-align: center;
     width: 100%;
     margin: 0;
+}
+
+.academic-performance h2 {
+    color: var(--navy-primary);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    letter-spacing: 0.5px;
+    text-align: center;
+}
+
+.performance-intro {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 3rem auto;
+}
+
+.performance-intro p {
+    color: var(--navy-light);
+    font-size: 1.2rem;
+    line-height: 1.7;
+    text-align: center;
+}
+
+.performance-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2.5rem;
+    max-width: 1000px;
+    margin: 0 auto 3rem auto;
+    padding: 0 2rem;
+}
+
+.stat-highlight {
+    background: var(--text-light);
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    border: 1px solid var(--navy-primary);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-highlight:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.stat-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, var(--navy-primary), var(--navy-light));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem auto;
+    border: 3px solid var(--gold-accent);
+}
+
+.stat-icon i {
+    font-size: 2rem;
+    color: var(--text-light);
+}
+
+.stat-content h3 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--gold-accent);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.5px;
+}
+
+.stat-content p {
+    color: var(--navy-primary);
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+}
+
+.achievement-message {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.achievement-message p {
+    color: var(--navy-light);
+    font-size: 1.2rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.view-details-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: linear-gradient(135deg, var(--navy-primary), var(--navy-light));
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.3px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(26, 54, 93, 0.3);
+}
+
+.view-details-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(26, 54, 93, 0.4);
 }
 
 .stat-item, .info-item {
