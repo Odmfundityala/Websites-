@@ -321,33 +321,75 @@
 
         /* Enhanced Admin Panel Styles */
         .announcements-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
+            max-width: 100%;
+            padding: 1rem;
             background: #f8fafc;
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: 1fr;
         }
 
-        .announcement-form-container {
+        @media (min-width: 768px) {
+            .announcements-content {
+                padding: 2rem;
+                grid-template-columns: 1fr 1fr;
+                max-width: 1400px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .announcements-content {
+                grid-template-columns: 1fr 1.2fr;
+            }
+        }
+
+        .admin-section {
             background: white;
             border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 2rem;
+            padding: 1.5rem;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
         }
 
-        .announcement-form-container h2 {
-            color: #1e293b;
+        .admin-section:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .admin-section h2 {
+            color: #1a56db;
             margin-bottom: 1.5rem;
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        @media (min-width: 768px) {
+            .admin-section h2 {
+                font-size: 1.5rem;
+            }
         }
 
         .announcement-form {
             display: grid;
-            gap: 1.5rem;
+            gap: 1rem;
+        }
+
+        .form-row {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: 1fr;
+        }
+
+        @media (min-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr 1fr;
+            }
         }
 
         .announcement-form .form-group {
@@ -357,8 +399,9 @@
         .announcement-form label {
             display: block;
             margin-bottom: 0.5rem;
-            color: #374151;
+            color: #1a56db;
             font-weight: 600;
+            font-size: 0.9rem;
         }
 
         .announcement-form input,
@@ -387,15 +430,16 @@
             color: white;
             border: none;
             padding: 1rem 2rem;
-            border-radius: 8px;
+            border-radius: 12px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 0.5rem;
-            justify-self: start;
+            width: 100%;
         }
 
         .cta-button:hover {
@@ -403,40 +447,48 @@
             box-shadow: 0 8px 25px rgba(26, 86, 219, 0.3);
         }
 
-        /* Brilliant Announcement Cards */
-        .current-announcements {
-            background: white;
-            border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            border: 1px solid #e2e8f0;
+        .cta-button:active {
+            transform: translateY(0);
         }
 
-        .current-announcements h2 {
-            color: #1e293b;
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+        /* Management Section */
+        .management-section {
+            grid-column: 1 / -1;
+        }
+
+        @media (min-width: 768px) {
+            .management-section {
+                grid-column: 2;
+            }
         }
 
         .announcements-list {
-            max-height: 600px;
+            max-height: 70vh;
             overflow-y: auto;
             padding-right: 0.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .announcements-list {
+                max-height: 500px;
+            }
         }
 
         .announcement-item {
             background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
             border: 2px solid #e2e8f0;
             border-radius: 12px;
-            padding: 1.5rem;
+            padding: 1rem;
             margin-bottom: 1rem;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+        }
+
+        @media (min-width: 768px) {
+            .announcement-item {
+                padding: 1.5rem;
+            }
         }
 
         .announcement-item::before {
@@ -457,17 +509,32 @@
 
         .announcement-header {
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
+            flex-direction: column;
+            gap: 0.5rem;
             margin-bottom: 1rem;
         }
 
+        @media (min-width: 768px) {
+            .announcement-header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+            }
+        }
+
         .announcement-title {
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             font-weight: 700;
-            color: #1e293b;
+            color: #1a56db;
             margin: 0;
             flex: 1;
+            line-height: 1.3;
+        }
+
+        @media (min-width: 768px) {
+            .announcement-title {
+                font-size: 1.25rem;
+            }
         }
 
         .announcement-type {
@@ -529,19 +596,31 @@
         .announcement-actions {
             display: flex;
             gap: 0.5rem;
+            flex-wrap: wrap;
         }
 
         .edit-btn, .delete-btn {
-            padding: 0.5rem 1rem;
+            padding: 0.5rem 0.75rem;
             border: none;
-            border-radius: 6px;
-            font-size: 0.875rem;
-            font-weight: 500;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
             gap: 0.25rem;
+            flex: 1;
+            justify-content: center;
+            min-width: 80px;
+        }
+
+        @media (min-width: 768px) {
+            .edit-btn, .delete-btn {
+                font-size: 0.875rem;
+                padding: 0.5rem 1rem;
+                flex: none;
+            }
         }
 
         .edit-btn {
@@ -651,13 +730,33 @@
         }
 
         .admin-welcome {
-            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
-            border: 2px solid #10b981;
-            color: #065f46;
-            padding: 1.5rem;
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border: 2px solid #1a56db;
+            color: #1e40af;
+            padding: 1rem;
             border-radius: 12px;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             text-align: center;
+            grid-column: 1 / -1;
+        }
+
+        @media (min-width: 768px) {
+            .admin-welcome {
+                padding: 1.5rem;
+                margin-bottom: 2rem;
+            }
+        }
+
+        .admin-welcome h2 {
+            color: #1a56db;
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .admin-welcome h2 {
+                font-size: 1.5rem;
+            }
         }
 
         .logout-btn {
@@ -666,15 +765,45 @@
             border: none;
             padding: 0.5rem 1rem;
             border-radius: 8px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             cursor: pointer;
             transition: all 0.3s ease;
             float: right;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .logout-btn {
+                font-size: 0.9rem;
+            }
         }
 
         .logout-btn:hover {
             transform: translateY(-1px);
             box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+        }
+
+        /* Interactive Enhancement */
+        .admin-section {
+            opacity: 0;
+            animation: slideInUp 0.6s ease-out forwards;
+        }
+
+        .admin-section:nth-child(2) { animation-delay: 0.1s; }
+        .admin-section:nth-child(3) { animation-delay: 0.2s; }
+        .admin-section:nth-child(4) { animation-delay: 0.3s; }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
@@ -790,7 +919,7 @@
                 </div>
 
                 <!-- Add New Announcement Form -->
-                <div class="announcement-form-container">
+                <div class="admin-section">
                     <h2><i class="fas fa-plus-circle"></i> Create New Announcement</h2>
                     <form id="announcementForm" class="announcement-form">
                         <div class="form-group">
@@ -800,23 +929,25 @@
                         
                         <div class="form-group">
                             <label for="announcementContent">Content</label>
-                            <textarea id="announcementContent" name="content" rows="5" required placeholder="Enter announcement content"></textarea>
+                            <textarea id="announcementContent" name="content" rows="4" required placeholder="Enter announcement content"></textarea>
                         </div>
                         
-                        <div class="form-group">
-                            <label for="announcementType">Type</label>
-                            <select id="announcementType" name="type" required>
-                                <option value="general">General</option>
-                                <option value="urgent">Urgent</option>
-                                <option value="admissions">Admissions</option>
-                                <option value="academic">Academic</option>
-                                <option value="events">Events</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="announcementDate">Date</label>
-                            <input type="date" id="announcementDate" name="date" required>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="announcementType">Type</label>
+                                <select id="announcementType" name="type" required>
+                                    <option value="general">📢 General</option>
+                                    <option value="urgent">🚨 Urgent</option>
+                                    <option value="admissions">🎓 Admissions</option>
+                                    <option value="academic">📚 Academic</option>
+                                    <option value="events">🎉 Events</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="announcementDate">Date</label>
+                                <input type="date" id="announcementDate" name="date" required>
+                            </div>
                         </div>
                         
                         <button type="submit" class="cta-button">
@@ -827,7 +958,7 @@
                 </div>
 
                 <!-- Current Announcements -->
-                <div class="current-announcements">
+                <div class="admin-section management-section">
                     <h2><i class="fas fa-list"></i> Manage Announcements</h2>
                     <div id="announcementsList" class="announcements-list">
                         <!-- Announcements will be loaded here -->
@@ -835,9 +966,9 @@
                 </div>
 
                 <!-- Preview Section -->
-                <div class="announcement-preview">
+                <div class="admin-section" style="grid-column: 1 / -1;">
                     <h2><i class="fas fa-eye"></i> Website Preview</h2>
-                    <p>This is how announcements will appear on the homepage:</p>
+                    <p style="color: #6b7280; margin-bottom: 1.5rem;">This is how announcements will appear on the homepage:</p>
                     <div class="announcement-grid" id="previewGrid">
                         <!-- Preview will show here -->
                     </div>
