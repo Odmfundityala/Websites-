@@ -139,13 +139,13 @@ function loadHomepageAnnouncements() {
                     <div class="card-footer">
                         <div class="social-sharing">
                             <span class="share-label">Share:</span>
-                            <button class="share-btn facebook" onclick="shareToFacebook('${ann.title.replace(/'/g, '\\\'').replace(/"/g, '\\"')}', \`${textContent.replace(/'/g, '\\\'').replace(/"/g, '\\"').replace(/`/g, '\\`')}\`)" title="Share on Facebook">
+                            <button class="share-btn facebook" onclick="shareToFacebook('${ann.title.replace(/'/g, '\\\'').replace(/"/g, '\\"')}', \`${textContent.replace(/'/g, '\\\'').replace(/"/g, '\\"').replace(/`/g, '\\`')}\`, ${ann.id})" title="Share on Facebook">
                                 <i class="fab fa-facebook-f"></i>
                             </button>
-                            <button class="share-btn twitter" onclick="shareToTwitter('${ann.title.replace(/'/g, '\\\'').replace(/"/g, '\\"')}', \`${textContent.replace(/'/g, '\\\'').replace(/"/g, '\\"').replace(/`/g, '\\`')}\`)" title="Share on Twitter">
+                            <button class="share-btn twitter" onclick="shareToTwitter('${ann.title.replace(/'/g, '\\\'').replace(/"/g, '\\"')}', \`${textContent.replace(/'/g, '\\\'').replace(/"/g, '\\"').replace(/`/g, '\\`')}\`, ${ann.id})" title="Share on Twitter">
                                 <i class="fab fa-twitter"></i>
                             </button>
-                            <button class="share-btn whatsapp" onclick="shareToWhatsApp('${ann.title.replace(/'/g, '\\\'').replace(/"/g, '\\"')}', \`${textContent.replace(/'/g, '\\\'').replace(/"/g, '\\"').replace(/`/g, '\\`')}\`)" title="Share on WhatsApp">
+                            <button class="share-btn whatsapp" onclick="shareToWhatsApp('${ann.title.replace(/'/g, '\\\'').replace(/"/g, '\\"')}', \`${textContent.replace(/'/g, '\\\'').replace(/"/g, '\\"').replace(/`/g, '\\`')}\`, ${ann.id})" title="Share on WhatsApp">
                                 <i class="fab fa-whatsapp"></i>
                             </button>
                             <button class="share-btn copy-link" onclick="copyAnnouncementLink(${ann.id})" title="Copy Link">
@@ -271,24 +271,39 @@ function setupAnnouncementInteractions() {
     });
 }
 
-// Social Media Sharing Functions
-function shareToFacebook(title, content) {
+// Enhanced Social Media Sharing Functions with Image Support
+function shareToFacebook(title, content, announcementId) {
+    const announcement = getAnnouncementById(announcementId);
     const url = encodeURIComponent(window.location.href);
+    
+    // Update meta tags for better social sharing with image
+    updateSocialMetaTags(title, content, announcement?.image);
+    
     // Strip HTML tags for clean sharing
     const cleanContent = content.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
     const text = encodeURIComponent(`${title}\n\n${cleanContent}\n\nSiyabulela Senior Secondary School`);
+    
+    // Use Facebook's sharer with image support
     window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`, '_blank', 'width=600,height=400');
 }
 
-function shareToTwitter(title, content) {
+function shareToTwitter(title, content, announcementId) {
+    const announcement = getAnnouncementById(announcementId);
     const url = encodeURIComponent(window.location.href);
+    
+    // Update meta tags for Twitter card with image
+    updateSocialMetaTags(title, content, announcement?.image);
+    
     // Strip HTML tags for clean sharing
     const cleanContent = content.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
     const text = encodeURIComponent(`${title}\n\n${cleanContent}\n\n#SiyabulelaSSS #SchoolNews`);
+    
     window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank', 'width=600,height=400');
 }
 
-function shareToWhatsApp(title, content) {
+function shareToWhatsApp(title, content, announcementId) {
+    const announcement = getAnnouncementById(announcementId);
+    
     // Convert HTML formatting to WhatsApp markdown
     let whatsappContent = content
         .replace(/<strong>(.*?)<\/strong>/g, '*$1*')
@@ -304,8 +319,78 @@ function shareToWhatsApp(title, content) {
         .replace(/&nbsp;/g, ' ')
         .trim();
     
-    const text = encodeURIComponent(`*${title}*\n\n${whatsappContent}\n\nSiyabulela Senior Secondary School\n${window.location.href}`);
+    let shareText = `*${title}*\n\n${whatsappContent}\n\nSiyabulela Senior Secondary School\n${window.location.href}`;
+    
+    // If announcement has an image, mention it
+    if (announcement?.image) {
+        shareText = `*${title}*\n\n${whatsappContent}\n\n📸 View full announcement with image at:\n${window.location.href}\n\nSiyabulela Senior Secondary School`;
+    }
+    
+    const text = encodeURIComponent(shareText);
     window.open(`https://wa.me/?text=${text}`, '_blank');
+}
+
+// Function to get announcement by ID
+function getAnnouncementById(announcementId) {
+    try {
+        const stored = localStorage.getItem('siya_announcements');
+        const announcements = stored ? JSON.parse(stored) : [];
+        return announcements.find(ann => ann.id === announcementId);
+    } catch (error) {
+        console.error('Error getting announcement:', error);
+        return null;
+    }
+}
+
+// Function to update social media meta tags for better sharing
+function updateSocialMetaTags(title, content, imageUrl) {
+    const cleanContent = content.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
+    const description = cleanContent.length > 160 ? cleanContent.substring(0, 160) + '...' : cleanContent;
+    
+    // Update or create Open Graph meta tags
+    updateMetaTag('og:title', `${title} - Siyabulela Senior Secondary School`);
+    updateMetaTag('og:description', description);
+    updateMetaTag('og:url', window.location.href);
+    updateMetaTag('og:type', 'article');
+    updateMetaTag('og:site_name', 'Siyabulela Senior Secondary School');
+    
+    // Twitter Card meta tags
+    updateMetaTag('twitter:card', imageUrl ? 'summary_large_image' : 'summary');
+    updateMetaTag('twitter:title', `${title} - Siyabulela SSS`);
+    updateMetaTag('twitter:description', description);
+    
+    // Add image meta tags if image exists
+    if (imageUrl) {
+        const fullImageUrl = imageUrl.startsWith('http') ? imageUrl : `${window.location.origin}/${imageUrl}`;
+        updateMetaTag('og:image', fullImageUrl);
+        updateMetaTag('og:image:width', '1200');
+        updateMetaTag('og:image:height', '630');
+        updateMetaTag('twitter:image', fullImageUrl);
+        updateMetaTag('twitter:image:alt', title);
+    } else {
+        // Use school logo as fallback
+        const logoUrl = `${window.location.origin}/images/logo.png`;
+        updateMetaTag('og:image', logoUrl);
+        updateMetaTag('twitter:image', logoUrl);
+    }
+}
+
+// Helper function to update or create meta tags
+function updateMetaTag(property, content) {
+    let metaTag = document.querySelector(`meta[property="${property}"]`) || 
+                  document.querySelector(`meta[name="${property}"]`);
+    
+    if (!metaTag) {
+        metaTag = document.createElement('meta');
+        if (property.startsWith('og:') || property.startsWith('twitter:')) {
+            metaTag.setAttribute('property', property);
+        } else {
+            metaTag.setAttribute('name', property);
+        }
+        document.head.appendChild(metaTag);
+    }
+    
+    metaTag.setAttribute('content', content);
 }
 
 function copyAnnouncementLink(announcementId) {

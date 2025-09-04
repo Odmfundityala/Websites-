@@ -2912,12 +2912,131 @@ p {
     height: 180px;
     overflow: hidden;
     background: #f3f4f6;
+    padding: 0;
+    margin: 0;
+    border-radius: 12px 12px 0 0;
 }
 
 .announcement-card.elegant-home .card-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 12px 12px 0 0;
+    transition: transform 0.3s ease;
+}
+
+.announcement-card.elegant-home:hover .card-image img {
+    transform: scale(1.05);
+}
+
+/* Enhanced social sharing with image preview */
+.social-sharing {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #e5e7eb;
+    background: #f9fafb;
+    border-radius: 0 0 12px 12px;
+}
+
+.share-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #6b7280;
+    margin-right: 0.5rem;
+}
+
+.share-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    color: white;
+}
+
+.share-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.share-btn.facebook {
+    background: #1877f2;
+}
+
+.share-btn.facebook:hover {
+    background: #166fe5;
+}
+
+.share-btn.twitter {
+    background: #1da1f2;
+}
+
+.share-btn.twitter:hover {
+    background: #0d8bd9;
+}
+
+.share-btn.whatsapp {
+    background: #25d366;
+}
+
+.share-btn.whatsapp:hover {
+    background: #128c7e;
+}
+
+.share-btn.copy-link {
+    background: #6b7280;
+}
+
+.share-btn.copy-link:hover {
+    background: #4b5563;
+}
+
+.share-btn.copied {
+    background: #10b981;
+    transform: scale(1.1);
+}
+
+/* Image spacing and padding for shared content */
+.announcement-card.elegant-home .card-content {
+    padding: 1.5rem;
+    margin: 0;
+}
+
+.announcement-card.elegant-home .card-header {
+    padding: 1.5rem 1.5rem 1rem 1.5rem;
+    margin: 0;
+}
+
+/* Ensure proper spacing around images in content */
+.content-display img {
+    max-width: 100%;
+    height: auto;
+    margin: 1rem 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 0;
+    display: block;
+}
+
+/* Image captions and descriptions */
+.image-caption {
+    font-size: 0.875rem;
+    color: #6b7280;
+    text-align: center;
+    margin-top: 0.5rem;
+    font-style: italic;
 }
 
 .announcement-card.elegant-home .card-header {
