@@ -89,13 +89,14 @@ function loadHomepageAnnouncements() {
             const latestAnnouncements = announcements.slice(0, 2);
             
             announcementGrid.innerHTML = latestAnnouncements.map(ann => {
-                const isLongContent = ann.content.length > 800;
-                const shortContent = isLongContent ? ann.content.substring(0, 800) + '...' : ann.content;
+                const formattedContent = formatContent(ann.content);
+                const isLongContent = formattedContent.length > 800;
+                const shortContent = isLongContent ? formattedContent.substring(0, 800) + '...' : formattedContent;
                 
                 return `
                 <div class="announcement-card" data-id="${ann.id}">
                     <h3>${getAnnouncementIcon(ann.type)} ${ann.title}</h3>
-                    <div class="announcement-content ${isLongContent ? 'truncated' : ''}" data-full-content="${ann.content.replace(/"/g, '&quot;')}">${shortContent}</div>
+                    <div class="announcement-content ${isLongContent ? 'truncated' : ''}" data-full-content="${formattedContent.replace(/"/g, '&quot;')}">${shortContent}</div>
                     ${isLongContent ? '<button class="read-more-btn">Read More</button>' : ''}
                     
                     <div class="announcement-sharing">
@@ -156,6 +157,15 @@ function getAnnouncementIcon(type) {
 
 function getDefaultAnnouncements() {
     return [];
+}
+
+// Simple markdown-style formatting
+function formatContent(content) {
+    return content
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+        .replace(/\n/g, '<br>')
+        .replace(/• /g, '&bull; ');
 }
 
 // Setup interactions for announcement cards
