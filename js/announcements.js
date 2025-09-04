@@ -143,24 +143,17 @@ class AnnouncementManager {
         if (!container) return;
 
         if (this.announcements.length === 0) {
-            container.innerHTML = '<p class="no-announcements">No announcements yet. Create your first one!</p>';
+            container.innerHTML = '<p class="no-announcements" style="text-align: center; color: #6b7280; padding: 2rem;">No announcements yet. Create your first one!</p>';
             return;
         }
 
         container.innerHTML = this.announcements.map(ann => `
             <div class="announcement-item" data-type="${ann.type}">
                 <div class="announcement-header">
-                    <h3>${ann.title}</h3>
-                    <div class="announcement-actions">
-                        <span class="announcement-type ${ann.type}">${ann.type.toUpperCase()}</span>
-                        <button class="edit-btn" onclick="announcementManager.editAnnouncement(${ann.id})" title="Edit announcement">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="delete-btn" onclick="announcementManager.deleteAnnouncement(${ann.id})" title="Delete announcement">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
+                    <h3 class="announcement-title">${ann.title}</h3>
+                    <span class="announcement-type ${ann.type}">${ann.type.toUpperCase()}</span>
                 </div>
+                <div class="announcement-content">${ann.content}</div>
                 <div class="announcement-meta">
                     <span class="announcement-date">
                         <i class="fas fa-calendar"></i>
@@ -173,7 +166,14 @@ class AnnouncementManager {
                         </span>
                     ` : ''}
                 </div>
-                <p class="announcement-text">${ann.content}</p>
+                <div class="announcement-actions">
+                    <button class="edit-btn" onclick="announcementManager.editAnnouncement(${ann.id})" title="Edit announcement">
+                        <i class="fas fa-edit"></i> Edit
+                    </button>
+                    <button class="delete-btn" onclick="announcementManager.deleteAnnouncement(${ann.id})" title="Delete announcement">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </div>
             </div>
         `).join('');
     }
@@ -185,16 +185,16 @@ class AnnouncementManager {
         const displayAnnouncements = this.announcements.slice(0, 4); // Show only latest 4
         
         if (displayAnnouncements.length === 0) {
-            previewContainer.innerHTML = '<p class="no-announcements">No announcements to display</p>';
+            previewContainer.innerHTML = '<p class="no-announcements" style="text-align: center; color: #6b7280; padding: 2rem;">No announcements to display</p>';
             return;
         }
 
         previewContainer.innerHTML = displayAnnouncements.map(ann => `
-            <div class="announcement-card">
-                <h3>${this.getAnnouncementIcon(ann.type)} ${ann.title}</h3>
-                <p>${ann.content}</p>
-                <div class="announcement-date-preview">
-                    <small><i class="fas fa-calendar"></i> ${new Date(ann.date).toLocaleDateString()}</small>
+            <div class="preview-card">
+                <h3 style="color: #1e293b; margin-bottom: 1rem;">${this.getAnnouncementIcon(ann.type)} ${ann.title}</h3>
+                <p style="color: #4b5563; line-height: 1.6; margin-bottom: 1rem;">${ann.content}</p>
+                <div class="announcement-date-preview" style="color: #6b7280; font-size: 0.875rem;">
+                    <i class="fas fa-calendar"></i> ${new Date(ann.date).toLocaleDateString()}
                 </div>
             </div>
         `).join('');
