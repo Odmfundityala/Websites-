@@ -384,14 +384,16 @@
             flex: 1;
             overflow-y: auto;
             overflow-x: hidden;
-            height: calc(100vh - 80px);
-            margin-top: 80px;
+            height: calc(100vh - 70px);
+            margin-top: 70px;
+            padding-top: 0;
         }
 
         @media (min-width: 768px) {
             .admin-panel main {
-                height: calc(100vh - 90px);
-                margin-top: 90px;
+                height: calc(100vh - 70px);
+                margin-top: 70px;
+                padding-top: 0;
             }
         }
 
@@ -440,7 +442,7 @@
             display: grid;
             gap: 1.5rem;
             grid-template-columns: 1fr;
-            min-height: calc(100vh - 200px);
+            min-height: calc(100vh - 140px);
         }
 
         @media (min-width: 768px) {
@@ -892,9 +894,9 @@
             background: linear-gradient(135deg, #e6f3ff 0%, #dbeafe 100%);
             border: 2px solid #1a365d;
             color: #1a365d;
-            padding: 1rem;
-            border-radius: 12px;
-            margin-bottom: 1.5rem;
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
             text-align: center;
             grid-column: 1 / -1;
         }
@@ -908,13 +910,22 @@
 
         .admin-welcome h2 {
             color: #1a365d;
-            font-size: 1.25rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .admin-welcome p {
+            font-size: 0.85rem;
+            margin: 0;
         }
 
         @media (min-width: 768px) {
             .admin-welcome h2 {
-                font-size: 1.5rem;
+                font-size: 1.25rem;
+            }
+            
+            .admin-welcome p {
+                font-size: 0.9rem;
             }
         }
 
@@ -1063,7 +1074,7 @@
         .admin-tabs {
             background: white;
             border-bottom: 2px solid #e6f3ff;
-            padding: 0.5rem 1rem 0;
+            padding: 0.25rem 1rem 0;
             margin: 0;
         }
 
@@ -1077,9 +1088,9 @@
         .tab-btn {
             background: none;
             border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px 8px 0 0;
-            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            border-radius: 6px 6px 0 0;
+            font-size: 0.85rem;
             font-weight: 600;
             color: #6b7280;
             cursor: pointer;
@@ -1303,7 +1314,7 @@
             </nav>
         </header>
 
-        <main style="padding-top: 100px;">
+        <main style="padding-top: 70px;">
             <!-- Admin Navigation Tabs -->
             <section class="admin-tabs">
                 <div class="tab-container">
