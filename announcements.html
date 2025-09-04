@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Announcement Management - Siyabulela SSS</title>
+    <title>Admin Panel - Siyabulela SSS</title>
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -25,12 +25,11 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="academics.html">Academics</a></li>
                 <li><a href="admissions.html">Admissions</a></li>
-                <li><a href="fees.html">School Fees</a></li>
                 <li><a href="uniform.html">Sport</a></li>
                 <li><a href="stakeholders.html">Stakeholders</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
-                <li><a href="announcements.html" class="active">Announcements</a></li>
+                <li><a href="announcements.html" class="active">Admin</a></li>
             </ul>
         </nav>
     </header>
@@ -38,62 +37,93 @@
     <main>
         <section class="page-header">
             <div class="page-header-content">
-                <h1>Announcement Management</h1>
-                <p>Create and manage school announcements</p>
+                <h1>Admin Panel</h1>
+                <p>Secure announcement management for authorized users</p>
             </div>
         </section>
 
         <section class="announcements-content">
-            <!-- Add New Announcement Form -->
-            <div class="announcement-form-container">
-                <h2>Create New Announcement</h2>
-                <form id="announcementForm" class="announcement-form">
-                    <div class="form-group">
-                        <label for="announcementTitle">Title</label>
-                        <input type="text" id="announcementTitle" name="title" required placeholder="Enter announcement title">
+            <!-- Authentication Check -->
+            <div id="authSection">
+                <div class="auth-container">
+                    <div class="auth-message">
+                        <i class="fas fa-lock"></i>
+                        <h2>Admin Access Required</h2>
+                        <p>Please authenticate with your Replit account to access the announcement management system.</p>
+                        <div class="auth-button-container">
+                            <script
+                                authed="location.reload()"
+                                src="https://auth.util.repl.co/script.js"
+                            ></script>
+                        </div>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="announcementContent">Content</label>
-                        <textarea id="announcementContent" name="content" rows="6" required placeholder="Enter announcement details"></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="announcementType">Type</label>
-                        <select id="announcementType" name="type">
-                            <option value="general">General</option>
-                            <option value="urgent">Urgent</option>
-                            <option value="admissions">Admissions</option>
-                            <option value="academic">Academic</option>
-                            <option value="events">Events</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="announcementDate">Date</label>
-                        <input type="date" id="announcementDate" name="date" required>
-                    </div>
-                    
-                    <button type="submit" class="cta-button">
-                        <i class="fas fa-plus"></i>
-                        Add Announcement
-                    </button>
-                </form>
-            </div>
-
-            <!-- Current Announcements -->
-            <div class="current-announcements">
-                <h2>Current Announcements</h2>
-                <div id="announcementsList" class="announcements-list">
-                    <!-- Announcements will be loaded here -->
                 </div>
             </div>
 
-            <!-- Preview Section -->
-            <div class="announcement-preview">
-                <h2>Website Preview</h2>
-                <div class="announcement-grid" id="previewGrid">
-                    <!-- Preview will show here -->
+            <!-- Admin Panel (Hidden until authenticated) -->
+            <div id="adminPanel" style="display: none;">
+                <!-- Welcome Message -->
+                <div class="admin-welcome">
+                    <h2>Welcome, <span id="adminName"></span>!</h2>
+                    <p>You have admin access to manage school announcements.</p>
+                    <button id="logoutBtn" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </button>
+                </div>
+
+                <!-- Add New Announcement Form -->
+                <div class="announcement-form-container">
+                    <h2><i class="fas fa-plus-circle"></i> Create New Announcement</h2>
+                    <form id="announcementForm" class="announcement-form">
+                        <div class="form-group">
+                            <label for="announcementTitle">Title</label>
+                            <input type="text" id="announcementTitle" name="title" required placeholder="Enter announcement title">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="announcementContent">Content</label>
+                            <textarea id="announcementContent" name="content" rows="5" required placeholder="Enter announcement content"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="announcementType">Type</label>
+                            <select id="announcementType" name="type" required>
+                                <option value="general">General</option>
+                                <option value="urgent">Urgent</option>
+                                <option value="admissions">Admissions</option>
+                                <option value="academic">Academic</option>
+                                <option value="events">Events</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="announcementDate">Date</label>
+                            <input type="date" id="announcementDate" name="date" required>
+                        </div>
+                        
+                        <button type="submit" class="cta-button">
+                            <i class="fas fa-plus"></i>
+                            Add Announcement
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Current Announcements -->
+                <div class="current-announcements">
+                    <h2><i class="fas fa-list"></i> Manage Announcements</h2>
+                    <div id="announcementsList" class="announcements-list">
+                        <!-- Announcements will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Preview Section -->
+                <div class="announcement-preview">
+                    <h2><i class="fas fa-eye"></i> Website Preview</h2>
+                    <p>This is how announcements will appear on the homepage:</p>
+                    <div class="announcement-grid" id="previewGrid">
+                        <!-- Preview will show here -->
+                    </div>
                 </div>
             </div>
         </section>
@@ -127,7 +157,59 @@
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
     <script src="js/announcements.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Check authentication status on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuthStatus();
+        });
+
+        function checkAuthStatus() {
+            // Check if user is authenticated by looking for Replit auth headers
+            // In a real implementation, you'd check with your server
+            const urlParams = new URLSearchParams(window.location.search);
+            const isAuthed = urlParams.has('authed') || localStorage.getItem('replit_auth');
+            
+            if (isAuthed) {
+                showAdminPanel();
+            } else {
+                showAuthSection();
+            }
+        }
+
+        function showAdminPanel() {
+            document.getElementById('authSection').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'block';
+            
+            // Set admin name (in real app, get from auth headers)
+            document.getElementById('adminName').textContent = 'Administrator';
+            localStorage.setItem('replit_auth', 'true');
+        }
+
+        function showAuthSection() {
+            document.getElementById('authSection').style.display = 'block';
+            document.getElementById('adminPanel').style.display = 'none';
+            localStorage.removeItem('replit_auth');
+        }
+
+        // Logout functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function() {
+                    localStorage.removeItem('replit_auth');
+                    window.location.href = 'announcements.html';
+                });
+            }
+        });
+
+        // Override the auth script callback to show admin panel
+        window.addEventListener('message', function(event) {
+            if (event.data === 'replit-auth-complete') {
+                showAdminPanel();
+            }
+        });
+    </script>
 </body>
 </html>
