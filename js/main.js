@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function loadHomepageAnnouncements() {
     try {
         const stored = localStorage.getItem('siya_announcements');
-        const announcements = stored ? JSON.parse(stored) : [];
+        const announcements = stored ? JSON.parse(stored) : getDefaultAnnouncements();
         
         const announcementGrid = document.querySelector('.announcement-grid');
         if (announcementGrid && announcements.length > 0) {
@@ -204,7 +204,24 @@ function getAnnouncementIconSymbol(type) {
 }
 
 function getDefaultAnnouncements() {
-    return [];
+    return [
+        {
+            id: 1,
+            title: "Welcome to Academic Year 2025",
+            content: "<p>We are excited to welcome all students back for the new academic year. Classes begin on <strong>January 15, 2025</strong>.</p><p>Please ensure you have completed all registration requirements and have your textbooks ready.</p>",
+            date: new Date().toISOString(),
+            type: "academic",
+            image: null
+        },
+        {
+            id: 2,
+            title: "Sports Registration Open",
+            content: "<p>Registration is now open for all winter sports activities including:</p><ul><li>Soccer</li><li>Netball</li><li>Rugby</li><li>Athletics</li></ul><p>Contact the sports department for more information.</p>",
+            date: new Date(Date.now() - 86400000).toISOString(),
+            type: "events",
+            image: null
+        }
+    ];
 }
 
 // Enhanced content formatting for home page
