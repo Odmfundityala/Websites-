@@ -398,13 +398,35 @@
         .page-header {
             background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
             color: white;
-            padding: 2rem 1rem;
+            padding: 1rem;
             margin: 0;
         }
 
         @media (min-width: 768px) {
             .page-header {
-                padding: 3rem 2rem;
+                padding: 1.5rem 2rem;
+            }
+        }
+
+        .page-header-content h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .page-header-content p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin: 0;
+        }
+
+        @media (min-width: 768px) {
+            .page-header-content h1 {
+                font-size: 1.75rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .page-header-content p {
+                font-size: 1rem;
             }
         }
 
