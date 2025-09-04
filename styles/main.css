@@ -1439,70 +1439,163 @@ main {
 
 /* Excellence cards removed per user request */
 
-/* COMPREHENSIVE TEXT ALIGNMENT FIXES - OVERRIDE ALL ISSUES */
+/* CLEAN ELEGANT TYPOGRAPHY & SPACING */
 
-/* Global text alignment reset */
-* {
-    text-align: left !important;
+/* Global paragraph styling for elegance */
+p {
+    text-align: left;
+    line-height: 1.7;
+    margin: 1.2rem 0;
+    font-size: 1rem;
+    color: #374151;
+    max-width: none;
+    word-spacing: 0.05em;
+    letter-spacing: 0.01em;
 }
 
-/* Specific overrides for centered content that should stay centered */
-h1, h2, h3, .section-title, .page-header h1, .page-header p {
-    text-align: center !important;
-}
-
-/* Card content - force left alignment */
+/* Clean card styling with proper spacing */
 .uniform-card, .sports-card, .contact-card {
-    text-align: left !important;
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e5e7eb;
+    text-align: left;
 }
 
-.uniform-card p, .uniform-card li, .uniform-card ul,
-.sports-card p, .sports-card li, .sports-card ul,
-.contact-card p, .contact-card li, .contact-card ul {
-    text-align: left !important;
-    line-height: 1.6 !important;
-    margin: 0.5rem 0 !important;
+/* Elegant paragraph spacing within cards */
+.uniform-card p, .sports-card p, .contact-card p {
+    text-align: left;
+    line-height: 1.7;
+    margin: 1rem 0;
+    color: #4b5563;
+    font-size: 0.95rem;
 }
 
-/* Contact page specific elements */
-.contact-details, .contact-details p, .contact-details div {
-    text-align: left !important;
+/* Clean list styling */
+.uniform-card ul, .sports-card ul, .contact-card ul {
+    margin: 1.5rem 0;
+    padding-left: 1.5rem;
+    text-align: left;
 }
 
-.contact-name, .contact-position, .contact-phone, .contact-email {
-    text-align: left !important;
+.uniform-card li, .sports-card li, .contact-card li {
+    text-align: left;
+    line-height: 1.6;
+    margin-bottom: 0.8rem;
+    color: #4b5563;
+    font-size: 0.95rem;
 }
 
-/* Sports and uniform content */
-.uniform-content, .sports-section, .sports-uniform-section {
-    text-align: left !important;
+/* Contact details elegant spacing */
+.contact-details {
+    margin-top: 1.5rem;
+    text-align: left;
 }
 
-.uniform-content p, .uniform-content li,
-.sports-section p, .sports-section li,
-.sports-uniform-section p, .sports-uniform-section li {
-    text-align: left !important;
+.contact-name {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+    text-align: left;
 }
 
-/* Address and location details */
-.address-details, .address-details p {
-    text-align: left !important;
+.contact-position {
+    color: #6b7280;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    text-align: left;
 }
 
-/* Sports details sections */
-.sports-details, .sports-details ul, .sports-details li {
-    text-align: left !important;
+.contact-phone, .contact-email {
+    margin: 0.7rem 0;
+    text-align: left;
+    color: #4b5563;
 }
 
-/* Override any inherited text alignment */
-main, section, div, p, li, span, a {
-    text-align: left !important;
+/* Sports details clean formatting */
+.sports-details {
+    margin-top: 1.5rem;
+    text-align: left;
 }
 
-/* Keep specific elements centered as needed */
+.sports-details ul {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+}
+
+.sports-details li {
+    margin-bottom: 0.6rem;
+    color: #4b5563;
+    text-align: left;
+}
+
+/* Section headers with proper spacing */
+.section-title {
+    text-align: center;
+    margin: 3rem 0 2rem 0;
+    color: #1f2937;
+}
+
+.section-subtitle {
+    text-align: center;
+    margin: 0 auto 3rem auto;
+    color: #6b7280;
+    max-width: 600px;
+    line-height: 1.6;
+}
+
+/* Address card elegant styling */
+.address-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    text-align: left;
+}
+
+.address-details p {
+    margin: 0.6rem 0;
+    color: #4b5563;
+    text-align: left;
+    line-height: 1.6;
+}
+
+/* Clean content containers */
+.uniform-content, .contact-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+/* Grid layouts with proper spacing */
+.uniform-grid, .sports-grid, .contact-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+    margin: 3rem 0;
+}
+
+/* Headers within cards */
+.uniform-card h3, .sports-card h3, .contact-card h3 {
+    color: #1f2937;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0 0 1.5rem 0;
+    text-align: left;
+}
+
+/* Keep necessary centered elements */
+.page-header h1, .page-header p, h1, h2 {
+    text-align: center;
+}
+
 .logo, .logo-text, .nav-links, .hero-content, 
 .announcement-grid, .footer-content {
-    text-align: center !important;
+    text-align: center;
 }
 
 /* Academic Performance Section */
