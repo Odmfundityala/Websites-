@@ -35,11 +35,32 @@ class AnnouncementManager {
         this.updateHiddenTextarea();
         
         const formData = new FormData(e.target);
+        
+        // Handle image upload
+        const imageFile = formData.get('image');
+        let imageData = null;
+        
+        if (imageFile && imageFile.size > 0) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                imageData = e.target.result;
+                this.saveAnnouncementWithImage(formData, imageData);
+            };
+            reader.readAsDataURL(imageFile);
+            return; // Exit early, let the reader callback handle saving
+        }
+        
+        // No image, proceed normally
+        this.saveAnnouncementWithImage(formData, null);
+    }
+
+    saveAnnouncementWithImage(formData, imageData) {
         const announcement = {
             id: this.editingId || Date.now(),
             title: formData.get('title'),
             content: formData.get('content'),
             type: formData.get('type'),
+            image: imageData,
             date: new Date().toISOString().split('T')[0],
             dateCreated: this.editingId ? this.announcements.find(a => a.id === this.editingId)?.dateCreated : new Date().toISOString(),
             dateModified: this.editingId ? new Date().toISOString() : null
@@ -93,6 +114,18 @@ class AnnouncementManager {
             if (editor && editor.contentEditable === 'true') {
                 editor.innerHTML = announcement.content;
                 this.updateHiddenTextarea();
+            }
+            
+            // Set image if exists
+            if (announcement.image) {
+                const imageInput = document.getElementById('announcementImage');
+                const imagePreview = document.getElementById('imagePreview');
+                const previewImg = document.getElementById('previewImg');
+                
+                if (imagePreview && previewImg) {
+                    previewImg.src = announcement.image;
+                    imagePreview.style.display = 'block';
+                }
             }
             
             document.getElementById('announcementType').value = announcement.type;
@@ -367,6 +400,9 @@ class AnnouncementManager {
 
         if (!editor || !hiddenTextarea || !toolbar) return;
 
+        // Setup image upload preview
+        this.setupImageUpload();
+
         // Setup toolbar buttons
         toolbar.addEventListener('click', (e) => {
             if (e.target.closest('.format-btn')) {
@@ -581,6 +617,33 @@ class AnnouncementManager {
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = announcement.content;
         return tempDiv.textContent || tempDiv.innerText || '';
+    }
+
+    setupImageUpload() {
+        const imageInput = document.getElementById('announcementImage');
+        const imagePreview = document.getElementById('imagePreview');
+        const previewImg = document.getElementById('previewImg');
+        const removeBtn = document.getElementById('removeImage');
+
+        if (!imageInput || !imagePreview || !previewImg || !removeBtn) return;
+
+        imageInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    previewImg.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        removeBtn.addEventListener('click', () => {
+            imageInput.value = '';
+            imagePreview.style.display = 'none';
+            previewImg.src = '';
+        });
     }
 }
 

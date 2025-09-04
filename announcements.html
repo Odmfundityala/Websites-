@@ -1648,6 +1648,21 @@
                         </div>
                         
                         <div class="form-group">
+                            <label for="announcementImage">Featured Image (Optional)</label>
+                            <input type="file" id="announcementImage" name="image" accept="image/*" placeholder="Choose an image for this announcement">
+                            <small style="color: #6b7280; font-size: 0.85rem; margin-top: 0.5rem; display: block;">
+                                <i class="fas fa-info-circle"></i>
+                                Upload an image to make your announcement more engaging and shareable.
+                            </small>
+                            <div id="imagePreview" style="display: none; margin-top: 1rem;">
+                                <img id="previewImg" style="max-width: 200px; max-height: 200px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                                <button type="button" id="removeImage" style="display: block; margin-top: 0.5rem; background: #ef4444; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer;">
+                                    <i class="fas fa-trash"></i> Remove Image
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
                             <label for="announcementContent">Content</label>
                             
                             <!-- Rich Text Toolbar -->

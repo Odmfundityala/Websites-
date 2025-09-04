@@ -2710,8 +2710,218 @@ main {
     padding: 0 2rem;
 }
 
-/* Large Shareable Announcement Cards */
-.announcement-card {
+/* Elegant Home Page Announcement Cards */
+.announcement-card.elegant-home {
+    background: white;
+    border-radius: 16px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(26, 54, 93, 0.1);
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+    max-width: none;
+    width: 100%;
+}
+
+.announcement-card.elegant-home:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 40px rgba(26, 54, 93, 0.15);
+}
+
+.announcement-card.elegant-home .card-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.announcement-card.elegant-home .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.announcement-card.elegant-home:hover .card-image img {
+    transform: scale(1.05);
+}
+
+.announcement-card.elegant-home .card-header {
+    background: linear-gradient(135deg, #1a365d 0%, #2d5282 100%);
+    color: white;
+    padding: 1.5rem;
+}
+
+.announcement-card.elegant-home .announcement-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+}
+
+.announcement-card.elegant-home .announcement-type {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 0.375rem 0.875rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.announcement-card.elegant-home .announcement-date {
+    color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.announcement-card.elegant-home .announcement-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.announcement-card.elegant-home .card-content {
+    padding: 2rem;
+}
+
+.announcement-card.elegant-home .content-display {
+    color: #374151;
+    line-height: 1.7;
+    font-size: 1rem;
+}
+
+.announcement-card.elegant-home .content-display p {
+    margin-bottom: 1rem;
+}
+
+.announcement-card.elegant-home .content-display p:last-child {
+    margin-bottom: 0;
+}
+
+.announcement-card.elegant-home .content-display strong {
+    color: #1a365d;
+    font-weight: 700;
+}
+
+.announcement-card.elegant-home .content-display em {
+    color: #4b5563;
+    font-style: italic;
+}
+
+.announcement-card.elegant-home .content-display ul,
+.announcement-card.elegant-home .content-display ol {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+}
+
+.announcement-card.elegant-home .content-display li {
+    margin-bottom: 0.5rem;
+}
+
+.announcement-card.elegant-home .read-more-btn,
+.announcement-card.elegant-home .read-less-btn {
+    background: linear-gradient(135deg, #1a365d 0%, #2d5282 100%);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.announcement-card.elegant-home .read-more-btn:hover,
+.announcement-card.elegant-home .read-less-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(26, 54, 93, 0.3);
+}
+
+.announcement-card.elegant-home .card-footer {
+    background: #f8fafc;
+    padding: 1.5rem;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.announcement-card.elegant-home .social-sharing {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.announcement-card.elegant-home .share-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #6b7280;
+    margin-right: 0.5rem;
+}
+
+.announcement-card.elegant-home .share-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: white;
+}
+
+.announcement-card.elegant-home .share-btn.facebook {
+    background: #1877f2;
+}
+
+.announcement-card.elegant-home .share-btn.facebook:hover {
+    background: #166fe5;
+    transform: translateY(-2px);
+}
+
+.announcement-card.elegant-home .share-btn.twitter {
+    background: #1da1f2;
+}
+
+.announcement-card.elegant-home .share-btn.twitter:hover {
+    background: #1a91da;
+    transform: translateY(-2px);
+}
+
+.announcement-card.elegant-home .share-btn.whatsapp {
+    background: #25d366;
+}
+
+.announcement-card.elegant-home .share-btn.whatsapp:hover {
+    background: #20ba5a;
+    transform: translateY(-2px);
+}
+
+.announcement-card.elegant-home .share-btn.copy-link {
+    background: #6b7280;
+}
+
+.announcement-card.elegant-home .share-btn.copy-link:hover {
+    background: #4b5563;
+    transform: translateY(-2px);
+}
+
+/* Legacy styles for backward compatibility */
+.announcement-card:not(.elegant-home) {
     background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
     padding: 2rem;
     border-radius: 20px;
@@ -2726,7 +2936,7 @@ main {
     max-width: none;
 }
 
-.announcement-card::before {
+.announcement-card:not(.elegant-home)::before {
     content: '';
     position: absolute;
     top: 0;
@@ -2736,7 +2946,7 @@ main {
     background: linear-gradient(90deg, #1a365d 0%, #d69e2e 100%);
 }
 
-.announcement-card:hover {
+.announcement-card:not(.elegant-home):hover {
     transform: translateY(-12px) scale(1.02);
     box-shadow: 0 25px 60px rgba(26, 54, 93, 0.15);
     border-color: rgba(214, 158, 46, 0.25);

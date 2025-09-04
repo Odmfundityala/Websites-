@@ -89,26 +89,59 @@ function loadHomepageAnnouncements() {
             const latestAnnouncements = announcements.slice(0, 2);
             
             announcementGrid.innerHTML = latestAnnouncements.map(ann => {
-                const formattedContent = formatContent(ann.content);
-                const isLongContent = formattedContent.length > 800;
-                const shortContent = isLongContent ? formattedContent.substring(0, 800) + '...' : formattedContent;
+                const cleanContent = formatContentForDisplay(ann.content);
+                const textContent = getPlainTextContent(ann.content);
+                const isLongContent = textContent.length > 300;
+                const shortContent = isLongContent ? textContent.substring(0, 300) + '...' : textContent;
                 
                 return `
-                <div class="announcement-card" data-id="${ann.id}">
-                    <h3>${getAnnouncementIcon(ann.type)} ${ann.title}</h3>
-                    <div class="announcement-content ${isLongContent ? 'truncated' : ''}" data-full-content="${formattedContent.replace(/"/g, '&quot;')}">${shortContent}</div>
-                    ${isLongContent ? '<button class="read-more-btn">Read More</button>' : ''}
+                <div class="announcement-card elegant-home" data-id="${ann.id}">
+                    ${ann.image ? `
+                        <div class="card-image">
+                            <img src="${ann.image}" alt="${ann.title}" loading="lazy">
+                        </div>
+                    ` : ''}
                     
-                    <div class="announcement-sharing">
-                        <span class="share-label">Share this announcement:</span>
-                        <div class="share-buttons">
-                            <button class="share-btn facebook" onclick="shareToFacebook('${ann.title.replace(/'/g, '\\\'').replace(/"/g, '\\"')}', \`${ann.content.replace(/'/g, '\\\'').replace(/"/g, '\\"').replace(/`/g, '\\`')}\`)" title="Share on Facebook">
+                    <div class="card-header">
+                        <div class="announcement-meta">
+                            <span class="announcement-type type-${ann.type}">${ann.type}</span>
+                            <span class="announcement-date">
+                                <i class="fas fa-calendar"></i>
+                                ${new Date(ann.date).toLocaleDateString()}
+                            </span>
+                        </div>
+                        <h3 class="announcement-title">${ann.title}</h3>
+                    </div>
+                    
+                    <div class="card-content">
+                        <div class="content-display">
+                            <div class="content-preview" ${isLongContent ? 'style="display:block"' : 'style="display:block"'}>
+                                ${isLongContent ? shortContent : cleanContent}
+                            </div>
+                            ${isLongContent ? `
+                                <div class="content-full" style="display: none;">
+                                    ${cleanContent}
+                                </div>
+                                <button class="read-more-btn" onclick="this.previousElementSibling.style.display='block'; this.previousElementSibling.previousElementSibling.style.display='none'; this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                                    <i class="fas fa-chevron-down"></i> Read More
+                                </button>
+                                <button class="read-less-btn" style="display: none;" onclick="this.previousElementSibling.previousElementSibling.previousElementSibling.style.display='block'; this.previousElementSibling.previousElementSibling.style.display='none'; this.previousElementSibling.style.display='inline-block'; this.style.display='none';">
+                                    <i class="fas fa-chevron-up"></i> Read Less
+                                </button>
+                            ` : ''}
+                        </div>
+                    </div>
+
+                    <div class="card-footer">
+                        <div class="social-sharing">
+                            <span class="share-label">Share:</span>
+                            <button class="share-btn facebook" onclick="shareToFacebook('${ann.title.replace(/'/g, '\\\'').replace(/"/g, '\\"')}', \`${textContent.replace(/'/g, '\\\'').replace(/"/g, '\\"').replace(/`/g, '\\`')}\`)" title="Share on Facebook">
                                 <i class="fab fa-facebook-f"></i>
                             </button>
-                            <button class="share-btn twitter" onclick="shareToTwitter('${ann.title.replace(/'/g, '\\\'').replace(/"/g, '\\"')}', \`${ann.content.replace(/'/g, '\\\'').replace(/"/g, '\\"').replace(/`/g, '\\`')}\`)" title="Share on Twitter">
+                            <button class="share-btn twitter" onclick="shareToTwitter('${ann.title.replace(/'/g, '\\\'').replace(/"/g, '\\"')}', \`${textContent.replace(/'/g, '\\\'').replace(/"/g, '\\"').replace(/`/g, '\\`')}\`)" title="Share on Twitter">
                                 <i class="fab fa-twitter"></i>
                             </button>
-                            <button class="share-btn whatsapp" onclick="shareToWhatsApp('${ann.title.replace(/'/g, '\\\'').replace(/"/g, '\\"')}', \`${ann.content.replace(/'/g, '\\\'').replace(/"/g, '\\"').replace(/`/g, '\\`')}\`)" title="Share on WhatsApp">
+                            <button class="share-btn whatsapp" onclick="shareToWhatsApp('${ann.title.replace(/'/g, '\\\'').replace(/"/g, '\\"')}', \`${textContent.replace(/'/g, '\\\'').replace(/"/g, '\\"').replace(/`/g, '\\`')}\`)" title="Share on WhatsApp">
                                 <i class="fab fa-whatsapp"></i>
                             </button>
                             <button class="share-btn copy-link" onclick="copyAnnouncementLink(${ann.id})" title="Copy Link">
@@ -159,7 +192,39 @@ function getDefaultAnnouncements() {
     return [];
 }
 
-// Simple markdown-style formatting
+// Enhanced content formatting for home page
+function formatContentForDisplay(content) {
+    // Clean up HTML content for elegant display
+    let cleanContent = content;
+    
+    // Remove empty paragraphs and fix spacing
+    cleanContent = cleanContent.replace(/<p><\/p>/g, '');
+    cleanContent = cleanContent.replace(/<p><br><\/p>/g, '');
+    cleanContent = cleanContent.replace(/<div><br><\/div>/g, '');
+    cleanContent = cleanContent.replace(/<br><\/div>/g, '</div>');
+    cleanContent = cleanContent.replace(/<div><br>/g, '<div>');
+    
+    // Convert divs to paragraphs for better styling
+    cleanContent = cleanContent.replace(/<div>/g, '<p>').replace(/<\/div>/g, '</p>');
+    
+    // Remove excessive line breaks
+    cleanContent = cleanContent.replace(/(<br\s*\/?>){2,}/g, '<br>');
+    
+    // If content has no structure, add paragraph tags
+    if (!cleanContent.includes('<p>') && !cleanContent.includes('<ul>') && !cleanContent.includes('<ol>')) {
+        cleanContent = cleanContent.split('<br>').filter(line => line.trim()).map(line => `<p>${line}</p>`).join('');
+    }
+    
+    return cleanContent;
+}
+
+function getPlainTextContent(content) {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = content;
+    return tempDiv.textContent || tempDiv.innerText || '';
+}
+
+// Simple markdown-style formatting for backward compatibility
 function formatContent(content) {
     return content
         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
