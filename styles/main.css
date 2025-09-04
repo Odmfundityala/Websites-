@@ -147,7 +147,7 @@ html {
     flex-wrap: nowrap;
     overflow: visible;
     list-style: none;
-    gap: 2rem;
+    gap: 1.5rem;
     align-items: center;
     margin: 0;
     padding: 0 1rem;
@@ -174,8 +174,8 @@ html {
     padding: 0.8rem 0;
     transition: all 0.3s ease;
     position: relative;
-    font-size: 1rem;
-    letter-spacing: 0.5px;
+    font-size: 0.95rem;
+    letter-spacing: 0.3px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -185,6 +185,7 @@ html {
     background: none;
     border: none;
     text-transform: capitalize;
+    min-width: fit-content;
 }
 
 .nav-links a:hover {
@@ -650,10 +651,17 @@ footer {
         width: 48px;
         height: 48px;
         color: var(--text-light);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border-radius: 4px;
     }
 
-    .nav-toggle:hover {
+    .nav-toggle:hover,
+    .nav-toggle:active,
+    .nav-toggle:focus {
         color: var(--gold-accent);
+        background: rgba(255, 255, 255, 0.1);
+        transform: scale(1.05);
     }
 
     .nav-links {
@@ -774,12 +782,13 @@ footer {
 
     /* Improve touch targets for mobile */
     .cta-button {
-        padding: 1.2rem 2.5rem;
-        font-size: 1.1rem;
-        min-height: 48px;
+        padding: 0.9rem 1.8rem;
+        font-size: 1rem;
+        min-height: 44px;
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        letter-spacing: 0.3px;
     }
 
     /* Better spacing for mobile cards */
@@ -904,6 +913,18 @@ footer {
     /* Mobile-friendly footer */
     footer {
         padding: 2rem 1rem 1rem;
+    }
+}
+
+/* Medium screen adjustments for navigation */
+@media (max-width: 950px) {
+    .nav-links {
+        gap: 1rem;
+    }
+    
+    .nav-links a {
+        font-size: 0.9rem;
+        letter-spacing: 0.2px;
     }
 }
 
