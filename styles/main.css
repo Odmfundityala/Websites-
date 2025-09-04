@@ -224,6 +224,16 @@ html {
     cursor: pointer;
     color: var(--text-light);
     margin-left: 1rem;
+    padding: 0.5rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.nav-toggle:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
 }
 
 /* Main Content Sections */
@@ -623,7 +633,7 @@ footer {
         left: 0;
         width: 100%;
         height: calc(100vh - 70px);
-        background: var(--navy-primary);
+        background: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-light) 100%);
         flex-direction: column;
         justify-content: flex-start;
         align-items: stretch;
@@ -631,7 +641,8 @@ footer {
         transform: translateX(-100%);
         transition: transform 0.3s ease;
         overflow-y: auto;
-        box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
         z-index: 999;
     }
     
@@ -735,10 +746,34 @@ footer {
         grid-template-columns: 1fr;
         gap: 1.5rem;
         padding: 2rem 5%;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
     .announcements {
         padding: 2rem 5%;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Fix mobile announcement display */
+    .announcement-grid {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 1rem !important;
+    }
+
+    .announcement-card.elegant-home {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 0 1.5rem 0 !important;
+        box-sizing: border-box;
+        display: block !important;
     }
 
     .contact-preview {
@@ -861,6 +896,24 @@ footer {
     .logo-image {
         width: 35px;
         height: 35px;
+    }
+
+    /* Fix very small mobile announcement display */
+    .announcement-grid {
+        padding: 0.5rem !important;
+        gap: 1rem !important;
+    }
+
+    .announcement-card.elegant-home {
+        margin: 0 0 1rem 0 !important;
+    }
+
+    .announcement-card.elegant-home .card-header {
+        padding: 1rem !important;
+    }
+
+    .announcement-card.elegant-home .card-content {
+        padding: 1rem !important;
     }
 
     .nav-toggle {
