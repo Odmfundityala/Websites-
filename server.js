@@ -98,10 +98,14 @@ function handleApiRequest(req, res) {
         
         req.on('end', () => {
             try {
-                const { email } = JSON.parse(body);
+                const { email, password } = JSON.parse(body);
                 const authorizedEmails = (process.env.ADMIN_EMAILS || '').split(',').map(e => e.trim().toLowerCase());
                 
-                if (authorizedEmails.includes(email.toLowerCase())) {
+                // For demo purposes, we'll use a simple password check
+                // In production, this should be properly hashed and stored securely
+                const isValidPassword = password && password.length >= 6;
+                
+                if (authorizedEmails.includes(email.toLowerCase()) && isValidPassword) {
                     // Generate secure token
                     const crypto = require('crypto');
                     const token = crypto.createHmac('sha256', process.env.ADMIN_SECRET_KEY || 'fallback-key')
@@ -114,11 +118,17 @@ function handleApiRequest(req, res) {
                         token,
                         email: email.split('@')[0].replace(/[._]/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
                     }));
-                } else {
+                } else if (!authorizedEmails.includes(email.toLowerCase())) {
                     res.writeHead(401, { 'Content-Type': 'application/json' });
                     res.end(JSON.stringify({ 
                         success: false, 
                         message: 'Unauthorized email address' 
+                    }));
+                } else {
+                    res.writeHead(401, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ 
+                        success: false, 
+                        message: 'Invalid password. Password must be at least 6 characters.' 
                     }));
                 }
             } catch (error) {
