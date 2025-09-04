@@ -89,14 +89,32 @@ function loadHomepageAnnouncements() {
             const latestAnnouncements = announcements.slice(0, 2);
             
             announcementGrid.innerHTML = latestAnnouncements.map(ann => {
-                const isLongContent = ann.content.length > 300;
-                const shortContent = isLongContent ? ann.content.substring(0, 300) + '...' : ann.content;
+                const isLongContent = ann.content.length > 500;
+                const shortContent = isLongContent ? ann.content.substring(0, 500) + '...' : ann.content;
                 
                 return `
                 <div class="announcement-card" data-id="${ann.id}">
                     <h3>${getAnnouncementIcon(ann.type)} ${ann.title}</h3>
                     <p class="announcement-content ${isLongContent ? 'truncated' : ''}" data-full-content="${ann.content.replace(/"/g, '&quot;')}">${shortContent}</p>
                     ${isLongContent ? '<button class="read-more-btn">Read More</button>' : ''}
+                    
+                    <div class="announcement-sharing">
+                        <span class="share-label">Share this announcement:</span>
+                        <div class="share-buttons">
+                            <button class="share-btn facebook" onclick="shareToFacebook('${ann.title.replace(/'/g, '\\\'').replace(/"/g, '\\"')}', '${ann.content.replace(/'/g, '\\\'').replace(/"/g, '\\"').substring(0, 200)}...')" title="Share on Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </button>
+                            <button class="share-btn twitter" onclick="shareToTwitter('${ann.title.replace(/'/g, '\\\'').replace(/"/g, '\\"')}', '${ann.content.replace(/'/g, '\\\'').replace(/"/g, '\\"').substring(0, 200)}...')" title="Share on Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </button>
+                            <button class="share-btn whatsapp" onclick="shareToWhatsApp('${ann.title.replace(/'/g, '\\\'').replace(/"/g, '\\"')}', '${ann.content.replace(/'/g, '\\\'').replace(/"/g, '\\"').substring(0, 200)}...')" title="Share on WhatsApp">
+                                <i class="fab fa-whatsapp"></i>
+                            </button>
+                            <button class="share-btn copy-link" onclick="copyAnnouncementLink(${ann.id})" title="Copy Link">
+                                <i class="fas fa-link"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 `;
             }).join('');
@@ -154,11 +172,74 @@ function setupAnnouncementInteractions() {
                 contentElement.classList.remove('truncated');
                 e.target.textContent = 'Read Less';
             } else {
-                const shortContent = fullContent.substring(0, 300) + '...';
+                const shortContent = fullContent.substring(0, 500) + '...';
                 contentElement.innerHTML = shortContent;
                 contentElement.classList.add('truncated');
                 e.target.textContent = 'Read More';
             }
         }
+    });
+}
+
+// Social Media Sharing Functions
+function shareToFacebook(title, content) {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent(`${title}\n\n${content}\n\nSiyabulela Senior Secondary School`);
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`, '_blank', 'width=600,height=400');
+}
+
+function shareToTwitter(title, content) {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent(`${title}\n\n${content}\n\n#SiyabulelaSSS #SchoolNews`);
+    window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank', 'width=600,height=400');
+}
+
+function shareToWhatsApp(title, content) {
+    const text = encodeURIComponent(`*${title}*\n\n${content}\n\nSiyabulela Senior Secondary School\n${window.location.href}`);
+    window.open(`https://wa.me/?text=${text}`, '_blank');
+}
+
+function copyAnnouncementLink(announcementId) {
+    const url = `${window.location.href}#announcement-${announcementId}`;
+    
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(url).then(() => {
+            showCopySuccess();
+        }).catch(() => {
+            fallbackCopyText(url);
+        });
+    } else {
+        fallbackCopyText(url);
+    }
+}
+
+function fallbackCopyText(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+        document.execCommand('copy');
+        showCopySuccess();
+    } catch (err) {
+        alert('Unable to copy link. Please copy manually: ' + text);
+    }
+    document.body.removeChild(textarea);
+}
+
+function showCopySuccess() {
+    // Find the copy button that was clicked and show feedback
+    const copyButtons = document.querySelectorAll('.share-btn.copy-link');
+    copyButtons.forEach(btn => {
+        const icon = btn.querySelector('i');
+        const originalClass = icon.className;
+        
+        btn.classList.add('copied');
+        icon.className = 'fas fa-check';
+        
+        setTimeout(() => {
+            btn.classList.remove('copied');
+            icon.className = originalClass;
+        }, 2000);
     });
 }
