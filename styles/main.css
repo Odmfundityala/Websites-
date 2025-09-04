@@ -1439,6 +1439,53 @@ main {
 
 /* Excellence cards removed per user request */
 
+/* Text alignment fixes for all pages */
+p, li, div {
+    text-align: left !important;
+}
+
+/* Card content alignment */
+.uniform-card p, .sports-card p, .contact-card p,
+.about-card p, .admission-card p, .fees-card p,
+.stakeholder-card p, .announcement-card p {
+    text-align: left !important;
+    line-height: 1.6;
+}
+
+/* List and content alignment */
+ul, ol {
+    text-align: left !important;
+}
+
+.contact-details, .sports-details, .admission-details {
+    text-align: left !important;
+}
+
+/* Specific alignment fixes for problem areas */
+.section-subtitle, .contact-position, .contact-name {
+    text-align: left !important;
+}
+
+/* Contact page specific fixes */
+.contact-content p, .contact-card p, .contact-details p {
+    text-align: left !important;
+}
+
+/* Sports/Uniform page specific fixes */
+.uniform-content p, .sports-section p, .sports-uniform-section p {
+    text-align: left !important;
+}
+
+/* About page specific fixes */
+.about-content p, .about-section p {
+    text-align: left !important;
+}
+
+/* General paragraph alignment override */
+main p, section p {
+    text-align: left !important;
+}
+
 /* Academic Performance Section */
 .performance-section {
     margin-top: 3rem;
@@ -2941,7 +2988,7 @@ main {
     line-height: 1.5;
     font-size: 1rem;
     margin: 0 0 0.75rem 0;
-    text-align: justify;
+    text-align: left;
     white-space: pre-line;
     word-wrap: break-word;
     overflow-wrap: break-word;
