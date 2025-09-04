@@ -44,6 +44,13 @@ body {
     margin: 0;
     padding: 0;
     text-align: left;
+    /* Prevent flash of unstyled content */
+    visibility: visible;
+}
+
+/* Prevent gray flash during loading */
+html {
+    background-color: #e6f3ff;
 }
 
 /* Header and Navigation */
@@ -288,7 +295,7 @@ section:nth-child(even) {
     color: var(--text-light);
     margin-top: 70px;
     position: relative;
-    background-attachment: fixed; /* Parallax effect */
+    /* Removed background-attachment: fixed for better performance */
 }
 
 .hero-content {
@@ -845,6 +852,7 @@ footer {
     color: var(--text-light);
     margin-top: 70px;
     position: relative;
+    /* Optimized for faster loading */
 }
 
 .page-header-content {
@@ -2006,22 +2014,10 @@ main {
     opacity: 0.9;
 }
 
-/* Add animation for the button */
-@keyframes buttonGlow {
-    0% {
-        box-shadow: 0 4px 15px rgba(236, 201, 75, 0.2);
-    }
-    50% {
-        box-shadow: 0 4px 25px rgba(236, 201, 75, 0.4);
-    }
-    100% {
-        box-shadow: 0 4px 15px rgba(236, 201, 75, 0.2);
-    }
-}
-
+/* Simplified button styling for better performance */
 .hero-content .cta-button {
-    animation: buttonGlow 3s infinite;
     margin-top: 1rem;
+    /* Removed animation for faster page loading */
 }
 
 /* Mobile touch improvements */
