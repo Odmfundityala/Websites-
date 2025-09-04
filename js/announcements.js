@@ -12,10 +12,7 @@ class AnnouncementManager {
         this.updatePreview();
         
         // Set today's date as default
-        const dateInput = document.getElementById('announcementDate');
-        if (dateInput) {
-            dateInput.value = new Date().toISOString().split('T')[0];
-        }
+        // Date will be automatically set when announcement is created
     }
 
     setupEventListeners() {
@@ -40,7 +37,7 @@ class AnnouncementManager {
             title: formData.get('title'),
             content: formData.get('content'),
             type: formData.get('type'),
-            date: formData.get('date'),
+            date: new Date().toISOString().split('T')[0],
             dateCreated: this.editingId ? this.announcements.find(a => a.id === this.editingId)?.dateCreated : new Date().toISOString(),
             dateModified: this.editingId ? new Date().toISOString() : null
         };

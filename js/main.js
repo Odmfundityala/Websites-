@@ -91,9 +91,6 @@ function loadHomepageAnnouncements() {
                 <div class="announcement-card">
                     <h3>${getAnnouncementIcon(ann.type)} ${ann.title}</h3>
                     <p>${ann.content}</p>
-                    <div class="announcement-date-preview">
-                        <small><i class="fas fa-calendar"></i> ${new Date(ann.date).toLocaleDateString()}</small>
-                    </div>
                 </div>
             `).join('');
         } else if (announcementGrid) {
