@@ -1439,51 +1439,70 @@ main {
 
 /* Excellence cards removed per user request */
 
-/* Text alignment fixes for all pages */
-p, li, div {
+/* COMPREHENSIVE TEXT ALIGNMENT FIXES - OVERRIDE ALL ISSUES */
+
+/* Global text alignment reset */
+* {
     text-align: left !important;
 }
 
-/* Card content alignment */
-.uniform-card p, .sports-card p, .contact-card p,
-.about-card p, .admission-card p, .fees-card p,
-.stakeholder-card p, .announcement-card p {
-    text-align: left !important;
-    line-height: 1.6;
+/* Specific overrides for centered content that should stay centered */
+h1, h2, h3, .section-title, .page-header h1, .page-header p {
+    text-align: center !important;
 }
 
-/* List and content alignment */
-ul, ol {
+/* Card content - force left alignment */
+.uniform-card, .sports-card, .contact-card {
     text-align: left !important;
 }
 
-.contact-details, .sports-details, .admission-details {
+.uniform-card p, .uniform-card li, .uniform-card ul,
+.sports-card p, .sports-card li, .sports-card ul,
+.contact-card p, .contact-card li, .contact-card ul {
+    text-align: left !important;
+    line-height: 1.6 !important;
+    margin: 0.5rem 0 !important;
+}
+
+/* Contact page specific elements */
+.contact-details, .contact-details p, .contact-details div {
     text-align: left !important;
 }
 
-/* Specific alignment fixes for problem areas */
-.section-subtitle, .contact-position, .contact-name {
+.contact-name, .contact-position, .contact-phone, .contact-email {
     text-align: left !important;
 }
 
-/* Contact page specific fixes */
-.contact-content p, .contact-card p, .contact-details p {
+/* Sports and uniform content */
+.uniform-content, .sports-section, .sports-uniform-section {
     text-align: left !important;
 }
 
-/* Sports/Uniform page specific fixes */
-.uniform-content p, .sports-section p, .sports-uniform-section p {
+.uniform-content p, .uniform-content li,
+.sports-section p, .sports-section li,
+.sports-uniform-section p, .sports-uniform-section li {
     text-align: left !important;
 }
 
-/* About page specific fixes */
-.about-content p, .about-section p {
+/* Address and location details */
+.address-details, .address-details p {
     text-align: left !important;
 }
 
-/* General paragraph alignment override */
-main p, section p {
+/* Sports details sections */
+.sports-details, .sports-details ul, .sports-details li {
     text-align: left !important;
+}
+
+/* Override any inherited text alignment */
+main, section, div, p, li, span, a {
+    text-align: left !important;
+}
+
+/* Keep specific elements centered as needed */
+.logo, .logo-text, .nav-links, .hero-content, 
+.announcement-grid, .footer-content {
+    text-align: center !important;
 }
 
 /* Academic Performance Section */
