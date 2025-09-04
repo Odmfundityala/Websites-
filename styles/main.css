@@ -2713,14 +2713,14 @@ main {
 /* Large Shareable Announcement Cards */
 .announcement-card {
     background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-    padding: 3rem;
-    border-radius: 24px;
-    box-shadow: 0 16px 48px rgba(26, 54, 93, 0.12);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(26, 54, 93, 0.12);
     border: 1px solid rgba(26, 54, 93, 0.08);
     position: relative;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden;
-    min-height: 400px;
+    min-height: auto;
     display: block;
     width: 100%;
     max-width: none;
@@ -2744,18 +2744,18 @@ main {
 
 .announcement-card h3 {
     color: #1a365d;
-    margin-bottom: 2rem;
-    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    font-size: 1.35rem;
     font-weight: 700;
-    line-height: 1.2;
+    line-height: 1.3;
     letter-spacing: -0.025em;
 }
 
 .announcement-card p {
     color: #4a5568;
-    line-height: 1.8;
-    font-size: 1.15rem;
-    margin: 0 0 1.5rem 0;
+    line-height: 1.5;
+    font-size: 1rem;
+    margin: 0 0 0.75rem 0;
     text-align: justify;
     white-space: pre-line;
     word-wrap: break-word;
@@ -2763,7 +2763,7 @@ main {
 }
 
 .announcement-card p:last-of-type {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 /* Enhanced content formatting */
@@ -2781,8 +2781,8 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 2rem;
-    padding-top: 1.5rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
     border-top: 1px solid rgba(26, 54, 93, 0.1);
 }
 

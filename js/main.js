@@ -89,8 +89,8 @@ function loadHomepageAnnouncements() {
             const latestAnnouncements = announcements.slice(0, 2);
             
             announcementGrid.innerHTML = latestAnnouncements.map(ann => {
-                const isLongContent = ann.content.length > 500;
-                const shortContent = isLongContent ? ann.content.substring(0, 500) + '...' : ann.content;
+                const isLongContent = ann.content.length > 800;
+                const shortContent = isLongContent ? ann.content.substring(0, 800) + '...' : ann.content;
                 
                 return `
                 <div class="announcement-card" data-id="${ann.id}">
@@ -172,7 +172,7 @@ function setupAnnouncementInteractions() {
                 contentElement.classList.remove('truncated');
                 e.target.textContent = 'Read Less';
             } else {
-                const shortContent = fullContent.substring(0, 500) + '...';
+                const shortContent = fullContent.substring(0, 800) + '...';
                 contentElement.innerHTML = shortContent;
                 contentElement.classList.add('truncated');
                 e.target.textContent = 'Read More';
