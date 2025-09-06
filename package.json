@@ -1,0 +1,16 @@
+{
+  "name": "siyabulela-school-website",
+  "version": "1.0.0",
+  "description": "Official website for Siyabulela Senior Secondary School",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["school", "website", "static", "nodejs"],
+  "author": "Siyabulela Senior Secondary School",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
