@@ -228,46 +228,76 @@ function getDefaultAnnouncements() {
     return [];
 }
 
+// HTML sanitization function to safely preserve formatting
+function sanitizeHTML(htmlString) {
+    // Create a temporary div to parse HTML
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = htmlString;
+    
+    // Remove all script tags and event handlers
+    const scripts = tempDiv.querySelectorAll('script');
+    scripts.forEach(script => script.remove());
+    
+    // Remove dangerous attributes that could execute JavaScript
+    const allElements = tempDiv.querySelectorAll('*');
+    allElements.forEach(element => {
+        // Remove event handler attributes
+        const attributes = [...element.attributes];
+        attributes.forEach(attr => {
+            if (attr.name.toLowerCase().startsWith('on') || 
+                attr.name.toLowerCase() === 'javascript:' ||
+                attr.value.toLowerCase().includes('javascript:')) {
+                element.removeAttribute(attr.name);
+            }
+        });
+    });
+    
+    // Allow only safe HTML tags and preserve formatting
+    const allowedTags = ['p', 'strong', 'b', 'em', 'i', 'u', 'br', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'span', 'div', 'font'];
+    const allowedAttributes = ['style', 'color', 'size', 'face'];
+    
+    allElements.forEach(element => {
+        if (!allowedTags.includes(element.tagName.toLowerCase())) {
+            // Replace disallowed tags with their text content
+            element.outerHTML = element.innerHTML;
+        } else {
+            // Keep only safe attributes
+            const attributes = [...element.attributes];
+            attributes.forEach(attr => {
+                if (!allowedAttributes.includes(attr.name.toLowerCase())) {
+                    // Allow style attribute but sanitize it for safe CSS properties
+                    if (attr.name.toLowerCase() === 'style') {
+                        const styleValue = attr.value.toLowerCase();
+                        // Keep safe style properties: color, font-size, font-family, font-weight, text-decoration
+                        if (styleValue.includes('color') || 
+                            styleValue.includes('font-size') || 
+                            styleValue.includes('font-family') ||
+                            styleValue.includes('font-weight') ||
+                            styleValue.includes('text-decoration') ||
+                            styleValue.includes('text-align')) {
+                            // Keep safe style attributes - don't remove them
+                            return;
+                        }
+                    }
+                    // Remove unsafe attributes
+                    element.removeAttribute(attr.name);
+                }
+            });
+        }
+    });
+    
+    return tempDiv.innerHTML;
+}
+
 // Enhanced content formatting for home page
 function formatContentForDisplay(content) {
-    // Clean up HTML content for elegant display
-    let cleanContent = content;
-    
-    // Remove empty paragraphs and fix spacing
-    cleanContent = cleanContent.replace(/<p><\/p>/g, '');
-    cleanContent = cleanContent.replace(/<p><br><\/p>/g, '');
-    cleanContent = cleanContent.replace(/<div><br><\/div>/g, '');
-    cleanContent = cleanContent.replace(/<br><\/div>/g, '</div>');
-    cleanContent = cleanContent.replace(/<div><br>/g, '<div>');
-    
-    // Convert divs to paragraphs for proper styling and spacing
-    cleanContent = cleanContent.replace(/<div>/g, '<p>').replace(/<\/div>/g, '</p>');
-    
-    // Handle multiple breaks and create proper paragraph spacing
-    cleanContent = cleanContent.replace(/<br\s*\/?>\s*<br\s*\/?>/g, '</p><p>');
-    cleanContent = cleanContent.replace(/(<br\s*\/?>){3,}/g, '</p><p>');
-    
-    // Clean up any empty paragraphs created
-    cleanContent = cleanContent.replace(/<p>\s*<\/p>/g, '');
-    cleanContent = cleanContent.replace(/<p><\/p>/g, '');
-    
-    // Ensure content is wrapped in paragraphs
-    if (cleanContent && !cleanContent.startsWith('<p>') && !cleanContent.startsWith('<ul>') && !cleanContent.startsWith('<ol>')) {
-        cleanContent = '<p>' + cleanContent;
-    }
-    if (cleanContent && !cleanContent.endsWith('</p>') && !cleanContent.endsWith('</ul>') && !cleanContent.endsWith('</ol>')) {
-        cleanContent = cleanContent + '</p>';
-    }
-    
-    // Final cleanup
-    cleanContent = cleanContent.replace(/<p><p>/g, '<p>').replace(/<\/p><\/p>/g, '</p>');
-    
-    return cleanContent;
+    // Use the same sanitization as announcements.js to preserve formatting safely
+    return sanitizeHTML(content);
 }
 
 function getPlainTextContent(content) {
     const tempDiv = document.createElement('div');
-    tempDiv.textContent = content;
+    tempDiv.innerHTML = content; // Parse HTML content
     return tempDiv.textContent || tempDiv.innerText || '';
 }
 
