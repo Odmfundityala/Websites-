@@ -80,15 +80,23 @@ document.addEventListener('DOMContentLoaded', () => {
 // Function to load announcements on homepage
 async function loadHomepageAnnouncements() {
     try {
-        const response = await fetch('/api/announcements');
+        // Clear any localStorage cache
+        localStorage.removeItem('siya_announcements');
+        
+        const response = await fetch('/api/announcements?t=' + Date.now());
         let announcements = [];
         
         if (response.ok) {
             announcements = await response.json();
-            // Ensure announcements is an array
+            // Ensure announcements is an array and contains only real data
             if (!Array.isArray(announcements)) {
                 announcements = [];
             }
+            // Filter out any fake or test announcements
+            announcements = announcements.filter(ann => 
+                ann && ann.title && ann.title.toLowerCase() !== 'vwfww' && 
+                ann.content && ann.content.trim() !== 'xvs&nbsp;'
+            );
         } else {
             console.error('Failed to load announcements from server');
         }

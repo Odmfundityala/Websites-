@@ -272,10 +272,21 @@ class AnnouncementManager {
 
     async loadAnnouncements() {
         try {
-            const response = await fetch('/api/announcements');
+            // Clear localStorage cache to prevent old data
+            localStorage.removeItem('siya_announcements');
+            
+            const response = await fetch('/api/announcements?t=' + Date.now());
             if (response.ok) {
-                const announcements = await response.json();
-                return Array.isArray(announcements) ? announcements : this.getDefaultAnnouncements();
+                let announcements = await response.json();
+                if (Array.isArray(announcements)) {
+                    // Filter out any fake or test announcements
+                    announcements = announcements.filter(ann => 
+                        ann && ann.title && ann.title.toLowerCase() !== 'vwfww' && 
+                        ann.content && ann.content.trim() !== 'xvs&nbsp;'
+                    );
+                    return announcements;
+                }
+                return this.getDefaultAnnouncements();
             } else {
                 console.error('Failed to load announcements from server');
                 return this.getDefaultAnnouncements();
