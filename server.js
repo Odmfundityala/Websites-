@@ -239,8 +239,9 @@ function handleAnnouncementsRequest(req, res) {
                 }
             }
             
-            // Filter out the announcement to delete
-            const filteredAnnouncements = announcements.filter(ann => ann.id !== announcementId);
+            // Filter out the announcement to delete (convert IDs to numbers for comparison)
+            const idToDelete = parseInt(announcementId, 10);
+            const filteredAnnouncements = announcements.filter(ann => parseInt(ann.id, 10) !== idToDelete);
             
             // Write back to file
             fs.writeFile(announcementsFile, JSON.stringify(filteredAnnouncements, null, 2), (writeErr) => {
