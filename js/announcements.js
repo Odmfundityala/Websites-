@@ -613,9 +613,18 @@ class AnnouncementManager {
         if (!announcement) return;
         
         const text = this.getPlainTextContent(announcement);
-        const shareText = `${announcement.title}\n\n${text}`;
+        const shareText = `📢 ${announcement.title}\n\n${text}\n\n📚 Siyabulela Senior Secondary School\n🌟 "Through Hardships to the Stars"`;
         const currentUrl = `${window.location.origin}/#announcement-${announcementId}`;
-        const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`;
+        
+        // Update meta tags for better image sharing
+        if (announcement.image) {
+            this.updateMetaTagsForSharing(announcement);
+        }
+        
+        const encodedUrl = encodeURIComponent(currentUrl);
+        const encodedText = encodeURIComponent(shareText);
+        const url = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedText}`;
+        
         window.open(url, '_blank', 'width=600,height=400');
     }
 
@@ -624,8 +633,22 @@ class AnnouncementManager {
         if (!announcement) return;
         
         const text = this.getPlainTextContent(announcement);
-        const shareText = `${announcement.title}\n\n${text}`.substring(0, 250) + (text.length > 200 ? '...' : '');
-        const url = `https://x.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
+        let tweetText = `📢 ${announcement.title}\n\n${text}\n\n🎓 #SiyabulelaSSS #SchoolNews #Education`;
+        
+        // Update meta tags for better image sharing
+        if (announcement.image) {
+            this.updateMetaTagsForSharing(announcement);
+        }
+        
+        // Truncate if too long for Twitter
+        if (tweetText.length > 240) {
+            tweetText = tweetText.substring(0, 240) + '...';
+        }
+        
+        const currentUrl = `${window.location.origin}/#announcement-${announcementId}`;
+        tweetText += `\n\n${currentUrl}`;
+        
+        const url = `https://x.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
         window.open(url, '_blank', 'width=600,height=400');
     }
 
@@ -664,6 +687,43 @@ class AnnouncementManager {
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = announcement.content;
         return tempDiv.textContent || tempDiv.innerText || '';
+    }
+
+    updateMetaTagsForSharing(announcement) {
+        // Update meta tags for better social sharing with images
+        const updateMetaTag = (property, content) => {
+            let metaTag = document.querySelector(`meta[property="${property}"]`) || 
+                          document.querySelector(`meta[name="${property}"]`);
+            
+            if (!metaTag) {
+                metaTag = document.createElement('meta');
+                if (property.startsWith('og:') || property.startsWith('twitter:')) {
+                    metaTag.setAttribute('property', property);
+                } else {
+                    metaTag.setAttribute('name', property);
+                }
+                document.head.appendChild(metaTag);
+            }
+            
+            metaTag.setAttribute('content', content);
+        };
+
+        // Update Open Graph and Twitter Card meta tags
+        updateMetaTag('og:title', announcement.title);
+        updateMetaTag('og:description', this.getPlainTextContent(announcement).substring(0, 160));
+        updateMetaTag('og:type', 'article');
+        updateMetaTag('twitter:card', 'summary_large_image');
+        updateMetaTag('twitter:title', announcement.title);
+        updateMetaTag('twitter:description', this.getPlainTextContent(announcement).substring(0, 160));
+
+        if (announcement.image) {
+            const fullImageUrl = announcement.image.startsWith('http') ? announcement.image : `${window.location.origin}/${announcement.image}`;
+            updateMetaTag('og:image', fullImageUrl);
+            updateMetaTag('og:image:width', '1200');
+            updateMetaTag('og:image:height', '630');
+            updateMetaTag('twitter:image', fullImageUrl);
+            updateMetaTag('twitter:image:alt', announcement.title);
+        }
     }
 
     setupImageUpload() {

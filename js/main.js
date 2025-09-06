@@ -306,33 +306,45 @@ function setupAnnouncementInteractions() {
 // Enhanced Social Media Sharing Functions with Image Support
 async function shareToFacebook(title, content, announcementId) {
     const announcement = await getAnnouncementById(announcementId);
-    const url = encodeURIComponent(window.location.href);
     
     // Update meta tags for better social sharing with image
     updateSocialMetaTags(title, content, announcement?.image);
     
     // Strip HTML tags for clean sharing
     const cleanContent = content.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
-    const text = encodeURIComponent(`${title}\n\n${cleanContent}\n\nSiyabulela Senior Secondary School`);
+    const shareText = `${title}\n\n${cleanContent}\n\n📚 Siyabulela Senior Secondary School\n🌟 "Through Hardships to the Stars"`;
     
-    // Use Facebook's sharer with proper URL format
+    // Use Facebook's sharer with content and image
     const currentUrl = `${window.location.origin}/#announcement-${announcementId}`;
     const encodedUrl = encodeURIComponent(currentUrl);
-    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`, '_blank', 'width=600,height=400');
+    const encodedText = encodeURIComponent(shareText);
+    
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedText}`, '_blank', 'width=600,height=400');
 }
 
 async function shareToTwitter(title, content, announcementId) {
     const announcement = await getAnnouncementById(announcementId);
-    const url = encodeURIComponent(window.location.href);
     
     // Update meta tags for Twitter card with image
     updateSocialMetaTags(title, content, announcement?.image);
     
-    // Strip HTML tags for clean sharing
+    // Strip HTML tags and prepare content for Twitter
     const cleanContent = content.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
-    const text = encodeURIComponent(`${title}\n\n${cleanContent}\n\n#SiyabulelaSSS #SchoolNews`);
     
-    window.open(`https://x.com/intent/tweet?text=${text}&url=${url}`, '_blank', 'width=600,height=400');
+    // Create Twitter-optimized text with hashtags
+    let tweetText = `📢 ${title}\n\n${cleanContent}\n\n🎓 #SiyabulelaSSS #SchoolNews #Education #SouthAfricaSchools`;
+    
+    // Truncate if too long (Twitter limit is 280 characters)
+    if (tweetText.length > 240) {
+        tweetText = tweetText.substring(0, 240) + '...';
+    }
+    
+    const currentUrl = `${window.location.origin}/#announcement-${announcementId}`;
+    tweetText += `\n\n${currentUrl}`;
+    
+    const encodedText = encodeURIComponent(tweetText);
+    
+    window.open(`https://x.com/intent/tweet?text=${encodedText}`, '_blank', 'width=600,height=400');
 }
 
 async function shareToWhatsApp(title, content, announcementId) {
