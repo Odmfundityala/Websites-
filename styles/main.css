@@ -3319,8 +3319,7 @@ p {
 }
 
 .announcement-card.elegant-home:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    /* Removed transform and shadow effects */
 }
 
 .announcement-card.elegant-home .card-image {
@@ -3348,8 +3347,7 @@ p {
 }
 
 .announcement-card.elegant-home:hover .card-image img {
-    transform: scale(1.02);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    /* Removed transform and shadow effects */
 }
 
 /* Enhanced social sharing with image preview */
@@ -3667,19 +3665,11 @@ p {
 }
 
 .announcement-card:not(.elegant-home)::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 5px;
-    background: linear-gradient(90deg, #1a365d 0%, #d69e2e 100%);
+    /* Removed overlay gradient bar */
 }
 
 .announcement-card:not(.elegant-home):hover {
-    transform: translateY(-12px) scale(1.02);
-    box-shadow: 0 25px 60px rgba(26, 54, 93, 0.15);
-    border-color: rgba(214, 158, 46, 0.25);
+    /* Removed dramatic hover effects */
 }
 
 .announcement-card h3 {
