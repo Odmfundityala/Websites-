@@ -2406,6 +2406,7 @@
                 this.setupEventListeners();
                 this.checkAuthStatus();
                 this.setupPasswordToggle();
+                this.loadRememberedEmail();
             }
 
             setupEventListeners() {
@@ -2434,10 +2435,32 @@
                 }
             }
 
+            loadRememberedEmail() {
+                const rememberedEmail = localStorage.getItem('siya_remembered_email');
+                if (rememberedEmail) {
+                    const emailInput = document.getElementById('adminEmail');
+                    const rememberCheckbox = document.getElementById('rememberMe');
+                    if (emailInput && rememberCheckbox) {
+                        emailInput.value = rememberedEmail;
+                        rememberCheckbox.checked = true;
+                        
+                        // Trigger the floating label animation
+                        const floatingLabel = document.querySelector('label[for="adminEmail"]');
+                        if (floatingLabel) {
+                            floatingLabel.style.transform = 'translateY(-28px) scale(0.85)';
+                            floatingLabel.style.color = '#1a56db';
+                            floatingLabel.style.background = 'white';
+                            floatingLabel.style.padding = '0 0.5rem';
+                        }
+                    }
+                }
+            }
+
             async handleLogin(e) {
                 e.preventDefault();
                 const email = document.getElementById('adminEmail').value.trim();
                 const password = document.getElementById('adminPassword').value;
+                const rememberMe = document.getElementById('rememberMe').checked;
                 const submitBtn = document.getElementById('loginBtn');
                 
                 // Show loading state
@@ -2460,6 +2483,13 @@
                     const result = await response.json();
                     
                     if (result.success) {
+                        // Handle remember me functionality
+                        if (rememberMe) {
+                            localStorage.setItem('siya_remembered_email', email);
+                        } else {
+                            localStorage.removeItem('siya_remembered_email');
+                        }
+                        
                         this.authenticateUser(email, result.token, result.email);
                         this.hideError();
                     } else {
@@ -2491,8 +2521,32 @@
             handleLogout() {
                 localStorage.removeItem('siya_admin_auth');
                 this.showAuthSection();
-                // Clear the form
-                document.getElementById('loginForm').reset();
+                // Clear the form but preserve remembered email if checked
+                const rememberCheckbox = document.getElementById('rememberMe');
+                const emailInput = document.getElementById('adminEmail');
+                const form = document.getElementById('loginForm');
+                
+                if (!rememberCheckbox || !rememberCheckbox.checked) {
+                    // If remember me is not checked, clear everything
+                    localStorage.removeItem('siya_remembered_email');
+                    form.reset();
+                } else {
+                    // If remember me is checked, preserve email but clear password
+                    const savedEmail = emailInput ? emailInput.value : '';
+                    form.reset();
+                    if (emailInput && savedEmail) {
+                        emailInput.value = savedEmail;
+                        rememberCheckbox.checked = true;
+                        // Trigger floating label
+                        const floatingLabel = document.querySelector('label[for="adminEmail"]');
+                        if (floatingLabel) {
+                            floatingLabel.style.transform = 'translateY(-28px) scale(0.85)';
+                            floatingLabel.style.color = '#1a56db';
+                            floatingLabel.style.background = 'white';
+                            floatingLabel.style.padding = '0 0.5rem';
+                        }
+                    }
+                }
             }
 
             checkAuthStatus() {
