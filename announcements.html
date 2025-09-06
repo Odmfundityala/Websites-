@@ -1476,12 +1476,15 @@
             line-height: 1.6;
             color: #374151;
             outline: none;
+            text-align: left;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         .rich-text-editor:empty:before {
             content: attr(data-placeholder);
             color: #9ca3af;
-            white-space: pre-line;
+            white-space: normal;
         }
 
         .rich-text-editor:focus {
@@ -1937,22 +1940,7 @@
                             </div>
                             
                             <!-- Rich Text Editor -->
-                            <div id="announcementContent" contenteditable="true" class="rich-text-editor" data-placeholder="Enter announcement content...
-
-Use the toolbar above for formatting:
-• Bold and italic text
-• Bullet points and numbered lists
-
-Example announcement:
-Important Notice: This is bold information.
-
-Regular content can include various formatting to make announcements engaging.
-
-1. First numbered item
-2. Second numbered item
-
-• Bullet point
-• Another bullet point"></div>
+                            <div id="announcementContent" contenteditable="true" class="rich-text-editor" data-placeholder="Enter announcement content here..."></div>
                             
                             <!-- Hidden textarea for form submission -->
                             <textarea id="announcementContentHidden" name="content" style="display: none;" required></textarea>
