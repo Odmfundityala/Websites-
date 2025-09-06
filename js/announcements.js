@@ -609,7 +609,7 @@ class AnnouncementManager {
         
         // Allow only safe HTML tags and preserve formatting
         const allowedTags = ['p', 'strong', 'b', 'em', 'i', 'u', 'br', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'span', 'div', 'font'];
-        const allowedAttributes = ['style', 'color', 'size'];
+        const allowedAttributes = ['style', 'color', 'size', 'face'];
         
         allElements.forEach(element => {
             if (!allowedTags.includes(element.tagName.toLowerCase())) {
@@ -622,10 +622,12 @@ class AnnouncementManager {
                     if (!allowedAttributes.includes(attr.name.toLowerCase()) && 
                         !attr.name.toLowerCase().startsWith('on') && 
                         !attr.value.toLowerCase().includes('javascript:')) {
-                        // Allow style attribute but sanitize it
+                        // Allow style attribute but sanitize it for safe CSS properties
                         if (attr.name.toLowerCase() === 'style') {
                             const styleValue = attr.value.toLowerCase();
-                            if (styleValue.includes('color') || styleValue.includes('font-size')) {
+                            if (styleValue.includes('color') || 
+                                styleValue.includes('font-size') || 
+                                styleValue.includes('font-family')) {
                                 // Keep safe style attributes
                                 return;
                             }
@@ -666,6 +668,19 @@ class AnnouncementManager {
                 this.updateHiddenTextarea();
             }
         });
+
+        // Setup font family selector
+        const fontFamilySelect = document.getElementById('fontFamily');
+        if (fontFamilySelect) {
+            fontFamilySelect.addEventListener('change', (e) => {
+                const font = e.target.value;
+                if (font) {
+                    editor.focus();
+                    document.execCommand('fontName', false, font);
+                    this.updateHiddenTextarea();
+                }
+            });
+        }
 
         // Setup font size selector
         const fontSizeSelect = document.getElementById('fontSize');
