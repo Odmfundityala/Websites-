@@ -1896,90 +1896,93 @@
                 <div class="announcements-content">
 
                 <!-- Manage Announcements -->
-                <div class="admin-section management-section">
-                    <h2><i class="fas fa-list"></i> Manage Announcements</h2>
+                <div class="admin-section management-section" style="background: #f8fafc; min-height: calc(100vh - 200px); padding: 0; border-radius: 8px; border: 1px solid #e2e8f0;">
+                    <h2 style="margin: 0; padding: 1.5rem; background: #ffffff; border-bottom: 1px solid #e2e8f0; border-radius: 8px 8px 0 0;"><i class="fas fa-list"></i> Manage Announcements</h2>
                     
-                    <!-- Create New Announcement Form -->
-                    <div style="margin-bottom: 2rem; padding: 1.5rem; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
-                        <h3><i class="fas fa-plus-circle"></i> Create New Announcement</h3>
-                        <form id="announcementForm" class="announcement-form">
-                            <div class="form-group">
-                                <label for="announcementTitle">Title</label>
-                                <input type="text" id="announcementTitle" name="title" required placeholder="Enter announcement title">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="announcementImage">Featured Image (Optional)</label>
-                                <input type="file" id="announcementImage" name="image" accept="image/*" placeholder="Choose an image for this announcement">
-                                <small style="color: #6b7280; font-size: 0.85rem; margin-top: 0.5rem; display: block;">
-                                    <i class="fas fa-info-circle"></i>
-                                    Upload an image to make your announcement more engaging and shareable.
-                                </small>
-                                <div id="imagePreview" style="display: none; margin-top: 1rem;">
-                                    <img id="previewImg" style="max-width: 200px; max-height: 200px; border-radius: 8px; border: 1px solid #e2e8f0;">
-                                    <button type="button" id="removeImage" style="display: block; margin-top: 0.5rem; background: #ef4444; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer;">
-                                        <i class="fas fa-trash"></i> Remove Image
-                                    </button>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="announcementContent">Content</label>
-                                
-                                <!-- Rich Text Toolbar -->
-                                <div class="rich-text-toolbar">
-                                    <button type="button" class="format-btn" data-command="bold" title="Bold">
-                                        <i class="fas fa-bold"></i>
-                                    </button>
-                                    <button type="button" class="format-btn" data-command="italic" title="Italic">
-                                        <i class="fas fa-italic"></i>
-                                    </button>
-                                    <div class="toolbar-separator"></div>
-                                    <button type="button" class="format-btn" data-command="insertUnorderedList" title="Bullet List">
-                                        <i class="fas fa-list-ul"></i>
-                                    </button>
-                                    <button type="button" class="format-btn" data-command="insertOrderedList" title="Numbered List">
-                                        <i class="fas fa-list-ol"></i>
-                                    </button>
-                                </div>
-                                
-                                <!-- Rich Text Editor -->
-                                <div id="announcementContent" contenteditable="true" class="rich-text-editor" data-placeholder="Enter announcement content here..."></div>
-                                
-                                <!-- Hidden textarea for form submission -->
-                                <textarea id="announcementContentHidden" name="content" style="display: none;" required></textarea>
-                                
-                                <small style="color: #6b7280; font-size: 0.85rem; margin-top: 0.5rem; display: block;">
-                                    <i class="fas fa-info-circle"></i>
-                                    Use the toolbar buttons to format your text. The content will be saved and displayed with formatting.
-                                </small>
-                            </div>
-                            
-                            <div class="form-row">
+                    <!-- Cards Container -->
+                    <div class="announcements-cards-container" style="padding: 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.5rem;">
+                        
+                        <!-- Create New Announcement Card -->
+                        <div class="create-announcement-card" style="background: white; border-radius: 8px; border: 1px solid #e2e8f0; padding: 1.5rem; min-height: 400px; display: flex; flex-direction: column;">
+                            <h3 style="margin: 0 0 1.5rem 0; color: #1e40af; font-size: 1.1rem;"><i class="fas fa-plus-circle"></i> Create New Announcement</h3>
+                            <form id="announcementForm" class="announcement-form" style="flex: 1;">
                                 <div class="form-group">
-                                    <label for="announcementType">Type</label>
-                                    <select id="announcementType" name="type" required>
-                                        <option value="general">📢 General</option>
-                                        <option value="urgent">🚨 Urgent</option>
-                                        <option value="admissions">🎓 Admissions</option>
-                                        <option value="academic">📚 Academic</option>
-                                        <option value="events">🎉 Events</option>
-                                    </select>
+                                    <label for="announcementTitle">Title</label>
+                                    <input type="text" id="announcementTitle" name="title" required placeholder="Enter announcement title">
                                 </div>
-                            </div>
-                            
-                            <button type="submit" class="cta-button">
-                                <i class="fas fa-plus"></i>
-                                Add Announcement
-                            </button>
-                        </form>
-                    </div>
-                    
-                    <!-- Announcements List -->
-                    <div class="announcements-list">
-                        <div id="announcementsList">
-                            <!-- Announcements will be loaded here -->
+                                
+                                <div class="form-group">
+                                    <label for="announcementImage">Featured Image (Optional)</label>
+                                    <input type="file" id="announcementImage" name="image" accept="image/*" placeholder="Choose an image for this announcement">
+                                    <small style="color: #6b7280; font-size: 0.85rem; margin-top: 0.5rem; display: block;">
+                                        <i class="fas fa-info-circle"></i>
+                                        Upload an image to make your announcement more engaging and shareable.
+                                    </small>
+                                    <div id="imagePreview" style="display: none; margin-top: 1rem;">
+                                        <img id="previewImg" style="max-width: 200px; max-height: 200px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                                        <button type="button" id="removeImage" style="display: block; margin-top: 0.5rem; background: #ef4444; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer;">
+                                            <i class="fas fa-trash"></i> Remove Image
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="announcementContent">Content</label>
+                                    
+                                    <!-- Rich Text Toolbar -->
+                                    <div class="rich-text-toolbar">
+                                        <button type="button" class="format-btn" data-command="bold" title="Bold">
+                                            <i class="fas fa-bold"></i>
+                                        </button>
+                                        <button type="button" class="format-btn" data-command="italic" title="Italic">
+                                            <i class="fas fa-italic"></i>
+                                        </button>
+                                        <div class="toolbar-separator"></div>
+                                        <button type="button" class="format-btn" data-command="insertUnorderedList" title="Bullet List">
+                                            <i class="fas fa-list-ul"></i>
+                                        </button>
+                                        <button type="button" class="format-btn" data-command="insertOrderedList" title="Numbered List">
+                                            <i class="fas fa-list-ol"></i>
+                                        </button>
+                                    </div>
+                                    
+                                    <!-- Rich Text Editor -->
+                                    <div id="announcementContent" contenteditable="true" class="rich-text-editor" data-placeholder="Enter announcement content here..." style="min-height: 80px;"></div>
+                                    
+                                    <!-- Hidden textarea for form submission -->
+                                    <textarea id="announcementContentHidden" name="content" style="display: none;" required></textarea>
+                                    
+                                    <small style="color: #6b7280; font-size: 0.85rem; margin-top: 0.5rem; display: block;">
+                                        <i class="fas fa-info-circle"></i>
+                                        Use the toolbar buttons to format your text.
+                                    </small>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="announcementType">Type</label>
+                                        <select id="announcementType" name="type" required>
+                                            <option value="general">📢 General</option>
+                                            <option value="urgent">🚨 Urgent</option>
+                                            <option value="admissions">🎓 Admissions</option>
+                                            <option value="academic">📚 Academic</option>
+                                            <option value="events">🎉 Events</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <button type="submit" class="cta-button" style="margin-top: auto;">
+                                    <i class="fas fa-plus"></i>
+                                    Add Announcement
+                                </button>
+                            </form>
                         </div>
+                        
+                        <!-- Announcements List -->
+                        <div id="announcementsList" style="contents;">
+                            <!-- Announcements will be loaded here as individual cards -->
+                        </div>
+                        
                     </div>
                 </div>
 
