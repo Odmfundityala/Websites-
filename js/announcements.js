@@ -258,8 +258,10 @@ class AnnouncementManager {
         const contentDisplay = document.createElement('div');
         contentDisplay.className = 'content-display';
         
-        // Use safe text content instead of HTML
+        // Use sanitized HTML to preserve formatting safely
+        const sanitizedContent = this.sanitizeHTML(ann.content);
         const contentText = this.extractTextContent(ann.content);
+        
         if (contentText.length > 400) {
             const truncated = contentText.substring(0, 350);
             const lastSpace = truncated.lastIndexOf(' ');
@@ -272,10 +274,8 @@ class AnnouncementManager {
             const contentFull = document.createElement('div');
             contentFull.className = 'content-full';
             contentFull.style.display = 'none';
-            // For full content, use safe text content to prevent XSS
-            const fullTempDiv = document.createElement('div');
-            fullTempDiv.textContent = this.extractTextContent(ann.content);
-            contentFull.appendChild(fullTempDiv);
+            // Use sanitized HTML to preserve all formatting safely
+            contentFull.innerHTML = sanitizedContent;
             
             const readMoreBtn = document.createElement('button');
             readMoreBtn.className = 'read-more-btn';
@@ -303,9 +303,9 @@ class AnnouncementManager {
             contentDisplay.appendChild(readMoreBtn);
             contentDisplay.appendChild(readLessBtn);
         } else {
-            // For short content, use safe text content to prevent XSS
+            // For short content, use sanitized HTML to preserve formatting safely
             const tempDiv = document.createElement('div');
-            tempDiv.textContent = this.extractTextContent(ann.content);
+            tempDiv.innerHTML = sanitizedContent;
             contentDisplay.appendChild(tempDiv);
         }
         
@@ -619,19 +619,22 @@ class AnnouncementManager {
                 // Keep only safe attributes
                 const attributes = [...element.attributes];
                 attributes.forEach(attr => {
-                    if (!allowedAttributes.includes(attr.name.toLowerCase()) && 
-                        !attr.name.toLowerCase().startsWith('on') && 
-                        !attr.value.toLowerCase().includes('javascript:')) {
+                    if (!allowedAttributes.includes(attr.name.toLowerCase())) {
                         // Allow style attribute but sanitize it for safe CSS properties
                         if (attr.name.toLowerCase() === 'style') {
                             const styleValue = attr.value.toLowerCase();
+                            // Keep safe style properties: color, font-size, font-family, font-weight, text-decoration
                             if (styleValue.includes('color') || 
                                 styleValue.includes('font-size') || 
-                                styleValue.includes('font-family')) {
-                                // Keep safe style attributes
+                                styleValue.includes('font-family') ||
+                                styleValue.includes('font-weight') ||
+                                styleValue.includes('text-decoration') ||
+                                styleValue.includes('text-align')) {
+                                // Keep safe style attributes - don't remove them
                                 return;
                             }
                         }
+                        // Remove unsafe attributes
                         element.removeAttribute(attr.name);
                     }
                 });
