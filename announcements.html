@@ -27,12 +27,13 @@
         /* Admin Panel Body Override */
         body.admin-active {
             background: #e6f3ff;
-            overflow: hidden;
-            height: 100vh;
+            overflow: auto;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: stretch;
             justify-content: stretch;
+            padding-bottom: 2rem;
         }
 
         body::before {
@@ -384,8 +385,9 @@
             flex: 1;
             overflow-y: auto;
             overflow-x: hidden;
-            height: calc(100vh - 70px);
+            min-height: calc(100vh - 70px);
             margin-top: 70px;
+            padding-bottom: 3rem;
             padding-top: 0;
         }
 
@@ -579,10 +581,12 @@
         }
 
         .announcements-list {
-            max-height: 60vh;
-            overflow-y: auto;
-            padding-right: 0.5rem;
+            min-height: 300px;
+            max-height: none;
+            overflow-y: visible;
+            padding: 1rem;
             position: relative;
+            margin-bottom: 2rem;
         }
 
         @media (min-width: 768px) {
