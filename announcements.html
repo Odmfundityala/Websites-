@@ -106,12 +106,12 @@
 
         .form-group {
             position: relative;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         .floating-input {
             width: 100%;
-            padding: 1rem 1rem 1rem 3rem;
+            padding: 1.2rem 3.5rem 1.2rem 3.5rem;
             border: 2px solid #e5e7eb;
             border-radius: 12px;
             font-size: 1rem;
@@ -119,13 +119,13 @@
             transition: all 0.3s ease;
             outline: none;
             font-weight: 500;
+            box-sizing: border-box;
         }
 
         .floating-input:focus {
             border-color: #1a56db;
             background: white;
             box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.1);
-            transform: translateY(-1px);
         }
 
         .floating-input:hover:not(:focus) {
@@ -135,15 +135,16 @@
 
         .floating-input:focus + .floating-label,
         .floating-input:not(:placeholder-shown) + .floating-label {
-            transform: translateY(-28px) scale(0.85);
+            transform: translateY(-32px) scale(0.85);
             color: #1a56db;
             background: white;
             padding: 0 0.5rem;
+            left: 3rem;
         }
 
         .floating-label {
             position: absolute;
-            left: 3rem;
+            left: 3.5rem;
             top: 50%;
             transform: translateY(-50%);
             color: #9ca3af;
@@ -152,11 +153,12 @@
             pointer-events: none;
             background: transparent;
             z-index: 2;
+            line-height: 1;
         }
 
         .input-icon {
             position: absolute;
-            left: 1rem;
+            left: 1.2rem;
             top: 50%;
             transform: translateY(-50%);
             color: #6b7280;
@@ -166,13 +168,13 @@
 
         .password-toggle {
             position: absolute;
-            right: 1rem;
+            right: 1.2rem;
             top: 50%;
             transform: translateY(-50%);
             color: #6b7280;
             cursor: pointer;
             font-size: 1.1rem;
-            z-index: 3;
+            z-index: 4;
             transition: color 0.3s ease;
         }
 
@@ -2459,10 +2461,11 @@
                         // Trigger the floating label animation
                         const floatingLabel = document.querySelector('label[for="adminEmail"]');
                         if (floatingLabel) {
-                            floatingLabel.style.transform = 'translateY(-28px) scale(0.85)';
+                            floatingLabel.style.transform = 'translateY(-32px) scale(0.85)';
                             floatingLabel.style.color = '#1a56db';
                             floatingLabel.style.background = 'white';
                             floatingLabel.style.padding = '0 0.5rem';
+                            floatingLabel.style.left = '3rem';
                         }
                     }
                 }
@@ -2552,10 +2555,11 @@
                         // Trigger floating label
                         const floatingLabel = document.querySelector('label[for="adminEmail"]');
                         if (floatingLabel) {
-                            floatingLabel.style.transform = 'translateY(-28px) scale(0.85)';
+                            floatingLabel.style.transform = 'translateY(-32px) scale(0.85)';
                             floatingLabel.style.color = '#1a56db';
                             floatingLabel.style.background = 'white';
                             floatingLabel.style.padding = '0 0.5rem';
+                            floatingLabel.style.left = '3rem';
                         }
                     }
                 }
