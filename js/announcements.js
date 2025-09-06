@@ -183,64 +183,197 @@ class AnnouncementManager {
         const container = document.getElementById('announcementsList');
         if (!container) return;
 
+        // Clear existing content safely
+        container.textContent = '';
+
         if (this.announcements.length === 0) {
-            container.innerHTML = '<p class="no-announcements" style="text-align: center; color: #6b7280; padding: 2rem;">No announcements yet. Create your first one!</p>';
+            const noAnnouncementsMsg = document.createElement('p');
+            noAnnouncementsMsg.className = 'no-announcements';
+            noAnnouncementsMsg.style.cssText = 'text-align: center; color: #6b7280; padding: 2rem;';
+            noAnnouncementsMsg.textContent = 'No announcements yet. Create your first one!';
+            container.appendChild(noAnnouncementsMsg);
             return;
         }
 
-        container.innerHTML = this.announcements.map(ann => `
-            <div class="announcement-card elegant" data-type="${ann.type}" data-id="${ann.id}">
-                ${ann.image ? `
-                    <div class="card-image">
-                        <img src="${ann.image}" alt="${ann.title}" loading="lazy" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px 8px 0 0;">
-                    </div>
-                ` : ''}
-                
-                <div class="card-header">
-                    <div class="announcement-meta">
-                        <span class="announcement-type type-${ann.type}">${ann.type}</span>
-                        <span class="announcement-date">
-                            <i class="fas fa-calendar"></i>
-                            ${new Date(ann.date).toLocaleDateString()}
-                        </span>
-                    </div>
-                    <h3 class="announcement-title">${ann.title}</h3>
-                </div>
-                
-                <div class="card-content">
-                    <div class="content-display">
-                        ${this.formatContentForDisplay(ann.content)}
-                    </div>
-                </div>
+        // Create each announcement card safely using DOM methods
+        this.announcements.forEach(ann => {
+            const announcementCard = this.createAnnouncementCard(ann);
+            container.appendChild(announcementCard);
+        });
+    }
 
-                <div class="card-footer">
-                    <div class="social-sharing">
-                        <span class="share-label">Share:</span>
-                        <button class="share-btn facebook" onclick="announcementManager.shareToFacebook('${ann.id}')" title="Share on Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-                        <button class="share-btn twitter" onclick="announcementManager.shareToTwitter('${ann.id}')" title="Share on X">
-                            <i class="fab fa-x-twitter"></i>
-                        </button>
-                        <button class="share-btn whatsapp" onclick="announcementManager.shareToWhatsApp('${ann.id}')" title="Share on WhatsApp">
-                            <i class="fab fa-whatsapp"></i>
-                        </button>
-                        <button class="share-btn copy" onclick="announcementManager.copyAnnouncementLink('${ann.id}')" title="Copy Link">
-                            <i class="fas fa-link"></i>
-                        </button>
-                    </div>
-                    
-                    <div class="admin-actions">
-                        <button class="edit-btn" onclick="announcementManager.editAnnouncement(${ann.id})" title="Edit announcement">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                        <button class="delete-btn" onclick="announcementManager.deleteAnnouncement(${ann.id})" title="Delete announcement">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
-                    </div>
-                </div>
-            </div>
-        `).join('');
+    createAnnouncementCard(ann) {
+        const card = document.createElement('div');
+        card.className = 'announcement-card elegant';
+        card.setAttribute('data-type', ann.type);
+        card.setAttribute('data-id', ann.id);
+
+        // Add image if present
+        if (ann.image) {
+            const cardImage = document.createElement('div');
+            cardImage.className = 'card-image';
+            
+            const img = document.createElement('img');
+            img.src = ann.image;
+            img.alt = ann.title;
+            img.loading = 'lazy';
+            img.style.cssText = 'width: 100%; height: 200px; object-fit: cover; border-radius: 8px 8px 0 0;';
+            
+            cardImage.appendChild(img);
+            card.appendChild(cardImage);
+        }
+
+        // Create header
+        const cardHeader = document.createElement('div');
+        cardHeader.className = 'card-header';
+
+        const announcementMeta = document.createElement('div');
+        announcementMeta.className = 'announcement-meta';
+
+        const announcementType = document.createElement('span');
+        announcementType.className = `announcement-type type-${ann.type}`;
+        announcementType.textContent = ann.type;
+
+        const announcementDate = document.createElement('span');
+        announcementDate.className = 'announcement-date';
+        const calendarIcon = document.createElement('i');
+        calendarIcon.className = 'fas fa-calendar';
+        announcementDate.appendChild(calendarIcon);
+        announcementDate.appendChild(document.createTextNode(' ' + new Date(ann.date).toLocaleDateString()));
+
+        announcementMeta.appendChild(announcementType);
+        announcementMeta.appendChild(announcementDate);
+
+        const title = document.createElement('h3');
+        title.className = 'announcement-title';
+        title.textContent = ann.title;
+
+        cardHeader.appendChild(announcementMeta);
+        cardHeader.appendChild(title);
+
+        // Create content section with safe text content
+        const cardContent = document.createElement('div');
+        cardContent.className = 'card-content';
+        
+        const contentDisplay = document.createElement('div');
+        contentDisplay.className = 'content-display';
+        
+        // Use safe text content instead of HTML
+        const contentText = this.extractTextContent(ann.content);
+        if (contentText.length > 400) {
+            const truncated = contentText.substring(0, 350);
+            const lastSpace = truncated.lastIndexOf(' ');
+            const finalTruncated = lastSpace > 300 ? truncated.substring(0, lastSpace) : truncated;
+            
+            const contentPreview = document.createElement('div');
+            contentPreview.className = 'content-preview';
+            contentPreview.textContent = finalTruncated + '...';
+            
+            const contentFull = document.createElement('div');
+            contentFull.className = 'content-full';
+            contentFull.style.display = 'none';
+            contentFull.textContent = contentText;
+            
+            const readMoreBtn = document.createElement('button');
+            readMoreBtn.className = 'read-more-btn';
+            readMoreBtn.innerHTML = '<i class="fas fa-chevron-down"></i> Read More';
+            readMoreBtn.onclick = () => {
+                contentFull.style.display = 'block';
+                contentPreview.style.display = 'none';
+                readMoreBtn.style.display = 'none';
+                readLessBtn.style.display = 'inline-block';
+            };
+            
+            const readLessBtn = document.createElement('button');
+            readLessBtn.className = 'read-less-btn';
+            readLessBtn.style.display = 'none';
+            readLessBtn.innerHTML = '<i class="fas fa-chevron-up"></i> Read Less';
+            readLessBtn.onclick = () => {
+                contentPreview.style.display = 'block';
+                contentFull.style.display = 'none';
+                readMoreBtn.style.display = 'inline-block';
+                readLessBtn.style.display = 'none';
+            };
+            
+            contentDisplay.appendChild(contentPreview);
+            contentDisplay.appendChild(contentFull);
+            contentDisplay.appendChild(readMoreBtn);
+            contentDisplay.appendChild(readLessBtn);
+        } else {
+            contentDisplay.textContent = contentText;
+        }
+        
+        cardContent.appendChild(contentDisplay);
+
+        // Create footer with safe event handlers
+        const cardFooter = document.createElement('div');
+        cardFooter.className = 'card-footer';
+
+        const socialSharing = document.createElement('div');
+        socialSharing.className = 'social-sharing';
+
+        const shareLabel = document.createElement('span');
+        shareLabel.className = 'share-label';
+        shareLabel.textContent = 'Share:';
+
+        const facebookBtn = this.createShareButton('facebook', 'fab fa-facebook-f', 'Share on Facebook', () => this.shareToFacebook(ann.id));
+        const twitterBtn = this.createShareButton('twitter', 'fab fa-x-twitter', 'Share on X', () => this.shareToTwitter(ann.id));
+        const whatsappBtn = this.createShareButton('whatsapp', 'fab fa-whatsapp', 'Share on WhatsApp', () => this.shareToWhatsApp(ann.id));
+        const copyBtn = this.createShareButton('copy', 'fas fa-link', 'Copy Link', () => this.copyAnnouncementLink(ann.id));
+
+        socialSharing.appendChild(shareLabel);
+        socialSharing.appendChild(facebookBtn);
+        socialSharing.appendChild(twitterBtn);
+        socialSharing.appendChild(whatsappBtn);
+        socialSharing.appendChild(copyBtn);
+
+        const adminActions = document.createElement('div');
+        adminActions.className = 'admin-actions';
+
+        const editBtn = document.createElement('button');
+        editBtn.className = 'edit-btn';
+        editBtn.title = 'Edit announcement';
+        editBtn.innerHTML = '<i class="fas fa-edit"></i> Edit';
+        editBtn.onclick = () => this.editAnnouncement(ann.id);
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'delete-btn';
+        deleteBtn.title = 'Delete announcement';
+        deleteBtn.innerHTML = '<i class="fas fa-trash"></i> Delete';
+        deleteBtn.onclick = () => this.deleteAnnouncement(ann.id);
+
+        adminActions.appendChild(editBtn);
+        adminActions.appendChild(deleteBtn);
+
+        cardFooter.appendChild(socialSharing);
+        cardFooter.appendChild(adminActions);
+
+        // Assemble the card
+        card.appendChild(cardHeader);
+        card.appendChild(cardContent);
+        card.appendChild(cardFooter);
+
+        return card;
+    }
+
+    createShareButton(type, iconClass, title, clickHandler) {
+        const button = document.createElement('button');
+        button.className = `share-btn ${type}`;
+        button.title = title;
+        button.onclick = clickHandler;
+        
+        const icon = document.createElement('i');
+        icon.className = iconClass;
+        button.appendChild(icon);
+        
+        return button;
+    }
+
+    extractTextContent(htmlContent) {
+        // Safely extract text content from HTML without executing scripts
+        const tempDiv = document.createElement('div');
+        tempDiv.textContent = htmlContent; // This automatically escapes HTML
+        return tempDiv.textContent || '';
     }
 
 
