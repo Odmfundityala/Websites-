@@ -572,16 +572,53 @@ class AnnouncementManager {
             const fullContent = contentElement.getAttribute('data-full-content');
             
             if (button.textContent === 'Show Full Content') {
-                contentElement.textContent = fullContent;
+                contentElement.innerHTML = this.sanitizeHTML(fullContent);
                 contentElement.classList.remove('truncated');
                 button.textContent = 'Show Less';
             } else {
                 const shortContent = fullContent.substring(0, 200) + '...';
-                contentElement.textContent = shortContent;
+                contentElement.innerHTML = this.sanitizeHTML(shortContent);
                 contentElement.classList.add('truncated');
                 button.textContent = 'Show Full Content';
             }
         }
+    }
+
+    sanitizeHTML(htmlString) {
+        // Create a temporary div to parse HTML
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = htmlString;
+        
+        // Remove all script tags and event handlers
+        const scripts = tempDiv.querySelectorAll('script');
+        scripts.forEach(script => script.remove());
+        
+        // Remove dangerous attributes that could execute JavaScript
+        const allElements = tempDiv.querySelectorAll('*');
+        allElements.forEach(element => {
+            // Remove event handler attributes
+            const attributes = [...element.attributes];
+            attributes.forEach(attr => {
+                if (attr.name.toLowerCase().startsWith('on') || 
+                    attr.name.toLowerCase() === 'javascript:' ||
+                    attr.value.toLowerCase().includes('javascript:')) {
+                    element.removeAttribute(attr.name);
+                }
+            });
+        });
+        
+        // Allow only safe HTML tags and preserve formatting
+        const allowedTags = ['p', 'strong', 'b', 'em', 'i', 'u', 'br', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'span', 'div'];
+        const elementsToRemove = [];
+        
+        allElements.forEach(element => {
+            if (!allowedTags.includes(element.tagName.toLowerCase())) {
+                // Replace disallowed tags with their text content
+                element.outerHTML = element.innerHTML;
+            }
+        });
+        
+        return tempDiv.innerHTML;
     }
 
     setupRichTextEditor() {
