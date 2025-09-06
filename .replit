@@ -48,4 +48,5 @@ externalPort = 80
 expertMode = true
 
 [deployment]
-deploymentTarget = "cloudrun"
+deploymentTarget = "autoscale"
+run = ["node", "server.js"]
