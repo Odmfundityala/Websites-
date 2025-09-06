@@ -266,7 +266,9 @@ class AnnouncementManager {
             
             const contentPreview = document.createElement('div');
             contentPreview.className = 'content-preview';
-            contentPreview.textContent = finalTruncated + '...';
+            // Use existing method to preserve HTML formatting while truncating
+            const truncatedHTML = this.preserveFormattingForTruncated(sanitizedContent, finalTruncated);
+            contentPreview.innerHTML = truncatedHTML + '...';
             
             const contentFull = document.createElement('div');
             contentFull.className = 'content-full';
