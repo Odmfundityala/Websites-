@@ -230,27 +230,6 @@ class AnnouncementManager {
         `).join('');
     }
 
-    updatePreview() {
-        const previewContainer = document.getElementById('previewGrid');
-        if (!previewContainer) return;
-
-        const displayAnnouncements = this.announcements.slice(0, 2); // Show only latest 2
-        
-        if (displayAnnouncements.length === 0) {
-            previewContainer.innerHTML = '<p class="no-announcements" style="text-align: center; color: #6b7280; padding: 2rem;">No announcements to display</p>';
-            return;
-        }
-
-        previewContainer.innerHTML = displayAnnouncements.map(ann => `
-            <div class="preview-card">
-                <h3 style="color: #1e293b; margin-bottom: 1rem;">${this.getAnnouncementIcon(ann.type)} ${ann.title}</h3>
-                <p style="color: #4b5563; line-height: 1.6; margin-bottom: 1rem;">${ann.content}</p>
-                <div class="announcement-date-preview" style="color: #6b7280; font-size: 0.875rem;">
-                    <i class="fas fa-calendar"></i> ${new Date(ann.date).toLocaleDateString()}
-                </div>
-            </div>
-        `).join('');
-    }
 
     getAnnouncementIcon(type) {
         const icons = {
@@ -413,7 +392,6 @@ class AnnouncementManager {
     async refreshAnnouncements() {
         this.announcements = await this.loadAnnouncements();
         this.displayAnnouncements();
-        this.updatePreview();
     }
 
     toggleContent(id) {
