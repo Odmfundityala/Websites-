@@ -2340,211 +2340,145 @@ Regular content can include various formatting to make announcements engaging.
             }
         }
 
-        // Password Recovery System
-        function showPasswordRecovery() {
-            document.getElementById('passwordRecoveryModal').style.display = 'flex';
-        }
-
-        function hidePasswordRecovery() {
-            document.getElementById('passwordRecoveryModal').style.display = 'none';
-            document.getElementById('recoveryForm').reset();
-            document.getElementById('recoveryMessage').style.display = 'none';
-        }
-
-        function showRecoveryMessage(message, type = 'info') {
-            const messageDiv = document.getElementById('recoveryMessage');
-            messageDiv.className = `message ${type}`;
-            messageDiv.innerHTML = `<i class="fas fa-info-circle"></i> ${message}`;
-            messageDiv.style.display = 'flex';
-        }
-
-        async function submitRecoveryRequest(event) {
+        // Admin Management System
+        async function createAdminAccount(event) {
             event.preventDefault();
             
-            const email = document.getElementById('recoveryEmail').value;
-            const reason = document.getElementById('recoveryReason').value;
+            const email = document.getElementById('newAdminEmail').value.trim();
+            const password = document.getElementById('newAdminPassword').value;
+            const confirmPassword = document.getElementById('confirmAdminPassword').value;
+            
+            if (password !== confirmPassword) {
+                announcementManager.showMessage('Passwords do not match', 'error');
+                return;
+            }
+            
+            if (password.length < 6) {
+                announcementManager.showMessage('Password must be at least 6 characters long', 'error');
+                return;
+            }
             
             try {
-                const response = await fetch('/api/password-recovery', {
+                const response = await fetch('/api/create-admin', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, reason })
+                    body: JSON.stringify({ email, password })
                 });
                 
                 const result = await response.json();
                 
                 if (result.success) {
-                    showRecoveryMessage(result.message, 'success');
-                    setTimeout(() => {
-                        hidePasswordRecovery();
-                    }, 3000);
+                    announcementManager.showMessage('Admin account created successfully!', 'success');
+                    document.getElementById('addAdminForm').reset();
+                    loadAdminsList();
                 } else {
-                    showRecoveryMessage(result.message, 'error');
+                    announcementManager.showMessage(result.message, 'error');
                 }
             } catch (error) {
-                showRecoveryMessage('Failed to submit recovery request. Please try again.', 'error');
+                announcementManager.showMessage('Failed to create admin account. Please try again.', 'error');
             }
         }
 
-        async function loadRecoveryRequests() {
-            try {
-                const response = await fetch('/api/recovery-requests');
-                const requests = await response.json();
-                displayRecoveryRequests(requests);
-            } catch (error) {
-                console.error('Failed to load recovery requests:', error);
-                document.getElementById('recoveryRequests').innerHTML = 
-                    '<p><i class="fas fa-exclamation-triangle"></i> Failed to load recovery requests</p>';
-            }
-        }
-
-        async function loadAdminCount() {
-            try {
-                const response = await fetch('/api/admin-count');
-                const data = await response.json();
-                
-                const statusIcon = data.isMinimumMet ? 
-                    '<i class="fas fa-check-circle" style="color: #10b981;"></i>' : 
-                    '<i class="fas fa-exclamation-triangle" style="color: #ef4444;"></i>';
-                
-                document.getElementById('adminCountDisplay').innerHTML = 
-                    `${statusIcon} ${data.current} of ${data.minimum} minimum admins configured (${data.recommended} recommended)`;
-            } catch (error) {
-                console.error('Failed to load admin count:', error);
-            }
-        }
-
-        function displayRecoveryRequests(requests) {
-            const container = document.getElementById('recoveryRequests');
+        async function resetAdminPassword(event) {
+            event.preventDefault();
             
-            if (requests.length === 0) {
-                container.innerHTML = '<p><i class="fas fa-check-circle"></i> No pending recovery requests</p>';
+            const email = document.getElementById('resetAdminEmail').value.trim();
+            const newPassword = document.getElementById('resetNewPassword').value;
+            const confirmPassword = document.getElementById('confirmResetPassword').value;
+            
+            if (newPassword !== confirmPassword) {
+                announcementManager.showMessage('Passwords do not match', 'error');
                 return;
             }
             
-            container.innerHTML = requests.map(request => `
-                <div class="recovery-request-card">
-                    <div class="request-header">
-                        <div class="request-email">${request.email}</div>
-                        <div class="request-time">${new Date(request.timestamp).toLocaleString()}</div>
-                    </div>
-                    ${request.reason ? `<div class="request-reason">"${request.reason}"</div>` : ''}
-                    <div class="approval-status">
-                        <div class="approval-count">
-                            ${request.approvals.length} / ${request.requiredApprovals} approvals
+            if (newPassword.length < 6) {
+                announcementManager.showMessage('Password must be at least 6 characters long', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/reset-admin-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, newPassword })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    announcementManager.showMessage('Password reset successfully!', 'success');
+                    document.getElementById('resetPasswordForm').reset();
+                } else {
+                    announcementManager.showMessage(result.message, 'error');
+                }
+            } catch (error) {
+                announcementManager.showMessage('Failed to reset password. Please try again.', 'error');
+            }
+        }
+
+        async function loadAdminsList() {
+            try {
+                const response = await fetch('/api/admins-list');
+                const admins = await response.json();
+                displayAdminsList(admins);
+            } catch (error) {
+                console.error('Failed to load admins list:', error);
+                document.getElementById('adminsList').innerHTML = 
+                    '<p><i class="fas fa-exclamation-triangle"></i> Failed to load admin information</p>';
+            }
+        }
+
+        function displayAdminsList(admins) {
+            const container = document.getElementById('adminsList');
+            
+            if (admins.length === 0) {
+                container.innerHTML = '<p><i class="fas fa-info-circle"></i> No administrators configured</p>';
+                return;
+            }
+            
+            container.innerHTML = `
+                <div style="display: grid; gap: 1rem;">
+                    ${admins.map(admin => `
+                        <div class="admin-card" style="background: white; padding: 1rem; border-radius: 8px; border: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <strong><i class="fas fa-user"></i> ${admin.email}</strong>
+                                <div style="color: #6b7280; font-size: 0.9rem;">
+                                    Created: ${new Date(admin.createdAt || Date.now()).toLocaleDateString()}
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button class="cta-button" style="padding: 0.5rem 1rem; font-size: 0.9rem;" onclick="removeAdmin('${admin.email}')">
+                                    <i class="fas fa-trash"></i> Remove
+                                </button>
+                            </div>
                         </div>
-                        ${request.approvals.length > 0 ? 
-                            `<small>Approved by: ${request.approvals.map(a => a.email.split('@')[0]).join(', ')}</small>` : 
-                            ''
-                        }
-                    </div>
-                    <div class="approval-actions">
-                        <button class="approve-btn" onclick="showPasswordInput('${request.id}')">
-                            <i class="fas fa-check"></i> Approve
-                        </button>
-                        <button class="reject-btn" onclick="rejectRecovery('${request.id}')">
-                            <i class="fas fa-times"></i> Reject
-                        </button>
-                    </div>
-                    <div id="passwordInput-${request.id}" class="new-password-input">
-                        <div class="form-group">
-                            <i class="fas fa-lock input-icon"></i>
-                            <input 
-                                type="password" 
-                                id="newPassword-${request.id}" 
-                                class="floating-input" 
-                                placeholder=" "
-                                minlength="6"
-                                required
-                            >
-                            <label for="newPassword-${request.id}" class="floating-label">New Password (min 6 characters)</label>
-                        </div>
-                        <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-                            <button class="approve-btn" onclick="approveRecovery('${request.id}')">
-                                <i class="fas fa-save"></i> Confirm Reset
-                            </button>
-                            <button class="reject-btn" onclick="hidePasswordInput('${request.id}')">
-                                <i class="fas fa-times"></i> Cancel
-                            </button>
-                        </div>
-                    </div>
+                    `).join('')}
                 </div>
-            `).join('');
+            `;
         }
 
-        function showPasswordInput(requestId) {
-            const passwordInput = document.getElementById(`passwordInput-${requestId}`);
-            passwordInput.classList.add('show');
-        }
-
-        function hidePasswordInput(requestId) {
-            const passwordInput = document.getElementById(`passwordInput-${requestId}`);
-            passwordInput.classList.remove('show');
-            document.getElementById(`newPassword-${requestId}`).value = '';
-        }
-
-        async function approveRecovery(requestId) {
-            const authData = JSON.parse(localStorage.getItem('siya_admin_auth') || '{}');
-            const newPassword = document.getElementById(`newPassword-${requestId}`).value;
-            
-            if (!newPassword || newPassword.length < 6) {
-                alert('Please enter a valid password (minimum 6 characters)');
+        async function removeAdmin(email) {
+            if (!confirm(`Are you sure you want to remove admin: ${email}?`)) {
                 return;
             }
             
             try {
-                const response = await fetch('/api/approve-recovery', {
+                const response = await fetch('/api/remove-admin', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        requestId,
-                        approverEmail: authData.email,
-                        action: 'approve',
-                        newPassword
-                    })
+                    body: JSON.stringify({ email })
                 });
                 
                 const result = await response.json();
                 
                 if (result.success) {
-                    alert(result.message);
-                    loadRecoveryRequests(); // Refresh the list
+                    announcementManager.showMessage('Admin removed successfully!', 'success');
+                    loadAdminsList();
                 } else {
-                    alert('Error: ' + result.message);
+                    announcementManager.showMessage(result.message, 'error');
                 }
             } catch (error) {
-                alert('Failed to approve recovery request');
-            }
-        }
-
-        async function rejectRecovery(requestId) {
-            if (!confirm('Are you sure you want to reject this recovery request?')) {
-                return;
-            }
-            
-            const authData = JSON.parse(localStorage.getItem('siya_admin_auth') || '{}');
-            
-            try {
-                const response = await fetch('/api/approve-recovery', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        requestId,
-                        approverEmail: authData.email,
-                        action: 'reject'
-                    })
-                });
-                
-                const result = await response.json();
-                
-                if (result.success) {
-                    alert(result.message);
-                    loadRecoveryRequests(); // Refresh the list
-                } else {
-                    alert('Error: ' + result.message);
-                }
-            } catch (error) {
-                alert('Failed to reject recovery request');
+                announcementManager.showMessage('Failed to remove admin. Please try again.', 'error');
             }
         }
 
@@ -2554,19 +2488,22 @@ Regular content can include various formatting to make announcements engaging.
             adminAuth = new AdminAuth();
             tabManager = new TabManager();
             
-            // Set up recovery form submission
-            const recoveryForm = document.getElementById('recoveryForm');
-            if (recoveryForm) {
-                recoveryForm.addEventListener('submit', submitRecoveryRequest);
+            // Set up admin management form submissions
+            const addAdminForm = document.getElementById('addAdminForm');
+            if (addAdminForm) {
+                addAdminForm.addEventListener('submit', createAdminAccount);
             }
             
-            // Load recovery data when authenticated
+            const resetPasswordForm = document.getElementById('resetPasswordForm');
+            if (resetPasswordForm) {
+                resetPasswordForm.addEventListener('submit', resetAdminPassword);
+            }
+            
+            // Load admin data when authenticated
             const checkForAuth = setInterval(() => {
                 const authData = JSON.parse(localStorage.getItem('siya_admin_auth') || '{}');
                 if (authData.isAuthenticated) {
-                    loadAdminCount();
-                    loadRecoveryRequests();
-                    document.getElementById('recoveryManagementPanel').style.display = 'block';
+                    loadAdminsList();
                     clearInterval(checkForAuth);
                 }
             }, 1000);
