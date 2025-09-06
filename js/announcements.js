@@ -234,7 +234,7 @@ class AnnouncementManager {
         const previewContainer = document.getElementById('previewGrid');
         if (!previewContainer) return;
 
-        const displayAnnouncements = this.announcements.slice(0, 4); // Show only latest 4
+        const displayAnnouncements = this.announcements.slice(0, 2); // Show only latest 2
         
         if (displayAnnouncements.length === 0) {
             previewContainer.innerHTML = '<p class="no-announcements" style="text-align: center; color: #6b7280; padding: 2rem;">No announcements to display</p>';
