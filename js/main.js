@@ -97,8 +97,8 @@ function loadHomepageAnnouncements() {
                 // Sort announcements by date (newest first) and display latest 2
                 const sortedAnnouncements = announcements.sort((a, b) => new Date(b.date) - new Date(a.date));
                 const latestAnnouncements = sortedAnnouncements.slice(0, 2);
-            
-            announcementGrid.innerHTML = latestAnnouncements.map(ann => {
+                
+                announcementGrid.innerHTML = latestAnnouncements.map(ann => {
                 const cleanContent = formatContentForDisplay(ann.content);
                 const textContent = getPlainTextContent(ann.content);
                 const isLongContent = textContent.length > 300;

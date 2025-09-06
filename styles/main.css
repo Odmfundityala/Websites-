@@ -765,16 +765,37 @@ footer {
         grid-template-columns: 1fr !important;
         gap: 1.5rem !important;
         width: 100% !important;
-        margin: 0 !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
         padding: 1rem !important;
+        box-sizing: border-box !important;
     }
 
     .announcement-card.elegant-home {
         width: 100% !important;
         max-width: 100% !important;
         margin: 0 0 1.5rem 0 !important;
-        box-sizing: border-box;
+        box-sizing: border-box !important;
         display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: relative !important;
+    }
+
+    /* Force display on mobile */
+    .announcements {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 2rem 1rem !important;
+        box-sizing: border-box !important;
+    }
+
+    .no-announcements-message {
+        display: block !important;
+        text-align: center !important;
+        padding: 2rem !important;
+        width: 100% !important;
     }
 
     .contact-preview {
@@ -2940,6 +2961,30 @@ p {
     margin: 0 auto;
     align-items: stretch;
     padding: 0 2rem;
+}
+
+/* CRITICAL: Force mobile announcement display */
+@media screen and (max-width: 768px) {
+    .announcement-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+        padding: 1rem !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        display: grid !important;
+        box-sizing: border-box !important;
+    }
+    
+    .announcement-card.elegant-home {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 1.5rem !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        box-sizing: border-box !important;
+    }
 }
 
 /* Modern Clean Home Page Announcement Cards - Matching Reference Design */
