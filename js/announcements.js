@@ -572,12 +572,12 @@ class AnnouncementManager {
             const fullContent = contentElement.getAttribute('data-full-content');
             
             if (button.textContent === 'Show Full Content') {
-                contentElement.innerHTML = fullContent;
+                contentElement.textContent = fullContent;
                 contentElement.classList.remove('truncated');
                 button.textContent = 'Show Less';
             } else {
                 const shortContent = fullContent.substring(0, 200) + '...';
-                contentElement.innerHTML = shortContent;
+                contentElement.textContent = shortContent;
                 contentElement.classList.add('truncated');
                 button.textContent = 'Show Full Content';
             }
