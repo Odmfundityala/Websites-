@@ -108,7 +108,8 @@ class AnnouncementManager {
             // Set content in rich text editor
             const editor = document.getElementById('announcementContent');
             if (editor && editor.contentEditable === 'true') {
-                editor.innerHTML = announcement.content;
+                // Use textContent instead of innerHTML to prevent XSS
+                editor.textContent = announcement.content;
                 this.updateHiddenTextarea();
             }
             
