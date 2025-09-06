@@ -318,17 +318,16 @@ function setupAnnouncementInteractions() {
     document.addEventListener('click', (e) => {
         if (e.target.classList.contains('read-more-btn')) {
             const card = e.target.closest('.announcement-card');
-            const contentElement = card.querySelector('.announcement-content');
-            const fullContent = contentElement.getAttribute('data-full-content');
+            const contentPreview = card.querySelector('.content-preview');
+            const contentFull = card.querySelector('.content-full');
             
             if (e.target.textContent === 'Read More') {
-                contentElement.textContent = fullContent;
-                contentElement.classList.remove('truncated');
+                contentPreview.style.display = 'none';
+                contentFull.style.display = 'block';
                 e.target.textContent = 'Read Less';
             } else {
-                const shortContent = fullContent.substring(0, 800) + '...';
-                contentElement.textContent = shortContent;
-                contentElement.classList.add('truncated');
+                contentPreview.style.display = 'block';
+                contentFull.style.display = 'none';
                 e.target.textContent = 'Read More';
             }
         }
