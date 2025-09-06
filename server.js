@@ -75,18 +75,24 @@ const server = http.createServer((req, res) => {
     });
 });
 
-// API request handler for secure authentication
+// API request handler for secure authentication and announcements
 function handleApiRequest(req, res) {
     const url = new URL(req.url, `http://${req.headers.host}`);
     
     // Set CORS headers
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     
     if (req.method === 'OPTIONS') {
         res.writeHead(200);
         res.end();
+        return;
+    }
+    
+    // Handle announcements endpoints
+    if (url.pathname === '/api/announcements') {
+        handleAnnouncementsRequest(req, res);
         return;
     }
     
@@ -142,6 +148,115 @@ function handleApiRequest(req, res) {
     } else {
         res.writeHead(404, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ message: 'API endpoint not found' }));
+    }
+}
+
+// Announcements API handler
+function handleAnnouncementsRequest(req, res) {
+    const announcementsFile = path.join(__dirname, 'announcements.json');
+    
+    if (req.method === 'GET') {
+        // Get all announcements
+        fs.readFile(announcementsFile, 'utf8', (err, data) => {
+            if (err) {
+                // If file doesn't exist, return empty array
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify([]));
+                return;
+            }
+            
+            try {
+                const announcements = JSON.parse(data);
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify(announcements));
+            } catch (parseError) {
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify([]));
+            }
+        });
+    } else if (req.method === 'POST') {
+        // Add new announcement
+        let body = '';
+        req.on('data', chunk => {
+            body += chunk.toString();
+        });
+        
+        req.on('end', () => {
+            try {
+                const newAnnouncement = JSON.parse(body);
+                
+                // Read existing announcements
+                fs.readFile(announcementsFile, 'utf8', (err, data) => {
+                    let announcements = [];
+                    
+                    if (!err && data) {
+                        try {
+                            announcements = JSON.parse(data);
+                        } catch (parseError) {
+                            announcements = [];
+                        }
+                    }
+                    
+                    // Add new announcement at the beginning
+                    announcements.unshift(newAnnouncement);
+                    
+                    // Write back to file
+                    fs.writeFile(announcementsFile, JSON.stringify(announcements, null, 2), (writeErr) => {
+                        if (writeErr) {
+                            res.writeHead(500, { 'Content-Type': 'application/json' });
+                            res.end(JSON.stringify({ success: false, message: 'Failed to save announcement' }));
+                            return;
+                        }
+                        
+                        res.writeHead(200, { 'Content-Type': 'application/json' });
+                        res.end(JSON.stringify({ success: true, announcement: newAnnouncement }));
+                    });
+                });
+            } catch (error) {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: false, message: 'Invalid announcement data' }));
+            }
+        });
+    } else if (req.method === 'DELETE') {
+        // Delete announcement by ID
+        const url = new URL(req.url, `http://${req.headers.host}`);
+        const announcementId = url.searchParams.get('id');
+        
+        if (!announcementId) {
+            res.writeHead(400, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ success: false, message: 'Announcement ID required' }));
+            return;
+        }
+        
+        fs.readFile(announcementsFile, 'utf8', (err, data) => {
+            let announcements = [];
+            
+            if (!err && data) {
+                try {
+                    announcements = JSON.parse(data);
+                } catch (parseError) {
+                    announcements = [];
+                }
+            }
+            
+            // Filter out the announcement to delete
+            const filteredAnnouncements = announcements.filter(ann => ann.id !== announcementId);
+            
+            // Write back to file
+            fs.writeFile(announcementsFile, JSON.stringify(filteredAnnouncements, null, 2), (writeErr) => {
+                if (writeErr) {
+                    res.writeHead(500, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ success: false, message: 'Failed to delete announcement' }));
+                    return;
+                }
+                
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true }));
+            });
+        });
+    } else {
+        res.writeHead(405, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ message: 'Method not allowed' }));
     }
 }
 
