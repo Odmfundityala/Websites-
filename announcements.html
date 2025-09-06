@@ -1516,26 +1516,6 @@
             font-style: italic;
         }
 
-        /* Password Recovery Styles */
-        .recovery-link {
-            text-align: center;
-            margin: 1rem 0;
-        }
-
-        .recovery-link a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .recovery-link a:hover {
-            color: white;
-            text-decoration: underline;
-        }
 
         .modal {
             position: fixed;
@@ -1833,12 +1813,6 @@
             </button>
         </form>
 
-        <div class="recovery-link">
-            <a href="#" id="forgotPasswordLink" onclick="showPasswordRecovery()">
-                <i class="fas fa-key"></i>
-                Forgot Password? Request Recovery
-            </a>
-        </div>
 
         <div class="security-footer">
             <div class="security-notice">
@@ -1852,59 +1826,6 @@
         </div>
     </div>
 
-    <!-- Password Recovery Modal -->
-    <div id="passwordRecoveryModal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2><i class="fas fa-key"></i> Password Recovery Request</h2>
-                <span class="close" onclick="hidePasswordRecovery()">&times;</span>
-            </div>
-            <div class="modal-body">
-                <p>To recover your password, please fill out this form. Your request will need approval from at least 2 other administrators.</p>
-                <form id="recoveryForm">
-                    <div class="form-group">
-                        <i class="fas fa-envelope input-icon"></i>
-                        <input 
-                            type="email" 
-                            id="recoveryEmail" 
-                            class="floating-input" 
-                            placeholder=" "
-                            required
-                        >
-                        <label for="recoveryEmail" class="floating-label">Your Admin Email</label>
-                    </div>
-                    <div class="form-group">
-                        <i class="fas fa-comment input-icon"></i>
-                        <textarea 
-                            id="recoveryReason" 
-                            class="floating-input" 
-                            placeholder=" "
-                            rows="3"
-                        ></textarea>
-                        <label for="recoveryReason" class="floating-label">Reason for Recovery (Optional)</label>
-                    </div>
-                    <button type="submit" class="login-btn">
-                        <i class="fas fa-paper-plane"></i>
-                        Submit Recovery Request
-                    </button>
-                </form>
-                <div id="recoveryMessage" class="message" style="display: none;"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Admin Recovery Management Panel -->
-    <div id="recoveryManagementPanel" class="recovery-panel" style="display: none;">
-        <div class="recovery-header">
-            <h2><i class="fas fa-user-shield"></i> Password Recovery Management</h2>
-            <div class="admin-count-info">
-                <span id="adminCountDisplay">Loading admin information...</span>
-            </div>
-        </div>
-        <div class="recovery-requests" id="recoveryRequests">
-            <p><i class="fas fa-spinner fa-spin"></i> Loading recovery requests...</p>
-        </div>
-    </div>
 
     <!-- Admin Panel (Hidden until authenticated) -->
     <div id="adminPanel" class="admin-panel" style="display: none;">
@@ -1948,6 +1869,10 @@
                     <button class="tab-btn" data-tab="school">
                         <i class="fas fa-school"></i>
                         School Management
+                    </button>
+                    <button class="tab-btn" data-tab="admin">
+                        <i class="fas fa-users-cog"></i>
+                        Add Admin & Password Management
                     </button>
                 </div>
             </section>
