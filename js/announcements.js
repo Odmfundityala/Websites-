@@ -374,7 +374,7 @@ class AnnouncementManager {
     extractTextContent(htmlContent) {
         // Safely extract text content from HTML without executing scripts
         const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = htmlContent; // Allow HTML rendering
+        tempDiv.textContent = htmlContent; // Use textContent to avoid HTML parsing
         return tempDiv.textContent || tempDiv.innerText || '';
     }
 
