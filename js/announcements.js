@@ -272,9 +272,9 @@ class AnnouncementManager {
             const contentFull = document.createElement('div');
             contentFull.className = 'content-full';
             contentFull.style.display = 'none';
-            // For full content, render HTML properly
+            // For full content, use safe text content to prevent XSS
             const fullTempDiv = document.createElement('div');
-            fullTempDiv.innerHTML = ann.content;
+            fullTempDiv.textContent = this.extractTextContent(ann.content);
             contentFull.appendChild(fullTempDiv);
             
             const readMoreBtn = document.createElement('button');
@@ -303,9 +303,9 @@ class AnnouncementManager {
             contentDisplay.appendChild(readMoreBtn);
             contentDisplay.appendChild(readLessBtn);
         } else {
-            // For short content, render HTML properly
+            // For short content, use safe text content to prevent XSS
             const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = ann.content;
+            tempDiv.textContent = this.extractTextContent(ann.content);
             contentDisplay.appendChild(tempDiv);
         }
         
