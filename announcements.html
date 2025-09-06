@@ -2350,11 +2350,236 @@ Regular content can include various formatting to make announcements engaging.
             }
         }
 
+        // Password Recovery System
+        function showPasswordRecovery() {
+            document.getElementById('passwordRecoveryModal').style.display = 'flex';
+        }
+
+        function hidePasswordRecovery() {
+            document.getElementById('passwordRecoveryModal').style.display = 'none';
+            document.getElementById('recoveryForm').reset();
+            document.getElementById('recoveryMessage').style.display = 'none';
+        }
+
+        function showRecoveryMessage(message, type = 'info') {
+            const messageDiv = document.getElementById('recoveryMessage');
+            messageDiv.className = `message ${type}`;
+            messageDiv.innerHTML = `<i class="fas fa-info-circle"></i> ${message}`;
+            messageDiv.style.display = 'flex';
+        }
+
+        async function submitRecoveryRequest(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('recoveryEmail').value;
+            const reason = document.getElementById('recoveryReason').value;
+            
+            try {
+                const response = await fetch('/api/password-recovery', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, reason })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showRecoveryMessage(result.message, 'success');
+                    setTimeout(() => {
+                        hidePasswordRecovery();
+                    }, 3000);
+                } else {
+                    showRecoveryMessage(result.message, 'error');
+                }
+            } catch (error) {
+                showRecoveryMessage('Failed to submit recovery request. Please try again.', 'error');
+            }
+        }
+
+        async function loadRecoveryRequests() {
+            try {
+                const response = await fetch('/api/recovery-requests');
+                const requests = await response.json();
+                displayRecoveryRequests(requests);
+            } catch (error) {
+                console.error('Failed to load recovery requests:', error);
+                document.getElementById('recoveryRequests').innerHTML = 
+                    '<p><i class="fas fa-exclamation-triangle"></i> Failed to load recovery requests</p>';
+            }
+        }
+
+        async function loadAdminCount() {
+            try {
+                const response = await fetch('/api/admin-count');
+                const data = await response.json();
+                
+                const statusIcon = data.isMinimumMet ? 
+                    '<i class="fas fa-check-circle" style="color: #10b981;"></i>' : 
+                    '<i class="fas fa-exclamation-triangle" style="color: #ef4444;"></i>';
+                
+                document.getElementById('adminCountDisplay').innerHTML = 
+                    `${statusIcon} ${data.current} of ${data.minimum} minimum admins configured (${data.recommended} recommended)`;
+            } catch (error) {
+                console.error('Failed to load admin count:', error);
+            }
+        }
+
+        function displayRecoveryRequests(requests) {
+            const container = document.getElementById('recoveryRequests');
+            
+            if (requests.length === 0) {
+                container.innerHTML = '<p><i class="fas fa-check-circle"></i> No pending recovery requests</p>';
+                return;
+            }
+            
+            container.innerHTML = requests.map(request => `
+                <div class="recovery-request-card">
+                    <div class="request-header">
+                        <div class="request-email">${request.email}</div>
+                        <div class="request-time">${new Date(request.timestamp).toLocaleString()}</div>
+                    </div>
+                    ${request.reason ? `<div class="request-reason">"${request.reason}"</div>` : ''}
+                    <div class="approval-status">
+                        <div class="approval-count">
+                            ${request.approvals.length} / ${request.requiredApprovals} approvals
+                        </div>
+                        ${request.approvals.length > 0 ? 
+                            `<small>Approved by: ${request.approvals.map(a => a.email.split('@')[0]).join(', ')}</small>` : 
+                            ''
+                        }
+                    </div>
+                    <div class="approval-actions">
+                        <button class="approve-btn" onclick="showPasswordInput('${request.id}')">
+                            <i class="fas fa-check"></i> Approve
+                        </button>
+                        <button class="reject-btn" onclick="rejectRecovery('${request.id}')">
+                            <i class="fas fa-times"></i> Reject
+                        </button>
+                    </div>
+                    <div id="passwordInput-${request.id}" class="new-password-input">
+                        <div class="form-group">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input 
+                                type="password" 
+                                id="newPassword-${request.id}" 
+                                class="floating-input" 
+                                placeholder=" "
+                                minlength="6"
+                                required
+                            >
+                            <label for="newPassword-${request.id}" class="floating-label">New Password (min 6 characters)</label>
+                        </div>
+                        <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                            <button class="approve-btn" onclick="approveRecovery('${request.id}')">
+                                <i class="fas fa-save"></i> Confirm Reset
+                            </button>
+                            <button class="reject-btn" onclick="hidePasswordInput('${request.id}')">
+                                <i class="fas fa-times"></i> Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showPasswordInput(requestId) {
+            const passwordInput = document.getElementById(`passwordInput-${requestId}`);
+            passwordInput.classList.add('show');
+        }
+
+        function hidePasswordInput(requestId) {
+            const passwordInput = document.getElementById(`passwordInput-${requestId}`);
+            passwordInput.classList.remove('show');
+            document.getElementById(`newPassword-${requestId}`).value = '';
+        }
+
+        async function approveRecovery(requestId) {
+            const authData = JSON.parse(localStorage.getItem('siya_admin_auth') || '{}');
+            const newPassword = document.getElementById(`newPassword-${requestId}`).value;
+            
+            if (!newPassword || newPassword.length < 6) {
+                alert('Please enter a valid password (minimum 6 characters)');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/approve-recovery', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        requestId,
+                        approverEmail: authData.email,
+                        action: 'approve',
+                        newPassword
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert(result.message);
+                    loadRecoveryRequests(); // Refresh the list
+                } else {
+                    alert('Error: ' + result.message);
+                }
+            } catch (error) {
+                alert('Failed to approve recovery request');
+            }
+        }
+
+        async function rejectRecovery(requestId) {
+            if (!confirm('Are you sure you want to reject this recovery request?')) {
+                return;
+            }
+            
+            const authData = JSON.parse(localStorage.getItem('siya_admin_auth') || '{}');
+            
+            try {
+                const response = await fetch('/api/approve-recovery', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        requestId,
+                        approverEmail: authData.email,
+                        action: 'reject'
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert(result.message);
+                    loadRecoveryRequests(); // Refresh the list
+                } else {
+                    alert('Error: ' + result.message);
+                }
+            } catch (error) {
+                alert('Failed to reject recovery request');
+            }
+        }
+
         // Initialize systems
         let adminAuth, tabManager;
         document.addEventListener('DOMContentLoaded', () => {
             adminAuth = new AdminAuth();
             tabManager = new TabManager();
+            
+            // Set up recovery form submission
+            const recoveryForm = document.getElementById('recoveryForm');
+            if (recoveryForm) {
+                recoveryForm.addEventListener('submit', submitRecoveryRequest);
+            }
+            
+            // Load recovery data when authenticated
+            const checkForAuth = setInterval(() => {
+                const authData = JSON.parse(localStorage.getItem('siya_admin_auth') || '{}');
+                if (authData.isAuthenticated) {
+                    loadAdminCount();
+                    loadRecoveryRequests();
+                    document.getElementById('recoveryManagementPanel').style.display = 'block';
+                    clearInterval(checkForAuth);
+                }
+            }, 1000);
         });
     </script>
 </body>
