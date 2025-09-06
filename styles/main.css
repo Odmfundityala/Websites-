@@ -636,6 +636,24 @@ footer {
 
 /* Mobile Navigation */
 @media (max-width: 768px) {
+    .excellence-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 0.5rem;
+    }
+    
+    .excellence-card {
+        padding: 2rem 1.5rem;
+    }
+    
+    .excellence-card i {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .excellence-card h3 {
+        font-size: 1.2rem;
+    }
     .nav-toggle {
         display: block;
     }
@@ -1340,6 +1358,24 @@ main {
 
 /* Responsive Design for About Page */
 @media (max-width: 768px) {
+    .excellence-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 0.5rem;
+    }
+    
+    .excellence-card {
+        padding: 2rem 1.5rem;
+    }
+    
+    .excellence-card i {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .excellence-card h3 {
+        font-size: 1.2rem;
+    }
     .about-section h2 {
         font-size: 2.2rem;
     }
@@ -1603,10 +1639,65 @@ main {
 }
 
 .excellence-grid {
-/* Excellence grid removed per user request */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+    padding: 0 1rem;
 }
 
-/* Excellence cards removed per user request */
+.excellence-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e5e7eb;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.excellence-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--navy-primary) 0%, var(--gold-accent) 100%);
+}
+
+.excellence-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(26, 54, 93, 0.15);
+    border-color: rgba(214, 158, 46, 0.3);
+}
+
+.excellence-card i {
+    font-size: 3rem;
+    color: var(--navy-primary);
+    margin-bottom: 1.5rem;
+    display: block;
+}
+
+.excellence-card h3 {
+    color: var(--navy-primary);
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    letter-spacing: 0.3px;
+    line-height: 1.3;
+}
+
+.excellence-card p {
+    color: #4b5563;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
+    text-align: center;
+    letter-spacing: 0.01em;
+}
 
 /* CLEAN ELEGANT TYPOGRAPHY & SPACING */
 
@@ -2000,6 +2091,24 @@ p {
 
 /* Responsive Design for Academics */
 @media (max-width: 768px) {
+    .excellence-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 0.5rem;
+    }
+    
+    .excellence-card {
+        padding: 2rem 1.5rem;
+    }
+    
+    .excellence-card i {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .excellence-card h3 {
+        font-size: 1.2rem;
+    }
     .class-card {
         padding: 2rem;
     }
@@ -2221,6 +2330,24 @@ p {
 
 /* Responsive Design for Admissions Page */
 @media (max-width: 768px) {
+    .excellence-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 0.5rem;
+    }
+    
+    .excellence-card {
+        padding: 2rem 1.5rem;
+    }
+    
+    .excellence-card i {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .excellence-card h3 {
+        font-size: 1.2rem;
+    }
     .admission-intro {
         text-align: left;
     }
@@ -2394,6 +2521,24 @@ p {
 
 /* Responsive Design for Fees Page */
 @media (max-width: 768px) {
+    .excellence-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 0.5rem;
+    }
+    
+    .excellence-card {
+        padding: 2rem 1.5rem;
+    }
+    
+    .excellence-card i {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .excellence-card h3 {
+        font-size: 1.2rem;
+    }
     .fees-intro {
         text-align: left;
     }
@@ -2445,6 +2590,24 @@ p {
 
 /* Mobile touch improvements */
 @media (max-width: 768px) {
+    .excellence-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 0.5rem;
+    }
+    
+    .excellence-card {
+        padding: 2rem 1.5rem;
+    }
+    
+    .excellence-card i {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .excellence-card h3 {
+        font-size: 1.2rem;
+    }
     /* Improve touch targets for all interactive elements */
     .cta-button,
     .nav-links a,
@@ -2947,6 +3110,24 @@ p {
 
 /* Responsive Design for Stakeholders Page */
 @media (max-width: 768px) {
+    .excellence-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 0.5rem;
+    }
+    
+    .excellence-card {
+        padding: 2rem 1.5rem;
+    }
+    
+    .excellence-card i {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .excellence-card h3 {
+        font-size: 1.2rem;
+    }
     .stakeholder-category-title {
         font-size: 1.8rem;
         flex-direction: column;
@@ -3023,6 +3204,24 @@ p {
 }
 
 @media (max-width: 768px) {
+    .excellence-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 0.5rem;
+    }
+    
+    .excellence-card {
+        padding: 2rem 1.5rem;
+    }
+    
+    .excellence-card i {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .excellence-card h3 {
+        font-size: 1.2rem;
+    }
     .partnership-stats {
         grid-template-columns: 1fr;
         gap: 1.5rem;
@@ -3574,6 +3773,24 @@ p {
 }
 
 @media (max-width: 768px) {
+    .excellence-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 0.5rem;
+    }
+    
+    .excellence-card {
+        padding: 2rem 1.5rem;
+    }
+    
+    .excellence-card i {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .excellence-card h3 {
+        font-size: 1.2rem;
+    }
     .announcement-sharing {
         flex-direction: column;
         gap: 1rem;
@@ -3946,6 +4163,24 @@ p {
 }
 
 @media (max-width: 768px) {
+    .excellence-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 0.5rem;
+    }
+    
+    .excellence-card {
+        padding: 2rem 1.5rem;
+    }
+    
+    .excellence-card i {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .excellence-card h3 {
+        font-size: 1.2rem;
+    }
     .admin-welcome {
         flex-direction: column;
         text-align: center;
@@ -3963,6 +4198,24 @@ p {
 }
 
 @media (max-width: 768px) {
+    .excellence-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 0.5rem;
+    }
+    
+    .excellence-card {
+        padding: 2rem 1.5rem;
+    }
+    
+    .excellence-card i {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .excellence-card h3 {
+        font-size: 1.2rem;
+    }
     .announcement-header {
         flex-direction: column;
         align-items: flex-start;
