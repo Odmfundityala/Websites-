@@ -218,8 +218,8 @@ class AnnouncementManager {
                         <button class="share-btn facebook" onclick="announcementManager.shareToFacebook('${ann.id}')" title="Share on Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </button>
-                        <button class="share-btn twitter" onclick="announcementManager.shareToTwitter('${ann.id}')" title="Share on Twitter">
-                            <i class="fab fa-twitter"></i>
+                        <button class="share-btn twitter" onclick="announcementManager.shareToTwitter('${ann.id}')" title="Share on X">
+                            <i class="fab fa-x-twitter"></i>
                         </button>
                         <button class="share-btn whatsapp" onclick="announcementManager.shareToWhatsApp('${ann.id}')" title="Share on WhatsApp">
                             <i class="fab fa-whatsapp"></i>
@@ -614,7 +614,8 @@ class AnnouncementManager {
         
         const text = this.getPlainTextContent(announcement);
         const shareText = `${announcement.title}\n\n${text}`;
-        const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.origin)}&quote=${encodeURIComponent(shareText)}`;
+        const currentUrl = `${window.location.origin}/#announcement-${announcementId}`;
+        const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`;
         window.open(url, '_blank', 'width=600,height=400');
     }
 
@@ -624,7 +625,7 @@ class AnnouncementManager {
         
         const text = this.getPlainTextContent(announcement);
         const shareText = `${announcement.title}\n\n${text}`.substring(0, 250) + (text.length > 200 ? '...' : '');
-        const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
+        const url = `https://x.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
         window.open(url, '_blank', 'width=600,height=400');
     }
 

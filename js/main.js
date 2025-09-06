@@ -162,8 +162,8 @@ async function loadHomepageAnnouncements() {
                             <button class="share-btn facebook" onclick="shareToFacebook('${ann.title.replace(/'/g, '\\\'').replace(/"/g, '\\"')}', \`${textContent.replace(/'/g, '\\\'').replace(/"/g, '\\"').replace(/`/g, '\\`')}\`, ${ann.id})" title="Share on Facebook">
                                 <i class="fab fa-facebook-f"></i>
                             </button>
-                            <button class="share-btn twitter" onclick="shareToTwitter('${ann.title.replace(/'/g, '\\\'').replace(/"/g, '\\"')}', \`${textContent.replace(/'/g, '\\\'').replace(/"/g, '\\"').replace(/`/g, '\\`')}\`, ${ann.id})" title="Share on Twitter">
-                                <i class="fab fa-twitter"></i>
+                            <button class="share-btn twitter" onclick="shareToTwitter('${ann.title.replace(/'/g, '\\\'').replace(/"/g, '\\"')}', \`${textContent.replace(/'/g, '\\\'').replace(/"/g, '\\"').replace(/`/g, '\\`')}\`, ${ann.id})" title="Share on X">
+                                <i class="fab fa-x-twitter"></i>
                             </button>
                             <button class="share-btn whatsapp" onclick="shareToWhatsApp('${ann.title.replace(/'/g, '\\\'').replace(/"/g, '\\"')}', \`${textContent.replace(/'/g, '\\\'').replace(/"/g, '\\"').replace(/`/g, '\\`')}\`, ${ann.id})" title="Share on WhatsApp">
                                 <i class="fab fa-whatsapp"></i>
@@ -315,8 +315,10 @@ async function shareToFacebook(title, content, announcementId) {
     const cleanContent = content.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
     const text = encodeURIComponent(`${title}\n\n${cleanContent}\n\nSiyabulela Senior Secondary School`);
     
-    // Use Facebook's sharer with image support
-    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`, '_blank', 'width=600,height=400');
+    // Use Facebook's sharer with proper URL format
+    const currentUrl = `${window.location.origin}/#announcement-${announcementId}`;
+    const encodedUrl = encodeURIComponent(currentUrl);
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`, '_blank', 'width=600,height=400');
 }
 
 async function shareToTwitter(title, content, announcementId) {
@@ -330,7 +332,7 @@ async function shareToTwitter(title, content, announcementId) {
     const cleanContent = content.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
     const text = encodeURIComponent(`${title}\n\n${cleanContent}\n\n#SiyabulelaSSS #SchoolNews`);
     
-    window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank', 'width=600,height=400');
+    window.open(`https://x.com/intent/tweet?text=${text}&url=${url}`, '_blank', 'width=600,height=400');
 }
 
 async function shareToWhatsApp(title, content, announcementId) {
