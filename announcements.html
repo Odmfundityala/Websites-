@@ -1515,6 +1515,270 @@
             color: #374151;
             font-style: italic;
         }
+
+        /* Password Recovery Styles */
+        .recovery-link {
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .recovery-link a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .recovery-link a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .modal {
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 0;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            position: relative;
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 20px 20px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-header h2 {
+            color: white;
+            margin: 0;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .close {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: white;
+        }
+
+        .modal-body {
+            padding: 2rem;
+            color: white;
+        }
+
+        .modal-body p {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .recovery-panel {
+            background: white;
+            border-radius: 20px;
+            margin: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .recovery-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2rem;
+            color: white;
+            text-align: center;
+        }
+
+        .recovery-header h2 {
+            margin: 0 0 1rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .admin-count-info {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .recovery-requests {
+            padding: 2rem;
+        }
+
+        .recovery-request-card {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .recovery-request-card:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.1);
+        }
+
+        .request-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .request-email {
+            font-weight: 600;
+            color: #1a365d;
+            font-size: 1.1rem;
+        }
+
+        .request-time {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .request-reason {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-style: italic;
+            color: #374151;
+            border-left: 4px solid #667eea;
+        }
+
+        .approval-status {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .approval-count {
+            background: #e0e7ff;
+            color: #3730a3;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .approval-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .approve-btn, .reject-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .approve-btn {
+            background: #10b981;
+            color: white;
+        }
+
+        .approve-btn:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        .reject-btn {
+            background: #ef4444;
+            color: white;
+        }
+
+        .reject-btn:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+        }
+
+        .new-password-input {
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .new-password-input.show {
+            display: block;
+        }
+
+        .message {
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .message.success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #10b981;
+        }
+
+        .message.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #ef4444;
+        }
+
+        .message.info {
+            background: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #3b82f6;
+        }
     </style>
 </head>
 <body>
@@ -1569,6 +1833,13 @@
             </button>
         </form>
 
+        <div class="recovery-link">
+            <a href="#" id="forgotPasswordLink" onclick="showPasswordRecovery()">
+                <i class="fas fa-key"></i>
+                Forgot Password? Request Recovery
+            </a>
+        </div>
+
         <div class="security-footer">
             <div class="security-notice">
                 <i class="fas fa-shield-check"></i>
@@ -1578,6 +1849,60 @@
                 <i class="fas fa-clock"></i>
                 Sessions expire after 8 hours for enhanced security.
             </div>
+        </div>
+    </div>
+
+    <!-- Password Recovery Modal -->
+    <div id="passwordRecoveryModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-key"></i> Password Recovery Request</h2>
+                <span class="close" onclick="hidePasswordRecovery()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>To recover your password, please fill out this form. Your request will need approval from at least 2 other administrators.</p>
+                <form id="recoveryForm">
+                    <div class="form-group">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input 
+                            type="email" 
+                            id="recoveryEmail" 
+                            class="floating-input" 
+                            placeholder=" "
+                            required
+                        >
+                        <label for="recoveryEmail" class="floating-label">Your Admin Email</label>
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-comment input-icon"></i>
+                        <textarea 
+                            id="recoveryReason" 
+                            class="floating-input" 
+                            placeholder=" "
+                            rows="3"
+                        ></textarea>
+                        <label for="recoveryReason" class="floating-label">Reason for Recovery (Optional)</label>
+                    </div>
+                    <button type="submit" class="login-btn">
+                        <i class="fas fa-paper-plane"></i>
+                        Submit Recovery Request
+                    </button>
+                </form>
+                <div id="recoveryMessage" class="message" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Recovery Management Panel -->
+    <div id="recoveryManagementPanel" class="recovery-panel" style="display: none;">
+        <div class="recovery-header">
+            <h2><i class="fas fa-user-shield"></i> Password Recovery Management</h2>
+            <div class="admin-count-info">
+                <span id="adminCountDisplay">Loading admin information...</span>
+            </div>
+        </div>
+        <div class="recovery-requests" id="recoveryRequests">
+            <p><i class="fas fa-spinner fa-spin"></i> Loading recovery requests...</p>
         </div>
     </div>
 
