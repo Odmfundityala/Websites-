@@ -108,8 +108,8 @@ class AnnouncementManager {
             // Set content in rich text editor
             const editor = document.getElementById('announcementContent');
             if (editor && editor.contentEditable === 'true') {
-                // Use sanitized HTML for rich text editor to preserve formatting
-                editor.innerHTML = this.sanitizeHTML(announcement.content);
+                // Use safe DOM methods instead of innerHTML to prevent XSS
+                this.safeSetEditorContent(editor, announcement.content);
                 this.updateHiddenTextarea();
             }
             
@@ -584,6 +584,27 @@ class AnnouncementManager {
                 button.textContent = 'Show Full Content';
             }
         }
+    }
+
+    safeSetEditorContent(editor, content) {
+        // Clear the editor first
+        editor.textContent = '';
+        
+        // For rich text editor, we need to preserve basic formatting safely
+        // Convert common HTML tags to safe text representations
+        let safeContent = content
+            .replace(/<br\s*\/?>/gi, '\n')
+            .replace(/<\/p>/gi, '\n')
+            .replace(/<p[^>]*>/gi, '')
+            .replace(/<strong[^>]*>(.*?)<\/strong>/gi, '**$1**')
+            .replace(/<b[^>]*>(.*?)<\/b>/gi, '**$1**')
+            .replace(/<em[^>]*>(.*?)<\/em>/gi, '*$1*')
+            .replace(/<i[^>]*>(.*?)<\/i>/gi, '*$1*')
+            .replace(/<u[^>]*>(.*?)<\/u>/gi, '_$1_')
+            .replace(/<[^>]*>/g, ''); // Remove any remaining HTML tags
+        
+        // Set the safe text content
+        editor.textContent = safeContent;
     }
 
     sanitizeHTML(htmlString) {
