@@ -267,7 +267,7 @@ function formatContentForDisplay(content) {
 
 function getPlainTextContent(content) {
     const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = content;
+    tempDiv.textContent = content;
     return tempDiv.textContent || tempDiv.innerText || '';
 }
 
