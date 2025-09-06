@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const toggleMenu = () => {
             menuOpen = !menuOpen;
             navLinks.classList.toggle('active', menuOpen);
-            navToggle.classList.toggle('active', menuOpen);
             document.body.classList.toggle('nav-open', menuOpen);
         };
 
@@ -22,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (menuOpen && !navToggle.contains(e.target) && !navLinks.contains(e.target)) {
                 menuOpen = false;
                 navLinks.classList.remove('active');
-                navToggle.classList.remove('active');
                 document.body.classList.remove('nav-open');
             }
         });
@@ -31,16 +29,14 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.target.tagName === 'A' && menuOpen) {
                 menuOpen = false;
                 navLinks.classList.remove('active');
-                navToggle.classList.remove('active');
                 document.body.classList.remove('nav-open');
             }
         });
 
         window.addEventListener('resize', () => {
-            if (window.innerWidth > 768 && menuOpen) {
+            if (window.innerWidth > 950 && menuOpen) {
                 menuOpen = false;
                 navLinks.classList.remove('active');
-                navToggle.classList.remove('active');
                 document.body.classList.remove('nav-open');
             }
         });
@@ -101,8 +97,8 @@ function loadHomepageAnnouncements() {
                 // Sort announcements by date (newest first) and display latest 2
                 const sortedAnnouncements = announcements.sort((a, b) => new Date(b.date) - new Date(a.date));
                 const latestAnnouncements = sortedAnnouncements.slice(0, 2);
-                
-                announcementGrid.innerHTML = latestAnnouncements.map(ann => {
+            
+            announcementGrid.innerHTML = latestAnnouncements.map(ann => {
                 const cleanContent = formatContentForDisplay(ann.content);
                 const textContent = getPlainTextContent(ann.content);
                 const isLongContent = textContent.length > 300;
