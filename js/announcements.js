@@ -608,13 +608,31 @@ class AnnouncementManager {
         });
         
         // Allow only safe HTML tags and preserve formatting
-        const allowedTags = ['p', 'strong', 'b', 'em', 'i', 'u', 'br', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'span', 'div'];
-        const elementsToRemove = [];
+        const allowedTags = ['p', 'strong', 'b', 'em', 'i', 'u', 'br', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'span', 'div', 'font'];
+        const allowedAttributes = ['style', 'color', 'size'];
         
         allElements.forEach(element => {
             if (!allowedTags.includes(element.tagName.toLowerCase())) {
                 // Replace disallowed tags with their text content
                 element.outerHTML = element.innerHTML;
+            } else {
+                // Keep only safe attributes
+                const attributes = [...element.attributes];
+                attributes.forEach(attr => {
+                    if (!allowedAttributes.includes(attr.name.toLowerCase()) && 
+                        !attr.name.toLowerCase().startsWith('on') && 
+                        !attr.value.toLowerCase().includes('javascript:')) {
+                        // Allow style attribute but sanitize it
+                        if (attr.name.toLowerCase() === 'style') {
+                            const styleValue = attr.value.toLowerCase();
+                            if (styleValue.includes('color') || styleValue.includes('font-size')) {
+                                // Keep safe style attributes
+                                return;
+                            }
+                        }
+                        element.removeAttribute(attr.name);
+                    }
+                });
             }
         });
         
@@ -648,6 +666,30 @@ class AnnouncementManager {
                 this.updateHiddenTextarea();
             }
         });
+
+        // Setup font size selector
+        const fontSizeSelect = document.getElementById('fontSize');
+        if (fontSizeSelect) {
+            fontSizeSelect.addEventListener('change', (e) => {
+                const size = e.target.value;
+                if (size) {
+                    editor.focus();
+                    document.execCommand('fontSize', false, size);
+                    this.updateHiddenTextarea();
+                }
+            });
+        }
+
+        // Setup font color picker
+        const fontColorPicker = document.getElementById('fontColor');
+        if (fontColorPicker) {
+            fontColorPicker.addEventListener('change', (e) => {
+                const color = e.target.value;
+                editor.focus();
+                document.execCommand('foreColor', false, color);
+                this.updateHiddenTextarea();
+            });
+        }
 
         // Update hidden textarea when content changes
         editor.addEventListener('input', () => {
