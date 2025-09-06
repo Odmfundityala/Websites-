@@ -223,10 +223,11 @@ class AnnouncementManager {
             card.appendChild(cardImage);
         }
 
-        // Create header
-        const cardHeader = document.createElement('div');
-        cardHeader.className = 'card-header';
+        // Create content section with title and meta information (no blue header)
+        const cardContent = document.createElement('div');
+        cardContent.className = 'card-content';
 
+        // Add title and meta information to content area
         const announcementMeta = document.createElement('div');
         announcementMeta.className = 'announcement-meta';
 
@@ -248,12 +249,8 @@ class AnnouncementManager {
         title.className = 'announcement-title';
         title.textContent = ann.title;
 
-        cardHeader.appendChild(announcementMeta);
-        cardHeader.appendChild(title);
-
-        // Create content section with safe text content
-        const cardContent = document.createElement('div');
-        cardContent.className = 'card-content';
+        cardContent.appendChild(announcementMeta);
+        cardContent.appendChild(title);
         
         const contentDisplay = document.createElement('div');
         contentDisplay.className = 'content-display';
@@ -354,8 +351,7 @@ class AnnouncementManager {
         cardFooter.appendChild(socialSharing);
         cardFooter.appendChild(adminActions);
 
-        // Assemble the card
-        card.appendChild(cardHeader);
+        // Assemble the card (no blue header)
         card.appendChild(cardContent);
         card.appendChild(cardFooter);
 
