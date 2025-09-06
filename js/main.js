@@ -290,12 +290,12 @@ function setupAnnouncementInteractions() {
             const fullContent = contentElement.getAttribute('data-full-content');
             
             if (e.target.textContent === 'Read More') {
-                contentElement.innerHTML = fullContent;
+                contentElement.textContent = fullContent;
                 contentElement.classList.remove('truncated');
                 e.target.textContent = 'Read Less';
             } else {
                 const shortContent = fullContent.substring(0, 800) + '...';
-                contentElement.innerHTML = shortContent;
+                contentElement.textContent = shortContent;
                 contentElement.classList.add('truncated');
                 e.target.textContent = 'Read More';
             }
