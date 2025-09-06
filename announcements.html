@@ -123,7 +123,7 @@
 
         .form-input {
             width: 100%;
-            padding: 1rem 3.5rem 1rem 3.5rem;
+            padding: 1rem 3.5rem 1rem 1rem;
             border: 2px solid #e5e7eb;
             border-radius: 12px;
             font-size: 1rem;
@@ -132,6 +132,10 @@
             outline: none;
             font-weight: 500;
             box-sizing: border-box;
+        }
+
+        .form-input#adminPassword {
+            padding-right: 3.5rem;
         }
 
         .form-input:focus {
@@ -150,22 +154,6 @@
             font-weight: 400;
         }
 
-        .input-icon {
-            position: absolute;
-            left: 1.2rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #6b7280;
-            font-size: 1.1rem;
-            z-index: 3;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-        }
-
-        .form-input:not(:placeholder-shown) + .input-icon,
-        .form-input:focus + .input-icon {
-            opacity: 0;
-        }
 
         .password-toggle {
             position: absolute;
@@ -2032,7 +2020,6 @@
                         required 
                         autocomplete="email"
                     >
-                    <i class="fas fa-envelope input-icon"></i>
                 </div>
             </div>
 
@@ -2047,7 +2034,6 @@
                         required 
                         autocomplete="current-password"
                     >
-                    <i class="fas fa-lock input-icon"></i>
                     <i class="fas fa-eye password-toggle" id="passwordToggle"></i>
                 </div>
             </div>
