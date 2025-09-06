@@ -940,9 +940,10 @@ class AnnouncementManager {
     }
 
     getPlainTextContent(announcement) {
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = announcement.content;
-        return tempDiv.textContent || tempDiv.innerText || '';
+        // Use DOMParser to safely parse HTML without executing scripts
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(announcement.content, 'text/html');
+        return doc.body.textContent || doc.body.innerText || '';
     }
 
     updateMetaTagsForSharing(announcement) {
