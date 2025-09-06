@@ -105,13 +105,25 @@
         }
 
         .form-group {
-            position: relative;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
-        .floating-input {
+        .input-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #1a365d;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.025em;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .form-input {
             width: 100%;
-            padding: 1.2rem 3.5rem 1.2rem 3.5rem;
+            padding: 1rem 3.5rem 1rem 3.5rem;
             border: 2px solid #e5e7eb;
             border-radius: 12px;
             font-size: 1rem;
@@ -122,38 +134,20 @@
             box-sizing: border-box;
         }
 
-        .floating-input:focus {
+        .form-input:focus {
             border-color: #1a56db;
             background: white;
             box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.1);
         }
 
-        .floating-input:hover:not(:focus) {
+        .form-input:hover:not(:focus) {
             border-color: #cbd5e1;
             background: white;
         }
 
-        .floating-input:focus + .floating-label,
-        .floating-input:not(:placeholder-shown) + .floating-label {
-            transform: translateY(-32px) scale(0.85);
-            color: #1a56db;
-            background: white;
-            padding: 0 0.5rem;
-            left: 3rem;
-        }
-
-        .floating-label {
-            position: absolute;
-            left: 3.5rem;
-            top: 50%;
-            transform: translateY(-50%);
+        .form-input::placeholder {
             color: #9ca3af;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            pointer-events: none;
-            background: transparent;
-            z-index: 2;
-            line-height: 1;
+            font-weight: 400;
         }
 
         .input-icon {
@@ -2021,30 +2015,34 @@
             </div>
 
             <div class="form-group">
-                <i class="fas fa-envelope input-icon"></i>
-                <input 
-                    type="email" 
-                    id="adminEmail" 
-                    class="floating-input" 
-                    placeholder=" "
-                    required 
-                    autocomplete="email"
-                >
-                <label for="adminEmail" class="floating-label">Email Address</label>
+                <label for="adminEmail" class="input-label">Email Address</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-envelope input-icon"></i>
+                    <input 
+                        type="email" 
+                        id="adminEmail" 
+                        class="form-input" 
+                        placeholder="Enter your email address"
+                        required 
+                        autocomplete="email"
+                    >
+                </div>
             </div>
 
             <div class="form-group">
-                <i class="fas fa-lock input-icon"></i>
-                <input 
-                    type="password" 
-                    id="adminPassword" 
-                    class="floating-input" 
-                    placeholder=" "
-                    required 
-                    autocomplete="current-password"
-                >
-                <label for="adminPassword" class="floating-label">Password</label>
-                <i class="fas fa-eye password-toggle" id="passwordToggle"></i>
+                <label for="adminPassword" class="input-label">Password</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-lock input-icon"></i>
+                    <input 
+                        type="password" 
+                        id="adminPassword" 
+                        class="form-input" 
+                        placeholder="Enter your password"
+                        required 
+                        autocomplete="current-password"
+                    >
+                    <i class="fas fa-eye password-toggle" id="passwordToggle"></i>
+                </div>
             </div>
 
             <div class="remember-me-container">
@@ -2458,15 +2456,7 @@
                         emailInput.value = rememberedEmail;
                         rememberCheckbox.checked = true;
                         
-                        // Trigger the floating label animation
-                        const floatingLabel = document.querySelector('label[for="adminEmail"]');
-                        if (floatingLabel) {
-                            floatingLabel.style.transform = 'translateY(-32px) scale(0.85)';
-                            floatingLabel.style.color = '#1a56db';
-                            floatingLabel.style.background = 'white';
-                            floatingLabel.style.padding = '0 0.5rem';
-                            floatingLabel.style.left = '3rem';
-                        }
+                        // Email loaded and ready
                     }
                 }
             }
@@ -2552,15 +2542,7 @@
                     if (emailInput && savedEmail) {
                         emailInput.value = savedEmail;
                         rememberCheckbox.checked = true;
-                        // Trigger floating label
-                        const floatingLabel = document.querySelector('label[for="adminEmail"]');
-                        if (floatingLabel) {
-                            floatingLabel.style.transform = 'translateY(-32px) scale(0.85)';
-                            floatingLabel.style.color = '#1a56db';
-                            floatingLabel.style.background = 'white';
-                            floatingLabel.style.padding = '0 0.5rem';
-                            floatingLabel.style.left = '3rem';
-                        }
+                        // Email preserved for next login
                     }
                 }
             }
