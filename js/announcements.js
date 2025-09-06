@@ -169,6 +169,12 @@ class AnnouncementManager {
             if (dateInput) {
                 dateInput.value = new Date().toISOString().split('T')[0];
             }
+            
+            // Reset image preview
+            const imagePreview = document.getElementById('imagePreview');
+            if (imagePreview) {
+                imagePreview.style.display = 'none';
+            }
         }
     }
 
