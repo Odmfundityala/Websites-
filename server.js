@@ -145,14 +145,14 @@ function handleApiRequest(req, res) {
                 }));
             }
         });
-    } else if (url.pathname === '/api/password-recovery' && req.method === 'POST') {
-        handlePasswordRecoveryRequest(req, res);
-    } else if (url.pathname === '/api/recovery-requests' && req.method === 'GET') {
-        handleGetRecoveryRequests(req, res);
-    } else if (url.pathname === '/api/approve-recovery' && req.method === 'POST') {
-        handleApproveRecovery(req, res);
-    } else if (url.pathname === '/api/admin-count' && req.method === 'GET') {
-        handleGetAdminCount(req, res);
+    } else if (url.pathname === '/api/create-admin' && req.method === 'POST') {
+        handleCreateAdmin(req, res);
+    } else if (url.pathname === '/api/reset-admin-password' && req.method === 'POST') {
+        handleResetAdminPassword(req, res);
+    } else if (url.pathname === '/api/admins-list' && req.method === 'GET') {
+        handleGetAdminsList(req, res);
+    } else if (url.pathname === '/api/remove-admin' && req.method === 'POST') {
+        handleRemoveAdmin(req, res);
     } else {
         res.writeHead(404, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ message: 'API endpoint not found' }));
@@ -269,8 +269,8 @@ function handleAnnouncementsRequest(req, res) {
     }
 }
 
-// Password Recovery System Handlers
-function handlePasswordRecoveryRequest(req, res) {
+// Admin Management System Handlers
+function handleCreateAdmin(req, res) {
     let body = '';
     req.on('data', chunk => {
         body += chunk.toString();
@@ -278,68 +278,62 @@ function handlePasswordRecoveryRequest(req, res) {
     
     req.on('end', () => {
         try {
-            const { email, reason } = JSON.parse(body);
-            const authorizedEmails = (process.env.ADMIN_EMAILS || '').split(',').map(e => e.trim().toLowerCase());
+            const { email, password } = JSON.parse(body);
             
-            if (!authorizedEmails.includes(email.toLowerCase())) {
-                res.writeHead(401, { 'Content-Type': 'application/json' });
+            if (!email || !password || password.length < 6) {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ 
                     success: false, 
-                    message: 'Email not authorized for admin access' 
+                    message: 'Email and password (minimum 6 characters) are required' 
                 }));
                 return;
             }
             
-            const recoveryFile = path.join(__dirname, 'recovery-requests.json');
-            const crypto = require('crypto');
-            const requestId = crypto.randomBytes(16).toString('hex');
+            const adminsFile = path.join(__dirname, 'admins.json');
             
-            const recoveryRequest = {
-                id: requestId,
-                email: email.toLowerCase(),
-                reason: reason || 'Password forgotten',
-                timestamp: new Date().toISOString(),
-                status: 'pending',
-                approvals: [],
-                requiredApprovals: 2 // Minimum of 2 admin approvals
-            };
-            
-            // Read existing requests
-            fs.readFile(recoveryFile, 'utf8', (err, data) => {
-                let requests = [];
+            // Read existing admins
+            fs.readFile(adminsFile, 'utf8', (err, data) => {
+                let admins = [];
                 if (!err && data) {
                     try {
-                        requests = JSON.parse(data);
+                        admins = JSON.parse(data);
                     } catch (parseError) {
-                        requests = [];
+                        admins = [];
                     }
                 }
                 
-                // Check if there's already a pending request for this email
-                const existingRequest = requests.find(req => req.email === email.toLowerCase() && req.status === 'pending');
-                if (existingRequest) {
+                // Check if admin already exists
+                if (admins.some(admin => admin.email.toLowerCase() === email.toLowerCase())) {
                     res.writeHead(400, { 'Content-Type': 'application/json' });
                     res.end(JSON.stringify({ 
                         success: false, 
-                        message: 'You already have a pending recovery request' 
+                        message: 'Admin with this email already exists' 
                     }));
                     return;
                 }
                 
-                requests.push(recoveryRequest);
+                // Add new admin
+                const newAdmin = {
+                    email: email.toLowerCase(),
+                    password: password, // In production, this should be hashed
+                    createdAt: new Date().toISOString(),
+                    active: true
+                };
                 
-                fs.writeFile(recoveryFile, JSON.stringify(requests, null, 2), (writeErr) => {
+                admins.push(newAdmin);
+                
+                // Write back to file
+                fs.writeFile(adminsFile, JSON.stringify(admins, null, 2), (writeErr) => {
                     if (writeErr) {
                         res.writeHead(500, { 'Content-Type': 'application/json' });
-                        res.end(JSON.stringify({ success: false, message: 'Failed to save recovery request' }));
+                        res.end(JSON.stringify({ success: false, message: 'Failed to create admin account' }));
                         return;
                     }
                     
                     res.writeHead(200, { 'Content-Type': 'application/json' });
                     res.end(JSON.stringify({ 
                         success: true, 
-                        message: 'Recovery request submitted. Please contact other admins for approval.',
-                        requestId: requestId
+                        message: 'Admin account created successfully!'
                     }));
                 });
             });
@@ -354,30 +348,7 @@ function handlePasswordRecoveryRequest(req, res) {
     });
 }
 
-function handleGetRecoveryRequests(req, res) {
-    const recoveryFile = path.join(__dirname, 'recovery-requests.json');
-    
-    fs.readFile(recoveryFile, 'utf8', (err, data) => {
-        if (err) {
-            res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify([]));
-            return;
-        }
-        
-        try {
-            const requests = JSON.parse(data);
-            // Only return pending requests
-            const pendingRequests = requests.filter(req => req.status === 'pending');
-            res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify(pendingRequests));
-        } catch (parseError) {
-            res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify([]));
-        }
-    });
-}
-
-function handleApproveRecovery(req, res) {
+function handleResetAdminPassword(req, res) {
     let body = '';
     req.on('data', chunk => {
         body += chunk.toString();
@@ -385,109 +356,57 @@ function handleApproveRecovery(req, res) {
     
     req.on('end', () => {
         try {
-            const { requestId, approverEmail, action, newPassword } = JSON.parse(body);
-            const authorizedEmails = (process.env.ADMIN_EMAILS || '').split(',').map(e => e.trim().toLowerCase());
+            const { email, newPassword } = JSON.parse(body);
             
-            if (!authorizedEmails.includes(approverEmail.toLowerCase())) {
-                res.writeHead(401, { 'Content-Type': 'application/json' });
+            if (!email || !newPassword || newPassword.length < 6) {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ 
                     success: false, 
-                    message: 'Unauthorized approver email' 
+                    message: 'Email and new password (minimum 6 characters) are required' 
                 }));
                 return;
             }
             
-            const recoveryFile = path.join(__dirname, 'recovery-requests.json');
+            const adminsFile = path.join(__dirname, 'admins.json');
             
-            fs.readFile(recoveryFile, 'utf8', (err, data) => {
+            fs.readFile(adminsFile, 'utf8', (err, data) => {
                 if (err) {
                     res.writeHead(404, { 'Content-Type': 'application/json' });
-                    res.end(JSON.stringify({ success: false, message: 'No recovery requests found' }));
+                    res.end(JSON.stringify({ success: false, message: 'No admin accounts found' }));
                     return;
                 }
                 
                 try {
-                    let requests = JSON.parse(data);
-                    const requestIndex = requests.findIndex(req => req.id === requestId);
+                    let admins = JSON.parse(data);
+                    const adminIndex = admins.findIndex(admin => admin.email.toLowerCase() === email.toLowerCase());
                     
-                    if (requestIndex === -1) {
+                    if (adminIndex === -1) {
                         res.writeHead(404, { 'Content-Type': 'application/json' });
-                        res.end(JSON.stringify({ success: false, message: 'Recovery request not found' }));
+                        res.end(JSON.stringify({ success: false, message: 'Admin not found' }));
                         return;
                     }
                     
-                    const request = requests[requestIndex];
+                    // Update password
+                    admins[adminIndex].password = newPassword; // In production, this should be hashed
+                    admins[adminIndex].passwordUpdatedAt = new Date().toISOString();
                     
-                    if (request.email === approverEmail.toLowerCase()) {
-                        res.writeHead(400, { 'Content-Type': 'application/json' });
-                        res.end(JSON.stringify({ 
-                            success: false, 
-                            message: 'Cannot approve your own recovery request' 
-                        }));
-                        return;
-                    }
-                    
-                    if (action === 'approve') {
-                        // Add approval if not already approved by this admin
-                        if (!request.approvals.some(approval => approval.email === approverEmail.toLowerCase())) {
-                            request.approvals.push({
-                                email: approverEmail.toLowerCase(),
-                                timestamp: new Date().toISOString()
-                            });
-                        }
-                        
-                        // Check if we have enough approvals
-                        if (request.approvals.length >= request.requiredApprovals) {
-                            // Validate new password
-                            if (!newPassword || newPassword.length < 6) {
-                                res.writeHead(400, { 'Content-Type': 'application/json' });
-                                res.end(JSON.stringify({ 
-                                    success: false, 
-                                    message: 'New password must be at least 6 characters' 
-                                }));
-                                return;
-                            }
-                            
-                            request.status = 'approved';
-                            request.completedAt = new Date().toISOString();
-                            request.newPassword = newPassword; // In production, this should be hashed
-                            
-                            // Generate new auth token
-                            const crypto = require('crypto');
-                            const token = crypto.createHmac('sha256', process.env.ADMIN_SECRET_KEY || 'fallback-key')
-                                               .update(request.email + Date.now())
-                                               .digest('hex');
-                            
-                            request.recoveryToken = token;
-                        }
-                    } else if (action === 'reject') {
-                        request.status = 'rejected';
-                        request.rejectedBy = approverEmail.toLowerCase();
-                        request.rejectedAt = new Date().toISOString();
-                    }
-                    
-                    requests[requestIndex] = request;
-                    
-                    fs.writeFile(recoveryFile, JSON.stringify(requests, null, 2), (writeErr) => {
+                    fs.writeFile(adminsFile, JSON.stringify(admins, null, 2), (writeErr) => {
                         if (writeErr) {
                             res.writeHead(500, { 'Content-Type': 'application/json' });
-                            res.end(JSON.stringify({ success: false, message: 'Failed to update recovery request' }));
+                            res.end(JSON.stringify({ success: false, message: 'Failed to reset password' }));
                             return;
                         }
                         
                         res.writeHead(200, { 'Content-Type': 'application/json' });
                         res.end(JSON.stringify({ 
                             success: true, 
-                            message: action === 'approve' ? 
-                                (request.status === 'approved' ? 'Password reset completed successfully' : 'Approval recorded, waiting for more approvals') :
-                                'Recovery request rejected',
-                            request: request
+                            message: 'Password reset successfully!'
                         }));
                     });
                     
                 } catch (parseError) {
                     res.writeHead(500, { 'Content-Type': 'application/json' });
-                    res.end(JSON.stringify({ success: false, message: 'Failed to process recovery request' }));
+                    res.end(JSON.stringify({ success: false, message: 'Failed to process admin data' }));
                 }
             });
             
@@ -501,18 +420,103 @@ function handleApproveRecovery(req, res) {
     });
 }
 
-function handleGetAdminCount(req, res) {
-    const authorizedEmails = (process.env.ADMIN_EMAILS || '').split(',').map(e => e.trim()).filter(e => e.length > 0);
-    const minRecommended = 2;
+function handleGetAdminsList(req, res) {
+    const adminsFile = path.join(__dirname, 'admins.json');
     
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ 
-        current: authorizedEmails.length,
-        minimum: minRecommended,
-        recommended: Math.max(minRecommended, 3),
-        admins: authorizedEmails.map(email => email.split('@')[0]),
-        isMinimumMet: authorizedEmails.length >= minRecommended
-    }));
+    fs.readFile(adminsFile, 'utf8', (err, data) => {
+        if (err) {
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify([]));
+            return;
+        }
+        
+        try {
+            const admins = JSON.parse(data);
+            // Return admin list without passwords
+            const publicAdmins = admins.filter(admin => admin.active).map(admin => ({
+                email: admin.email,
+                createdAt: admin.createdAt,
+                passwordUpdatedAt: admin.passwordUpdatedAt
+            }));
+            
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify(publicAdmins));
+        } catch (parseError) {
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify([]));
+        }
+    });
+}
+
+function handleRemoveAdmin(req, res) {
+    let body = '';
+    req.on('data', chunk => {
+        body += chunk.toString();
+    });
+    
+    req.on('end', () => {
+        try {
+            const { email } = JSON.parse(body);
+            
+            if (!email) {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ 
+                    success: false, 
+                    message: 'Email is required' 
+                }));
+                return;
+            }
+            
+            const adminsFile = path.join(__dirname, 'admins.json');
+            
+            fs.readFile(adminsFile, 'utf8', (err, data) => {
+                if (err) {
+                    res.writeHead(404, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ success: false, message: 'No admin accounts found' }));
+                    return;
+                }
+                
+                try {
+                    let admins = JSON.parse(data);
+                    const initialCount = admins.length;
+                    
+                    // Remove admin (or mark as inactive)
+                    admins = admins.filter(admin => admin.email.toLowerCase() !== email.toLowerCase());
+                    
+                    if (admins.length === initialCount) {
+                        res.writeHead(404, { 'Content-Type': 'application/json' });
+                        res.end(JSON.stringify({ success: false, message: 'Admin not found' }));
+                        return;
+                    }
+                    
+                    fs.writeFile(adminsFile, JSON.stringify(admins, null, 2), (writeErr) => {
+                        if (writeErr) {
+                            res.writeHead(500, { 'Content-Type': 'application/json' });
+                            res.end(JSON.stringify({ success: false, message: 'Failed to remove admin' }));
+                            return;
+                        }
+                        
+                        res.writeHead(200, { 'Content-Type': 'application/json' });
+                        res.end(JSON.stringify({ 
+                            success: true, 
+                            message: 'Admin removed successfully!'
+                        }));
+                    });
+                    
+                } catch (parseError) {
+                    res.writeHead(500, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ success: false, message: 'Failed to process admin data' }));
+                }
+            });
+            
+        } catch (error) {
+            res.writeHead(400, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ 
+                success: false, 
+                message: 'Invalid request format' 
+            }));
+        }
+    });
 }
 
 server.listen(PORT, '0.0.0.0', () => {
