@@ -81,12 +81,22 @@ document.addEventListener('DOMContentLoaded', () => {
 function loadHomepageAnnouncements() {
     try {
         const stored = localStorage.getItem('siya_announcements');
-        const announcements = stored ? JSON.parse(stored) : getDefaultAnnouncements();
+        let announcements = [];
+        
+        if (stored) {
+            announcements = JSON.parse(stored);
+            // Ensure announcements is an array
+            if (!Array.isArray(announcements)) {
+                announcements = [];
+            }
+        }
         
         const announcementGrid = document.querySelector('.announcement-grid');
-        if (announcementGrid && announcements.length > 0) {
-            // Display latest 2 announcements
-            const latestAnnouncements = announcements.slice(0, 2);
+        if (announcementGrid) {
+            if (announcements.length > 0) {
+                // Sort announcements by date (newest first) and display latest 2
+                const sortedAnnouncements = announcements.sort((a, b) => new Date(b.date) - new Date(a.date));
+                const latestAnnouncements = sortedAnnouncements.slice(0, 2);
             
             announcementGrid.innerHTML = latestAnnouncements.map(ann => {
                 const cleanContent = formatContentForDisplay(ann.content);
@@ -155,16 +165,17 @@ function loadHomepageAnnouncements() {
                     </div>
                 </div>
                 `;
-            }).join('');
-        } else if (announcementGrid) {
-            // Show message when no announcements available
-            announcementGrid.innerHTML = `
-                <div class="no-announcements-message">
-                    <i class="fas fa-bullhorn"></i>
-                    <h3>No Announcements Yet</h3>
-                    <p>Check back soon for the latest school announcements and updates.</p>
-                </div>
-            `;
+                }).join('');
+            } else {
+                // Show message when no announcements available
+                announcementGrid.innerHTML = `
+                    <div class="no-announcements-message">
+                        <i class="fas fa-bullhorn"></i>
+                        <h3>No Announcements Yet</h3>
+                        <p>Check back soon for the latest school announcements and updates.</p>
+                    </div>
+                `;
+            }
         }
     } catch (error) {
         console.error('Error loading homepage announcements:', error);
@@ -204,24 +215,7 @@ function getAnnouncementIconSymbol(type) {
 }
 
 function getDefaultAnnouncements() {
-    return [
-        {
-            id: 1,
-            title: "Welcome to Academic Year 2025",
-            content: "<p>We are excited to welcome all students back for the new academic year. Classes begin on <strong>January 15, 2025</strong>.</p><p>Please ensure you have completed all registration requirements and have your textbooks ready.</p>",
-            date: new Date().toISOString(),
-            type: "academic",
-            image: null
-        },
-        {
-            id: 2,
-            title: "Sports Registration Open",
-            content: "<p>Registration is now open for all winter sports activities including:</p><ul><li>Soccer</li><li>Netball</li><li>Rugby</li><li>Athletics</li></ul><p>Contact the sports department for more information.</p>",
-            date: new Date(Date.now() - 86400000).toISOString(),
-            type: "events",
-            image: null
-        }
-    ];
+    return [];
 }
 
 // Enhanced content formatting for home page
