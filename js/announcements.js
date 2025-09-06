@@ -279,7 +279,9 @@ class AnnouncementManager {
             const readMoreBtn = document.createElement('button');
             readMoreBtn.className = 'read-more-btn';
             readMoreBtn.innerHTML = '<i class="fas fa-chevron-down"></i> Read More';
-            readMoreBtn.onclick = () => {
+            readMoreBtn.onclick = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 contentFull.style.display = 'block';
                 contentPreview.style.display = 'none';
                 readMoreBtn.style.display = 'none';
@@ -290,7 +292,9 @@ class AnnouncementManager {
             readLessBtn.className = 'read-less-btn';
             readLessBtn.style.display = 'none';
             readLessBtn.innerHTML = '<i class="fas fa-chevron-up"></i> Read Less';
-            readLessBtn.onclick = () => {
+            readLessBtn.onclick = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 contentPreview.style.display = 'block';
                 contentFull.style.display = 'none';
                 readMoreBtn.style.display = 'inline-block';
