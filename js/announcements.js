@@ -183,6 +183,12 @@ class AnnouncementManager {
 
         container.innerHTML = this.announcements.map(ann => `
             <div class="announcement-card elegant" data-type="${ann.type}" data-id="${ann.id}">
+                ${ann.image ? `
+                    <div class="card-image">
+                        <img src="${ann.image}" alt="${ann.title}" loading="lazy" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px 8px 0 0;">
+                    </div>
+                ` : ''}
+                
                 <div class="card-header">
                     <div class="announcement-meta">
                         <span class="announcement-type type-${ann.type}">${ann.type}</span>

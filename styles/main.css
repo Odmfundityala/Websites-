@@ -1700,6 +1700,25 @@ main {
 }
 
 
+/* Announcement Card Images */
+.announcement-card .card-image {
+    margin: -1.5rem -1.5rem 1.5rem -1.5rem;
+    border-radius: 8px 8px 0 0;
+    overflow: hidden;
+}
+
+.announcement-card .card-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.announcement-card:hover .card-image img {
+    transform: scale(1.02);
+}
+
 /* CLEAN ELEGANT TYPOGRAPHY & SPACING */
 
 /* Global paragraph styling for elegance */
