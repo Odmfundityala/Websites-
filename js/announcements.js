@@ -272,7 +272,10 @@ class AnnouncementManager {
             const contentFull = document.createElement('div');
             contentFull.className = 'content-full';
             contentFull.style.display = 'none';
-            contentFull.textContent = contentText;
+            // For full content, render HTML properly
+            const fullTempDiv = document.createElement('div');
+            fullTempDiv.innerHTML = ann.content;
+            contentFull.appendChild(fullTempDiv);
             
             const readMoreBtn = document.createElement('button');
             readMoreBtn.className = 'read-more-btn';
@@ -300,7 +303,10 @@ class AnnouncementManager {
             contentDisplay.appendChild(readMoreBtn);
             contentDisplay.appendChild(readLessBtn);
         } else {
-            contentDisplay.textContent = contentText;
+            // For short content, render HTML properly
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = ann.content;
+            contentDisplay.appendChild(tempDiv);
         }
         
         cardContent.appendChild(contentDisplay);
@@ -372,8 +378,8 @@ class AnnouncementManager {
     extractTextContent(htmlContent) {
         // Safely extract text content from HTML without executing scripts
         const tempDiv = document.createElement('div');
-        tempDiv.textContent = htmlContent; // This automatically escapes HTML
-        return tempDiv.textContent || '';
+        tempDiv.innerHTML = htmlContent; // Allow HTML rendering
+        return tempDiv.textContent || tempDiv.innerText || '';
     }
 
 
