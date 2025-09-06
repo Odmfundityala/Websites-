@@ -70,8 +70,10 @@ html {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0;
-    max-width: 1200px;
+    padding: 0 1rem;
+    max-width: 1400px;
+    width: 100%;
+    min-width: 0;
     margin: 0 auto;
     position: relative;
     height: 70px;
@@ -141,16 +143,20 @@ html {
     display: flex;
     flex-wrap: nowrap;
     overflow: visible;
+    flex-shrink: 0;
     list-style: none;
     gap: 0.2rem;
     align-items: center;
     margin: 0;
-    padding: 0 0.5rem;
+    padding: 0 0.3rem;
     margin-left: auto;
+    flex-shrink: 0;
     height: 100%;
     width: auto;
+    max-width: none;
     background: none;
     box-shadow: none;
+    overflow: visible;
 }
 
 .nav-links li {
