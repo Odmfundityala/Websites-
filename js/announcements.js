@@ -478,10 +478,16 @@ class AnnouncementManager {
             animation: slideIn 0.3s ease-out;
         `;
         
-        messageDiv.innerHTML = `
-            <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
-            ${message}
-        `;
+        // Create icon element safely
+        const icon = document.createElement('i');
+        icon.className = `fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}`;
+        
+        // Create text node safely
+        const messageText = document.createTextNode(' ' + message);
+        
+        // Append elements safely
+        messageDiv.appendChild(icon);
+        messageDiv.appendChild(messageText);
         
         // Add animation styles
         if (!document.querySelector('#messageAnimations')) {
