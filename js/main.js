@@ -78,17 +78,19 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Function to load announcements on homepage
-function loadHomepageAnnouncements() {
+async function loadHomepageAnnouncements() {
     try {
-        const stored = localStorage.getItem('siya_announcements');
+        const response = await fetch('/api/announcements');
         let announcements = [];
         
-        if (stored) {
-            announcements = JSON.parse(stored);
+        if (response.ok) {
+            announcements = await response.json();
             // Ensure announcements is an array
             if (!Array.isArray(announcements)) {
                 announcements = [];
             }
+        } else {
+            console.error('Failed to load announcements from server');
         }
         
         const announcementGrid = document.querySelector('.announcement-grid');
@@ -283,8 +285,8 @@ function setupAnnouncementInteractions() {
 }
 
 // Enhanced Social Media Sharing Functions with Image Support
-function shareToFacebook(title, content, announcementId) {
-    const announcement = getAnnouncementById(announcementId);
+async function shareToFacebook(title, content, announcementId) {
+    const announcement = await getAnnouncementById(announcementId);
     const url = encodeURIComponent(window.location.href);
     
     // Update meta tags for better social sharing with image
@@ -298,8 +300,8 @@ function shareToFacebook(title, content, announcementId) {
     window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`, '_blank', 'width=600,height=400');
 }
 
-function shareToTwitter(title, content, announcementId) {
-    const announcement = getAnnouncementById(announcementId);
+async function shareToTwitter(title, content, announcementId) {
+    const announcement = await getAnnouncementById(announcementId);
     const url = encodeURIComponent(window.location.href);
     
     // Update meta tags for Twitter card with image
@@ -312,8 +314,8 @@ function shareToTwitter(title, content, announcementId) {
     window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank', 'width=600,height=400');
 }
 
-function shareToWhatsApp(title, content, announcementId) {
-    const announcement = getAnnouncementById(announcementId);
+async function shareToWhatsApp(title, content, announcementId) {
+    const announcement = await getAnnouncementById(announcementId);
     
     // Convert HTML formatting to WhatsApp markdown
     let whatsappContent = content
@@ -342,11 +344,16 @@ function shareToWhatsApp(title, content, announcementId) {
 }
 
 // Function to get announcement by ID
-function getAnnouncementById(announcementId) {
+async function getAnnouncementById(announcementId) {
     try {
-        const stored = localStorage.getItem('siya_announcements');
-        const announcements = stored ? JSON.parse(stored) : [];
-        return announcements.find(ann => ann.id === announcementId);
+        const response = await fetch('/api/announcements');
+        if (response.ok) {
+            const announcements = await response.json();
+            return announcements.find(ann => ann.id === announcementId);
+        } else {
+            console.error('Failed to load announcements from server');
+            return null;
+        }
     } catch (error) {
         console.error('Error getting announcement:', error);
         return null;

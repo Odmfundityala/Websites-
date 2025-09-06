@@ -1,15 +1,14 @@
 // Announcement Management System with Enhanced Security
 class AnnouncementManager {
     constructor() {
-        this.announcements = this.loadAnnouncements();
+        this.announcements = [];
         this.editingId = null;
         this.init();
     }
 
-    init() {
+    async init() {
         this.setupEventListeners();
-        this.displayAnnouncements();
-        this.updatePreview();
+        await this.refreshAnnouncements();
         
         // Set today's date as default
         // Date will be automatically set when announcement is created
@@ -75,23 +74,20 @@ class AnnouncementManager {
         this.resetForm();
     }
 
-    addAnnouncement(announcement) {
-        this.announcements.unshift(announcement);
-        this.saveAnnouncements();
-        this.displayAnnouncements();
-        this.updatePreview();
-        
-        this.showMessage('Announcement added successfully!', 'success');
+    async addAnnouncement(announcement) {
+        const success = await this.saveAnnouncement(announcement);
+        if (success) {
+            await this.refreshAnnouncements();
+            this.showMessage('Announcement added successfully!', 'success');
+        }
     }
 
-    updateAnnouncement(announcement) {
-        const index = this.announcements.findIndex(ann => ann.id === announcement.id);
-        if (index !== -1) {
-            this.announcements[index] = announcement;
-            this.saveAnnouncements();
-            this.displayAnnouncements();
-            this.updatePreview();
-            
+    async updateAnnouncement(announcement) {
+        // For updates, we need to delete the old one and add the new one
+        await this.deleteAnnouncementFromServer(announcement.id);
+        const success = await this.saveAnnouncement(announcement);
+        if (success) {
+            await this.refreshAnnouncements();
             this.showMessage('Announcement updated successfully!', 'success');
         }
     }
@@ -141,19 +137,18 @@ class AnnouncementManager {
         }
     }
 
-    deleteAnnouncement(id) {
+    async deleteAnnouncement(id) {
         if (!this.isAuthenticated()) {
             this.showMessage('Please log in to delete announcements', 'error');
             return;
         }
 
         if (confirm('Are you sure you want to delete this announcement? This action cannot be undone.')) {
-            this.announcements = this.announcements.filter(ann => ann.id !== id);
-            this.saveAnnouncements();
-            this.displayAnnouncements();
-            this.updatePreview();
-            
-            this.showMessage('Announcement deleted successfully!', 'success');
+            const success = await this.deleteAnnouncementFromServer(id);
+            if (success) {
+                await this.refreshAnnouncements();
+                this.showMessage('Announcement deleted successfully!', 'success');
+            }
         }
     }
 
@@ -284,22 +279,44 @@ class AnnouncementManager {
         }
     }
 
-    loadAnnouncements() {
+    async loadAnnouncements() {
         try {
-            const stored = localStorage.getItem('siya_announcements');
-            return stored ? JSON.parse(stored) : this.getDefaultAnnouncements();
+            const response = await fetch('/api/announcements');
+            if (response.ok) {
+                const announcements = await response.json();
+                return Array.isArray(announcements) ? announcements : this.getDefaultAnnouncements();
+            } else {
+                console.error('Failed to load announcements from server');
+                return this.getDefaultAnnouncements();
+            }
         } catch (error) {
             console.error('Error loading announcements:', error);
             return this.getDefaultAnnouncements();
         }
     }
 
-    saveAnnouncements() {
+    async saveAnnouncement(announcement) {
         try {
-            localStorage.setItem('siya_announcements', JSON.stringify(this.announcements));
+            const response = await fetch('/api/announcements', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(announcement)
+            });
+            
+            if (response.ok) {
+                const result = await response.json();
+                return result.success;
+            } else {
+                console.error('Failed to save announcement to server');
+                this.showMessage('Error saving announcement to server', 'error');
+                return false;
+            }
         } catch (error) {
-            console.error('Error saving announcements:', error);
-            this.showMessage('Error saving announcements', 'error');
+            console.error('Error saving announcement:', error);
+            this.showMessage('Error saving announcement', 'error');
+            return false;
         }
     }
 
@@ -356,20 +373,47 @@ class AnnouncementManager {
     }
 
     // Clear all announcements (admin only)
-    clearAllAnnouncements() {
+    async clearAllAnnouncements() {
         if (!this.isAuthenticated()) {
             this.showMessage('Please log in to perform this action', 'error');
             return;
         }
 
         if (confirm('Are you sure you want to delete ALL announcements? This action cannot be undone.')) {
-            this.announcements = [];
-            this.saveAnnouncements();
-            this.displayAnnouncements();
-            this.updatePreview();
-            
+            // Delete all announcements one by one
+            for (const announcement of this.announcements) {
+                await this.deleteAnnouncementFromServer(announcement.id);
+            }
+            await this.refreshAnnouncements();
             this.showMessage('All announcements cleared successfully!', 'success');
         }
+    }
+
+    async deleteAnnouncementFromServer(id) {
+        try {
+            const response = await fetch(`/api/announcements?id=${id}`, {
+                method: 'DELETE'
+            });
+            
+            if (response.ok) {
+                const result = await response.json();
+                return result.success;
+            } else {
+                console.error('Failed to delete announcement from server');
+                this.showMessage('Error deleting announcement from server', 'error');
+                return false;
+            }
+        } catch (error) {
+            console.error('Error deleting announcement:', error);
+            this.showMessage('Error deleting announcement', 'error');
+            return false;
+        }
+    }
+
+    async refreshAnnouncements() {
+        this.announcements = await this.loadAnnouncements();
+        this.displayAnnouncements();
+        this.updatePreview();
     }
 
     toggleContent(id) {
