@@ -675,7 +675,24 @@ class AnnouncementManager {
                 const font = e.target.value;
                 if (font) {
                     editor.focus();
-                    document.execCommand('fontName', false, font);
+                    // Apply font family using modern CSS styling instead of deprecated execCommand
+                    const selection = window.getSelection();
+                    if (selection.rangeCount > 0) {
+                        const range = selection.getRangeAt(0);
+                        if (!range.collapsed) {
+                            // Wrap selected text in span with font-family style
+                            const span = document.createElement('span');
+                            span.style.fontFamily = font;
+                            try {
+                                range.surroundContents(span);
+                            } catch (e) {
+                                // If surroundContents fails (e.g., range crosses boundaries), extract and wrap content
+                                const contents = range.extractContents();
+                                span.appendChild(contents);
+                                range.insertNode(span);
+                            }
+                        }
+                    }
                     this.updateHiddenTextarea();
                 }
             });
