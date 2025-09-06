@@ -136,6 +136,39 @@ html {
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
+/* Hamburger Menu Button */
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 10001;
+    background: none;
+    border: none;
+    margin-right: 1rem;
+}
+
+.hamburger {
+    width: 25px;
+    height: 3px;
+    background: var(--text-light);
+    margin: 3px 0;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+.nav-toggle.active .hamburger:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.nav-toggle.active .hamburger:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-toggle.active .hamburger:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
 /* Navigation */
 .nav-links {
     display: flex;
@@ -757,6 +790,57 @@ footer {
         width: 100%;
         max-width: 100%;
         box-sizing: border-box;
+    }
+
+    /* Mobile Navigation */
+    .nav-toggle {
+        display: flex !important;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 70px;
+        right: -100%;
+        width: 280px;
+        height: calc(100vh - 70px);
+        background: var(--gradient-primary);
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+        padding: 2rem 0;
+        gap: 0;
+        transition: right 0.3s ease;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+        z-index: 10000;
+        overflow-y: auto;
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .nav-links li {
+        width: 100%;
+        height: auto;
+        margin: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-links a {
+        display: block;
+        width: 100%;
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+        text-align: left;
+        border-radius: 0;
+        transition: all 0.3s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--gold-accent);
+        transform: none;
     }
 
     /* Fix mobile announcement display */
@@ -2961,6 +3045,14 @@ p {
     margin: 0 auto;
     align-items: stretch;
     padding: 0 2rem;
+}
+
+/* Desktop navigation breakpoint */
+@media screen and (max-width: 950px) {
+    .nav-links a {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.9rem;
+    }
 }
 
 /* CRITICAL: Force mobile announcement display */

@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const toggleMenu = () => {
             menuOpen = !menuOpen;
             navLinks.classList.toggle('active', menuOpen);
+            navToggle.classList.toggle('active', menuOpen);
             document.body.classList.toggle('nav-open', menuOpen);
         };
 
@@ -21,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (menuOpen && !navToggle.contains(e.target) && !navLinks.contains(e.target)) {
                 menuOpen = false;
                 navLinks.classList.remove('active');
+                navToggle.classList.remove('active');
                 document.body.classList.remove('nav-open');
             }
         });
@@ -29,14 +31,16 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.target.tagName === 'A' && menuOpen) {
                 menuOpen = false;
                 navLinks.classList.remove('active');
+                navToggle.classList.remove('active');
                 document.body.classList.remove('nav-open');
             }
         });
 
         window.addEventListener('resize', () => {
-            if (window.innerWidth > 950 && menuOpen) {
+            if (window.innerWidth > 768 && menuOpen) {
                 menuOpen = false;
                 navLinks.classList.remove('active');
+                navToggle.classList.remove('active');
                 document.body.classList.remove('nav-open');
             }
         });
