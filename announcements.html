@@ -683,6 +683,24 @@
             border: 1px solid #e2e8f0;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             max-width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .announcement-card.elegant .card-image {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .announcement-card.elegant .card-image img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            display: block;
+            margin: 0;
+            border-radius: 12px 12px 0 0;
         }
 
         .announcement-card.elegant:hover {
@@ -694,9 +712,10 @@
         .card-header {
             background: linear-gradient(135deg, #1a365d 0%, #2563eb 100%);
             color: white;
-            padding: 1rem 1.25rem;
+            padding: 1.25rem 1.25rem;
             position: relative;
             overflow: hidden;
+            margin-top: 0;
         }
 
         .card-header::before {
@@ -752,6 +771,7 @@
 
         .card-content {
             padding: 1.25rem;
+            margin-top: 0;
         }
 
         .content-display {
