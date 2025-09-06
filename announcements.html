@@ -118,12 +118,19 @@
             background: #f9fafb;
             transition: all 0.3s ease;
             outline: none;
+            font-weight: 500;
         }
 
         .floating-input:focus {
             border-color: #1a56db;
             background: white;
             box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .floating-input:hover:not(:focus) {
+            border-color: #cbd5e1;
+            background: white;
         }
 
         .floating-input:focus + .floating-label,
@@ -249,15 +256,20 @@
             background: linear-gradient(135deg, #1a56db 0%, #1e40af 100%);
             color: white;
             border: none;
-            padding: 1rem 2rem;
+            padding: 1.1rem 2rem;
             border-radius: 12px;
             font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin: 2rem 0 1.5rem;
+            margin: 1.5rem 0;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 4px 15px rgba(26, 86, 219, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
 
         .login-btn::before {
