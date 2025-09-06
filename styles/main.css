@@ -1733,6 +1733,32 @@ p {
     letter-spacing: 0.01em;
 }
 
+/* Announcement card paragraph styling for proper alignment */
+.announcement-card .content-display p {
+    text-align: left;
+    line-height: 1.6;
+    margin: 0.8rem 0;
+    padding: 0;
+    word-break: break-word;
+    hyphens: auto;
+}
+
+.announcement-card .content-display p:first-child {
+    margin-top: 0;
+}
+
+.announcement-card .content-display p:last-child {
+    margin-bottom: 0;
+}
+
+.announcement-card .content-display p + p {
+    margin-top: 1rem;
+}
+
+.announcement-card .content-display {
+    text-align: left;
+}
+
 /* Clean card styling with proper spacing */
 .uniform-card, .sports-card, .contact-card {
     background: white;

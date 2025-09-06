@@ -519,11 +519,12 @@ class AnnouncementManager {
         cleanContent = cleanContent.replace(/<br><\/div>/g, '</div>');
         cleanContent = cleanContent.replace(/<div><br>/g, '<div>');
         
-        // Convert divs to paragraphs for better styling
+        // Convert divs to paragraphs for proper styling and spacing
         cleanContent = cleanContent.replace(/<div>/g, '<p>').replace(/<\/div>/g, '</p>');
         
-        // Remove excessive line breaks
-        cleanContent = cleanContent.replace(/(<br\s*\/?>){2,}/g, '<br>');
+        // Handle multiple breaks and create proper paragraph spacing
+        cleanContent = cleanContent.replace(/<br\s*\/?>\s*<br\s*\/?>/g, '</p><p>');
+        cleanContent = cleanContent.replace(/(<br\s*\/?>){3,}/g, '</p><p>');
         
         // If content has no structure, add paragraph tags
         if (!cleanContent.includes('<p>') && !cleanContent.includes('<ul>') && !cleanContent.includes('<ol>')) {
