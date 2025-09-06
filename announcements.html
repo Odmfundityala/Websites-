@@ -173,6 +173,77 @@
             color: #1a56db;
         }
 
+        /* Remember Me Checkbox Styling */
+        .remember-me-container {
+            margin: 1rem 0 1.5rem 0;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .remember-me-wrapper {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+        }
+
+        .remember-me-checkbox {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .remember-me-checkmark {
+            height: 20px;
+            width: 20px;
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 4px;
+            position: relative;
+            margin-right: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .remember-me-wrapper:hover .remember-me-checkmark {
+            border-color: #1a56db;
+            background: rgba(26, 86, 219, 0.05);
+        }
+
+        .remember-me-checkbox:checked + .remember-me-checkmark {
+            background: #1a56db;
+            border-color: #1a56db;
+        }
+
+        .remember-me-checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 6px;
+            top: 2px;
+            width: 6px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .remember-me-checkbox:checked + .remember-me-checkmark:after {
+            display: block;
+        }
+
+        .remember-me-text {
+            color: #6b7280;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .remember-me-wrapper:hover .remember-me-text {
+            color: #1a56db;
+        }
+
         .login-btn {
             width: 100%;
             background: linear-gradient(135deg, #1a56db 0%, #1e40af 100%);
@@ -1960,6 +2031,14 @@
                 >
                 <label for="adminPassword" class="floating-label">Password</label>
                 <i class="fas fa-eye password-toggle" id="passwordToggle"></i>
+            </div>
+
+            <div class="remember-me-container">
+                <label class="remember-me-wrapper">
+                    <input type="checkbox" id="rememberMe" class="remember-me-checkbox">
+                    <span class="remember-me-checkmark"></span>
+                    <span class="remember-me-text">Remember my email</span>
+                </label>
             </div>
 
             <button type="submit" class="login-btn" id="loginBtn">
