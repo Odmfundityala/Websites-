@@ -940,10 +940,11 @@ class AnnouncementManager {
     }
 
     getPlainTextContent(announcement) {
-        // Use DOMParser to safely parse HTML without executing scripts
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(announcement.content, 'text/html');
-        return doc.body.textContent || doc.body.innerText || '';
+        // Create a temporary element in a safe way that doesn't execute scripts
+        const tempDiv = document.createElement('div');
+        // Remove any script tags before parsing to prevent XSS while preserving HTML parsing
+        tempDiv.innerHTML = announcement.content.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+        return tempDiv.textContent || tempDiv.innerText || '';
     }
 
     updateMetaTagsForSharing(announcement) {

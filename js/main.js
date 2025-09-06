@@ -296,10 +296,11 @@ function formatContentForDisplay(content) {
 }
 
 function getPlainTextContent(content) {
-    // Use DOMParser to safely parse HTML without executing scripts
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(content, 'text/html');
-    return doc.body.textContent || doc.body.innerText || '';
+    // Create a temporary element in a safe way that doesn't execute scripts
+    const tempDiv = document.createElement('div');
+    // Use textContent first to avoid script execution, then innerHTML only for parsing
+    tempDiv.innerHTML = content.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+    return tempDiv.textContent || tempDiv.innerText || '';
 }
 
 // Simple markdown-style formatting for backward compatibility
