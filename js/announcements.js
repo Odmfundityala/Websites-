@@ -9,7 +9,7 @@ class AnnouncementManager {
     async init() {
         this.setupEventListeners();
         await this.refreshAnnouncements();
-        
+
         // Set today's date as default
         // Date will be automatically set when announcement is created
     }
@@ -23,22 +23,22 @@ class AnnouncementManager {
 
     handleFormSubmit(e) {
         e.preventDefault();
-        
+
         // Check authentication before allowing any operations
         if (!this.isAuthenticated()) {
             this.showMessage('Please log in to manage announcements', 'error');
             return;
         }
-        
+
         // Update hidden textarea with rich text editor content
         this.updateHiddenTextarea();
-        
+
         const formData = new FormData(e.target);
-        
+
         // Handle image upload
         const imageFile = formData.get('image');
         let imageData = null;
-        
+
         if (imageFile && imageFile.size > 0) {
             const reader = new FileReader();
             reader.onload = (e) => {
@@ -48,7 +48,7 @@ class AnnouncementManager {
             reader.readAsDataURL(imageFile);
             return; // Exit early, let the reader callback handle saving
         }
-        
+
         // No image, proceed normally
         this.saveAnnouncementWithImage(formData, null);
     }
@@ -70,7 +70,7 @@ class AnnouncementManager {
         } else {
             this.addAnnouncement(announcement);
         }
-        
+
         this.resetForm();
     }
 
@@ -101,10 +101,10 @@ class AnnouncementManager {
         const announcement = this.announcements.find(ann => ann.id === id);
         if (announcement) {
             this.editingId = id;
-            
+
             // Populate form with announcement data
             document.getElementById('announcementTitle').value = announcement.title;
-            
+
             // Set content in rich text editor
             const editor = document.getElementById('announcementContent');
             if (editor && editor.contentEditable === 'true') {
@@ -112,27 +112,27 @@ class AnnouncementManager {
                 this.safeSetEditorContent(editor, announcement.content);
                 this.updateHiddenTextarea();
             }
-            
+
             // Set image if exists
             if (announcement.image) {
                 const imageInput = document.getElementById('announcementImage');
                 const imagePreview = document.getElementById('imagePreview');
                 const previewImg = document.getElementById('previewImg');
-                
+
                 if (imagePreview && previewImg) {
                     previewImg.src = announcement.image;
                     imagePreview.style.display = 'block';
                 }
             }
-            
+
             document.getElementById('announcementType').value = announcement.type;
-            
+
             // Update form button text
             const submitBtn = document.querySelector('#announcementForm button[type="submit"]');
             if (submitBtn) {
                 submitBtn.innerHTML = '<i class="fas fa-save"></i> Update Announcement';
             }
-            
+
             // Scroll to form
             document.getElementById('announcementForm').scrollIntoView({ behavior: 'smooth' });
         }
@@ -158,19 +158,19 @@ class AnnouncementManager {
         if (form) {
             form.reset();
             this.editingId = null;
-            
+
             // Reset button text
             const submitBtn = form.querySelector('button[type="submit"]');
             if (submitBtn) {
                 submitBtn.innerHTML = '<i class="fas fa-plus"></i> Add Announcement';
             }
-            
+
             // Reset date to today
             const dateInput = document.getElementById('announcementDate');
             if (dateInput) {
                 dateInput.value = new Date().toISOString().split('T')[0];
             }
-            
+
             // Reset image preview
             const imagePreview = document.getElementById('imagePreview');
             if (imagePreview) {
@@ -212,13 +212,13 @@ class AnnouncementManager {
         if (ann.image) {
             const cardImage = document.createElement('div');
             cardImage.className = 'card-image';
-            
+
             const img = document.createElement('img');
             img.src = ann.image;
             img.alt = ann.title;
             img.loading = 'lazy';
             img.style.cssText = 'width: 100%; height: 150px; object-fit: cover; border-radius: 12px 12px 0 0;';
-            
+
             cardImage.appendChild(img);
             card.appendChild(cardImage);
         }
@@ -251,18 +251,18 @@ class AnnouncementManager {
 
         cardContent.appendChild(announcementMeta);
         cardContent.appendChild(title);
-        
+
         const contentDisplay = document.createElement('div');
         contentDisplay.className = 'content-display';
-        
+
         // Use sanitized HTML to preserve formatting safely
         const sanitizedContent = this.sanitizeHTML(ann.content);
-        
+
         // Display full content without truncation
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = sanitizedContent;
         contentDisplay.appendChild(tempDiv);
-        
+
         cardContent.appendChild(contentDisplay);
 
         // Create footer with safe event handlers
@@ -320,11 +320,11 @@ class AnnouncementManager {
         button.className = `share-btn ${type}`;
         button.title = title;
         button.onclick = clickHandler;
-        
+
         const icon = document.createElement('i');
         icon.className = iconClass;
         button.appendChild(icon);
-        
+
         return button;
     }
 
@@ -351,12 +351,12 @@ class AnnouncementManager {
         try {
             const authData = JSON.parse(localStorage.getItem('siya_admin_auth'));
             if (!authData || !authData.isAuthenticated) return false;
-            
+
             // Check if login is within last 24 hours
             const loginTime = new Date(authData.loginTime);
             const now = new Date();
             const hoursDiff = (now - loginTime) / (1000 * 60 * 60);
-            
+
             return hoursDiff < 24;
         } catch (error) {
             return false;
@@ -367,7 +367,7 @@ class AnnouncementManager {
         try {
             // Clear localStorage cache to prevent old data
             localStorage.removeItem('siya_announcements');
-            
+
             const response = await fetch('/api/announcements?t=' + Date.now());
             if (response.ok) {
                 let announcements = await response.json();
@@ -399,7 +399,7 @@ class AnnouncementManager {
                 },
                 body: JSON.stringify(announcement)
             });
-            
+
             if (response.ok) {
                 const result = await response.json();
                 return result.success;
@@ -436,18 +436,18 @@ class AnnouncementManager {
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             animation: slideIn 0.3s ease-out;
         `;
-        
+
         // Create icon element safely
         const icon = document.createElement('i');
         icon.className = `fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}`;
-        
+
         // Create text node safely
         const messageText = document.createTextNode(' ' + message);
-        
+
         // Append elements safely
         messageDiv.appendChild(icon);
         messageDiv.appendChild(messageText);
-        
+
         // Add animation styles
         if (!document.querySelector('#messageAnimations')) {
             const style = document.createElement('style');
@@ -460,9 +460,9 @@ class AnnouncementManager {
             `;
             document.head.appendChild(style);
         }
-        
+
         document.body.appendChild(messageDiv);
-        
+
         setTimeout(() => {
             messageDiv.remove();
         }, 4000);
@@ -495,7 +495,7 @@ class AnnouncementManager {
             const response = await fetch(`/api/announcements?id=${id}`, {
                 method: 'DELETE'
             });
-            
+
             if (response.ok) {
                 const result = await response.json();
                 return result.success;
@@ -523,7 +523,7 @@ class AnnouncementManager {
             const contentElement = item.querySelector('.content-preview');
             const button = item.querySelector('.expand-content-btn');
             const fullContent = contentElement.getAttribute('data-full-content');
-            
+
             if (button.textContent === 'Show Full Content') {
                 contentElement.innerHTML = this.sanitizeHTML(fullContent);
                 contentElement.classList.remove('truncated');
@@ -540,7 +540,7 @@ class AnnouncementManager {
     safeSetEditorContent(editor, content) {
         // Clear the editor first
         editor.textContent = '';
-        
+
         // For rich text editor, we need to preserve basic formatting safely
         // Convert common HTML tags to safe text representations
         let safeContent = content
@@ -553,7 +553,7 @@ class AnnouncementManager {
             .replace(/<i[^>]*>(.*?)<\/i>/gi, '*$1*')
             .replace(/<u[^>]*>(.*?)<\/u>/gi, '_$1_')
             .replace(/<[^>]*>/g, ''); // Remove any remaining HTML tags
-        
+
         // Set the safe text content
         editor.textContent = safeContent;
     }
@@ -562,11 +562,11 @@ class AnnouncementManager {
         // Create a temporary div to parse HTML
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = htmlString;
-        
+
         // Remove all script tags and event handlers
         const scripts = tempDiv.querySelectorAll('script');
         scripts.forEach(script => script.remove());
-        
+
         // Remove dangerous attributes that could execute JavaScript
         const allElements = tempDiv.querySelectorAll('*');
         allElements.forEach(element => {
@@ -580,11 +580,11 @@ class AnnouncementManager {
                 }
             });
         });
-        
+
         // Allow only safe HTML tags and preserve formatting
         const allowedTags = ['p', 'strong', 'b', 'em', 'i', 'u', 'br', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'span', 'div', 'font'];
         const allowedAttributes = ['style', 'color', 'size', 'face'];
-        
+
         allElements.forEach(element => {
             if (!allowedTags.includes(element.tagName.toLowerCase())) {
                 // Replace disallowed tags with their text content
@@ -614,7 +614,7 @@ class AnnouncementManager {
                 });
             }
         });
-        
+
         return tempDiv.innerHTML;
     }
 
@@ -634,9 +634,9 @@ class AnnouncementManager {
                 e.preventDefault();
                 const btn = e.target.closest('.format-btn');
                 const command = btn.dataset.command;
-                
+
                 editor.focus();
-                
+
                 // Handle special commands
                 if (command === 'undo') {
                     document.execCommand('undo', false, null);
@@ -648,16 +648,16 @@ class AnnouncementManager {
                     document.execCommand('justifyCenter', false, null);
                     document.execCommand('justifyRight', false, null);
                     document.execCommand('justifyFull', false, null);
-                    
+
                     // Apply the selected justify command
                     document.execCommand(command, false, null);
                 } else {
                     document.execCommand(command, false, null);
                 }
-                
+
                 // Update button states
                 this.updateToolbarState();
-                
+
                 // Update hidden textarea
                 this.updateHiddenTextarea();
             }
@@ -719,7 +719,10 @@ class AnnouncementManager {
 
         // Update hidden textarea when content changes
         editor.addEventListener('input', () => {
-            this.updateHiddenTextarea();
+            // Small delay to ensure DOM updates are complete
+            setTimeout(() => {
+                this.updateHiddenTextarea();
+            }, 10);
         });
 
         // Handle paste to clean up formatting
@@ -728,6 +731,15 @@ class AnnouncementManager {
             const text = e.clipboardData.getData('text/plain');
             document.execCommand('insertText', false, text);
             this.updateHiddenTextarea();
+        });
+
+        // Handle focus to clean up any nbsp artifacts
+        editor.addEventListener('focus', () => {
+            // Clean up any nbsp when user starts editing
+            let content = editor.innerHTML;
+            if (content === '&nbsp;' || content === '<div>&nbsp;</div>' || content === '<p>&nbsp;</p>') {
+                editor.innerHTML = '';
+            }
         });
 
         // Update toolbar state on selection change
@@ -742,7 +754,7 @@ class AnnouncementManager {
         const formatBtns = document.querySelectorAll('.format-btn');
         formatBtns.forEach(btn => {
             const command = btn.dataset.command;
-            
+
             // Handle justify commands specially
             if (command.startsWith('justify')) {
                 if (document.queryCommandState(command)) {
@@ -766,7 +778,7 @@ class AnnouncementManager {
     updateHiddenTextarea() {
         const editor = document.getElementById('announcementContent');
         const hiddenTextarea = document.getElementById('announcementContentHidden');
-        
+
         if (editor && hiddenTextarea) {
             hiddenTextarea.value = editor.innerHTML;
         }
@@ -775,31 +787,31 @@ class AnnouncementManager {
     formatContentForDisplay(content) {
         // Clean up HTML content for elegant display
         let cleanContent = content;
-        
+
         // Remove empty paragraphs and fix spacing
         cleanContent = cleanContent.replace(/<p><\/p>/g, '');
         cleanContent = cleanContent.replace(/<p><br><\/p>/g, '');
         cleanContent = cleanContent.replace(/<div><br><\/div>/g, '');
         cleanContent = cleanContent.replace(/<br><\/div>/g, '</div>');
         cleanContent = cleanContent.replace(/<div><br>/g, '<div>');
-        
+
         // Convert divs to paragraphs for proper styling and spacing
         cleanContent = cleanContent.replace(/<div>/g, '<p>').replace(/<\/div>/g, '</p>');
-        
+
         // Handle multiple breaks and create proper paragraph spacing
         cleanContent = cleanContent.replace(/<br\s*\/?>\s*<br\s*\/?>/g, '</p><p>');
         cleanContent = cleanContent.replace(/(<br\s*\/?>){3,}/g, '</p><p>');
-        
+
         // If content has no structure, add paragraph tags
         if (!cleanContent.includes('<p>') && !cleanContent.includes('<ul>') && !cleanContent.includes('<ol>')) {
             cleanContent = cleanContent.split('<br>').filter(line => line.trim()).map(line => `<p>${line}</p>`).join('');
         }
-        
+
         // Calculate text length for truncation
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = cleanContent;
         const textContent = tempDiv.textContent || tempDiv.innerText || '';
-        
+
         // Truncate if too long
         if (textContent.length > 400) {
             const truncateLength = 350;
@@ -808,9 +820,9 @@ class AnnouncementManager {
             if (lastSpace > truncateLength - 50) {
                 truncated = truncated.substring(0, lastSpace);
             }
-            
+
             const truncatedHtml = this.preserveFormattingForTruncated(cleanContent, truncated);
-            
+
             return `
                 <div class="content-preview">
                     ${truncatedHtml}...
@@ -826,20 +838,20 @@ class AnnouncementManager {
                 </button>
             `;
         }
-        
+
         return cleanContent;
     }
 
     preserveFormattingForTruncated(originalHtml, targetText) {
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = originalHtml;
-        
+
         let result = '';
         let charCount = 0;
-        
+
         const processNode = (node) => {
             if (charCount >= targetText.length) return;
-            
+
             if (node.nodeType === Node.TEXT_NODE) {
                 const remainingChars = targetText.length - charCount;
                 const text = node.textContent.substring(0, remainingChars);
@@ -862,12 +874,12 @@ class AnnouncementManager {
                 }
             }
         };
-        
+
         for (let child of tempDiv.childNodes) {
             processNode(child);
             if (charCount >= targetText.length) break;
         }
-        
+
         return result;
     }
 
@@ -875,43 +887,43 @@ class AnnouncementManager {
     shareToFacebook(announcementId) {
         const announcement = this.announcements.find(a => a.id == announcementId);
         if (!announcement) return;
-        
+
         const text = this.getPlainTextContent(announcement);
         const shareText = `📢 ${announcement.title}\n\n${text}\n\n📚 Siyabulela Senior Secondary School\n🌟 "Through Hardships to the Stars"`;
         const currentUrl = `${window.location.origin}/#announcement-${announcementId}`;
-        
+
         // Update meta tags for better image sharing
         if (announcement.image) {
             this.updateMetaTagsForSharing(announcement);
         }
-        
+
         const encodedUrl = encodeURIComponent(currentUrl);
         const encodedText = encodeURIComponent(shareText);
         const url = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedText}`;
-        
+
         window.open(url, '_blank', 'width=600,height=400');
     }
 
     shareToTwitter(announcementId) {
         const announcement = this.announcements.find(a => a.id == announcementId);
         if (!announcement) return;
-        
+
         const text = this.getPlainTextContent(announcement);
         let tweetText = `📢 ${announcement.title}\n\n${text}\n\n🎓 #SiyabulelaSSS #SchoolNews #Education`;
-        
+
         // Update meta tags for better image sharing
         if (announcement.image) {
             this.updateMetaTagsForSharing(announcement);
         }
-        
+
         // Truncate if too long for Twitter
         if (tweetText.length > 240) {
             tweetText = tweetText.substring(0, 240) + '...';
         }
-        
+
         const currentUrl = `${window.location.origin}/#announcement-${announcementId}`;
         tweetText += `\n\n${currentUrl}`;
-        
+
         const url = `https://x.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
         window.open(url, '_blank', 'width=600,height=400');
     }
@@ -919,7 +931,7 @@ class AnnouncementManager {
     shareToWhatsApp(announcementId) {
         const announcement = this.announcements.find(a => a.id == announcementId);
         if (!announcement) return;
-        
+
         const text = this.getPlainTextContent(announcement);
         const shareText = `*${announcement.title}*\n\n${text}`;
         const url = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
@@ -929,10 +941,10 @@ class AnnouncementManager {
     copyAnnouncementLink(announcementId) {
         const announcement = this.announcements.find(a => a.id == announcementId);
         if (!announcement) return;
-        
+
         const text = this.getPlainTextContent(announcement);
         const shareText = `${announcement.title}\n\n${text}`;
-        
+
         navigator.clipboard.writeText(shareText).then(() => {
             this.showMessage('Announcement copied to clipboard!', 'success');
         }).catch(() => {
@@ -960,7 +972,7 @@ class AnnouncementManager {
         const updateMetaTag = (property, content) => {
             let metaTag = document.querySelector(`meta[property="${property}"]`) || 
                           document.querySelector(`meta[name="${property}"]`);
-            
+
             if (!metaTag) {
                 metaTag = document.createElement('meta');
                 if (property.startsWith('og:') || property.startsWith('twitter:')) {
@@ -970,7 +982,7 @@ class AnnouncementManager {
                 }
                 document.head.appendChild(metaTag);
             }
-            
+
             metaTag.setAttribute('content', content);
         };
 
@@ -1024,7 +1036,7 @@ class AnnouncementManager {
 let announcementManager;
 document.addEventListener('DOMContentLoaded', () => {
     announcementManager = new AnnouncementManager();
-    
+
     // Setup rich text editor after DOM is ready
     setTimeout(() => {
         if (announcementManager && announcementManager.setupRichTextEditor) {
