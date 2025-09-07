@@ -1368,6 +1368,45 @@ main {
     font-weight: 500;
 }
 
+/* School Highlights */
+.school-highlights {
+    margin-top: 4rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.highlight-item {
+    background: linear-gradient(135deg, var(--cream) 0%, rgba(255,255,255,0.9) 100%);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid var(--navy-primary);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.highlight-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+.highlight-item h3 {
+    color: var(--navy-primary);
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    letter-spacing: 0.3px;
+    border-bottom: 2px solid var(--gold-accent);
+    padding-bottom: 0.5rem;
+}
+
+.highlight-item p {
+    color: var(--navy-light);
+    font-size: 1rem;
+    line-height: 1.6;
+    letter-spacing: 0.2px;
+}
+
 /* School Info */
 .school-info {
     margin-top: 5rem;
