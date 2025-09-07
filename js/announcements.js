@@ -372,10 +372,13 @@ class AnnouncementManager {
             if (response.ok) {
                 let announcements = await response.json();
                 if (Array.isArray(announcements)) {
-                    // Filter out any fake or test announcements
+                    // Filter out any fake or test announcements and nbsp artifacts
                     announcements = announcements.filter(ann => 
                         ann && ann.title && ann.title.toLowerCase() !== 'vwfww' && 
-                        ann.content && ann.content.trim() !== 'xvs&nbsp;'
+                        ann.content && 
+                        ann.content.trim() !== 'xvs&nbsp;' &&
+                        ann.content.replace(/&nbsp;/g, '').trim() !== '' &&
+                        ann.content.trim() !== '&nbsp;'
                     );
                     return announcements;
                 }
@@ -539,23 +542,25 @@ class AnnouncementManager {
 
     safeSetEditorContent(editor, content) {
         // Clear the editor first
-        editor.textContent = '';
+        editor.innerHTML = '';
 
-        // For rich text editor, we need to preserve basic formatting safely
-        // Convert common HTML tags to safe text representations
-        let safeContent = content
-            .replace(/<br\s*\/?>/gi, '\n')
-            .replace(/<\/p>/gi, '\n')
-            .replace(/<p[^>]*>/gi, '')
-            .replace(/<strong[^>]*>(.*?)<\/strong>/gi, '**$1**')
-            .replace(/<b[^>]*>(.*?)<\/b>/gi, '**$1**')
-            .replace(/<em[^>]*>(.*?)<\/em>/gi, '*$1*')
-            .replace(/<i[^>]*>(.*?)<\/i>/gi, '*$1*')
-            .replace(/<u[^>]*>(.*?)<\/u>/gi, '_$1_')
-            .replace(/<[^>]*>/g, ''); // Remove any remaining HTML tags
+        // Clean up content and handle HTML entities
+        let cleanContent = content
+            .replace(/&nbsp;/g, ' ')  // Replace nbsp with regular space
+            .replace(/&amp;/g, '&')   // Replace encoded ampersand
+            .replace(/&lt;/g, '<')    // Replace encoded less than
+            .replace(/&gt;/g, '>')    // Replace encoded greater than
+            .replace(/&quot;/g, '"')  // Replace encoded quotes
+            .trim();
 
-        // Set the safe text content
-        editor.textContent = safeContent;
+        // If content is empty or just whitespace, leave editor empty
+        if (!cleanContent || cleanContent === ' ' || cleanContent === '&nbsp;') {
+            editor.innerHTML = '';
+            return;
+        }
+
+        // Set the HTML content directly to preserve formatting
+        editor.innerHTML = this.sanitizeHTML(cleanContent);
     }
 
     sanitizeHTML(htmlString) {
@@ -719,6 +724,12 @@ class AnnouncementManager {
 
         // Update hidden textarea when content changes
         editor.addEventListener('input', () => {
+            // Clean up any stray nbsp that might appear
+            let content = editor.innerHTML;
+            if (content.includes('&nbsp;') && content.replace(/&nbsp;/g, '').trim() === '') {
+                editor.innerHTML = '';
+            }
+            
             // Small delay to ensure DOM updates are complete
             setTimeout(() => {
                 this.updateHiddenTextarea();
@@ -736,8 +747,14 @@ class AnnouncementManager {
         // Handle focus to clean up any nbsp artifacts
         editor.addEventListener('focus', () => {
             // Clean up any nbsp when user starts editing
-            let content = editor.innerHTML;
-            if (content === '&nbsp;' || content === '<div>&nbsp;</div>' || content === '<p>&nbsp;</p>') {
+            let content = editor.innerHTML.trim();
+            if (content === '&nbsp;' || 
+                content === '<div>&nbsp;</div>' || 
+                content === '<p>&nbsp;</p>' ||
+                content === '<br>' ||
+                content === '<div><br></div>' ||
+                content === '' ||
+                content.replace(/&nbsp;/g, '').trim() === '') {
                 editor.innerHTML = '';
             }
         });
