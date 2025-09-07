@@ -3476,11 +3476,6 @@ p {
     background: #4b5563;
 }
 
-.share-btn.copied {
-    background: #10b981;
-    transform: scale(1.1);
-}
-
 /* Image spacing and padding for shared content */
 .announcement-card.elegant-home .card-content {
     padding: 1.5rem 2rem 2rem 2rem;
@@ -3766,10 +3761,6 @@ p {
 .share-btn.copy-link {
     background: #6b7280;
     color: white;
-}
-
-.share-btn.copy-link.copied {
-    background: #10b981;
 }
 
 @media (max-width: 768px) {
@@ -4256,4 +4247,132 @@ p {
     margin-left: 1rem;
     color: #6b7280;
     font-size: 0.85rem;
+}
+
+/* Admin Panel Navigation Improvements */
+.admin-panel .navbar {
+    padding: 0.5rem 1rem;
+    height: 70px;
+    overflow: visible;
+}
+
+.admin-panel .nav-links {
+    gap: 0.2rem;
+    overflow-x: auto;
+    overflow-y: visible;
+    width: auto;
+    max-width: calc(100vw - 250px);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.3) transparent;
+}
+
+.admin-panel .nav-links::-webkit-scrollbar {
+    height: 4px;
+}
+
+.admin-panel .nav-links::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.admin-panel .nav-links::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px;
+}
+
+.admin-panel .nav-links a {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.5rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-width: fit-content;
+}
+
+/* Admin Panel Main Content Scrolling */
+.admin-panel main {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: calc(100vh - 70px);
+    padding-bottom: 2rem;
+}
+
+.admin-panel .announcements-content {
+    max-height: none;
+    overflow: visible;
+    padding: 1rem;
+}
+
+/* Admin Panel Mobile Navigation */
+@media (max-width: 768px) {
+    .excellence-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 0.5rem;
+    }
+
+    .excellence-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .excellence-card i {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .excellence-card h3 {
+        font-size: 1.2rem;
+    }
+
+    .admin-panel .nav-toggle {
+        display: block;
+    }
+
+    .admin-panel .nav-links {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-light) 100%);
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+        padding: 1rem 0;
+        transform: translateX(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+        overflow-y: auto;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        z-index: 1000;
+        max-width: none;
+        gap: 0;
+    }
+
+    .admin-panel .nav-links.active {
+        transform: translateX(0) !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
+    .admin-panel .nav-links a {
+        font-size: 1rem;
+        padding: 1rem 2rem;
+        width: 100%;
+        white-space: normal;
+    }
+}
+
+/* Admin Panel Styles */
+.admin-panel {
+    display: none;
+    animation: fadeIn 0.5s ease-in-out;
+    height: 100vh;
+    background: #e6f3ff;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.admin-panel * {
+    scroll-behavior: smooth;
 }
