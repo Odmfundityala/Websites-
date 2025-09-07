@@ -250,10 +250,11 @@ html {
 section {
     background: var(--cream);
     color: var(--text-dark);
-    padding: 3rem 0;
+    padding: 4rem 0 5rem 0;
     margin: 0;
     width: 100%;
     text-align: left;
+    min-height: 40vh;
 }
 
 section:nth-child(even) {
@@ -425,17 +426,18 @@ section:nth-child(even) {
 /* Academic Performance Section */
 .academic-performance {
     background: var(--cream);
-    padding: 4rem 5%;
+    padding: 5rem 5% 6rem 5%;
     text-align: center;
     width: 100%;
     margin: 0;
+    min-height: 60vh;
 }
 
 .academic-performance h2 {
     color: var(--navy-primary);
-    font-size: 2.5rem;
+    font-size: 3rem;
     font-weight: 700;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
     letter-spacing: 0.5px;
     text-align: center;
 }
@@ -455,21 +457,25 @@ section:nth-child(even) {
 
 .performance-stats {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2.5rem;
-    max-width: 1000px;
-    margin: 0 auto 3rem auto;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto 4rem auto;
     padding: 0 2rem;
 }
 
 .stat-highlight {
     background: var(--text-light);
-    padding: 2.5rem;
-    border-radius: 15px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    padding: 3rem 2.5rem;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
     border: 1px solid var(--navy-primary);
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .stat-highlight:hover {
@@ -2654,25 +2660,26 @@ p {
 .section-title {
     font-family: var(--font-primary);
     font-weight: 700;
-    font-size: 2.5rem;
+    font-size: 3.2rem;
     letter-spacing: 0.5px;
     text-transform: uppercase;
     color: var(--navy-primary);
     text-align: center;
-    margin: 0 auto 2rem auto;
+    margin: 0 auto 3rem auto;
     max-width: 1200px;
     padding: 0 1rem;
+    line-height: 1.2;
 }
 
 .section-subtitle {
     font-family: var(--font-secondary);
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     font-weight: 500;
     letter-spacing: 0.2px;
     color: var(--sky-blue-primary);
     text-align: center;
-    margin: 0 auto 3rem auto;
-    max-width: 800px;
+    margin: 0 auto 4rem auto;
+    max-width: 900px;
     padding: 0 1rem;
     line-height: 1.6;
     opacity: 0.9;
@@ -3325,20 +3332,21 @@ p {
 }
 
 .announcements {
-    padding: 3rem 5%;
+    padding: 5rem 5% 6rem 5%;
     background: var(--cream);
     color: var(--navy-primary);
     text-align: left;
     width: 100%;
     margin: 0;
+    min-height: 50vh;
 }
 
 .announcements h2 {
     text-align: center;
     color: var(--navy-primary);
-    font-size: 2.2rem;
+    font-size: 2.8rem;
     font-weight: 700;
-    margin: 0 auto 2rem auto;
+    margin: 0 auto 3rem auto;
     letter-spacing: 0.5px;
     max-width: 800px;
     padding: 0 2rem;
@@ -3358,10 +3366,10 @@ p {
 /* Modern Clean Home Page Announcement Cards - Elegant Design */
 .announcement-card.elegant-home {
     background: #ffffff;
-    border-radius: 12px;
+    border-radius: 15px;
     margin-bottom: 0;
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     border: 1px solid #e5e7eb;
     transition: all 0.3s ease;
     max-width: 100%;
@@ -3370,7 +3378,7 @@ p {
     display: flex;
     flex-direction: column;
     height: 100%;
-    min-height: 400px;
+    min-height: 500px;
 }
 
 .announcement-card.elegant-home:hover {
