@@ -82,10 +82,10 @@ async function loadHomepageAnnouncements() {
     try {
         // Clear any localStorage cache
         localStorage.removeItem('siya_announcements');
-        
+
         const response = await fetch('/api/announcements?t=' + Date.now());
         let announcements = [];
-        
+
         if (response.ok) {
             announcements = await response.json();
             // Ensure announcements is an array and contains only real data
@@ -100,20 +100,18 @@ async function loadHomepageAnnouncements() {
         } else {
             console.error('Failed to load announcements from server');
         }
-        
+
         const announcementGrid = document.querySelector('.announcement-grid');
         if (announcementGrid) {
             if (announcements.length > 0) {
                 // Sort announcements by date (newest first) and display latest 2
                 const sortedAnnouncements = announcements.sort((a, b) => new Date(b.date) - new Date(a.date));
                 const latestAnnouncements = sortedAnnouncements.slice(0, 2);
-            
+
             announcementGrid.innerHTML = latestAnnouncements.map(ann => {
                 const cleanContent = formatContentForDisplay(ann.content);
                 const textContent = getPlainTextContent(ann.content);
-                const isLongContent = textContent.length > 300;
-                const shortContent = isLongContent ? textContent.substring(0, 300) + '...' : textContent;
-                
+
                 return `
                 <div class="announcement-card elegant-home" data-id="${ann.id}">
                     ${ann.image ? `
@@ -121,7 +119,7 @@ async function loadHomepageAnnouncements() {
                             <img src="${ann.image}" alt="${ann.title}" loading="lazy">
                         </div>
                     ` : ''}
-                    
+
                     <div class="card-header">
                         <div class="announcement-title-container">
                             <div class="announcement-icon">
@@ -136,23 +134,10 @@ async function loadHomepageAnnouncements() {
                             </span>
                         </div>
                     </div>
-                    
+
                     <div class="card-content">
                         <div class="content-display">
-                            <div class="content-preview" ${isLongContent ? 'style="display:block"' : 'style="display:block"'}>
-                                ${isLongContent ? shortContent : cleanContent}
-                            </div>
-                            ${isLongContent ? `
-                                <div class="content-full" style="display: none;">
-                                    ${cleanContent}
-                                </div>
-                                <button class="read-more-btn" onclick="this.previousElementSibling.style.display='block'; this.previousElementSibling.previousElementSibling.style.display='none'; this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
-                                    <i class="fas fa-chevron-down"></i> Read More
-                                </button>
-                                <button class="read-less-btn" style="display: none;" onclick="this.previousElementSibling.previousElementSibling.previousElementSibling.style.display='block'; this.previousElementSibling.previousElementSibling.style.display='none'; this.previousElementSibling.style.display='inline-block'; this.style.display='none';">
-                                    <i class="fas fa-chevron-up"></i> Read Less
-                                </button>
-                            ` : ''}
+                            ${cleanContent}
                         </div>
                     </div>
 
@@ -233,11 +218,11 @@ function sanitizeHTML(htmlString) {
     // Create a temporary div to parse HTML
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = htmlString;
-    
+
     // Remove all script tags and event handlers
     const scripts = tempDiv.querySelectorAll('script');
     scripts.forEach(script => script.remove());
-    
+
     // Remove dangerous attributes that could execute JavaScript
     const allElements = tempDiv.querySelectorAll('*');
     allElements.forEach(element => {
@@ -251,11 +236,11 @@ function sanitizeHTML(htmlString) {
             }
         });
     });
-    
+
     // Allow only safe HTML tags and preserve formatting
     const allowedTags = ['p', 'strong', 'b', 'em', 'i', 'u', 'br', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'span', 'div', 'font'];
     const allowedAttributes = ['style', 'color', 'size', 'face'];
-    
+
     allElements.forEach(element => {
         if (!allowedTags.includes(element.tagName.toLowerCase())) {
             // Replace disallowed tags with their text content
@@ -285,7 +270,7 @@ function sanitizeHTML(htmlString) {
             });
         }
     });
-    
+
     return tempDiv.innerHTML;
 }
 
@@ -320,7 +305,7 @@ function setupAnnouncementInteractions() {
             const card = e.target.closest('.announcement-card');
             const contentPreview = card.querySelector('.content-preview');
             const contentFull = card.querySelector('.content-full');
-            
+
             if (e.target.textContent === 'Read More') {
                 contentPreview.style.display = 'none';
                 contentFull.style.display = 'block';
@@ -337,50 +322,50 @@ function setupAnnouncementInteractions() {
 // Enhanced Social Media Sharing Functions with Image Support
 async function shareToFacebook(title, content, announcementId) {
     const announcement = await getAnnouncementById(announcementId);
-    
+
     // Update meta tags for better social sharing with image
     updateSocialMetaTags(title, content, announcement?.image);
-    
+
     // Strip HTML tags for clean sharing
     const cleanContent = content.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
     const shareText = `${title}\n\n${cleanContent}\n\n📚 Siyabulela Senior Secondary School\n🌟 "Through Hardships to the Stars"`;
-    
+
     // Use Facebook's sharer with content and image
     const currentUrl = `${window.location.origin}/#announcement-${announcementId}`;
     const encodedUrl = encodeURIComponent(currentUrl);
     const encodedText = encodeURIComponent(shareText);
-    
+
     window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedText}`, '_blank', 'width=600,height=400');
 }
 
 async function shareToTwitter(title, content, announcementId) {
     const announcement = await getAnnouncementById(announcementId);
-    
+
     // Update meta tags for Twitter card with image
     updateSocialMetaTags(title, content, announcement?.image);
-    
+
     // Strip HTML tags and prepare content for Twitter
     const cleanContent = content.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
-    
+
     // Create Twitter-optimized text with hashtags
     let tweetText = `📢 ${title}\n\n${cleanContent}\n\n🎓 #SiyabulelaSSS #SchoolNews #Education #SouthAfricaSchools`;
-    
+
     // Truncate if too long (Twitter limit is 280 characters)
     if (tweetText.length > 240) {
         tweetText = tweetText.substring(0, 240) + '...';
     }
-    
+
     const currentUrl = `${window.location.origin}/#announcement-${announcementId}`;
     tweetText += `\n\n${currentUrl}`;
-    
+
     const encodedText = encodeURIComponent(tweetText);
-    
+
     window.open(`https://x.com/intent/tweet?text=${encodedText}`, '_blank', 'width=600,height=400');
 }
 
 async function shareToWhatsApp(title, content, announcementId) {
     const announcement = await getAnnouncementById(announcementId);
-    
+
     // Convert HTML formatting to WhatsApp markdown
     let whatsappContent = content
         .replace(/<strong>(.*?)<\/strong>/g, '*$1*')
@@ -395,14 +380,14 @@ async function shareToWhatsApp(title, content, announcementId) {
         .replace(/<[^>]*>/g, '')
         .replace(/&nbsp;/g, ' ')
         .trim();
-    
+
     let shareText = `*${title}*\n\n${whatsappContent}\n\nSiyabulela Senior Secondary School\n${window.location.href}`;
-    
+
     // If announcement has an image, mention it
     if (announcement?.image) {
         shareText = `*${title}*\n\n${whatsappContent}\n\n📸 View full announcement with image at:\n${window.location.href}\n\nSiyabulela Senior Secondary School`;
     }
-    
+
     const text = encodeURIComponent(shareText);
     window.open(`https://wa.me/?text=${text}`, '_blank');
 }
@@ -428,19 +413,19 @@ async function getAnnouncementById(announcementId) {
 function updateSocialMetaTags(title, content, imageUrl) {
     const cleanContent = content.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
     const description = cleanContent.length > 160 ? cleanContent.substring(0, 160) + '...' : cleanContent;
-    
+
     // Update or create Open Graph meta tags
     updateMetaTag('og:title', `${title} - Siyabulela Senior Secondary School`);
     updateMetaTag('og:description', description);
     updateMetaTag('og:url', window.location.href);
     updateMetaTag('og:type', 'article');
     updateMetaTag('og:site_name', 'Siyabulela Senior Secondary School');
-    
+
     // Twitter Card meta tags
     updateMetaTag('twitter:card', imageUrl ? 'summary_large_image' : 'summary');
     updateMetaTag('twitter:title', `${title} - Siyabulela SSS`);
     updateMetaTag('twitter:description', description);
-    
+
     // Add image meta tags if image exists
     if (imageUrl) {
         const fullImageUrl = imageUrl.startsWith('http') ? imageUrl : `${window.location.origin}/${imageUrl}`;
@@ -461,7 +446,7 @@ function updateSocialMetaTags(title, content, imageUrl) {
 function updateMetaTag(property, content) {
     let metaTag = document.querySelector(`meta[property="${property}"]`) || 
                   document.querySelector(`meta[name="${property}"]`);
-    
+
     if (!metaTag) {
         metaTag = document.createElement('meta');
         if (property.startsWith('og:') || property.startsWith('twitter:')) {
@@ -471,13 +456,13 @@ function updateMetaTag(property, content) {
         }
         document.head.appendChild(metaTag);
     }
-    
+
     metaTag.setAttribute('content', content);
 }
 
 function copyAnnouncementLink(announcementId) {
     const url = `${window.location.href}#announcement-${announcementId}`;
-    
+
     if (navigator.clipboard) {
         navigator.clipboard.writeText(url).then(() => {
             showCopySuccess();
@@ -509,10 +494,10 @@ function showCopySuccess() {
     copyButtons.forEach(btn => {
         const icon = btn.querySelector('i');
         const originalClass = icon.className;
-        
+
         btn.classList.add('copied');
         icon.className = 'fas fa-check';
-        
+
         setTimeout(() => {
             btn.classList.remove('copied');
             icon.className = originalClass;

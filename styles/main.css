@@ -657,23 +657,23 @@ footer {
         gap: 1.5rem;
         padding: 0 0.5rem;
     }
-    
+
     .excellence-card {
         padding: 2rem 1.5rem;
     }
-    
+
     .excellence-card i {
         font-size: 2.5rem;
         margin-bottom: 1rem;
     }
-    
+
     .excellence-card h3 {
         font-size: 1.2rem;
     }
     .nav-toggle {
         display: block;
     }
-    
+
     .nav-links {
         position: fixed;
         top: 70px;
@@ -694,25 +694,25 @@ footer {
         backdrop-filter: blur(10px);
         z-index: 1000;
     }
-    
+
     .nav-links.active {
         transform: translateX(0) !important;
         opacity: 1 !important;
         visibility: visible !important;
     }
-    
+
     .nav-links li {
         width: 100%;
         margin: 0;
         padding: 0;
     }
-    
+
     .nav-links li {
         width: 100%;
         height: auto;
         border-bottom: 1px solid rgba(255,255,255,0.1);
     }
-    
+
     .nav-links a {
         width: 100%;
         padding: 1rem 2rem;
@@ -728,23 +728,25 @@ footer {
         align-items: center;
         white-space: nowrap;
         margin: 0;
+        flex-shrink: 1;
+        box-sizing: border-box;
     }
-    
+
     .nav-links a:hover {
         background: rgba(255,255,255,0.1);
         border-left-color: var(--gold-accent);
         padding-left: 2.5rem;
     }
-    
+
     .nav-links a.active {
         border-left-color: var(--gold-accent);
         background: rgba(255,255,255,0.15);
     }
-    
+
     .nav-links a:before {
         display: none;
     }
-    
+
     /* Prevent body scrolling when mobile menu is open */
     body.nav-open {
         overflow: hidden;
@@ -1075,7 +1077,7 @@ footer {
     .nav-toggle {
         display: block;
     }
-    
+
     .nav-links {
         position: fixed;
         top: 70px;
@@ -1097,20 +1099,20 @@ footer {
         z-index: 1000;
         max-width: none;
     }
-    
+
     .nav-links.active {
         transform: translateX(0) !important;
         opacity: 1 !important;
         visibility: visible !important;
     }
-    
+
     .nav-links li {
         width: 100%;
         margin: 0;
         padding: 0;
         flex-shrink: 0;
     }
-    
+
     .nav-links a {
         width: 100%;
         padding: 1rem 2rem;
@@ -1129,18 +1131,18 @@ footer {
         flex-shrink: 0;
         box-sizing: border-box;
     }
-    
+
     .nav-links a:hover {
         background: rgba(255,255,255,0.1);
         border-left-color: var(--gold-accent);
         padding-left: 2.5rem;
     }
-    
+
     .nav-links a.active {
         border-left-color: var(--gold-accent);
         background: rgba(255,255,255,0.15);
     }
-    
+
     .nav-links a:before {
         display: none;
     }
@@ -1411,16 +1413,16 @@ main {
         gap: 1.5rem;
         padding: 0 0.5rem;
     }
-    
+
     .excellence-card {
         padding: 2rem 1.5rem;
     }
-    
+
     .excellence-card i {
         font-size: 2.5rem;
         margin-bottom: 1rem;
     }
-    
+
     .excellence-card h3 {
         font-size: 1.2rem;
     }
@@ -1950,7 +1952,7 @@ p {
     margin: 0.8rem 0;
 }
 
-.announcement-card .content-display p, 
+.announcement-card .content-display p,
 .announcement-card .announcement-content p,
 .announcement-card .card-content p {
     text-align: left !important;
@@ -2005,7 +2007,7 @@ p {
     text-align: center;
 }
 
-.logo, .logo-text, .nav-links, .hero-content, 
+.logo, .logo-text, .nav-links, .hero-content,
 .announcement-grid, .footer-content {
     text-align: center;
 }
@@ -2190,16 +2192,16 @@ p {
         gap: 1.5rem;
         padding: 0 0.5rem;
     }
-    
+
     .excellence-card {
         padding: 2rem 1.5rem;
     }
-    
+
     .excellence-card i {
         font-size: 2.5rem;
         margin-bottom: 1rem;
     }
-    
+
     .excellence-card h3 {
         font-size: 1.2rem;
     }
@@ -2223,7 +2225,7 @@ p {
     .results-table td {
         padding: 1rem 0.5rem;
         font-size: 0.85rem;
-    margin: 0;
+        margin: 0;
     }
 
     .performance-highlights {
@@ -2429,16 +2431,16 @@ p {
         gap: 1.5rem;
         padding: 0 0.5rem;
     }
-    
+
     .excellence-card {
         padding: 2rem 1.5rem;
     }
-    
+
     .excellence-card i {
         font-size: 2.5rem;
         margin-bottom: 1rem;
     }
-    
+
     .excellence-card h3 {
         font-size: 1.2rem;
     }
@@ -2620,16 +2622,16 @@ p {
         gap: 1.5rem;
         padding: 0 0.5rem;
     }
-    
+
     .excellence-card {
         padding: 2rem 1.5rem;
     }
-    
+
     .excellence-card i {
         font-size: 2.5rem;
         margin-bottom: 1rem;
     }
-    
+
     .excellence-card h3 {
         font-size: 1.2rem;
     }
@@ -2689,16 +2691,16 @@ p {
         gap: 1.5rem;
         padding: 0 0.5rem;
     }
-    
+
     .excellence-card {
         padding: 2rem 1.5rem;
     }
-    
+
     .excellence-card i {
         font-size: 2.5rem;
         margin-bottom: 1rem;
     }
-    
+
     .excellence-card h3 {
         font-size: 1.2rem;
     }
@@ -3209,16 +3211,16 @@ p {
         gap: 1.5rem;
         padding: 0 0.5rem;
     }
-    
+
     .excellence-card {
         padding: 2rem 1.5rem;
     }
-    
+
     .excellence-card i {
         font-size: 2.5rem;
         margin-bottom: 1rem;
     }
-    
+
     .excellence-card h3 {
         font-size: 1.2rem;
     }
@@ -3303,16 +3305,16 @@ p {
         gap: 1.5rem;
         padding: 0 0.5rem;
     }
-    
+
     .excellence-card {
         padding: 2rem 1.5rem;
     }
-    
+
     .excellence-card i {
         font-size: 2.5rem;
         margin-bottom: 1rem;
     }
-    
+
     .excellence-card h3 {
         font-size: 1.2rem;
     }
@@ -3349,8 +3351,8 @@ p {
     max-width: 1200px;
     margin: 0 auto;
     align-items: stretch;
-    padding: 0 2rem;
     justify-items: center;
+    padding: 0 2rem;
 }
 
 /* Modern Clean Home Page Announcement Cards - Elegant Design */
@@ -3576,9 +3578,8 @@ p {
     color: #4b5563;
     line-height: 1.6;
     font-size: 0.85rem;
-    margin: 0;
-    margin-bottom: 1rem;
     text-align: justify;
+    text-justify: inter-word;
     flex: 1;
 }
 
@@ -3611,106 +3612,9 @@ p {
     margin-bottom: 0.375rem;
 }
 
-.announcement-card.elegant-home .read-more-btn,
-.announcement-card.elegant-home .read-less-btn {
-    background: #1a365d;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    font-size: 0.8rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    margin-top: 0.75rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.375rem;
-}
-
-.announcement-card.elegant-home .read-more-btn:hover,
-.announcement-card.elegant-home .read-less-btn:hover {
-    background: #2d5282;
-    transform: translateY(-1px);
-}
-
-.announcement-card.elegant-home .card-footer {
-    background: #f9fafb;
-    padding: 1rem 1.5rem;
-    border-top: 1px solid #e5e7eb;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-}
-
-.announcement-card.elegant-home .social-sharing {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.announcement-card.elegant-home .share-label {
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: #6b7280;
-    margin-right: 0.25rem;
-}
-
-.announcement-card.elegant-home .share-btn {
-    width: 32px;
-    height: 32px;
-    border-radius: 6px;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.875rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    color: white;
-}
-
-.announcement-card.elegant-home .share-btn.facebook {
-    background: #1877f2;
-}
-
-.announcement-card.elegant-home .share-btn.facebook:hover {
-    background: #166fe5;
-    transform: translateY(-1px);
-}
-
-.announcement-card.elegant-home .share-btn.twitter {
-    background: #1da1f2;
-}
-
-.announcement-card.elegant-home .share-btn.twitter:hover {
-    background: #1a91da;
-    transform: translateY(-1px);
-}
-
-.announcement-card.elegant-home .share-btn.whatsapp {
-    background: #25d366;
-}
-
-.announcement-card.elegant-home .share-btn.whatsapp:hover {
-    background: #20ba5a;
-    transform: translateY(-1px);
-}
-
-.announcement-card.elegant-home .share-btn.copy-link {
-    background: #6b7280;
-}
-
-.announcement-card.elegant-home .share-btn.copy-link:hover {
-    background: #4b5563;
-    transform: translateY(-1px);
-}
-
 /* Legacy styles for backward compatibility */
 .announcement-card:not(.elegant-home) {
-    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
     padding: 2rem;
     border-radius: 20px;
     box-shadow: 0 12px 40px rgba(26, 54, 93, 0.12);
@@ -3874,16 +3778,16 @@ p {
         gap: 1.5rem;
         padding: 0 0.5rem;
     }
-    
+
     .excellence-card {
         padding: 2rem 1.5rem;
     }
-    
+
     .excellence-card i {
         font-size: 2.5rem;
         margin-bottom: 1rem;
     }
-    
+
     .excellence-card h3 {
         font-size: 1.2rem;
     }
@@ -3892,32 +3796,14 @@ p {
         gap: 1rem;
         align-items: flex-start;
     }
-    
+
     .share-label {
         margin-right: 0;
     }
 }
 
 /* Read More Button Styling */
-.read-more-btn {
-    background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    margin-top: 1rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(26, 54, 93, 0.2);
-}
-
-.read-more-btn:hover {
-    background: linear-gradient(135deg, #2c5282 0%, #1a365d 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(26, 54, 93, 0.3);
-}
+/* Removed read more/less button CSS styles */
 
 /* Admin Panel Expand Button */
 .expand-content-btn {
@@ -4264,16 +4150,16 @@ p {
         gap: 1.5rem;
         padding: 0 0.5rem;
     }
-    
+
     .excellence-card {
         padding: 2rem 1.5rem;
     }
-    
+
     .excellence-card i {
         font-size: 2.5rem;
         margin-bottom: 1rem;
     }
-    
+
     .excellence-card h3 {
         font-size: 1.2rem;
     }
@@ -4282,12 +4168,12 @@ p {
         text-align: center;
         gap: 1.5rem;
     }
-    
+
     .auth-container {
         padding: 1rem;
         min-height: 300px;
     }
-    
+
     .auth-message {
         padding: 2rem;
     }
@@ -4299,16 +4185,16 @@ p {
         gap: 1.5rem;
         padding: 0 0.5rem;
     }
-    
+
     .excellence-card {
         padding: 2rem 1.5rem;
     }
-    
+
     .excellence-card i {
         font-size: 2.5rem;
         margin-bottom: 1rem;
     }
-    
+
     .excellence-card h3 {
         font-size: 1.2rem;
     }

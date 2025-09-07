@@ -257,60 +257,11 @@ class AnnouncementManager {
         
         // Use sanitized HTML to preserve formatting safely
         const sanitizedContent = this.sanitizeHTML(ann.content);
-        const contentText = this.extractTextContent(ann.content);
         
-        if (contentText.length > 400) {
-            const truncated = contentText.substring(0, 350);
-            const lastSpace = truncated.lastIndexOf(' ');
-            const finalTruncated = lastSpace > 300 ? truncated.substring(0, lastSpace) : truncated;
-            
-            const contentPreview = document.createElement('div');
-            contentPreview.className = 'content-preview';
-            // Use existing method to preserve HTML formatting while truncating
-            const truncatedHTML = this.preserveFormattingForTruncated(sanitizedContent, finalTruncated);
-            contentPreview.innerHTML = truncatedHTML + '...';
-            
-            const contentFull = document.createElement('div');
-            contentFull.className = 'content-full';
-            contentFull.style.display = 'none';
-            // Use sanitized HTML to preserve all formatting safely
-            contentFull.innerHTML = sanitizedContent;
-            
-            const readMoreBtn = document.createElement('button');
-            readMoreBtn.className = 'read-more-btn';
-            readMoreBtn.innerHTML = '<i class="fas fa-chevron-down"></i> Read More';
-            readMoreBtn.onclick = (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                contentFull.style.display = 'block';
-                contentPreview.style.display = 'none';
-                readMoreBtn.style.display = 'none';
-                readLessBtn.style.display = 'inline-block';
-            };
-            
-            const readLessBtn = document.createElement('button');
-            readLessBtn.className = 'read-less-btn';
-            readLessBtn.style.display = 'none';
-            readLessBtn.innerHTML = '<i class="fas fa-chevron-up"></i> Read Less';
-            readLessBtn.onclick = (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                contentPreview.style.display = 'block';
-                contentFull.style.display = 'none';
-                readMoreBtn.style.display = 'inline-block';
-                readLessBtn.style.display = 'none';
-            };
-            
-            contentDisplay.appendChild(contentPreview);
-            contentDisplay.appendChild(contentFull);
-            contentDisplay.appendChild(readMoreBtn);
-            contentDisplay.appendChild(readLessBtn);
-        } else {
-            // For short content, use sanitized HTML to preserve formatting safely
-            const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = sanitizedContent;
-            contentDisplay.appendChild(tempDiv);
-        }
+        // Display full content without truncation
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = sanitizedContent;
+        contentDisplay.appendChild(tempDiv);
         
         cardContent.appendChild(contentDisplay);
 
