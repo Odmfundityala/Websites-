@@ -4257,50 +4257,110 @@ p {
     font-size: 0.85rem;
 }
 
-/* Admin Panel Navigation Improvements */
+/* Elegant Admin Panel Navigation Improvements */
 .admin-panel .navbar {
-    padding: 0.5rem 1rem;
-    height: 70px;
+    padding: 1rem 2rem;
+    height: 85px;
     overflow: visible;
+    background: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-light) 100%);
+    box-shadow: 0 4px 20px rgba(26, 54, 93, 0.15);
+    border-bottom: 3px solid var(--gold-accent);
+}
+
+.admin-panel .logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+.admin-panel .logo-image {
+    width: 55px;
+    height: 55px;
+    border: 3px solid var(--gold-accent);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.admin-panel .logo-text h1 {
+    font-size: 2rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.admin-panel .logo-text span {
+    font-size: 2rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
 }
 
 .admin-panel .nav-links {
-    gap: 0.2rem;
+    gap: 0.5rem;
     overflow-x: auto;
     overflow-y: visible;
     width: auto;
-    max-width: calc(100vw - 250px);
+    max-width: calc(100vw - 300px);
     scrollbar-width: thin;
-    scrollbar-color: rgba(255,255,255,0.3) transparent;
+    scrollbar-color: rgba(255,255,255,0.4) transparent;
+    padding: 0.5rem;
+    background: rgba(255,255,255,0.1);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
 }
 
 .admin-panel .nav-links::-webkit-scrollbar {
-    height: 4px;
+    height: 6px;
 }
 
 .admin-panel .nav-links::-webkit-scrollbar-track {
-    background: transparent;
+    background: rgba(255,255,255,0.1);
+    border-radius: 3px;
 }
 
 .admin-panel .nav-links::-webkit-scrollbar-thumb {
-    background: rgba(255,255,255,0.3);
-    border-radius: 2px;
+    background: rgba(255,255,255,0.4);
+    border-radius: 3px;
+}
+
+.admin-panel .nav-links::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,0.6);
 }
 
 .admin-panel .nav-links a {
-    font-size: 0.75rem;
-    padding: 0.3rem 0.5rem;
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
     white-space: nowrap;
     flex-shrink: 0;
     min-width: fit-content;
+    background: rgba(255,255,255,0.1);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.admin-panel .nav-links a:hover {
+    background: rgba(255,255,255,0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    border-color: var(--gold-accent);
+}
+
+.admin-panel .nav-links a.active {
+    background: var(--gold-accent);
+    color: var(--navy-primary);
+    border-color: var(--gold-accent);
+    box-shadow: 0 4px 15px rgba(214, 158, 46, 0.4);
+    font-weight: 700;
 }
 
 /* Admin Panel Main Content Scrolling */
 .admin-panel main {
     overflow-y: auto;
     overflow-x: hidden;
-    height: calc(100vh - 70px);
+    height: calc(100vh - 85px);
     padding-bottom: 2rem;
+    background: linear-gradient(135deg, #f8fafc 0%, #e6f3ff 100%);
 }
 
 .admin-panel .announcements-content {
@@ -4334,27 +4394,43 @@ p {
         display: block;
     }
 
+    .admin-panel .navbar {
+        height: 75px;
+        padding: 0.75rem 1.5rem;
+    }
+
+    .admin-panel .logo-image {
+        width: 50px;
+        height: 50px;
+    }
+
+    .admin-panel .logo-text h1,
+    .admin-panel .logo-text span {
+        font-size: 1.8rem;
+    }
+
     .admin-panel .nav-links {
         position: fixed;
-        top: 70px;
+        top: 75px;
         left: 0;
         width: 100%;
-        height: calc(100vh - 70px);
+        height: calc(100vh - 75px);
         background: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-light) 100%);
         flex-direction: column;
         justify-content: flex-start;
         align-items: stretch;
-        padding: 1rem 0;
+        padding: 2rem 0;
         transform: translateX(-100%);
         opacity: 0;
         visibility: hidden;
         transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
         overflow-y: auto;
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(10px);
+        backdrop-filter: blur(15px);
         z-index: 1000;
         max-width: none;
-        gap: 0;
+        gap: 1rem;
+        border-radius: 0;
     }
 
     .admin-panel .nav-links.active {
@@ -4364,10 +4440,36 @@ p {
     }
 
     .admin-panel .nav-links a {
-        font-size: 1rem;
-        padding: 1rem 2rem;
+        font-size: 1.2rem;
+        padding: 1.5rem 2.5rem;
         width: 100%;
         white-space: normal;
+        background: rgba(255,255,255,0.1);
+        border-radius: 0;
+        margin: 0 1rem;
+        width: calc(100% - 2rem);
+        border-left: 4px solid transparent;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
+    .admin-panel .nav-links a:hover {
+        background: rgba(255,255,255,0.2);
+        border-left-color: var(--gold-accent);
+        transform: none;
+        box-shadow: none;
+        padding-left: 3rem;
+    }
+
+    .admin-panel .nav-links a.active {
+        background: var(--gold-accent);
+        color: var(--navy-primary);
+        border-left-color: var(--navy-primary);
+        font-weight: 700;
+    }
+
+    .admin-panel main {
+        height: calc(100vh - 75px);
     }
 }
 
