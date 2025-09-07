@@ -250,11 +250,10 @@ html {
 section {
     background: var(--cream);
     color: var(--text-dark);
-    padding: 4rem 0 5rem 0;
+    padding: 3rem 0;
     margin: 0;
     width: 100%;
     text-align: left;
-    min-height: 40vh;
 }
 
 section:nth-child(even) {
@@ -426,18 +425,17 @@ section:nth-child(even) {
 /* Academic Performance Section */
 .academic-performance {
     background: var(--cream);
-    padding: 5rem 5% 6rem 5%;
+    padding: 4rem 5%;
     text-align: center;
     width: 100%;
     margin: 0;
-    min-height: 60vh;
 }
 
 .academic-performance h2 {
     color: var(--navy-primary);
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-weight: 700;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     letter-spacing: 0.5px;
     text-align: center;
 }
@@ -457,25 +455,21 @@ section:nth-child(even) {
 
 .performance-stats {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 3rem;
-    max-width: 1200px;
-    margin: 0 auto 4rem auto;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2.5rem;
+    max-width: 1000px;
+    margin: 0 auto 3rem auto;
     padding: 0 2rem;
 }
 
 .stat-highlight {
     background: var(--text-light);
-    padding: 3rem 2.5rem;
-    border-radius: 18px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
     border: 1px solid var(--navy-primary);
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    min-height: 250px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
 
 .stat-highlight:hover {
@@ -2660,26 +2654,25 @@ p {
 .section-title {
     font-family: var(--font-primary);
     font-weight: 700;
-    font-size: 3.2rem;
+    font-size: 2.5rem;
     letter-spacing: 0.5px;
     text-transform: uppercase;
     color: var(--navy-primary);
     text-align: center;
-    margin: 0 auto 3rem auto;
+    margin: 0 auto 2rem auto;
     max-width: 1200px;
     padding: 0 1rem;
-    line-height: 1.2;
 }
 
 .section-subtitle {
     font-family: var(--font-secondary);
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: 500;
     letter-spacing: 0.2px;
     color: var(--sky-blue-primary);
     text-align: center;
-    margin: 0 auto 4rem auto;
-    max-width: 900px;
+    margin: 0 auto 3rem auto;
+    max-width: 800px;
     padding: 0 1rem;
     line-height: 1.6;
     opacity: 0.9;
@@ -3332,21 +3325,20 @@ p {
 }
 
 .announcements {
-    padding: 5rem 5% 6rem 5%;
+    padding: 3rem 5%;
     background: var(--cream);
     color: var(--navy-primary);
     text-align: left;
     width: 100%;
     margin: 0;
-    min-height: 50vh;
 }
 
 .announcements h2 {
     text-align: center;
     color: var(--navy-primary);
-    font-size: 2.8rem;
+    font-size: 2.2rem;
     font-weight: 700;
-    margin: 0 auto 3rem auto;
+    margin: 0 auto 2rem auto;
     letter-spacing: 0.5px;
     max-width: 800px;
     padding: 0 2rem;
@@ -3366,10 +3358,10 @@ p {
 /* Modern Clean Home Page Announcement Cards - Elegant Design */
 .announcement-card.elegant-home {
     background: #ffffff;
-    border-radius: 15px;
+    border-radius: 12px;
     margin-bottom: 0;
     overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
     border: 1px solid #e5e7eb;
     transition: all 0.3s ease;
     max-width: 100%;
@@ -3378,7 +3370,7 @@ p {
     display: flex;
     flex-direction: column;
     height: 100%;
-    min-height: 500px;
+    min-height: 400px;
 }
 
 .announcement-card.elegant-home:hover {
@@ -3482,6 +3474,11 @@ p {
 
 .share-btn.copy-link:hover {
     background: #4b5563;
+}
+
+.share-btn.copied {
+    background: #10b981;
+    transform: scale(1.1);
 }
 
 /* Image spacing and padding for shared content */
@@ -3769,6 +3766,10 @@ p {
 .share-btn.copy-link {
     background: #6b7280;
     color: white;
+}
+
+.share-btn.copy-link.copied {
+    background: #10b981;
 }
 
 @media (max-width: 768px) {
@@ -4255,234 +4256,4 @@ p {
     margin-left: 1rem;
     color: #6b7280;
     font-size: 0.85rem;
-}
-
-/* Elegant Admin Panel Navigation Improvements */
-.admin-panel .navbar {
-    padding: 1rem 2rem;
-    height: 85px;
-    overflow: visible;
-    background: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-light) 100%);
-    box-shadow: 0 4px 20px rgba(26, 54, 93, 0.15);
-    border-bottom: 3px solid var(--gold-accent);
-}
-
-.admin-panel .logo {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0;
-    margin: 0;
-    height: 100%;
-}
-
-.admin-panel .logo-image {
-    width: 55px;
-    height: 55px;
-    border: 3px solid var(--gold-accent);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-}
-
-.admin-panel .logo-text h1 {
-    font-size: 2rem;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-}
-
-.admin-panel .logo-text span {
-    font-size: 2rem;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-}
-
-.admin-panel .nav-links {
-    gap: 0.5rem;
-    overflow-x: auto;
-    overflow-y: visible;
-    width: auto;
-    max-width: calc(100vw - 300px);
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255,255,255,0.4) transparent;
-    padding: 0.5rem;
-    background: rgba(255,255,255,0.1);
-    border-radius: 12px;
-    backdrop-filter: blur(10px);
-}
-
-.admin-panel .nav-links::-webkit-scrollbar {
-    height: 6px;
-}
-
-.admin-panel .nav-links::-webkit-scrollbar-track {
-    background: rgba(255,255,255,0.1);
-    border-radius: 3px;
-}
-
-.admin-panel .nav-links::-webkit-scrollbar-thumb {
-    background: rgba(255,255,255,0.4);
-    border-radius: 3px;
-}
-
-.admin-panel .nav-links::-webkit-scrollbar-thumb:hover {
-    background: rgba(255,255,255,0.6);
-}
-
-.admin-panel .nav-links a {
-    font-size: 1rem;
-    padding: 0.8rem 1.5rem;
-    white-space: nowrap;
-    flex-shrink: 0;
-    min-width: fit-content;
-    background: rgba(255,255,255,0.1);
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-    border: 1px solid rgba(255,255,255,0.2);
-}
-
-.admin-panel .nav-links a:hover {
-    background: rgba(255,255,255,0.25);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    border-color: var(--gold-accent);
-}
-
-.admin-panel .nav-links a.active {
-    background: var(--gold-accent);
-    color: var(--navy-primary);
-    border-color: var(--gold-accent);
-    box-shadow: 0 4px 15px rgba(214, 158, 46, 0.4);
-    font-weight: 700;
-}
-
-/* Admin Panel Main Content Scrolling */
-.admin-panel main {
-    overflow-y: auto;
-    overflow-x: hidden;
-    height: calc(100vh - 85px);
-    padding-bottom: 2rem;
-    background: linear-gradient(135deg, #f8fafc 0%, #e6f3ff 100%);
-}
-
-.admin-panel .announcements-content {
-    max-height: none;
-    overflow: visible;
-    padding: 1rem;
-}
-
-/* Admin Panel Mobile Navigation */
-@media (max-width: 768px) {
-    .excellence-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-        padding: 0 0.5rem;
-    }
-
-    .excellence-card {
-        padding: 2rem 1.5rem;
-    }
-
-    .excellence-card i {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-    }
-
-    .excellence-card h3 {
-        font-size: 1.2rem;
-    }
-
-    .admin-panel .nav-toggle {
-        display: block;
-    }
-
-    .admin-panel .navbar {
-        height: 75px;
-        padding: 0.75rem 1.5rem;
-    }
-
-    .admin-panel .logo-image {
-        width: 50px;
-        height: 50px;
-    }
-
-    .admin-panel .logo-text h1,
-    .admin-panel .logo-text span {
-        font-size: 1.8rem;
-    }
-
-    .admin-panel .nav-links {
-        position: fixed;
-        top: 75px;
-        left: 0;
-        width: 100%;
-        height: calc(100vh - 75px);
-        background: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-light) 100%);
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: stretch;
-        padding: 2rem 0;
-        transform: translateX(-100%);
-        opacity: 0;
-        visibility: hidden;
-        transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
-        overflow-y: auto;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(15px);
-        z-index: 1000;
-        max-width: none;
-        gap: 1rem;
-        border-radius: 0;
-    }
-
-    .admin-panel .nav-links.active {
-        transform: translateX(0) !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-    }
-
-    .admin-panel .nav-links a {
-        font-size: 1.2rem;
-        padding: 1.5rem 2.5rem;
-        width: 100%;
-        white-space: normal;
-        background: rgba(255,255,255,0.1);
-        border-radius: 0;
-        margin: 0 1rem;
-        width: calc(100% - 2rem);
-        border-left: 4px solid transparent;
-        font-weight: 600;
-        letter-spacing: 0.5px;
-    }
-
-    .admin-panel .nav-links a:hover {
-        background: rgba(255,255,255,0.2);
-        border-left-color: var(--gold-accent);
-        transform: none;
-        box-shadow: none;
-        padding-left: 3rem;
-    }
-
-    .admin-panel .nav-links a.active {
-        background: var(--gold-accent);
-        color: var(--navy-primary);
-        border-left-color: var(--navy-primary);
-        font-weight: 700;
-    }
-
-    .admin-panel main {
-        height: calc(100vh - 75px);
-    }
-}
-
-/* Admin Panel Styles */
-.admin-panel {
-    display: none;
-    animation: fadeIn 0.5s ease-in-out;
-    height: 100vh;
-    background: #e6f3ff;
-    flex-direction: column;
-    overflow: hidden;
-}
-
-.admin-panel * {
-    scroll-behavior: smooth;
 }
