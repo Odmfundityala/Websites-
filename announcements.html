@@ -2119,6 +2119,13 @@
                                     
                                     <!-- Rich Text Toolbar -->
                                     <div class="rich-text-toolbar">
+                                        <button type="button" class="format-btn" data-command="undo" title="Undo">
+                                            <i class="fas fa-undo"></i>
+                                        </button>
+                                        <button type="button" class="format-btn" data-command="redo" title="Redo">
+                                            <i class="fas fa-redo"></i>
+                                        </button>
+                                        <div class="toolbar-separator"></div>
                                         <button type="button" class="format-btn" data-command="bold" title="Bold">
                                             <i class="fas fa-bold"></i>
                                         </button>
@@ -2127,6 +2134,19 @@
                                         </button>
                                         <button type="button" class="format-btn" data-command="underline" title="Underline">
                                             <i class="fas fa-underline"></i>
+                                        </button>
+                                        <div class="toolbar-separator"></div>
+                                        <button type="button" class="format-btn" data-command="justifyLeft" title="Align Left">
+                                            <i class="fas fa-align-left"></i>
+                                        </button>
+                                        <button type="button" class="format-btn" data-command="justifyCenter" title="Align Center">
+                                            <i class="fas fa-align-center"></i>
+                                        </button>
+                                        <button type="button" class="format-btn" data-command="justifyRight" title="Align Right">
+                                            <i class="fas fa-align-right"></i>
+                                        </button>
+                                        <button type="button" class="format-btn" data-command="justifyFull" title="Justify Text">
+                                            <i class="fas fa-align-justify"></i>
                                         </button>
                                         <div class="toolbar-separator"></div>
                                         <select class="format-select" id="fontFamily" title="Font Family">
@@ -2206,19 +2226,35 @@
 
             <!-- Admissions Management Tab -->
             <section class="tab-content" id="admissions-tab" style="display: none;">
-                <div class="under-construction">
-                    <div class="construction-content">
-                        <i class="fas fa-hard-hat construction-icon"></i>
-                        <h2>Admissions Management</h2>
-                        <p>This system is currently under construction.</p>
-                        <div class="features-preview">
-                            <h3>Coming Soon:</h3>
-                            <ul>
-                                <li><i class="fas fa-check"></i> Student Application Management</li>
-                                <li><i class="fas fa-check"></i> Document Verification</li>
-                                <li><i class="fas fa-check"></i> Admission Status Tracking</li>
-                                <li><i class="fas fa-check"></i> Parent Communication Portal</li>
-                            </ul>
+                <div class="page-header">
+                    <div class="page-header-content">
+                        <h1><i class="fas fa-graduation-cap"></i> Admissions Management</h1>
+                        <p>Manage student applications, admissions process, and enrollment data</p>
+                    </div>
+                </div>
+                
+                <div class="announcements-content" style="padding: 2rem;">
+                    <div class="admin-section">
+                        <h2><i class="fas fa-user-plus"></i> New Application</h2>
+                        <p style="color: #6b7280; margin-bottom: 1.5rem;">Student application system coming soon. This will include application forms, document uploads, and status tracking.</p>
+                        <div class="cta-button" style="opacity: 0.6; cursor: not-allowed;">
+                            <i class="fas fa-tools"></i> Under Development
+                        </div>
+                    </div>
+                    
+                    <div class="admin-section">
+                        <h2><i class="fas fa-clipboard-list"></i> Application Status</h2>
+                        <p style="color: #6b7280; margin-bottom: 1.5rem;">Track and manage submitted applications, review documents, and update admission statuses.</p>
+                        <div class="cta-button" style="opacity: 0.6; cursor: not-allowed;">
+                            <i class="fas fa-tools"></i> Under Development
+                        </div>
+                    </div>
+                    
+                    <div class="admin-section">
+                        <h2><i class="fas fa-chart-bar"></i> Enrollment Statistics</h2>
+                        <p style="color: #6b7280; margin-bottom: 1.5rem;">View enrollment trends, application statistics, and admission analytics.</p>
+                        <div class="cta-button" style="opacity: 0.6; cursor: not-allowed;">
+                            <i class="fas fa-tools"></i> Under Development
                         </div>
                     </div>
                 </div>
@@ -2226,20 +2262,59 @@
 
             <!-- School Management Tab -->
             <section class="tab-content" id="school-tab" style="display: none;">
-                <div class="under-construction">
-                    <div class="construction-content">
-                        <i class="fas fa-cogs construction-icon"></i>
-                        <h2>School Management System</h2>
-                        <p>This comprehensive system is currently under construction.</p>
-                        <div class="features-preview">
-                            <h3>Coming Soon:</h3>
-                            <ul>
-                                <li><i class="fas fa-check"></i> Student Records Management</li>
-                                <li><i class="fas fa-check"></i> Teacher & Staff Portal</li>
-                                <li><i class="fas fa-check"></i> Academic Performance Tracking</li>
-                                <li><i class="fas fa-check"></i> Financial Management</li>
-                                <li><i class="fas fa-check"></i> Timetable & Scheduling</li>
-                            </ul>
+                <div class="page-header">
+                    <div class="page-header-content">
+                        <h1><i class="fas fa-school"></i> School Management</h1>
+                        <p>Comprehensive school administration tools and academic management system</p>
+                    </div>
+                </div>
+                
+                <div class="announcements-content" style="padding: 2rem;">
+                    <div class="admin-section">
+                        <h2><i class="fas fa-users"></i> Student Records</h2>
+                        <p style="color: #6b7280; margin-bottom: 1.5rem;">Manage student information, academic records, and enrollment data across all grades.</p>
+                        <div class="cta-button" style="opacity: 0.6; cursor: not-allowed;">
+                            <i class="fas fa-tools"></i> Under Development
+                        </div>
+                    </div>
+                    
+                    <div class="admin-section">
+                        <h2><i class="fas fa-chalkboard-teacher"></i> Staff Portal</h2>
+                        <p style="color: #6b7280; margin-bottom: 1.5rem;">Teacher and staff management, assignment tracking, and performance monitoring.</p>
+                        <div class="cta-button" style="opacity: 0.6; cursor: not-allowed;">
+                            <i class="fas fa-tools"></i> Under Development
+                        </div>
+                    </div>
+                    
+                    <div class="admin-section">
+                        <h2><i class="fas fa-chart-line"></i> Academic Performance</h2>
+                        <p style="color: #6b7280; margin-bottom: 1.5rem;">Track student progress, generate reports, and analyze academic trends.</p>
+                        <div class="cta-button" style="opacity: 0.6; cursor: not-allowed;">
+                            <i class="fas fa-tools"></i> Under Development
+                        </div>
+                    </div>
+                    
+                    <div class="admin-section">
+                        <h2><i class="fas fa-calendar-alt"></i> Timetable & Events</h2>
+                        <p style="color: #6b7280; margin-bottom: 1.5rem;">Schedule management, event planning, and academic calendar coordination.</p>
+                        <div class="cta-button" style="opacity: 0.6; cursor: not-allowed;">
+                            <i class="fas fa-tools"></i> Under Development
+                        </div>
+                    </div>
+                    
+                    <div class="admin-section">
+                        <h2><i class="fas fa-coins"></i> Financial Management</h2>
+                        <p style="color: #6b7280; margin-bottom: 1.5rem;">Fee collection, budget tracking, and financial reporting tools.</p>
+                        <div class="cta-button" style="opacity: 0.6; cursor: not-allowed;">
+                            <i class="fas fa-tools"></i> Under Development
+                        </div>
+                    </div>
+                    
+                    <div class="admin-section">
+                        <h2><i class="fas fa-clipboard-check"></i> Assessment Tools</h2>
+                        <p style="color: #6b7280; margin-bottom: 1.5rem;">Exam scheduling, grade management, and academic assessment tracking.</p>
+                        <div class="cta-button" style="opacity: 0.6; cursor: not-allowed;">
+                            <i class="fas fa-tools"></i> Under Development
                         </div>
                     </div>
                 </div>
@@ -2252,11 +2327,11 @@
                     <p>Create new admin accounts and manage passwords for existing administrators.</p>
                 </div>
 
-                <div class="admin-management-container" style="display: grid; gap: 2rem; grid-template-columns: 1fr 1fr;">
+                <div class="announcements-content" style="padding: 2rem;">
                     
                     <!-- Add New Admin Section -->
                     <div class="admin-section">
-                        <h3><i class="fas fa-user-plus"></i> Create New Admin Account</h3>
+                        <h2><i class="fas fa-user-plus"></i> Create New Admin Account</h2>
                         <form id="addAdminForm" class="announcement-form">
                             <div class="form-group">
                                 <label for="newAdminEmail">Admin Email</label>
@@ -2285,7 +2360,7 @@
 
                     <!-- Reset Admin Password Section -->
                     <div class="admin-section">
-                        <h3><i class="fas fa-key"></i> Reset Admin Password</h3>
+                        <h2><i class="fas fa-key"></i> Reset Admin Password</h2>
                         <form id="resetPasswordForm" class="announcement-form">
                             <div class="form-group">
                                 <label for="resetAdminEmail">Admin Email to Reset</label>
@@ -2314,8 +2389,8 @@
                 </div>
 
                 <!-- Current Admins List -->
-                <div class="admin-section" style="margin-top: 2rem;">
-                    <h3><i class="fas fa-users"></i> Current Administrators</h3>
+                    <div class="admin-section">
+                        <h2><i class="fas fa-users"></i> Current Administrators</h2>
                     <div id="adminsList" class="admins-list">
                         <p><i class="fas fa-spinner fa-spin"></i> Loading admin information...</p>
                     </div>

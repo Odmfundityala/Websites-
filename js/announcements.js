@@ -636,7 +636,24 @@ class AnnouncementManager {
                 const command = btn.dataset.command;
                 
                 editor.focus();
-                document.execCommand(command, false, null);
+                
+                // Handle special commands
+                if (command === 'undo') {
+                    document.execCommand('undo', false, null);
+                } else if (command === 'redo') {
+                    document.execCommand('redo', false, null);
+                } else if (command.startsWith('justify')) {
+                    // Clear other justify states first
+                    document.execCommand('justifyLeft', false, null);
+                    document.execCommand('justifyCenter', false, null);
+                    document.execCommand('justifyRight', false, null);
+                    document.execCommand('justifyFull', false, null);
+                    
+                    // Apply the selected justify command
+                    document.execCommand(command, false, null);
+                } else {
+                    document.execCommand(command, false, null);
+                }
                 
                 // Update button states
                 this.updateToolbarState();
@@ -725,10 +742,23 @@ class AnnouncementManager {
         const formatBtns = document.querySelectorAll('.format-btn');
         formatBtns.forEach(btn => {
             const command = btn.dataset.command;
-            if (document.queryCommandState(command)) {
-                btn.classList.add('active');
-            } else {
+            
+            // Handle justify commands specially
+            if (command.startsWith('justify')) {
+                if (document.queryCommandState(command)) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            } else if (command === 'undo' || command === 'redo') {
+                // Don't check state for undo/redo buttons
                 btn.classList.remove('active');
+            } else {
+                if (document.queryCommandState(command)) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
             }
         });
     }
