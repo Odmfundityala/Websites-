@@ -1568,32 +1568,35 @@
         .rich-text-toolbar {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.2rem;
-            padding: 0.5rem;
+            gap: 0.3rem;
+            padding: 0.75rem;
             background: #f8fafc;
             border: 1px solid #e2e8f0;
             border-bottom: none;
             border-radius: 8px 8px 0 0;
             align-items: center;
-            max-width: 100%;
-            overflow: hidden;
+            width: 100%;
+            box-sizing: border-box;
+            overflow: visible;
+            min-height: 50px;
         }
 
         .format-btn {
             background: white;
             border: 1px solid #d1d5db;
             border-radius: 6px;
-            padding: 0.4rem 0.6rem;
+            padding: 0.5rem 0.75rem;
             cursor: pointer;
             transition: all 0.2s ease;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: #4b5563;
-            min-width: 30px;
-            height: 30px;
+            min-width: 34px;
+            height: 34px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            white-space: nowrap;
         }
 
         .format-btn:hover {
@@ -1608,29 +1611,57 @@
             border-color: #1a365d;
         }
 
+        .format-btn.justify-btn {
+            position: relative;
+        }
+
+        .format-btn.justify-btn.active {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+        }
+
+        /* Tooltip enhancement */
+        .format-btn:hover::after {
+            content: attr(title);
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #374151;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            white-space: nowrap;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
         .format-select, .format-color {
             border: 1px solid #d1d5db;
             border-radius: 6px;
-            padding: 0.4rem;
+            padding: 0.5rem;
             cursor: pointer;
             transition: all 0.2s ease;
             font-size: 0.8rem;
-            height: 30px;
+            height: 34px;
             flex-shrink: 0;
         }
 
         .format-select {
             background: white;
             color: #4b5563;
-            min-width: 70px;
-            max-width: 90px;
+            min-width: 80px;
+            max-width: 100px;
         }
 
         .format-color {
             background: white;
-            min-width: 40px;
-            max-width: 40px;
-            padding: 0.2rem;
+            min-width: 44px;
+            max-width: 44px;
+            padding: 0.25rem;
         }
 
         .format-select:hover, .format-color:hover {
@@ -1645,10 +1676,68 @@
 
         .toolbar-separator {
             width: 1px;
-            height: 20px;
+            height: 24px;
             background: #d1d5db;
-            margin: 0 0.25rem;
+            margin: 0 0.4rem;
             flex-shrink: 0;
+        }
+
+        /* Mobile responsive toolbar */
+        @media (max-width: 768px) {
+            .rich-text-toolbar {
+                gap: 0.2rem;
+                padding: 0.5rem;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+            }
+
+            .format-btn {
+                min-width: 32px;
+                height: 32px;
+                padding: 0.4rem 0.6rem;
+                font-size: 0.8rem;
+            }
+
+            .format-select {
+                min-width: 70px;
+                max-width: 85px;
+                font-size: 0.75rem;
+            }
+
+            .format-color {
+                min-width: 40px;
+                max-width: 40px;
+            }
+
+            .toolbar-separator {
+                height: 20px;
+                margin: 0 0.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .rich-text-toolbar {
+                gap: 0.15rem;
+                padding: 0.4rem;
+            }
+
+            .format-btn {
+                min-width: 30px;
+                height: 30px;
+                padding: 0.3rem 0.5rem;
+                font-size: 0.75rem;
+            }
+
+            .format-select {
+                min-width: 65px;
+                max-width: 75px;
+                font-size: 0.7rem;
+            }
+
+            .format-color {
+                min-width: 36px;
+                max-width: 36px;
+            }
         }
 
         .rich-text-editor {
@@ -2136,16 +2225,16 @@
                                             <i class="fas fa-underline"></i>
                                         </button>
                                         <div class="toolbar-separator"></div>
-                                        <button type="button" class="format-btn" data-command="justifyLeft" title="Align Left">
+                                        <button type="button" class="format-btn justify-btn" data-command="justifyLeft" title="Align Left">
                                             <i class="fas fa-align-left"></i>
                                         </button>
-                                        <button type="button" class="format-btn" data-command="justifyCenter" title="Align Center">
+                                        <button type="button" class="format-btn justify-btn" data-command="justifyCenter" title="Align Center">
                                             <i class="fas fa-align-center"></i>
                                         </button>
-                                        <button type="button" class="format-btn" data-command="justifyRight" title="Align Right">
+                                        <button type="button" class="format-btn justify-btn" data-command="justifyRight" title="Align Right">
                                             <i class="fas fa-align-right"></i>
                                         </button>
-                                        <button type="button" class="format-btn" data-command="justifyFull" title="Justify Text">
+                                        <button type="button" class="format-btn justify-btn" data-command="justifyFull" title="Justify Text">
                                             <i class="fas fa-align-justify"></i>
                                         </button>
                                         <div class="toolbar-separator"></div>
