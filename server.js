@@ -472,6 +472,16 @@ function handleRemoveAdmin(req, res) {
                 return;
             }
             
+            // Protect the main admin account from deletion
+            if (email.toLowerCase() === 'odmafundityala@gmail.com') {
+                res.writeHead(403, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ 
+                    success: false, 
+                    message: 'This admin account cannot be deleted as it is protected' 
+                }));
+                return;
+            }
+            
             const adminsFile = path.join(__dirname, 'admins.json');
             
             fs.readFile(adminsFile, 'utf8', (err, data) => {

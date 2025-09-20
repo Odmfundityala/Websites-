@@ -2829,9 +2829,11 @@
                                 <button class="cta-button" style="padding: 0.5rem 1rem; font-size: 0.9rem; background: #f59e0b; border-color: #f59e0b;" onclick="editAdmin('${admin.email}')">
                                     <i class="fas fa-edit"></i> Edit
                                 </button>
+                                ${admin.email.toLowerCase() !== 'odmafundityala@gmail.com' ? `
                                 <button class="cta-button" style="padding: 0.5rem 1rem; font-size: 0.9rem; background: #ef4444; border-color: #ef4444;" onclick="removeAdmin('${admin.email}')">
                                     <i class="fas fa-trash"></i> Delete
                                 </button>
+                                ` : '<span style="color: #6b7280; font-size: 0.85rem; padding: 0.5rem;"><i class="fas fa-shield-alt"></i> Protected</span>'}
                             </div>
                         </div>
                     `).join('')}
