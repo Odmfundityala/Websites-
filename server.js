@@ -32,6 +32,11 @@ const server = http.createServer((req, res) => {
         filePath = '/index.html';
     }
 
+    // Handle special sharing URLs
+    if (filePath.startsWith('/announcement-share')) {
+        filePath = '/announcement-share.html';
+    }
+    
     // Handle URLs without .html extension
     if (!path.extname(filePath) && filePath !== '/') {
         filePath += '.html';

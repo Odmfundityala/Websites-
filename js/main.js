@@ -319,52 +319,59 @@ function setupAnnouncementInteractions() {
     });
 }
 
-// Enhanced Social Media Sharing Functions with Image Support
+// Enhanced Social Media Sharing Functions with Rich Image Previews
 async function shareToFacebook(title, content, announcementId) {
     const announcement = await getAnnouncementById(announcementId);
 
-    // Update meta tags for better social sharing with image
-    updateSocialMetaTags(title, content, announcement?.image);
+    // Create a dedicated sharing URL with announcement ID
+    const shareUrl = `${window.location.origin}/announcement-share.html?id=${announcementId}`;
+    
+    // Update current page meta tags for immediate sharing
+    updateSocialMetaTags(title, content, announcement?.image, announcementId);
 
-    // Strip HTML tags for clean sharing
-    const cleanContent = content.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
-    const shareText = `${title}\n\n${cleanContent}\n\n📚 Siyabulela Senior Secondary School\n🌟 "Through Hardships to the Stars"`;
+    // Create hidden iframe to pre-load the sharing page (helps with meta tag detection)
+    const iframe = document.createElement('iframe');
+    iframe.src = shareUrl;
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
 
-    // Use Facebook's sharer with content and image
-    const currentUrl = `${window.location.origin}/#announcement-${announcementId}`;
-    const encodedUrl = encodeURIComponent(currentUrl);
-    const encodedText = encodeURIComponent(shareText);
+    // Wait a moment for the iframe to load, then remove it
+    setTimeout(() => {
+        document.body.removeChild(iframe);
+    }, 1000);
 
-    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedText}`, '_blank', 'width=600,height=400');
+    // Use Facebook's sharer with dedicated URL that has proper meta tags
+    const encodedUrl = encodeURIComponent(shareUrl);
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`, '_blank', 'width=600,height=400');
 }
 
 async function shareToTwitter(title, content, announcementId) {
     const announcement = await getAnnouncementById(announcementId);
 
+    // Create a dedicated sharing URL
+    const shareUrl = `${window.location.origin}/announcement-share.html?id=${announcementId}`;
+    
     // Update meta tags for Twitter card with image
-    updateSocialMetaTags(title, content, announcement?.image);
+    updateSocialMetaTags(title, content, announcement?.image, announcementId);
 
     // Strip HTML tags and prepare content for Twitter
     const cleanContent = content.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
 
-    // Create Twitter-optimized text with hashtags
-    let tweetText = `📢 ${title}\n\n${cleanContent}\n\n🎓 #SiyabulelaSSS #SchoolNews #Education #SouthAfricaSchools`;
+    // Create Twitter-optimized text with hashtags and URL
+    let tweetText = `📢 ${title}\n\n${cleanContent.substring(0, 180)}\n\n🎓 #SiyabulelaSSS #SchoolNews #Education`;
 
-    // Truncate if too long (Twitter limit is 280 characters)
-    if (tweetText.length > 240) {
-        tweetText = tweetText.substring(0, 240) + '...';
-    }
-
-    const currentUrl = `${window.location.origin}/#announcement-${announcementId}`;
-    tweetText += `\n\n${currentUrl}`;
+    // Add the sharing URL which will show the rich card
+    tweetText += `\n\n${shareUrl}`;
 
     const encodedText = encodeURIComponent(tweetText);
-
     window.open(`https://x.com/intent/tweet?text=${encodedText}`, '_blank', 'width=600,height=400');
 }
 
 async function shareToWhatsApp(title, content, announcementId) {
     const announcement = await getAnnouncementById(announcementId);
+
+    // Create a dedicated sharing URL
+    const shareUrl = `${window.location.origin}/announcement-share.html?id=${announcementId}`;
 
     // Convert HTML formatting to WhatsApp markdown
     let whatsappContent = content
@@ -381,12 +388,12 @@ async function shareToWhatsApp(title, content, announcementId) {
         .replace(/&nbsp;/g, ' ')
         .trim();
 
-    let shareText = `*${title}*\n\n${whatsappContent}\n\nSiyabulela Senior Secondary School\n${window.location.href}`;
-
-    // If announcement has an image, mention it
-    if (announcement?.image) {
-        shareText = `*${title}*\n\n${whatsappContent}\n\n📸 View full announcement with image at:\n${window.location.href}\n\nSiyabulela Senior Secondary School`;
+    // Limit content for WhatsApp
+    if (whatsappContent.length > 300) {
+        whatsappContent = whatsappContent.substring(0, 300) + '...';
     }
+
+    let shareText = `*${title}*\n\n${whatsappContent}\n\n📸 View with images: ${shareUrl}\n\nSiyabulela Senior Secondary School`;
 
     const text = encodeURIComponent(shareText);
     window.open(`https://wa.me/?text=${text}`, '_blank');
@@ -409,37 +416,70 @@ async function getAnnouncementById(announcementId) {
     }
 }
 
-// Function to update social media meta tags for better sharing
-function updateSocialMetaTags(title, content, imageUrl) {
+// Enhanced function to update social media meta tags for rich previews
+function updateSocialMetaTags(title, content, imageUrl, announcementId) {
     const cleanContent = content.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
     const description = cleanContent.length > 160 ? cleanContent.substring(0, 160) + '...' : cleanContent;
+    
+    // Create a specific URL for this announcement
+    const shareUrl = announcementId ? 
+        `${window.location.origin}/announcement-share.html?id=${announcementId}` : 
+        window.location.href;
 
-    // Update or create Open Graph meta tags
+    // Update or create Open Graph meta tags for Facebook
     updateMetaTag('og:title', `${title} - Siyabulela Senior Secondary School`);
     updateMetaTag('og:description', description);
-    updateMetaTag('og:url', window.location.href);
+    updateMetaTag('og:url', shareUrl);
     updateMetaTag('og:type', 'article');
     updateMetaTag('og:site_name', 'Siyabulela Senior Secondary School');
+    updateMetaTag('og:locale', 'en_US');
 
-    // Twitter Card meta tags
+    // Twitter Card meta tags for X/Twitter
     updateMetaTag('twitter:card', imageUrl ? 'summary_large_image' : 'summary');
     updateMetaTag('twitter:title', `${title} - Siyabulela SSS`);
     updateMetaTag('twitter:description', description);
+    updateMetaTag('twitter:site', '@SiyabulelaSSS');
+    updateMetaTag('twitter:creator', '@SiyabulelaSSS');
 
     // Add image meta tags if image exists
     if (imageUrl) {
-        const fullImageUrl = imageUrl.startsWith('http') ? imageUrl : `${window.location.origin}/${imageUrl}`;
+        // Ensure we have a full URL for the image
+        let fullImageUrl;
+        if (imageUrl.startsWith('http')) {
+            fullImageUrl = imageUrl;
+        } else if (imageUrl.startsWith('data:')) {
+            // For data URLs (base64 images), we need to create a proper URL
+            fullImageUrl = imageUrl;
+        } else {
+            fullImageUrl = `${window.location.origin}/${imageUrl}`;
+        }
+
+        // Open Graph image tags
         updateMetaTag('og:image', fullImageUrl);
+        updateMetaTag('og:image:type', 'image/jpeg');
         updateMetaTag('og:image:width', '1200');
         updateMetaTag('og:image:height', '630');
+        updateMetaTag('og:image:alt', title);
+
+        // Twitter image tags
         updateMetaTag('twitter:image', fullImageUrl);
         updateMetaTag('twitter:image:alt', title);
     } else {
         // Use school logo as fallback
-        const logoUrl = `${window.location.origin}/images/logo.png`;
+        const logoUrl = `${window.location.origin}/images/Logo.jpg`;
         updateMetaTag('og:image', logoUrl);
+        updateMetaTag('og:image:type', 'image/jpeg');
+        updateMetaTag('og:image:width', '400');
+        updateMetaTag('og:image:height', '400');
+        updateMetaTag('og:image:alt', 'Siyabulela Senior Secondary School Logo');
         updateMetaTag('twitter:image', logoUrl);
+        updateMetaTag('twitter:image:alt', 'Siyabulela Senior Secondary School Logo');
     }
+
+    // Additional meta tags for better sharing
+    updateMetaTag('article:author', 'Siyabulela Senior Secondary School');
+    updateMetaTag('article:publisher', 'Siyabulela Senior Secondary School');
+    updateMetaTag('article:section', 'School News');
 }
 
 // Helper function to update or create meta tags
