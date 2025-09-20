@@ -302,12 +302,14 @@ section:nth-child(even) {
     font-weight: 600;
     letter-spacing: 0.3px;
     margin-bottom: 1rem;
+    text-align: center;
 }
 
 .info-card p, .about-card p, .admission-card p, .fees-card p {
     font-family: var(--font-secondary);
     font-size: 1rem;
     line-height: 1.6;
+    text-align: left;
 }
 
 /* Hero Section - Home Page */
@@ -1038,6 +1040,7 @@ footer {
     .nav-links a {
         font-size: 0.95rem !important;
         padding: 0.9rem 1rem !important;
+        text-align: left;
     }
 }
 
@@ -1398,6 +1401,7 @@ main {
     letter-spacing: 0.3px;
     border-bottom: 2px solid var(--gold-accent);
     padding-bottom: 0.5rem;
+    text-align: center;
 }
 
 .highlight-item p {
@@ -1405,6 +1409,7 @@ main {
     font-size: 1rem;
     line-height: 1.6;
     letter-spacing: 0.2px;
+    text-align: left;
 }
 
 /* School Info */
@@ -1445,6 +1450,7 @@ main {
     letter-spacing: 0.3px;
     padding-bottom: 1rem;
     border-bottom: 2px solid var(--gold-accent);
+    text-align: center;
 }
 
 .info-item ul {
@@ -1457,6 +1463,7 @@ main {
     font-size: 1.1rem;
     line-height: 1.6;
     letter-spacing: 0.2px;
+    text-align: left;
 }
 
 .info-item ul li strong {
@@ -1804,7 +1811,7 @@ main {
     font-size: 1rem;
     line-height: 1.6;
     margin: 0;
-    text-align: center;
+    text-align: left;
     letter-spacing: 0.01em;
 }
 
@@ -1832,7 +1839,7 @@ main {
 
 /* Global paragraph styling for elegance */
 p {
-    text-align: justify;
+    text-align: left;
     line-height: 1.7;
     margin: 1.2rem 0;
     font-size: 1rem;
@@ -1844,7 +1851,7 @@ p {
 
 /* Announcement card paragraph styling for proper alignment */
 .announcement-card .content-display p {
-    text-align: justify;
+    text-align: left;
     line-height: 1.6;
     margin: 0.8rem 0;
     padding: 0;
@@ -1865,7 +1872,7 @@ p {
 }
 
 .announcement-card .content-display {
-    text-align: justify;
+    text-align: left;
 }
 
 /* Clean card styling with proper spacing */
@@ -1881,7 +1888,7 @@ p {
 
 /* Elegant paragraph spacing within cards */
 .uniform-card p, .sports-card p, .contact-card p {
-    text-align: justify;
+    text-align: left;
     line-height: 1.7;
     margin: 1rem 0;
     color: #4b5563;
@@ -2067,7 +2074,7 @@ p {
 }
 
 .logo, .logo-text, .nav-links, .hero-content,
-.announcement-grid, .footer-content {
+.announcement-grid {
     text-align: center;
 }
 
@@ -3632,14 +3639,13 @@ p {
     color: #4b5563;
     line-height: 1.6;
     font-size: 0.85rem;
-    text-align: justify;
-    text-justify: inter-word;
+    text-align: left;
     flex: 1;
 }
 
 .announcement-card.elegant-home .content-display p {
     margin-bottom: 0.75rem;
-    text-align: justify;
+    text-align: left;
 }
 
 .announcement-card.elegant-home .content-display p:last-child {
