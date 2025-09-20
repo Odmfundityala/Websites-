@@ -428,6 +428,7 @@ section:nth-child(even) {
 .cta-button:active {
     transform: translateY(0);
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%);
 }
 
 /* Stats and Info Sections */
@@ -2081,16 +2082,6 @@ p {
 .announcement-card.elegant-home .content-display li {
     text-align: left !important;
     margin-bottom: 0.375rem;
-}
-
-/* Keep necessary centered elements */
-.page-header h1, .page-header p, h1, h2 {
-    text-align: center;
-}
-
-.logo, .logo-text, .nav-links, .hero-content,
-.announcement-grid {
-    text-align: center;
 }
 
 /* Academic Performance Section */
