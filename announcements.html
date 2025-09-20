@@ -2594,7 +2594,19 @@
 
             handleLogout() {
                 localStorage.removeItem('siya_admin_auth');
+                
+                // Reset all tab states
+                const tabBtns = document.querySelectorAll('.tab-btn-below-header');
+                tabBtns.forEach(btn => btn.classList.remove('active'));
+                
+                const tabContents = document.querySelectorAll('.tab-content');
+                tabContents.forEach(content => {
+                    content.style.display = 'none';
+                    content.classList.remove('active');
+                });
+                
                 this.showAuthSection();
+                
                 // Clear the form but preserve remembered email if checked
                 const rememberCheckbox = document.getElementById('rememberMe');
                 const emailInput = document.getElementById('adminEmail');
@@ -2614,6 +2626,9 @@
                         // Email preserved for next login
                     }
                 }
+                
+                // Force redirect to ensure complete logout
+                window.location.reload();
             }
 
             checkAuthStatus() {

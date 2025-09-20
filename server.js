@@ -110,38 +110,57 @@ function handleApiRequest(req, res) {
         req.on('end', () => {
             try {
                 const { email, password } = JSON.parse(body);
-                const authorizedEmails = (process.env.ADMIN_EMAILS || '').split(',').map(e => e.trim().toLowerCase());
                 
-                // For demo purposes, we'll use a simple password check
-                // In production, this should be properly hashed and stored securely
-                const isValidPassword = password && password.length >= 6;
-                
-                if (authorizedEmails.includes(email.toLowerCase()) && isValidPassword) {
-                    // Generate secure token
-                    const crypto = require('crypto');
-                    const token = crypto.createHmac('sha256', process.env.ADMIN_SECRET_KEY || 'fallback-key')
-                                       .update(email + Date.now())
-                                       .digest('hex');
-                    
-                    res.writeHead(200, { 'Content-Type': 'application/json' });
-                    res.end(JSON.stringify({ 
-                        success: true, 
-                        token,
-                        email: email.split('@')[0].replace(/[._]/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
-                    }));
-                } else if (!authorizedEmails.includes(email.toLowerCase())) {
-                    res.writeHead(401, { 'Content-Type': 'application/json' });
-                    res.end(JSON.stringify({ 
-                        success: false, 
-                        message: 'Unauthorized email address' 
-                    }));
-                } else {
+                if (!email || !password || password.length < 6) {
                     res.writeHead(401, { 'Content-Type': 'application/json' });
                     res.end(JSON.stringify({ 
                         success: false, 
                         message: 'Invalid password. Password must be at least 6 characters.' 
                     }));
+                    return;
                 }
+                
+                // Check admins.json file for authentication
+                const adminsFile = path.join(__dirname, 'admins.json');
+                
+                fs.readFile(adminsFile, 'utf8', (err, data) => {
+                    let admins = [];
+                    if (!err && data) {
+                        try {
+                            admins = JSON.parse(data);
+                        } catch (parseError) {
+                            admins = [];
+                        }
+                    }
+                    
+                    // Find admin with matching email and password
+                    const admin = admins.find(a => 
+                        a.email.toLowerCase() === email.toLowerCase() && 
+                        a.password === password && 
+                        a.active !== false
+                    );
+                    
+                    if (admin) {
+                        // Generate secure token
+                        const crypto = require('crypto');
+                        const token = crypto.createHmac('sha256', process.env.ADMIN_SECRET_KEY || 'fallback-key')
+                                           .update(email + Date.now())
+                                           .digest('hex');
+                        
+                        res.writeHead(200, { 'Content-Type': 'application/json' });
+                        res.end(JSON.stringify({ 
+                            success: true, 
+                            token,
+                            email: email.split('@')[0].replace(/[._]/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
+                        }));
+                    } else {
+                        res.writeHead(401, { 'Content-Type': 'application/json' });
+                        res.end(JSON.stringify({ 
+                            success: false, 
+                            message: 'Invalid email or password' 
+                        }));
+                    }
+                });
             } catch (error) {
                 res.writeHead(400, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ 
