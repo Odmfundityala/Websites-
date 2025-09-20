@@ -2459,34 +2459,6 @@
                                 </form>
                             </div>
 
-                            <!-- Reset Password Card -->
-                            <div class="create-announcement-card" style="background: white; border-radius: 12px; border: 1px solid #e2e8f0; padding: 1.25rem; height: fit-content; display: flex; flex-direction: column; box-shadow: 0 2px 12px rgba(26, 54, 93, 0.08); transition: all 0.3s ease;">
-                                <h3 style="margin: 0 0 1rem 0; color: #1a365d; font-size: 1.1rem; font-weight: 700;"><i class="fas fa-key" style="color: #2563eb;"></i> Reset Admin Password</h3>
-                                <form id="resetPasswordForm" class="announcement-form" style="flex: 1;">
-                                    <div class="form-group">
-                                        <label for="resetAdminEmail">Admin Email to Reset</label>
-                                        <input type="email" id="resetAdminEmail" name="email" required placeholder="Enter admin email to reset">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="resetNewPassword">New Password</label>
-                                        <div style="position: relative;">
-                                            <input type="password" id="resetNewPassword" name="newPassword" required placeholder="Enter new password (min 6 characters)" minlength="6">
-                                            <i class="fas fa-eye password-toggle" onclick="togglePassword('resetNewPassword')" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #6b7280; font-size: 1rem;"></i>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="confirmResetPassword">Confirm New Password</label>
-                                        <div style="position: relative;">
-                                            <input type="password" id="confirmResetPassword" name="confirmPassword" required placeholder="Confirm new password" minlength="6">
-                                            <i class="fas fa-eye password-toggle" onclick="togglePassword('confirmResetPassword')" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #6b7280; font-size: 1rem;"></i>
-                                        </div>
-                                    </div>
-                                    <button type="submit" class="cta-button" style="margin-top: 1rem;">
-                                        <i class="fas fa-sync-alt"></i>
-                                        Reset Password
-                                    </button>
-                                </form>
-                            </div>
 
                             <!-- Current Admins Card -->
                             <div class="create-announcement-card" style="background: white; border-radius: 12px; border: 1px solid #e2e8f0; padding: 1.25rem; height: fit-content; display: flex; flex-direction: column; box-shadow: 0 2px 12px rgba(26, 54, 93, 0.08); transition: all 0.3s ease;">
@@ -2854,8 +2826,11 @@
                                 </div>
                             </div>
                             <div style="display: flex; gap: 0.5rem;">
-                                <button class="cta-button" style="padding: 0.5rem 1rem; font-size: 0.9rem;" onclick="removeAdmin('${admin.email}')">
-                                    <i class="fas fa-trash"></i> Remove
+                                <button class="cta-button" style="padding: 0.5rem 1rem; font-size: 0.9rem; background: #f59e0b; border-color: #f59e0b;" onclick="editAdmin('${admin.email}')">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="cta-button" style="padding: 0.5rem 1rem; font-size: 0.9rem; background: #ef4444; border-color: #ef4444;" onclick="removeAdmin('${admin.email}')">
+                                    <i class="fas fa-trash"></i> Delete
                                 </button>
                             </div>
                         </div>
@@ -2864,8 +2839,37 @@
             `;
         }
 
+        async function editAdmin(email) {
+            const newPassword = prompt(`Enter new password for ${email}:`);
+            if (!newPassword) return;
+
+            if (newPassword.length < 6) {
+                announcementManager.showMessage('Password must be at least 6 characters long', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/edit-admin', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, newPassword })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    announcementManager.showMessage('Admin password updated successfully!', 'success');
+                    loadAdminsList();
+                } else {
+                    announcementManager.showMessage(result.message, 'error');
+                }
+            } catch (error) {
+                announcementManager.showMessage('Failed to update admin. Please try again.', 'error');
+            }
+        }
+
         async function removeAdmin(email) {
-            if (!confirm(`Are you sure you want to remove admin: ${email}?`)) {
+            if (!confirm(`Are you sure you want to delete admin: ${email}?`)) {
                 return;
             }
 
@@ -2879,13 +2883,13 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    announcementManager.showMessage('Admin removed successfully!', 'success');
+                    announcementManager.showMessage('Admin deleted successfully!', 'success');
                     loadAdminsList();
                 } else {
                     announcementManager.showMessage(result.message, 'error');
                 }
             } catch (error) {
-                announcementManager.showMessage('Failed to remove admin. Please try again.', 'error');
+                announcementManager.showMessage('Failed to delete admin. Please try again.', 'error');
             }
         }
 
@@ -2917,10 +2921,6 @@
                 addAdminForm.addEventListener('submit', createAdminAccount);
             }
 
-            const resetPasswordForm = document.getElementById('resetPasswordForm');
-            if (resetPasswordForm) {
-                resetPasswordForm.addEventListener('submit', resetAdminPassword);
-            }
 
             // Load admin data when authenticated
             const checkForAuth = setInterval(() => {

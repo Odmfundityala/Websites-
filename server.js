@@ -152,8 +152,8 @@ function handleApiRequest(req, res) {
         });
     } else if (url.pathname === '/api/create-admin' && req.method === 'POST') {
         handleCreateAdmin(req, res);
-    } else if (url.pathname === '/api/reset-admin-password' && req.method === 'POST') {
-        handleResetAdminPassword(req, res);
+    } else if (url.pathname === '/api/edit-admin' && req.method === 'POST') {
+        handleEditAdmin(req, res);
     } else if (url.pathname === '/api/admins-list' && req.method === 'GET') {
         handleGetAdminsList(req, res);
     } else if (url.pathname === '/api/remove-admin' && req.method === 'POST') {
@@ -353,7 +353,7 @@ function handleCreateAdmin(req, res) {
     });
 }
 
-function handleResetAdminPassword(req, res) {
+function handleEditAdmin(req, res) {
     let body = '';
     req.on('data', chunk => {
         body += chunk.toString();
@@ -398,14 +398,14 @@ function handleResetAdminPassword(req, res) {
                     fs.writeFile(adminsFile, JSON.stringify(admins, null, 2), (writeErr) => {
                         if (writeErr) {
                             res.writeHead(500, { 'Content-Type': 'application/json' });
-                            res.end(JSON.stringify({ success: false, message: 'Failed to reset password' }));
+                            res.end(JSON.stringify({ success: false, message: 'Failed to update admin' }));
                             return;
                         }
                         
                         res.writeHead(200, { 'Content-Type': 'application/json' });
                         res.end(JSON.stringify({ 
                             success: true, 
-                            message: 'Password reset successfully!'
+                            message: 'Admin updated successfully!'
                         }));
                     });
                     
