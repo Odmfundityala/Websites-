@@ -384,7 +384,7 @@
                 margin: 1rem;
                 padding: 2rem;
             }
-            
+
             .back-to-site {
                 top: 1rem;
                 left: 1rem;
@@ -503,7 +503,7 @@
             .page-header-content h1 {
                 font-size: 1.4rem;
             }
-            
+
             .page-header-content p {
                 font-size: 0.85rem;
                 margin-top: 0.25rem;
@@ -713,18 +713,18 @@
                 padding: 1rem;
                 margin: 0 0 1rem 0;
             }
-            
+
             .announcement-header {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 0.75rem;
             }
-            
+
             .announcement-actions {
                 width: 100%;
                 justify-content: space-between;
             }
-            
+
             .edit-btn, .delete-btn {
                 flex: 1;
                 max-width: 48%;
@@ -1464,7 +1464,7 @@
                 flex-direction: column;
                 gap: 0.25rem;
             }
-            
+
             .tab-btn {
                 padding: 0.5rem 1rem;
                 font-size: 0.85rem;
@@ -1472,7 +1472,7 @@
                 border-bottom: none;
                 border-left: 3px solid transparent;
             }
-            
+
             .tab-btn.active {
                 border-left-color: #1a365d;
                 border-bottom: none;
@@ -2175,10 +2175,10 @@
                 <!-- Manage Announcements -->
                 <div class="admin-section management-section" style="background: #f8fafc; min-height: calc(100vh - 150px); padding: 0; margin: 0; border-radius: 0; border: none; width: 100%; position: relative; left: 0; right: 0;">
                     <h2 style="margin: 0; padding: 1.5rem; background: #ffffff; border-bottom: 1px solid #e2e8f0;"><i class="fas fa-list"></i> Manage Announcements</h2>
-                    
+
                     <!-- Cards Container -->
-                    <div class="announcements-cards-container" style="padding: 1rem 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; width: 100%; box-sizing: border-box; overflow-x: visible;">
-                        
+                    <div class="announcements-cards-container" style="padding: 1rem 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; width: 100%; box-sizing: border-box;">
+
                         <!-- Create New Announcement Card -->
                         <div class="create-announcement-card" style="background: white; border-radius: 12px; border: 1px solid #e2e8f0; padding: 1.25rem; height: fit-content; display: flex; flex-direction: column; box-shadow: 0 2px 12px rgba(26, 54, 93, 0.08); transition: all 0.3s ease;">
                             <h3 style="margin: 0 0 1rem 0; color: #1a365d; font-size: 1.1rem; font-weight: 700;"><i class="fas fa-plus-circle" style="color: #2563eb;"></i> Create New Announcement</h3>
@@ -2187,7 +2187,7 @@
                                     <label for="announcementTitle">Title</label>
                                     <input type="text" id="announcementTitle" name="title" required placeholder="Enter announcement title">
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="announcementImage">Featured Image (Optional)</label>
                                     <input type="file" id="announcementImage" name="image" accept="image/*" placeholder="Choose an image for this announcement">
@@ -2202,10 +2202,10 @@
                                         </button>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="announcementContent">Content</label>
-                                    
+
                                     <!-- Rich Text Toolbar -->
                                     <div class="rich-text-toolbar">
                                         <button type="button" class="format-btn" data-command="undo" title="Undo">
@@ -2268,19 +2268,19 @@
                                             <i class="fas fa-list-ol"></i>
                                         </button>
                                     </div>
-                                    
+
                                     <!-- Rich Text Editor -->
                                     <div id="announcementContent" contenteditable="true" class="rich-text-editor" data-placeholder="Enter announcement content here..." style="min-height: 80px;"></div>
-                                    
+
                                     <!-- Hidden textarea for form submission -->
                                     <textarea id="announcementContentHidden" name="content" style="display: none;" required></textarea>
-                                    
+
                                     <small style="color: #6b7280; font-size: 0.85rem; margin-top: 0.5rem; display: block;">
                                         <i class="fas fa-info-circle"></i>
                                         Use the toolbar buttons to format your text.
                                     </small>
                                 </div>
-                                
+
                                 <div class="form-row">
                                     <div class="form-group">
                                         <label for="announcementType">Type</label>
@@ -2293,19 +2293,19 @@
                                         </select>
                                     </div>
                                 </div>
-                                
+
                                 <button type="submit" class="cta-button" style="margin-top: 1rem;">
                                     <i class="fas fa-plus"></i>
                                     Add Announcement
                                 </button>
                             </form>
                         </div>
-                        
+
                         <!-- Announcements List -->
                         <div id="announcementsList" style="display: contents">
                             <!-- Announcements will be loaded here as individual cards -->
                         </div>
-                        
+
                     </div>
                 </div>
 
@@ -2319,10 +2319,10 @@
                     <!-- Admissions Management -->
                     <div class="admin-section management-section" style="background: #f8fafc; min-height: calc(100vh - 150px); padding: 0; margin: 0; border-radius: 0; border: none; width: 100%; position: relative; left: 0; right: 0;">
                         <h2 style="margin: 0; padding: 1.5rem; background: #ffffff; border-bottom: 1px solid #e2e8f0;"><i class="fas fa-graduation-cap"></i> Admissions Management</h2>
-                        
+
                         <!-- Cards Container -->
-                        <div class="announcements-cards-container" style="padding: 1rem 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; width: 100%; box-sizing: border-box;">
-                            
+                        <div class="announcements-cards-container" style="padding: 1rem 1.5rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; width: 100%; box-sizing: border-box; max-width: 100%;">
+
                             <!-- New Application Card -->
                             <div class="create-announcement-card" style="background: white; border-radius: 12px; border: 1px solid #e2e8f0; padding: 1.25rem; height: fit-content; display: flex; flex-direction: column; box-shadow: 0 2px 12px rgba(26, 54, 93, 0.08); transition: all 0.3s ease;">
                                 <h3 style="margin: 0 0 1rem 0; color: #1a365d; font-size: 1.1rem; font-weight: 700;"><i class="fas fa-user-plus" style="color: #2563eb;"></i> New Application</h3>
@@ -2331,7 +2331,7 @@
                                     <i class="fas fa-tools"></i> Under Development
                                 </div>
                             </div>
-                            
+
                             <!-- Application Status Card -->
                             <div class="create-announcement-card" style="background: white; border-radius: 12px; border: 1px solid #e2e8f0; padding: 1.25rem; height: fit-content; display: flex; flex-direction: column; box-shadow: 0 2px 12px rgba(26, 54, 93, 0.08); transition: all 0.3s ease;">
                                 <h3 style="margin: 0 0 1rem 0; color: #1a365d; font-size: 1.1rem; font-weight: 700;"><i class="fas fa-clipboard-list" style="color: #2563eb;"></i> Application Status</h3>
@@ -2340,7 +2340,7 @@
                                     <i class="fas fa-tools"></i> Under Development
                                 </div>
                             </div>
-                            
+
                             <!-- Enrollment Statistics Card -->
                             <div class="create-announcement-card" style="background: white; border-radius: 12px; border: 1px solid #e2e8f0; padding: 1.25rem; height: fit-content; display: flex; flex-direction: column; box-shadow: 0 2px 12px rgba(26, 54, 93, 0.08); transition: all 0.3s ease;">
                                 <h3 style="margin: 0 0 1rem 0; color: #1a365d; font-size: 1.1rem; font-weight: 700;"><i class="fas fa-chart-bar" style="color: #2563eb;"></i> Enrollment Statistics</h3>
@@ -2360,10 +2360,10 @@
                     <!-- School Management -->
                     <div class="admin-section management-section" style="background: #f8fafc; min-height: calc(100vh - 150px); padding: 0; margin: 0; border-radius: 0; border: none; width: 100%; position: relative; left: 0; right: 0;">
                         <h2 style="margin: 0; padding: 1.5rem; background: #ffffff; border-bottom: 1px solid #e2e8f0;"><i class="fas fa-school"></i> School Management</h2>
-                        
+
                         <!-- Cards Container -->
-                        <div class="announcements-cards-container" style="padding: 1rem 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; width: 100%; box-sizing: border-box;">
-                            
+                        <div class="announcements-cards-container" style="padding: 1rem 1.5rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; width: 100%; box-sizing: border-box; max-width: 100%;">
+
                             <!-- Student Records Card -->
                             <div class="create-announcement-card" style="background: white; border-radius: 12px; border: 1px solid #e2e8f0; padding: 1.25rem; height: fit-content; display: flex; flex-direction: column; box-shadow: 0 2px 12px rgba(26, 54, 93, 0.08); transition: all 0.3s ease;">
                                 <h3 style="margin: 0 0 1rem 0; color: #1a365d; font-size: 1.1rem; font-weight: 700;"><i class="fas fa-users" style="color: #2563eb;"></i> Student Records</h3>
@@ -2372,7 +2372,7 @@
                                     <i class="fas fa-tools"></i> Under Development
                                 </div>
                             </div>
-                            
+
                             <!-- Staff Portal Card -->
                             <div class="create-announcement-card" style="background: white; border-radius: 12px; border: 1px solid #e2e8f0; padding: 1.25rem; height: fit-content; display: flex; flex-direction: column; box-shadow: 0 2px 12px rgba(26, 54, 93, 0.08); transition: all 0.3s ease;">
                                 <h3 style="margin: 0 0 1rem 0; color: #1a365d; font-size: 1.1rem; font-weight: 700;"><i class="fas fa-chalkboard-teacher" style="color: #2563eb;"></i> Staff Portal</h3>
@@ -2381,7 +2381,7 @@
                                     <i class="fas fa-tools"></i> Under Development
                                 </div>
                             </div>
-                            
+
                             <!-- Academic Performance Card -->
                             <div class="create-announcement-card" style="background: white; border-radius: 12px; border: 1px solid #e2e8f0; padding: 1.25rem; height: fit-content; display: flex; flex-direction: column; box-shadow: 0 2px 12px rgba(26, 54, 93, 0.08); transition: all 0.3s ease;">
                                 <h3 style="margin: 0 0 1rem 0; color: #1a365d; font-size: 1.1rem; font-weight: 700;"><i class="fas fa-chart-line" style="color: #2563eb;"></i> Academic Performance</h3>
@@ -2390,7 +2390,7 @@
                                     <i class="fas fa-tools"></i> Under Development
                                 </div>
                             </div>
-                            
+
                             <!-- Timetable & Events Card -->
                             <div class="create-announcement-card" style="background: white; border-radius: 12px; border: 1px solid #e2e8f0; padding: 1.25rem; height: fit-content; display: flex; flex-direction: column; box-shadow: 0 2px 12px rgba(26, 54, 93, 0.08); transition: all 0.3s ease;">
                                 <h3 style="margin: 0 0 1rem 0; color: #1a365d; font-size: 1.1rem; font-weight: 700;"><i class="fas fa-calendar-alt" style="color: #2563eb;"></i> Timetable & Events</h3>
@@ -2399,7 +2399,7 @@
                                     <i class="fas fa-tools"></i> Under Development
                                 </div>
                             </div>
-                            
+
                             <!-- Financial Management Card -->
                             <div class="create-announcement-card" style="background: white; border-radius: 12px; border: 1px solid #e2e8f0; padding: 1.25rem; height: fit-content; display: flex; flex-direction: column; box-shadow: 0 2px 12px rgba(26, 54, 93, 0.08); transition: all 0.3s ease;">
                                 <h3 style="margin: 0 0 1rem 0; color: #1a365d; font-size: 1.1rem; font-weight: 700;"><i class="fas fa-coins" style="color: #2563eb;"></i> Financial Management</h3>
@@ -2408,7 +2408,7 @@
                                     <i class="fas fa-tools"></i> Under Development
                                 </div>
                             </div>
-                            
+
                             <!-- Assessment Tools Card -->
                             <div class="create-announcement-card" style="background: white; border-radius: 12px; border: 1px solid #e2e8f0; padding: 1.25rem; height: fit-content; display: flex; flex-direction: column; box-shadow: 0 2px 12px rgba(26, 54, 93, 0.08); transition: all 0.3s ease;">
                                 <h3 style="margin: 0 0 1rem 0; color: #1a365d; font-size: 1.1rem; font-weight: 700;"><i class="fas fa-clipboard-check" style="color: #2563eb;"></i> Assessment Tools</h3>
@@ -2425,14 +2425,14 @@
             <!-- Admin & Password Management Tab -->
             <section class="tab-content" id="admin-tab" style="display: none;">
                 <div class="announcements-content" style="padding: 2rem; padding-top: 1rem;">
-                    
+
                     <!-- Admin & Password Management -->
                     <div class="admin-section management-section" style="background: #f8fafc; min-height: calc(100vh - 150px); padding: 0; margin: 0; border-radius: 0; border: none; width: 100%; position: relative; left: 0; right: 0;">
                         <h2 style="margin: 0; padding: 1.5rem; background: #ffffff; border-bottom: 1px solid #e2e8f0;"><i class="fas fa-users-cog"></i> Admin & Password Management</h2>
-                        
+
                         <!-- Cards Container -->
-                        <div class="announcements-cards-container" style="padding: 1rem 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; width: 100%; box-sizing: border-box;">
-                            
+                        <div class="announcements-cards-container" style="padding: 1rem 1.5rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; width: 100%; box-sizing: border-box; max-width: 100%;">
+
                             <!-- Create New Admin Card -->
                             <div class="create-announcement-card" style="background: white; border-radius: 12px; border: 1px solid #e2e8f0; padding: 1.25rem; height: fit-content; display: flex; flex-direction: column; box-shadow: 0 2px 12px rgba(26, 54, 93, 0.08); transition: all 0.3s ease;">
                                 <h3 style="margin: 0 0 1rem 0; color: #1a365d; font-size: 1.1rem; font-weight: 700;"><i class="fas fa-user-plus" style="color: #2563eb;"></i> Create New Admin Account</h3>
@@ -2461,7 +2461,7 @@
                                     </button>
                                 </form>
                             </div>
-                            
+
                             <!-- Reset Password Card -->
                             <div class="create-announcement-card" style="background: white; border-radius: 12px; border: 1px solid #e2e8f0; padding: 1.25rem; height: fit-content; display: flex; flex-direction: column; box-shadow: 0 2px 12px rgba(26, 54, 93, 0.08); transition: all 0.3s ease;">
                                 <h3 style="margin: 0 0 1rem 0; color: #1a365d; font-size: 1.1rem; font-weight: 700;"><i class="fas fa-key" style="color: #2563eb;"></i> Reset Admin Password</h3>
@@ -2490,7 +2490,7 @@
                                     </button>
                                 </form>
                             </div>
-                            
+
                             <!-- Current Admins Card -->
                             <div class="create-announcement-card" style="background: white; border-radius: 12px; border: 1px solid #e2e8f0; padding: 1.25rem; height: fit-content; display: flex; flex-direction: column; box-shadow: 0 2px 12px rgba(26, 54, 93, 0.08); transition: all 0.3s ease;">
                                 <h3 style="margin: 0 0 1rem 0; color: #1a365d; font-size: 1.1rem; font-weight: 700;"><i class="fas fa-users" style="color: #2563eb;"></i> Current Administrators</h3>
@@ -2555,7 +2555,7 @@
                     if (emailInput && rememberCheckbox) {
                         emailInput.value = rememberedEmail;
                         rememberCheckbox.checked = true;
-                        
+
                         // Email loaded and ready
                     }
                 }
@@ -2567,14 +2567,14 @@
                 const password = document.getElementById('adminPassword').value;
                 const rememberMe = document.getElementById('rememberMe').checked;
                 const submitBtn = document.getElementById('loginBtn');
-                
+
                 // Show loading state
                 const originalText = submitBtn.innerHTML;
                 submitBtn.innerHTML = '<div class="loading-spinner"></div> Authenticating...';
                 submitBtn.disabled = true;
-                
+
                 this.hideError();
-                
+
                 try {
                     // Simulate password validation (in real implementation, this would be server-side)
                     const response = await fetch('/api/auth', {
@@ -2584,9 +2584,9 @@
                         },
                         body: JSON.stringify({ email, password })
                     });
-                    
+
                     const result = await response.json();
-                    
+
                     if (result.success) {
                         // Handle remember me functionality
                         if (rememberMe) {
@@ -2594,7 +2594,7 @@
                         } else {
                             localStorage.removeItem('siya_remembered_email');
                         }
-                        
+
                         this.authenticateUser(email, result.token, result.email);
                         this.hideError();
                     } else {
@@ -2618,7 +2618,7 @@
                     loginTime: new Date().toISOString(),
                     isAuthenticated: true
                 };
-                
+
                 localStorage.setItem('siya_admin_auth', JSON.stringify(authData));
                 this.showAdminPanel(displayName);
             }
@@ -2630,7 +2630,7 @@
                 const rememberCheckbox = document.getElementById('rememberMe');
                 const emailInput = document.getElementById('adminEmail');
                 const form = document.getElementById('loginForm');
-                
+
                 if (!rememberCheckbox || !rememberCheckbox.checked) {
                     // If remember me is not checked, clear everything
                     localStorage.removeItem('siya_remembered_email');
@@ -2650,13 +2650,13 @@
             checkAuthStatus() {
                 try {
                     const authData = JSON.parse(localStorage.getItem('siya_admin_auth'));
-                    
+
                     if (authData && authData.isAuthenticated && authData.token) {
                         // Check if login is within last 8 hours
                         const loginTime = new Date(authData.loginTime);
                         const now = new Date();
                         const hoursDiff = (now - loginTime) / (1000 * 60 * 60);
-                        
+
                         if (hoursDiff < 8) {
                             this.showAdminPanel(authData.displayName || authData.email);
                             return;
@@ -2665,7 +2665,7 @@
                 } catch (error) {
                     console.log('No valid authentication found');
                 }
-                
+
                 this.showAuthSection();
             }
 
@@ -2741,7 +2741,7 @@
                 // Show selected tab content
                 const selectedTab = document.getElementById(`${tabName}-tab`);
                 const selectedBtn = document.querySelector(`[data-tab="${tabName}"].tab-btn-below-header`);
-                
+
                 if (selectedTab && selectedBtn) {
                     selectedTab.style.display = 'block';
                     selectedTab.classList.add('active');
@@ -2753,30 +2753,30 @@
         // Admin Management System
         async function createAdminAccount(event) {
             event.preventDefault();
-            
+
             const email = document.getElementById('newAdminEmail').value.trim();
             const password = document.getElementById('newAdminPassword').value;
             const confirmPassword = document.getElementById('confirmAdminPassword').value;
-            
+
             if (password !== confirmPassword) {
                 announcementManager.showMessage('Passwords do not match', 'error');
                 return;
             }
-            
+
             if (password.length < 6) {
                 announcementManager.showMessage('Password must be at least 6 characters long', 'error');
                 return;
             }
-            
+
             try {
                 const response = await fetch('/api/create-admin', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password })
                 });
-                
+
                 const result = await response.json();
-                
+
                 if (result.success) {
                     announcementManager.showMessage('Admin account created successfully!', 'success');
                     document.getElementById('addAdminForm').reset();
@@ -2791,30 +2791,30 @@
 
         async function resetAdminPassword(event) {
             event.preventDefault();
-            
+
             const email = document.getElementById('resetAdminEmail').value.trim();
             const newPassword = document.getElementById('resetNewPassword').value;
             const confirmPassword = document.getElementById('confirmResetPassword').value;
-            
+
             if (newPassword !== confirmPassword) {
                 announcementManager.showMessage('Passwords do not match', 'error');
                 return;
             }
-            
+
             if (newPassword.length < 6) {
                 announcementManager.showMessage('Password must be at least 6 characters long', 'error');
                 return;
             }
-            
+
             try {
                 const response = await fetch('/api/reset-admin-password', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, newPassword })
                 });
-                
+
                 const result = await response.json();
-                
+
                 if (result.success) {
                     announcementManager.showMessage('Password reset successfully!', 'success');
                     document.getElementById('resetPasswordForm').reset();
@@ -2840,12 +2840,12 @@
 
         function displayAdminsList(admins) {
             const container = document.getElementById('adminsList');
-            
+
             if (admins.length === 0) {
                 container.innerHTML = '<p><i class="fas fa-info-circle"></i> No administrators configured</p>';
                 return;
             }
-            
+
             container.innerHTML = `
                 <div style="display: grid; gap: 1rem;">
                     ${admins.map(admin => `
@@ -2871,16 +2871,16 @@
             if (!confirm(`Are you sure you want to remove admin: ${email}?`)) {
                 return;
             }
-            
+
             try {
                 const response = await fetch('/api/remove-admin', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email })
                 });
-                
+
                 const result = await response.json();
-                
+
                 if (result.success) {
                     announcementManager.showMessage('Admin removed successfully!', 'success');
                     loadAdminsList();
@@ -2896,7 +2896,7 @@
         function togglePassword(fieldId) {
             const passwordField = document.getElementById(fieldId);
             const toggleIcon = passwordField.parentElement.querySelector('.password-toggle');
-            
+
             if (passwordField.type === 'password') {
                 passwordField.type = 'text';
                 toggleIcon.classList.remove('fa-eye');
@@ -2913,18 +2913,18 @@
         document.addEventListener('DOMContentLoaded', () => {
             adminAuth = new AdminAuth();
             tabManager = new TabManager();
-            
+
             // Set up admin management form submissions
             const addAdminForm = document.getElementById('addAdminForm');
             if (addAdminForm) {
                 addAdminForm.addEventListener('submit', createAdminAccount);
             }
-            
+
             const resetPasswordForm = document.getElementById('resetPasswordForm');
             if (resetPasswordForm) {
                 resetPasswordForm.addEventListener('submit', resetAdminPassword);
             }
-            
+
             // Load admin data when authenticated
             const checkForAuth = setInterval(() => {
                 const authData = JSON.parse(localStorage.getItem('siya_admin_auth') || '{}');

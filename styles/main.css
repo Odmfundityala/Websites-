@@ -4448,3 +4448,43 @@ p {
 .admin-panel * {
     scroll-behavior: smooth;
 }
+
+/* Admin Cards Grid - Full Width Layout */
+.announcements-cards-container {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+    gap: 1.5rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 1rem 1.5rem !important;
+    box-sizing: border-box !important;
+}
+
+/* Responsive breakpoints for admin cards */
+@media (min-width: 768px) {
+    .announcements-cards-container {
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)) !important;
+        padding: 1.5rem 2rem !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    .announcements-cards-container {
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)) !important;
+        gap: 2rem !important;
+    }
+}
+
+@media (min-width: 1600px) {
+    .announcements-cards-container {
+        grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)) !important;
+        padding: 1.5rem 3rem !important;
+    }
+}
+
+/* Ensure cards stretch to full height when needed */
+.create-announcement-card {
+    min-height: 200px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
