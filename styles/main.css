@@ -464,7 +464,7 @@ section:nth-child(even) {
 }
 
 .performance-intro p {
-    color: #2563eb;
+    color: #1e293b;
     font-size: 1.2rem;
     line-height: 1.7;
     text-align: center;
@@ -534,7 +534,7 @@ section:nth-child(even) {
 }
 
 .achievement-message p {
-    color: var(--navy-light);
+    color: #4b5563;
     font-size: 1.2rem;
     line-height: 1.7;
     margin-bottom: 2rem;
@@ -1266,7 +1266,7 @@ main {
 .about-section p {
     font-size: 1.2rem;
     line-height: 1.8;
-    color: #1e40af;
+    color: #374151;
     font-weight: 500;
     letter-spacing: 0.3px;
     text-align: center;
@@ -1544,7 +1544,7 @@ main {
 }
 
 .academics-intro p {
-    color: #1e40af;
+    color: #374151;
     font-size: 1.2rem;
     line-height: 1.6;
     max-width: 800px;
@@ -2254,7 +2254,7 @@ p {
 }
 
 .highlight-card p {
-    color: #1e40af;
+    color: #4b5563;
     line-height: 1.6;
     font-size: 1rem;
     font-weight: 500;
@@ -2744,7 +2744,7 @@ p {
     font-size: 1.2rem;
     font-weight: 500;
     letter-spacing: 0.2px;
-    color: var(--sky-blue-primary);
+    color: #6b7280;
     text-align: center;
     margin: 0 auto 3rem auto;
     max-width: 800px;
@@ -2972,7 +2972,7 @@ p {
 }
 
 .stakeholder-card p {
-    color: var(--navy-light);
+    color: #4b5563;
     font-size: 1.1rem;
     line-height: 1.7;
     margin-bottom: 2rem;
@@ -3075,7 +3075,7 @@ p {
 /* Universities Section */
 .university-intro {
     text-align: center;
-    color: var(--navy-light);
+    color: #4b5563;
     font-size: 1.2rem;
     line-height: 1.7;
     margin-bottom: 3rem;
