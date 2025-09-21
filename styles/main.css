@@ -18,8 +18,8 @@
 
     /* Text Colors */
     --text-light: #ffffff; /* White text for dark backgrounds */
-    --text-dark: #1a365d; /* Navy text for light backgrounds */
-    --text-secondary: #2d3748; /* Dark gray for secondary text */
+    --text-dark: #000000; /* Black text for light backgrounds */
+    --text-secondary: #374151; /* Dark gray for secondary text */
 
     /* Gradients */
     --gradient-primary: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-secondary) 100%);
@@ -39,7 +39,7 @@
 body {
     font-family: var(--font-secondary);
     line-height: 1.7;
-    color: var(--text-dark);
+    color: #000000;
     background-color: var(--sky-blue-bg);
     margin: 0;
     padding: 0;
@@ -450,7 +450,7 @@ section:nth-child(even) {
 }
 
 .academic-performance h2 {
-    color: var(--navy-primary);
+    color: #000000;
     font-size: 2.5rem;
     font-weight: 700;
     margin-bottom: 2rem;
@@ -527,7 +527,7 @@ section:nth-child(even) {
 }
 
 .stat-content p {
-    color: var(--navy-primary);
+    color: #000000;
     font-size: 1.1rem;
     font-weight: 600;
     letter-spacing: 0.2px;
@@ -3660,7 +3660,7 @@ p {
 }
 
 .announcement-card.elegant-home .content-display strong {
-    color: #1a365d;
+    color: #000000;
     font-weight: 600;
 }
 
@@ -3704,7 +3704,7 @@ p {
 }
 
 .announcement-card h3 {
-    color: #1a365d;
+    color: #000000;
     margin-bottom: 1rem;
     font-size: 1.35rem;
     font-weight: 700;
@@ -3739,7 +3739,7 @@ p {
 
 /* Rich text formatting in announcements */
 .announcement-content strong {
-    color: #1a365d;
+    color: #000000;
     font-weight: 700;
 }
 
@@ -3782,7 +3782,7 @@ p {
 }
 
 .share-label {
-    color: #1a365d;
+    color: #000000;
     font-weight: 600;
     font-size: 0.85rem;
     margin: 0;
@@ -3871,7 +3871,7 @@ p {
 /* Admin Panel Expand Button */
 .expand-content-btn {
     background: #f8fafc;
-    color: #1a365d;
+    color: #000000;
     border: 1px solid #e2e8f0;
     padding: 0.4rem 0.8rem;
     border-radius: 15px;
