@@ -1224,7 +1224,6 @@ footer {
     line-height: 1.6;
     width: 100%;
     text-align: left;
-    padding: 0 2rem;
     box-sizing: border-box;
 }
 
@@ -3741,7 +3740,6 @@ p {
 /* Global paragraph styling for full width */
 p {
     width: 100%;
-    text-align: left;
     box-sizing: border-box;
 }
 
