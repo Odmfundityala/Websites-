@@ -298,20 +298,22 @@ section:nth-child(even) {
 
 .info-card h3, .about-card h3, .admission-card h3, .fees-card h3 {
     font-family: var(--font-primary);
-    font-size: 1.5rem;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 1.5rem;
     text-align: center;
+    color: var(--navy-primary);
 }
 
 .info-card p, .about-card p, .admission-card p, .fees-card p {
     font-family: var(--font-secondary);
-    font-size: 1rem;
+    font-size: 1.2rem;
     line-height: 1.6;
     text-align: left;
-    color: #334155;
+    color: #000000;
     font-weight: 500;
+    margin-bottom: 1.5rem;
 }
 
 /* Hero Section - Home Page */
@@ -466,17 +468,15 @@ section:nth-child(even) {
 }
 
 .performance-intro p {
-    color: #000000;
     font-size: 1.2rem;
-    line-height: 1.7;
-    text-align: left;
-    white-space: normal;
-    overflow: visible;
+    line-height: 1.6;
+    color: #000000;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
     width: 100%;
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+    text-align: left;
 }
+
 
 .performance-stats {
     display: grid;
@@ -541,12 +541,13 @@ section:nth-child(even) {
 }
 
 .achievement-message p {
-    color: #4b5563;
+    color: #000000;
     font-size: 1.2rem;
-    line-height: 1.7;
-    margin-bottom: 2rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
     text-align: left;
     width: 100%;
+    font-weight: 500;
 }
 
 .view-details-btn {
@@ -586,8 +587,11 @@ section:nth-child(even) {
 
 .stat-item p {
     font-family: var(--font-secondary);
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: 500;
+    color: #000000;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
 }
 
 /* Compact Footer - Standardized Bottom Navigation */
@@ -1248,6 +1252,16 @@ main {
     padding: 0 2rem;
 }
 
+.about-section p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #000000;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    width: 100%;
+    text-align: left;
+}
+
 .about-section h2 {
     color: var(--navy-primary);
     font-size: 2.8rem;
@@ -1271,16 +1285,6 @@ main {
     border-radius: 2px;
 }
 
-.about-section p {
-    font-size: 1.2rem;
-    line-height: 1.8;
-    color: #374151;
-    font-weight: 500;
-    letter-spacing: 0.3px;
-    text-align: left;
-    width: 100%;
-    margin: 0;
-}
 
 .about-grid {
     display: grid;
@@ -1306,20 +1310,7 @@ main {
     transition: transform 0.3s ease;
 }
 
-.about-card h3 {
-    color: var(--navy-primary);
-    font-size: 1.6rem;
-    font-weight: 600;
-    margin-bottom: 1.2rem;
-    letter-spacing: 0.3px;
-}
 
-.about-card p {
-    color: var(--navy-light);
-    font-size: 1.1rem;
-    line-height: 1.7;
-    letter-spacing: 0.2px;
-}
 
 /* School Stats */
 .school-stats {
@@ -1376,11 +1367,6 @@ main {
     letter-spacing: 1px;
 }
 
-.stat-item p {
-    color: var(--navy-light);
-    font-size: 1.1rem;
-    font-weight: 500;
-}
 
 /* School Highlights */
 .school-highlights {
@@ -1987,6 +1973,16 @@ p {
     line-height: 1.6;
     padding: 0 2rem;
     box-sizing: border-box;
+}
+
+.section-subtitle p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #000000;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    width: 100%;
+    text-align: left;
 }
 
 /* Address card elegant styling */
@@ -3737,10 +3733,15 @@ p {
     letter-spacing: 0.01em;
 }
 
-/* Global paragraph styling for full width */
+/* Global paragraph styling for full width - matching admissions quality */
 p {
     width: 100%;
     box-sizing: border-box;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #000000;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
 }
 
 .announcement-content br {
