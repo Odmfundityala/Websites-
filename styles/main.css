@@ -3035,22 +3035,25 @@ p {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background: transparent;
+    background: #f8f9fa;
     color: var(--navy-primary);
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 0.9rem;
     transition: all 0.3s ease;
     text-transform: none;
-    border: 1px solid #e5e7eb;
+    border: 2px solid #e5e7eb;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .stakeholder-link:hover {
     background: var(--navy-primary);
     color: #ffffff;
     border-color: var(--navy-primary);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
 }
 
 
@@ -3165,23 +3168,26 @@ p {
 }
 
 .university-link {
-    background: transparent;
+    background: #f8f9fa;
     color: var(--navy-primary);
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 0.9rem;
     transition: all 0.3s ease;
     display: inline-block;
-    border: 1px solid #e5e7eb;
+    border: 2px solid #e5e7eb;
     text-transform: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .university-link:hover {
     background: var(--navy-primary);
     color: #ffffff;
     border-color: var(--navy-primary);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
 }
 
 .view-all-universities {
