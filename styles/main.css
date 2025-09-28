@@ -2915,8 +2915,16 @@ p {
 .stakeholders-intro {
     text-align: center;
     margin: 0 auto 5rem auto;
-    max-width: 900px;
+    max-width: 1000px;
     padding: 0 2rem;
+}
+
+.stakeholders-intro .section-subtitle {
+    text-align: justify;
+    line-height: 1.8;
+    color: var(--navy-primary);
+    font-size: 1.1rem;
+    margin-top: 1.5rem;
 }
 
 .stakeholder-section {
@@ -3127,12 +3135,13 @@ p {
 
 /* Universities Section */
 .university-intro {
-    text-align: left;
-    color: #4b5563;
+    text-align: justify;
+    color: var(--navy-primary);
     font-size: 1.2rem;
-    line-height: 1.7;
+    line-height: 1.8;
     margin-bottom: 3rem;
     width: 100%;
+    font-weight: 400;
 }
 
 .university-grid {
@@ -3143,18 +3152,20 @@ p {
 }
 
 .university-card {
-    background: var(--cream);
-    border-radius: 12px;
-    padding: 1.8rem;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    border-radius: 15px;
+    padding: 2rem;
     text-align: center;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    border: 1px solid var(--navy-primary);
-    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(26, 54, 93, 0.08);
+    border: 2px solid transparent;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .university-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(26, 54, 93, 0.15);
+    border-color: var(--gold-accent);
+    background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
 }
 
 .university-logo {
@@ -3420,10 +3431,11 @@ p {
 .bursary-tips li {
     color: var(--navy-light);
     font-size: 1.1rem;
-    line-height: 1.6;
-    margin-bottom: 1rem;
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
     padding-left: 1.5rem;
     position: relative;
+    text-align: justify;
 }
 
 .bursary-tips li::before {
