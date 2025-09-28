@@ -3027,8 +3027,8 @@ p {
     display: inline-flex;
     align-items: center;
     gap: 0.75rem;
-    background: linear-gradient(135deg, #0D1B2A 0%, #1a365e 100%);
-    color: white;
+    background: linear-gradient(135deg, var(--gold-accent) 0%, #f7d462 100%);
+    color: #0D1B2A;
     padding: 1.2rem 2.5rem;
     border-radius: 12px;
     text-decoration: none;
@@ -3036,75 +3036,81 @@ p {
     font-size: 1.1rem;
     letter-spacing: 0.8px;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 10px 30px rgba(13, 27, 42, 0.4);
+    box-shadow: 0 10px 30px rgba(214, 158, 46, 0.4);
     text-transform: uppercase;
     border: 2px solid transparent;
 }
 
 .stakeholder-link:hover {
     transform: translateY(-4px);
-    box-shadow: 0 15px 40px rgba(13, 27, 42, 0.6);
-    background: linear-gradient(135deg, #1a365e 0%, #0D1B2A 100%);
+    box-shadow: 0 15px 40px rgba(214, 158, 46, 0.6);
+    background: linear-gradient(135deg, #f7d462 0%, var(--gold-accent) 100%);
 }
 
 /* Department of Basic Education Button */
 .dbe-btn {
-    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    background: linear-gradient(135deg, var(--gold-accent) 0%, #f7d462 100%) !important;
+    color: #0D1B2A !important;
 }
 
 .dbe-btn:hover {
-    background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%) !important;
-    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4) !important;
+    background: linear-gradient(135deg, #f7d462 0%, var(--gold-accent) 100%) !important;
+    box-shadow: 0 6px 20px rgba(214, 158, 46, 0.4) !important;
 }
 
 /* Eastern Cape DOE Button */
 .ecdoe-btn {
-    background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+    background: linear-gradient(135deg, var(--gold-accent) 0%, #f7d462 100%) !important;
+    color: #0D1B2A !important;
 }
 
 .ecdoe-btn:hover {
-    background: linear-gradient(135deg, #047857 0%, #065f46 100%) !important;
-    box-shadow: 0 6px 20px rgba(5, 150, 105, 0.4) !important;
+    background: linear-gradient(135deg, #f7d462 0%, var(--gold-accent) 100%) !important;
+    box-shadow: 0 6px 20px rgba(214, 158, 46, 0.4) !important;
 }
 
 /* Umalusi Button */
 .umalusi-btn {
-    background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%) !important;
+    background: linear-gradient(135deg, var(--gold-accent) 0%, #f7d462 100%) !important;
+    color: #0D1B2A !important;
 }
 
 .umalusi-btn:hover {
-    background: linear-gradient(135deg, #6d28d9 0%, #5b21b6 100%) !important;
-    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4) !important;
+    background: linear-gradient(135deg, #f7d462 0%, var(--gold-accent) 100%) !important;
+    box-shadow: 0 6px 20px rgba(214, 158, 46, 0.4) !important;
 }
 
 /* NSFAS Button */
 .nsfas-btn {
-    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%) !important;
+    background: linear-gradient(135deg, var(--gold-accent) 0%, #f7d462 100%) !important;
+    color: #0D1B2A !important;
 }
 
 .nsfas-btn:hover {
-    background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%) !important;
-    box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4) !important;
+    background: linear-gradient(135deg, #f7d462 0%, var(--gold-accent) 100%) !important;
+    box-shadow: 0 6px 20px rgba(214, 158, 46, 0.4) !important;
 }
 
 /* Funza Lushaka Button */
 .funza-btn {
-    background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%) !important;
+    background: linear-gradient(135deg, var(--gold-accent) 0%, #f7d462 100%) !important;
+    color: #0D1B2A !important;
 }
 
 .funza-btn:hover {
-    background: linear-gradient(135deg, #c2410c 0%, #9a3412 100%) !important;
-    box-shadow: 0 6px 20px rgba(234, 88, 12, 0.4) !important;
+    background: linear-gradient(135deg, #f7d462 0%, var(--gold-accent) 100%) !important;
+    box-shadow: 0 6px 20px rgba(214, 158, 46, 0.4) !important;
 }
 
 /* ISFAP Button */
 .isfap-btn {
-    background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%) !important;
+    background: linear-gradient(135deg, var(--gold-accent) 0%, #f7d462 100%) !important;
+    color: #0D1B2A !important;
 }
 
 .isfap-btn:hover {
-    background: linear-gradient(135deg, #0e7490 0%, #155e75 100%) !important;
-    box-shadow: 0 6px 20px rgba(8, 145, 178, 0.4) !important;
+    background: linear-gradient(135deg, #f7d462 0%, var(--gold-accent) 100%) !important;
+    box-shadow: 0 6px 20px rgba(214, 158, 46, 0.4) !important;
 }
 
 .contact-info {
