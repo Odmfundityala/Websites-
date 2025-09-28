@@ -3026,22 +3026,25 @@ p {
 .stakeholder-link {
     display: inline-flex;
     align-items: center;
-    gap: 0.8rem;
-    background: linear-gradient(135deg, var(--sky-blue-primary) 0%, var(--navy-primary) 100%);
+    gap: 0.75rem;
+    background: linear-gradient(135deg, #0D1B2A 0%, #1a365e 100%);
     color: white;
-    padding: 1rem 2rem;
-    border-radius: 8px;
+    padding: 1.2rem 2.5rem;
+    border-radius: 12px;
     text-decoration: none;
-    font-weight: 600;
-    font-size: 1rem;
-    letter-spacing: 0.3px;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(99, 179, 237, 0.3);
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.8px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 30px rgba(13, 27, 42, 0.4);
+    text-transform: uppercase;
+    border: 2px solid transparent;
 }
 
 .stakeholder-link:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(99, 179, 237, 0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 15px 40px rgba(13, 27, 42, 0.6);
+    background: linear-gradient(135deg, #1a365e 0%, #0D1B2A 100%);
 }
 
 /* Department of Basic Education Button */
