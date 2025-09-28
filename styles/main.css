@@ -3220,16 +3220,27 @@ p {
 }
 
 .university-link {
-    color: var(--sky-blue-primary);
+    background: linear-gradient(135deg, var(--gold-accent) 0%, #f7d462 100%);
+    color: #0D1B2A;
+    padding: 1rem 2rem;
+    border-radius: 10px;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 700;
     font-size: 1rem;
-    transition: color 0.3s ease;
+    letter-spacing: 0.5px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-transform: uppercase;
+    box-shadow: 0 8px 20px rgba(214, 158, 46, 0.3);
+    border: 2px solid transparent;
 }
 
 .university-link:hover {
-    color: var(--navy-primary);
-    text-decoration: underline;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(214, 158, 46, 0.5);
+    background: linear-gradient(135deg, #f7d462 0%, var(--gold-accent) 100%);
 }
 
 .view-all-universities {
