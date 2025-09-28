@@ -3777,7 +3777,7 @@ p {
     letter-spacing: 0.01em;
 }
 
-/* Global paragraph styling - newspaper spread text style */
+/* Global paragraph styling - full width and aligned */
 p {
     width: 100%;
     box-sizing: border-box;
@@ -3788,13 +3788,9 @@ p {
     margin-bottom: 1.5em;
     text-align: justify;
     letter-spacing: 0.3px;
-    hyphens: auto;
-    -webkit-hyphens: auto;
-    -ms-hyphens: auto;
-    text-justify: inter-word;
-    overflow-wrap: break-word;
-    max-width: 65ch;
-    margin-inline: auto;
+    padding: 0;
+    margin-left: 0;
+    margin-right: 0;
 }
 
 .announcement-content br {
