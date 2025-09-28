@@ -385,6 +385,9 @@ section:nth-child(even) {
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
     text-align: center;
     width: 100%;
+    max-width: 100%;
+    padding: 0 1rem;
+    box-sizing: border-box;
 }
 
 @keyframes fadeIn {
