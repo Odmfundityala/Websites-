@@ -13,9 +13,10 @@ Preferred communication style: Simple, everyday language.
 ### Frontend Architecture
 The website follows a traditional multi-page architecture with static HTML files for each major section. The design uses a consistent navigation structure across all pages with a responsive layout that adapts to different screen sizes. The architecture includes:
 
-- **Multi-page Structure**: Separate HTML files for each major section (home, academics, admissions, fees, sports/uniform, stakeholders, about, contact)
+- **Multi-page Structure**: Separate HTML files for each major section (home, academics, admissions, fees, sports/uniform, stakeholders, about, gallery, contact)
 - **Responsive Design**: Mobile-first approach with hamburger menu navigation for smaller screens
 - **Consistent Layout**: Shared header navigation and styling across all pages
+- **Photo Gallery System**: Admin-controlled gallery with multiple image uploads and elegant masonry display
 - **Static Content Management**: All content is directly embedded in HTML files
 
 ### Styling System
@@ -30,14 +31,18 @@ The CSS architecture uses CSS custom properties (variables) for maintaining cons
 The site includes interactive features through vanilla JavaScript:
 
 - **Navigation Management**: Mobile menu toggle functionality with click-outside-to-close behavior
-- **Announcement System**: Dynamic announcement creation and management with local storage persistence
-- **Form Handling**: Client-side form processing for announcement creation
+- **Announcement System**: Dynamic announcement creation and management with server-side persistence
+- **Gallery Management**: Multiple image upload system with preview, lightbox viewer, and admin controls
+- **Form Handling**: Client-side form processing with validation and file handling
 - **Responsive Behavior**: Automatic menu closing on window resize and active navigation highlighting
+- **Admin Authentication**: Secure login system with session management
 
 ### Server Configuration
-A minimal Node.js HTTP server handles static file serving:
+A Node.js HTTP server handles static file serving and API endpoints:
 
 - **Static File Server**: Serves HTML, CSS, JavaScript, and image assets
+- **API Endpoints**: RESTful endpoints for announcements and gallery management
+- **Data Storage**: JSON file-based storage for announcements and gallery photos
 - **MIME Type Handling**: Proper content-type headers for different file extensions
 - **Error Handling**: 404 and 500 error responses
 - **Port Configuration**: Configurable port with environment variable support

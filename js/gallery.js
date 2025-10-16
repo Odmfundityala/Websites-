@@ -4,6 +4,7 @@ class GalleryManager {
         this.photos = [];
         this.editingId = null;
         this.currentPhotoIndex = 0;
+        this.selectedFiles = [];
         this.init();
     }
 
@@ -65,21 +66,45 @@ class GalleryManager {
     }
 
     handleImagePreview(e) {
-        const file = e.target.files[0];
-        const preview = document.getElementById('galleryImagePreview');
-        const previewImg = document.getElementById('galleryPreviewImg');
+        const files = Array.from(e.target.files);
+        const previewSection = document.getElementById('galleryImagePreview');
+        const previewContainer = document.getElementById('galleryPreviewContainer');
 
-        if (file && preview && previewImg) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                previewImg.src = e.target.result;
-                preview.style.display = 'block';
-            };
-            reader.readAsDataURL(file);
+        if (files.length > 0 && previewSection && previewContainer) {
+            this.selectedFiles = files;
+            previewContainer.innerHTML = '';
+            previewSection.style.display = 'block';
+
+            files.forEach((file, index) => {
+                if (file.size > 5 * 1024 * 1024) {
+                    this.showMessage(`Image ${index + 1} exceeds 5MB limit and will be skipped`, 'error');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const previewItem = document.createElement('div');
+                    previewItem.style.cssText = 'position: relative; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);';
+                    
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.alt = 'Preview';
+                    img.style.cssText = 'width: 100%; height: 150px; object-fit: cover; display: block;';
+                    
+                    const fileName = document.createElement('p');
+                    fileName.textContent = file.name.length > 20 ? file.name.substring(0, 17) + '...' : file.name;
+                    fileName.style.cssText = 'margin: 0.5rem; font-size: 0.75rem; color: #6b7280; text-align: center;';
+                    
+                    previewItem.appendChild(img);
+                    previewItem.appendChild(fileName);
+                    previewContainer.appendChild(previewItem);
+                };
+                reader.readAsDataURL(file);
+            });
         }
     }
 
-    handleFormSubmit(e) {
+    async handleFormSubmit(e) {
         e.preventDefault();
 
         // Check authentication before allowing any operations
@@ -88,42 +113,68 @@ class GalleryManager {
             return;
         }
 
-        const formData = new FormData(e.target);
-        const imageFile = formData.get('image');
+        const title = document.getElementById('galleryTitle').value;
+        const files = Array.from(document.getElementById('galleryImage').files);
 
-        if (imageFile && imageFile.size > 0) {
-            // Check file size (5MB limit)
-            if (imageFile.size > 5 * 1024 * 1024) {
-                this.showMessage('Image size must be less than 5MB', 'error');
-                return;
+        if (files.length === 0) {
+            this.showMessage('Please select at least one image to upload', 'error');
+            return;
+        }
+
+        // Filter files by size
+        const validFiles = files.filter(file => {
+            if (file.size > 5 * 1024 * 1024) {
+                this.showMessage(`Skipping ${file.name} - exceeds 5MB limit`, 'error');
+                return false;
             }
+            return true;
+        });
 
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                this.savePhoto(formData, e.target.result);
-            };
-            reader.readAsDataURL(imageFile);
+        if (validFiles.length === 0) {
+            this.showMessage('No valid images to upload', 'error');
+            return;
+        }
+
+        // Show progress message
+        this.showMessage(`Uploading ${validFiles.length} image(s)...`, 'success');
+
+        // Upload all images
+        let successCount = 0;
+        for (let i = 0; i < validFiles.length; i++) {
+            const file = validFiles[i];
+            const success = await this.uploadSingleImage(file, title, i);
+            if (success) successCount++;
+        }
+
+        // Reload and display
+        await this.loadPhotos();
+        this.displayPhotos();
+        this.resetForm();
+
+        if (successCount === validFiles.length) {
+            this.showMessage(`Successfully uploaded ${successCount} photo(s)!`, 'success');
         } else {
-            this.showMessage('Please select an image to upload', 'error');
+            this.showMessage(`Uploaded ${successCount} of ${validFiles.length} photo(s)`, 'error');
         }
     }
 
-    async savePhoto(formData, imageData) {
-        const photo = {
-            id: Date.now(),
-            title: formData.get('title'),
-            image: imageData,
-            date: new Date().toISOString().split('T')[0],
-            dateCreated: new Date().toISOString()
-        };
+    async uploadSingleImage(file, baseTitle, index) {
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                const photo = {
+                    id: Date.now() + index,
+                    title: index === 0 ? baseTitle : `${baseTitle} (${index + 1})`,
+                    image: e.target.result,
+                    date: new Date().toISOString().split('T')[0],
+                    dateCreated: new Date().toISOString()
+                };
 
-        const success = await this.savePhotoToServer(photo);
-        if (success) {
-            await this.loadPhotos();
-            this.displayPhotos();
-            this.resetForm();
-            this.showMessage('Photo uploaded successfully!', 'success');
-        }
+                const success = await this.savePhotoToServer(photo);
+                resolve(success);
+            };
+            reader.readAsDataURL(file);
+        });
     }
 
     async savePhotoToServer(photo) {
@@ -141,12 +192,10 @@ class GalleryManager {
                 return result.success;
             } else {
                 console.error('Failed to save photo to server');
-                this.showMessage('Error saving photo to server', 'error');
                 return false;
             }
         } catch (error) {
             console.error('Error saving photo:', error);
-            this.showMessage('Error saving photo', 'error');
             return false;
         }
     }
@@ -347,7 +396,7 @@ class GalleryManager {
             if (lightboxDate) lightboxDate.textContent = new Date(photo.date).toLocaleDateString();
             
             lightbox.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            document.body.style.overflow = 'hidden';
         }
     }
 
@@ -355,7 +404,7 @@ class GalleryManager {
         const lightbox = document.getElementById('lightbox');
         if (lightbox) {
             lightbox.classList.remove('active');
-            document.body.style.overflow = ''; // Restore scrolling
+            document.body.style.overflow = '';
         }
     }
 
@@ -364,7 +413,6 @@ class GalleryManager {
 
         this.currentPhotoIndex += direction;
         
-        // Loop around
         if (this.currentPhotoIndex < 0) {
             this.currentPhotoIndex = this.photos.length - 1;
         } else if (this.currentPhotoIndex >= this.photos.length) {
@@ -392,6 +440,7 @@ class GalleryManager {
             if (preview) {
                 preview.style.display = 'none';
             }
+            this.selectedFiles = [];
         }
     }
 
@@ -400,7 +449,6 @@ class GalleryManager {
             const authData = JSON.parse(localStorage.getItem('siya_admin_auth'));
             if (!authData || !authData.isAuthenticated) return false;
 
-            // Check if login is within last 24 hours
             const loginTime = new Date(authData.loginTime);
             const now = new Date();
             const hoursDiff = (now - loginTime) / (1000 * 60 * 60);

@@ -2379,19 +2379,21 @@
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label for="galleryImage">Upload Image *</label>
-                                    <input type="file" id="galleryImage" name="image" accept="image/*" required>
+                                    <label for="galleryImage">Upload Images *</label>
+                                    <input type="file" id="galleryImage" name="images" accept="image/*" multiple required>
                                     <small style="color: #6b7280; font-size: 0.85rem; margin-top: 0.5rem; display: block;">
-                                        Recommended: High-quality images (JPG, PNG). Max file size: 5MB
+                                        You can select multiple images. Max file size per image: 5MB
                                     </small>
                                 </div>
                                 
                                 <div class="form-group" id="galleryImagePreview" style="display: none; margin-top: 1rem;">
-                                    <img id="galleryPreviewImg" src="" alt="Preview" style="max-width: 100%; max-height: 300px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                    <div id="galleryPreviewContainer" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem;">
+                                        <!-- Preview images will be added here -->
+                                    </div>
                                 </div>
                                 
                                 <button type="submit" class="cta-button" style="width: 100%; margin-top: 1.5rem;">
-                                    <i class="fas fa-upload"></i> Upload Photo
+                                    <i class="fas fa-upload"></i> Upload Photo(s)
                                 </button>
                             </form>
                         </div>
