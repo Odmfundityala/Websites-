@@ -101,6 +101,12 @@ function handleApiRequest(req, res) {
         return;
     }
     
+    // Handle gallery endpoints
+    if (url.pathname === '/api/gallery') {
+        handleGalleryRequest(req, res);
+        return;
+    }
+    
     if (url.pathname === '/api/auth' && req.method === 'POST') {
         let body = '';
         req.on('data', chunk => {
@@ -280,6 +286,116 @@ function handleAnnouncementsRequest(req, res) {
                 if (writeErr) {
                     res.writeHead(500, { 'Content-Type': 'application/json' });
                     res.end(JSON.stringify({ success: false, message: 'Failed to delete announcement' }));
+                    return;
+                }
+                
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true }));
+            });
+        });
+    } else {
+        res.writeHead(405, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ message: 'Method not allowed' }));
+    }
+}
+
+// Gallery API handler
+function handleGalleryRequest(req, res) {
+    const galleryFile = path.join(__dirname, 'gallery.json');
+    
+    if (req.method === 'GET') {
+        // Get all gallery photos
+        fs.readFile(galleryFile, 'utf8', (err, data) => {
+            if (err) {
+                // If file doesn't exist, return empty array
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify([]));
+                return;
+            }
+            
+            try {
+                const photos = JSON.parse(data);
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify(photos));
+            } catch (parseError) {
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify([]));
+            }
+        });
+    } else if (req.method === 'POST') {
+        // Add new photo
+        let body = '';
+        req.on('data', chunk => {
+            body += chunk.toString();
+        });
+        
+        req.on('end', () => {
+            try {
+                const newPhoto = JSON.parse(body);
+                
+                // Read existing photos
+                fs.readFile(galleryFile, 'utf8', (err, data) => {
+                    let photos = [];
+                    
+                    if (!err && data) {
+                        try {
+                            photos = JSON.parse(data);
+                        } catch (parseError) {
+                            photos = [];
+                        }
+                    }
+                    
+                    // Add new photo at the beginning
+                    photos.unshift(newPhoto);
+                    
+                    // Write back to file
+                    fs.writeFile(galleryFile, JSON.stringify(photos, null, 2), (writeErr) => {
+                        if (writeErr) {
+                            res.writeHead(500, { 'Content-Type': 'application/json' });
+                            res.end(JSON.stringify({ success: false, message: 'Failed to save photo' }));
+                            return;
+                        }
+                        
+                        res.writeHead(200, { 'Content-Type': 'application/json' });
+                        res.end(JSON.stringify({ success: true, photo: newPhoto }));
+                    });
+                });
+            } catch (error) {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: false, message: 'Invalid photo data' }));
+            }
+        });
+    } else if (req.method === 'DELETE') {
+        // Delete photo by ID
+        const url = new URL(req.url, `http://${req.headers.host}`);
+        const photoId = url.searchParams.get('id');
+        
+        if (!photoId) {
+            res.writeHead(400, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ success: false, message: 'Photo ID required' }));
+            return;
+        }
+        
+        fs.readFile(galleryFile, 'utf8', (err, data) => {
+            let photos = [];
+            
+            if (!err && data) {
+                try {
+                    photos = JSON.parse(data);
+                } catch (parseError) {
+                    photos = [];
+                }
+            }
+            
+            // Filter out the photo to delete (convert IDs to numbers for comparison)
+            const idToDelete = parseInt(photoId, 10);
+            const filteredPhotos = photos.filter(photo => parseInt(photo.id, 10) !== idToDelete);
+            
+            // Write back to file
+            fs.writeFile(galleryFile, JSON.stringify(filteredPhotos, null, 2), (writeErr) => {
+                if (writeErr) {
+                    res.writeHead(500, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ success: false, message: 'Failed to delete photo' }));
                     return;
                 }
                 
