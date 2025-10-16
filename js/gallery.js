@@ -76,8 +76,8 @@ class GalleryManager {
             previewSection.style.display = 'block';
 
             files.forEach((file, index) => {
-                if (file.size > 5 * 1024 * 1024) {
-                    this.showMessage(`Image ${index + 1} exceeds 5MB limit and will be skipped`, 'error');
+                if (file.size > 10 * 1024 * 1024) {
+                    this.showMessage(`Image ${index + 1} exceeds 10MB limit and will be skipped`, 'error');
                     return;
                 }
 
@@ -123,8 +123,8 @@ class GalleryManager {
 
         // Filter files by size
         const validFiles = files.filter(file => {
-            if (file.size > 5 * 1024 * 1024) {
-                this.showMessage(`Skipping ${file.name} - exceeds 5MB limit`, 'error');
+            if (file.size > 10 * 1024 * 1024) {
+                this.showMessage(`Skipping ${file.name} - exceeds 10MB limit`, 'error');
                 return false;
             }
             return true;
