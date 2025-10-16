@@ -14,25 +14,41 @@
     
     <style>
         .gallery-hero {
-            background: linear-gradient(135deg, rgba(26, 54, 93, 0.95) 0%, rgba(44, 82, 130, 0.95) 100%), 
-                        url('images/scool buildings.jpg') center/cover;
-            color: white;
-            padding: 8rem 2rem 4rem;
+            background: linear-gradient(rgba(26, 54, 93, 0.65), rgba(26, 54, 93, 0.75)), url('images/scool buildings.jpg') center/cover;
+            color: var(--text-light);
+            height: 40vh;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
+            margin-top: 70px;
+            padding: 2rem;
+        }
+
+        .gallery-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .gallery-hero h1 {
             font-family: var(--font-primary);
-            font-size: 2.5rem;
+            font-size: 30px;
             margin-bottom: 1rem;
-            color: white;
+            color: var(--text-light);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            text-align: center;
         }
 
         .gallery-hero p {
             font-size: 1.1rem;
-            opacity: 0.95;
-            max-width: 700px;
-            margin: 0 auto;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+            line-height: 1.6;
+            text-align: left;
         }
 
         .gallery-container {
@@ -232,11 +248,20 @@
 
         @media (max-width: 768px) {
             .gallery-hero {
-                padding: 6rem 1rem 2rem;
+                padding: 1rem;
+                height: 35vh;
+            }
+
+            .gallery-hero-content {
+                padding: 1.5rem;
             }
 
             .gallery-hero h1 {
                 font-size: 2rem;
+            }
+
+            .gallery-hero p {
+                font-size: 1rem;
             }
 
             .gallery-grid {
@@ -289,8 +314,10 @@
 
     <main>
         <section class="gallery-hero">
-            <h1>Photo Gallery</h1>
-            <p>Capturing memories and moments that define our journey towards excellence. Explore the vibrant life at Siyabulela Senior Secondary School through our photo collection.</p>
+            <div class="gallery-hero-content">
+                <h1>Photo Gallery</h1>
+                <p>Capturing memories and moments that define our journey towards excellence. Explore the vibrant life at Siyabulela Senior Secondary School through our photo collection.</p>
+            </div>
         </section>
 
         <section class="gallery-container">
