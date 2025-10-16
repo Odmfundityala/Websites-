@@ -76,8 +76,8 @@ class GalleryManager {
             previewSection.style.display = 'block';
 
             files.forEach((file, index) => {
-                if (file.size > 10 * 1024 * 1024) {
-                    this.showMessage(`Image ${index + 1} exceeds 10MB limit and will be skipped`, 'error');
+                if (file.size > 20 * 1024 * 1024) {
+                    this.showMessage(`Image ${index + 1} exceeds 20MB limit and will be skipped`, 'error');
                     return;
                 }
 
@@ -123,8 +123,8 @@ class GalleryManager {
 
         // Filter files by size
         const validFiles = files.filter(file => {
-            if (file.size > 10 * 1024 * 1024) {
-                this.showMessage(`Skipping ${file.name} - exceeds 10MB limit`, 'error');
+            if (file.size > 20 * 1024 * 1024) {
+                this.showMessage(`Skipping ${file.name} - exceeds 20MB limit`, 'error');
                 return false;
             }
             return true;
@@ -189,13 +189,17 @@ class GalleryManager {
 
             if (response.ok) {
                 const result = await response.json();
+                console.log('Photo saved successfully:', result);
                 return result.success;
             } else {
-                console.error('Failed to save photo to server');
+                const errorText = await response.text();
+                console.error('Failed to save photo to server. Status:', response.status, 'Error:', errorText);
+                this.showMessage(`Upload failed: ${response.status} error`, 'error');
                 return false;
             }
         } catch (error) {
             console.error('Error saving photo:', error);
+            this.showMessage(`Upload error: ${error.message}`, 'error');
             return false;
         }
     }
@@ -466,29 +470,38 @@ class GalleryManager {
             position: fixed;
             top: 20px;
             right: 20px;
-            padding: 1rem 1.5rem;
-            border-radius: 5px;
+            padding: 1.25rem 2rem;
+            border-radius: 8px;
             color: white;
             z-index: 10001;
             font-weight: 600;
+            font-size: 1.1rem;
             background: ${type === 'success' ? '#10b981' : '#ef4444'};
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             animation: slideIn 0.3s ease-out;
+            border: 3px solid ${type === 'success' ? '#059669' : '#dc2626'};
         `;
 
         const icon = document.createElement('i');
         icon.className = `fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}`;
+        icon.style.cssText = 'margin-right: 0.5rem; font-size: 1.2rem;';
 
-        const messageText = document.createTextNode(' ' + message);
+        const messageText = document.createTextNode(message);
 
         messageDiv.appendChild(icon);
         messageDiv.appendChild(messageText);
 
         document.body.appendChild(messageDiv);
 
+        // Log to console for debugging
+        console.log(`[Gallery ${type.toUpperCase()}]:`, message);
+
+        // Show for 6 seconds (increased from 4)
         setTimeout(() => {
-            messageDiv.remove();
-        }, 4000);
+            messageDiv.style.opacity = '0';
+            messageDiv.style.transition = 'opacity 0.3s ease-out';
+            setTimeout(() => messageDiv.remove(), 300);
+        }, 6000);
     }
 }
 
