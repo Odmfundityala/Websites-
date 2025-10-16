@@ -84,16 +84,16 @@ class GalleryManager {
                 const reader = new FileReader();
                 reader.onload = (e) => {
                     const previewItem = document.createElement('div');
-                    previewItem.style.cssText = 'position: relative; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);';
+                    previewItem.style.cssText = 'position: relative; border-radius: 6px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1);';
                     
                     const img = document.createElement('img');
                     img.src = e.target.result;
                     img.alt = 'Preview';
-                    img.style.cssText = 'width: 100%; height: 150px; object-fit: cover; display: block;';
+                    img.style.cssText = 'width: 100%; height: 80px; object-fit: cover; display: block;';
                     
                     const fileName = document.createElement('p');
-                    fileName.textContent = file.name.length > 20 ? file.name.substring(0, 17) + '...' : file.name;
-                    fileName.style.cssText = 'margin: 0.5rem; font-size: 0.75rem; color: #6b7280; text-align: center;';
+                    fileName.textContent = file.name.length > 15 ? file.name.substring(0, 12) + '...' : file.name;
+                    fileName.style.cssText = 'margin: 0.25rem; font-size: 0.65rem; color: #6b7280; text-align: center;';
                     
                     previewItem.appendChild(img);
                     previewItem.appendChild(fileName);

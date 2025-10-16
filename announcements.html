@@ -2365,35 +2365,41 @@
                     <h2 style="margin: 0; padding: 1.5rem; background: #ffffff; border-bottom: 1px solid #e2e8f0;"><i class="fas fa-images"></i> Gallery Management</h2>
                     
                     <!-- Gallery Upload and Management Container -->
-                    <div class="announcements-content" style="padding: 2rem; display: grid; gap: 2rem; grid-template-columns: 1fr; max-width: 1400px; margin: 0 auto;">
+                    <div class="announcements-content" style="padding: 1.5rem; max-width: 1400px; margin: 0 auto;">
                         
-                        <!-- Upload Photo Section -->
-                        <div class="admin-section" style="background: white; border-radius: 16px; padding: 1.5rem; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); border: 1px solid #e2e8f0;">
-                            <h2 style="color: #000000; margin-bottom: 1.5rem; font-size: 1.25rem; display: flex; align-items: center; gap: 0.75rem; padding-bottom: 0.75rem; border-bottom: 2px solid #e6f3ff;">
-                                <i class="fas fa-camera"></i> Upload Photo
-                            </h2>
+                        <!-- Upload Photo Section - Compact -->
+                        <div class="admin-section" style="background: white; border-radius: 12px; padding: 1rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06); border: 1px solid #e2e8f0; margin-bottom: 1.5rem;">
+                            <h3 style="color: #000000; margin-bottom: 0.75rem; font-size: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fas fa-camera"></i> Upload Photo(s)
+                            </h3>
                             <form id="galleryForm" class="announcement-form">
-                                <div class="form-group">
-                                    <label for="galleryTitle">Photo Title</label>
-                                    <input type="text" id="galleryTitle" name="title" required placeholder="Enter photo title (e.g., Sports Day 2024)">
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 0.75rem;" class="gallery-form-grid">
+                                    <div class="form-group" style="margin-bottom: 0;">
+                                        <label for="galleryTitle" style="font-size: 0.85rem; margin-bottom: 0.25rem;">Photo Title</label>
+                                        <input type="text" id="galleryTitle" name="title" required placeholder="e.g., Sports Day 2024" style="padding: 0.5rem; font-size: 0.9rem;">
+                                    </div>
+                                    
+                                    <div class="form-group" style="margin-bottom: 0;">
+                                        <label for="galleryImage" style="font-size: 0.85rem; margin-bottom: 0.25rem;">Select Images</label>
+                                        <input type="file" id="galleryImage" name="images" accept="image/*" multiple required style="padding: 0.4rem; font-size: 0.85rem;">
+                                    </div>
                                 </div>
+                                <style>
+                                    @media (max-width: 768px) {
+                                        .gallery-form-grid {
+                                            grid-template-columns: 1fr !important;
+                                        }
+                                    }
+                                </style>
                                 
-                                <div class="form-group">
-                                    <label for="galleryImage">Upload Images *</label>
-                                    <input type="file" id="galleryImage" name="images" accept="image/*" multiple required>
-                                    <small style="color: #6b7280; font-size: 0.85rem; margin-top: 0.5rem; display: block;">
-                                        You can select multiple images. Max file size per image: 5MB
-                                    </small>
-                                </div>
-                                
-                                <div class="form-group" id="galleryImagePreview" style="display: none; margin-top: 1rem;">
-                                    <div id="galleryPreviewContainer" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem;">
+                                <div class="form-group" id="galleryImagePreview" style="display: none; margin-bottom: 0.75rem;">
+                                    <div id="galleryPreviewContainer" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 0.5rem;">
                                         <!-- Preview images will be added here -->
                                     </div>
                                 </div>
                                 
-                                <button type="submit" class="cta-button" style="width: 100%; margin-top: 1.5rem;">
-                                    <i class="fas fa-upload"></i> Upload Photo(s)
+                                <button type="submit" class="cta-button" style="width: 100%; padding: 0.6rem; font-size: 0.9rem;">
+                                    <i class="fas fa-upload"></i> Upload
                                 </button>
                             </form>
                         </div>
