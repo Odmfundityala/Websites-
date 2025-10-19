@@ -319,11 +319,27 @@ class GalleryManager {
         // Image
         const cardImage = document.createElement('div');
         cardImage.className = 'card-image';
+        cardImage.style.cssText = 'width: 100%; overflow: hidden; display: block;';
+        
         const img = document.createElement('img');
         // Use imagePath if available, fallback to image for backwards compatibility
-        img.src = photo.imagePath || photo.image;
+        const imgSrc = photo.imagePath || photo.image;
+        img.src = imgSrc;
         img.alt = photo.title;
-        img.style.cssText = 'width: 100%; height: 200px; object-fit: cover;';
+        img.style.cssText = 'width: 100%; height: 200px; object-fit: cover; display: block; background-color: #f3f4f6;';
+        
+        // Add load and error handlers
+        img.onload = () => {
+            console.log('[Gallery] Image loaded successfully:', imgSrc);
+        };
+        img.onerror = () => {
+            console.error('[Gallery] Image failed to load:', imgSrc);
+            img.style.background = '#fee2e2';
+            img.alt = 'Failed to load: ' + photo.title;
+        };
+        
+        console.log('[Gallery] Creating admin card for:', photo.title, 'with image:', imgSrc);
+        
         cardImage.appendChild(img);
 
         // Content
