@@ -313,66 +313,72 @@ class GalleryManager {
 
     createAdminPhotoCard(photo) {
         const card = document.createElement('div');
-        card.className = 'announcement-card elegant';
-        card.style.cssText = 'background: white; border-radius: 12px; margin-bottom: 1.25rem; overflow: hidden; box-shadow: 0 2px 12px rgba(26, 54, 93, 0.08); border: 1px solid #e2e8f0;';
+        card.style.cssText = `
+            background: white; 
+            border-radius: 12px; 
+            margin-bottom: 1.25rem; 
+            overflow: hidden; 
+            box-shadow: 0 2px 12px rgba(26, 54, 93, 0.08); 
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+        `;
 
-        // Image
-        const cardImage = document.createElement('div');
-        cardImage.className = 'card-image';
-        cardImage.style.cssText = 'width: 100%; overflow: hidden; display: block;';
-        
-        const img = document.createElement('img');
-        // Use imagePath if available, fallback to image for backwards compatibility
+        // Image container with proper display
         const imgSrc = photo.imagePath || photo.image;
+        const img = document.createElement('img');
         img.src = imgSrc;
         img.alt = photo.title;
-        img.style.cssText = 'width: 100%; height: 200px; object-fit: cover; display: block; background-color: #f3f4f6;';
-        
-        // Add load and error handlers
-        img.onload = () => {
-            console.log('[Gallery] Image loaded successfully:', imgSrc);
-        };
-        img.onerror = () => {
-            console.error('[Gallery] Image failed to load:', imgSrc);
-            img.style.background = '#fee2e2';
-            img.alt = 'Failed to load: ' + photo.title;
-        };
-        
-        console.log('[Gallery] Creating admin card for:', photo.title, 'with image:', imgSrc);
-        
-        cardImage.appendChild(img);
+        img.style.cssText = `
+            width: 100%; 
+            height: 200px; 
+            object-fit: cover; 
+            display: block;
+            background-color: #f3f4f6;
+        `;
 
-        // Content
+        // Content section
         const cardContent = document.createElement('div');
-        cardContent.className = 'card-content';
-        cardContent.style.cssText = 'padding: 1.25rem;';
+        cardContent.style.cssText = 'padding: 1.25rem; flex: 1; display: flex; flex-direction: column;';
 
         const title = document.createElement('h3');
-        title.className = 'announcement-title';
-        title.style.cssText = 'color: #000000; font-size: 1.1rem; margin-bottom: 0.5rem;';
+        title.style.cssText = 'color: #000000; font-size: 1.1rem; margin: 0 0 0.5rem 0; font-weight: 600;';
         title.textContent = photo.title;
 
         const date = document.createElement('p');
-        date.style.cssText = 'color: #6b7280; font-size: 0.9rem; margin-bottom: 1rem;';
+        date.style.cssText = 'color: #6b7280; font-size: 0.9rem; margin: 0 0 1rem 0;';
         date.innerHTML = `<i class="fas fa-calendar"></i> ${new Date(photo.date).toLocaleDateString()}`;
 
-        // Actions
-        const actions = document.createElement('div');
-        actions.style.cssText = 'display: flex; gap: 0.75rem; margin-top: 1rem;';
-
+        // Delete button
         const deleteBtn = document.createElement('button');
-        deleteBtn.className = 'delete-btn';
-        deleteBtn.innerHTML = '<i class="fas fa-trash"></i> Delete';
-        deleteBtn.style.cssText = 'flex: 1; background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); color: white; border: none; padding: 0.6rem 1rem; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;';
+        deleteBtn.innerHTML = '<i class="fas fa-trash"></i> Delete Photo';
+        deleteBtn.style.cssText = `
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); 
+            color: white; 
+            border: none; 
+            padding: 0.75rem 1rem; 
+            border-radius: 8px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: all 0.3s ease;
+            margin-top: auto;
+            width: 100%;
+        `;
+        deleteBtn.onmouseover = () => {
+            deleteBtn.style.transform = 'translateY(-2px)';
+            deleteBtn.style.boxShadow = '0 4px 12px rgba(220, 38, 38, 0.3)';
+        };
+        deleteBtn.onmouseout = () => {
+            deleteBtn.style.transform = 'translateY(0)';
+            deleteBtn.style.boxShadow = 'none';
+        };
         deleteBtn.onclick = () => this.deletePhoto(photo.id);
 
-        actions.appendChild(deleteBtn);
-        
         cardContent.appendChild(title);
         cardContent.appendChild(date);
-        cardContent.appendChild(actions);
+        cardContent.appendChild(deleteBtn);
 
-        card.appendChild(cardImage);
+        card.appendChild(img);
         card.appendChild(cardContent);
 
         return card;
