@@ -323,7 +323,7 @@ function handleGalleryRequest(req, res) {
             }
         });
     } else if (req.method === 'POST') {
-        // Add new photo
+        // Add new photo - save image to disk instead of base64 in JSON
         let body = '';
         req.on('data', chunk => {
             body += chunk.toString();
@@ -333,40 +333,78 @@ function handleGalleryRequest(req, res) {
             try {
                 const newPhoto = JSON.parse(body);
                 
-                // Read existing photos
-                fs.readFile(galleryFile, 'utf8', (err, data) => {
-                    let photos = [];
-                    
-                    if (!err && data) {
-                        try {
-                            photos = JSON.parse(data);
-                        } catch (parseError) {
-                            photos = [];
-                        }
-                    }
-                    
-                    // Add new photo at the beginning
-                    photos.unshift(newPhoto);
-                    
-                    // Write back to file
-                    fs.writeFile(galleryFile, JSON.stringify(photos, null, 2), (writeErr) => {
-                        if (writeErr) {
-                            res.writeHead(500, { 'Content-Type': 'application/json' });
-                            res.end(JSON.stringify({ success: false, message: 'Failed to save photo' }));
-                            return;
-                        }
+                // Extract base64 image data
+                if (newPhoto.image && newPhoto.image.startsWith('data:image')) {
+                    const matches = newPhoto.image.match(/^data:image\/(\w+);base64,(.+)$/);
+                    if (matches) {
+                        const imageType = matches[1];
+                        const base64Data = matches[2];
+                        const imageBuffer = Buffer.from(base64Data, 'base64');
                         
-                        res.writeHead(200, { 'Content-Type': 'application/json' });
-                        res.end(JSON.stringify({ success: true, photo: newPhoto }));
-                    });
-                });
+                        // Create unique filename
+                        const fileName = `gallery_${newPhoto.id}.${imageType}`;
+                        const filePath = path.join(__dirname, 'gallery_uploads', fileName);
+                        
+                        // Save image to disk
+                        fs.writeFile(filePath, imageBuffer, (imgErr) => {
+                            if (imgErr) {
+                                res.writeHead(500, { 'Content-Type': 'application/json' });
+                                res.end(JSON.stringify({ success: false, message: 'Failed to save image file' }));
+                                return;
+                            }
+                            
+                            // Store only the path, not base64 data
+                            const photoMetadata = {
+                                id: newPhoto.id,
+                                title: newPhoto.title,
+                                imagePath: `/gallery_uploads/${fileName}`,
+                                date: newPhoto.date,
+                                dateCreated: newPhoto.dateCreated
+                            };
+                            
+                            // Read existing photos
+                            fs.readFile(galleryFile, 'utf8', (err, data) => {
+                                let photos = [];
+                                
+                                if (!err && data) {
+                                    try {
+                                        photos = JSON.parse(data);
+                                    } catch (parseError) {
+                                        photos = [];
+                                    }
+                                }
+                                
+                                // Add new photo at the beginning
+                                photos.unshift(photoMetadata);
+                                
+                                // Write back to file
+                                fs.writeFile(galleryFile, JSON.stringify(photos, null, 2), (writeErr) => {
+                                    if (writeErr) {
+                                        res.writeHead(500, { 'Content-Type': 'application/json' });
+                                        res.end(JSON.stringify({ success: false, message: 'Failed to save photo metadata' }));
+                                        return;
+                                    }
+                                    
+                                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                                    res.end(JSON.stringify({ success: true, photo: photoMetadata }));
+                                });
+                            });
+                        });
+                    } else {
+                        res.writeHead(400, { 'Content-Type': 'application/json' });
+                        res.end(JSON.stringify({ success: false, message: 'Invalid image format' }));
+                    }
+                } else {
+                    res.writeHead(400, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ success: false, message: 'No image data provided' }));
+                }
             } catch (error) {
                 res.writeHead(400, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ success: false, message: 'Invalid photo data' }));
             }
         });
     } else if (req.method === 'DELETE') {
-        // Delete photo by ID
+        // Delete photo by ID and remove image file
         const url = new URL(req.url, `http://${req.headers.host}`);
         const photoId = url.searchParams.get('id');
         
@@ -387,8 +425,22 @@ function handleGalleryRequest(req, res) {
                 }
             }
             
-            // Filter out the photo to delete (convert IDs to numbers for comparison)
+            // Find the photo to delete and remove its file
             const idToDelete = parseInt(photoId, 10);
+            const photoToDelete = photos.find(photo => parseInt(photo.id, 10) === idToDelete);
+            
+            // Delete the image file if it exists
+            if (photoToDelete && photoToDelete.imagePath) {
+                const imageFilePath = path.join(__dirname, photoToDelete.imagePath.replace(/^\//, ''));
+                fs.unlink(imageFilePath, (unlinkErr) => {
+                    // Continue even if file deletion fails (file might not exist)
+                    if (unlinkErr) {
+                        console.log('Warning: Could not delete image file:', unlinkErr.message);
+                    }
+                });
+            }
+            
+            // Filter out the photo to delete
             const filteredPhotos = photos.filter(photo => parseInt(photo.id, 10) !== idToDelete);
             
             // Write back to file

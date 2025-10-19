@@ -273,7 +273,8 @@ class GalleryManager {
         item.onclick = () => this.openLightbox(index);
 
         const img = document.createElement('img');
-        img.src = photo.image;
+        // Use imagePath if available, fallback to image for backwards compatibility
+        img.src = photo.imagePath || photo.image;
         img.alt = photo.title;
         img.loading = 'lazy';
 
@@ -306,7 +307,8 @@ class GalleryManager {
         const cardImage = document.createElement('div');
         cardImage.className = 'card-image';
         const img = document.createElement('img');
-        img.src = photo.image;
+        // Use imagePath if available, fallback to image for backwards compatibility
+        img.src = photo.imagePath || photo.image;
         img.alt = photo.title;
         img.style.cssText = 'width: 100%; height: 200px; object-fit: cover;';
         cardImage.appendChild(img);
@@ -393,7 +395,8 @@ class GalleryManager {
 
         if (lightbox && lightboxImage && this.photos[index]) {
             const photo = this.photos[index];
-            lightboxImage.src = photo.image;
+            // Use imagePath if available, fallback to image for backwards compatibility
+            lightboxImage.src = photo.imagePath || photo.image;
             lightboxImage.alt = photo.title;
             
             if (lightboxTitle) lightboxTitle.textContent = photo.title;
@@ -429,7 +432,8 @@ class GalleryManager {
 
         const photo = this.photos[this.currentPhotoIndex];
         if (lightboxImage) {
-            lightboxImage.src = photo.image;
+            // Use imagePath if available, fallback to image for backwards compatibility
+            lightboxImage.src = photo.imagePath || photo.image;
             lightboxImage.alt = photo.title;
         }
         if (lightboxTitle) lightboxTitle.textContent = photo.title;
