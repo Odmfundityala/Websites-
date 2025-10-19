@@ -206,31 +206,38 @@ class GalleryManager {
 
     async loadPhotos() {
         try {
+            console.log('[Gallery] Loading photos from server...');
             const response = await fetch('/api/gallery?t=' + Date.now());
             if (response.ok) {
                 const photos = await response.json();
+                console.log('[Gallery] Loaded', photos.length, 'photos from server');
                 if (Array.isArray(photos)) {
                     this.photos = photos;
+                    console.log('[Gallery] Photos array updated, now has', this.photos.length, 'photos');
                     return photos;
                 }
+                console.warn('[Gallery] Server response was not an array');
                 this.photos = [];
                 return [];
             } else {
-                console.error('Failed to load photos from server');
+                console.error('[Gallery] Failed to load photos from server, status:', response.status);
                 this.photos = [];
                 return [];
             }
         } catch (error) {
-            console.error('Error loading photos:', error);
+            console.error('[Gallery] Error loading photos:', error);
             this.photos = [];
             return [];
         }
     }
 
     displayPhotos() {
+        console.log('[Gallery] displayPhotos() called with', this.photos.length, 'photos');
+        
         // Display for public gallery page
         const galleryGrid = document.getElementById('galleryGrid');
         if (galleryGrid) {
+            console.log('[Gallery] Found galleryGrid element, displaying', this.photos.length, 'photos');
             galleryGrid.innerHTML = '';
             
             if (this.photos.length === 0) {
@@ -248,14 +255,17 @@ class GalleryManager {
                 const item = this.createGalleryItem(photo, index);
                 galleryGrid.appendChild(item);
             });
+            console.log('[Gallery] Successfully displayed', this.photos.length, 'photos in public gallery');
         }
 
         // Display for admin panel
         const galleryList = document.getElementById('galleryList');
         if (galleryList) {
+            console.log('[Gallery] Found galleryList element, displaying', this.photos.length, 'photos');
             galleryList.innerHTML = '';
             
             if (this.photos.length === 0) {
+                console.log('[Gallery] No photos to display in admin panel');
                 galleryList.innerHTML = '<p style="text-align: center; color: #6b7280; padding: 2rem;">No photos uploaded yet. Upload your first photo!</p>';
                 return;
             }
@@ -264,6 +274,9 @@ class GalleryManager {
                 const card = this.createAdminPhotoCard(photo);
                 galleryList.appendChild(card);
             });
+            console.log('[Gallery] Successfully displayed', this.photos.length, 'photos in admin panel');
+        } else {
+            console.log('[Gallery] galleryList element not found (not on admin page)');
         }
     }
 
