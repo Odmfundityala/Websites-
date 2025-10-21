@@ -2401,8 +2401,22 @@
                                     </div>
                                     
                                     <div class="form-group" style="margin-bottom: 0;">
-                                        <label for="galleryImage" style="font-size: 0.85rem; margin-bottom: 0.25rem;">Select Images (Max 20MB each)</label>
-                                        <input type="file" id="galleryImage" name="images" accept="image/*" multiple required style="padding: 0.4rem; font-size: 0.85rem;">
+                                        <label for="galleryImage" style="font-size: 0.85rem; margin-bottom: 0.25rem; display: flex; align-items: center; gap: 0.5rem;">
+                                            <i class="fas fa-images"></i>
+                                            Select Multiple Images (Max 20MB each)
+                                        </label>
+                                        <input 
+                                            type="file" 
+                                            id="galleryImage" 
+                                            name="images" 
+                                            accept="image/*" 
+                                            multiple 
+                                            required 
+                                            style="padding: 0.4rem; font-size: 0.85rem; border: 2px dashed #d1d5db; border-radius: 8px; background: #f9fafb; transition: all 0.3s ease;"
+                                            onchange="this.style.borderColor = this.files.length > 0 ? '#10b981' : '#d1d5db'; this.style.background = this.files.length > 0 ? '#f0fdf4' : '#f9fafb';">
+                                        <small style="color: #6b7280; font-size: 0.75rem; margin-top: 0.25rem; display: block;">
+                                            💡 Tip: Hold Ctrl/Cmd to select multiple images at once, or drag & drop multiple files
+                                        </small>
                                     </div>
                                 </div>
                                 <style>

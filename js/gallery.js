@@ -75,29 +75,54 @@ class GalleryManager {
             previewContainer.innerHTML = '';
             previewSection.style.display = 'block';
 
+            // Show count of selected images
+            const countInfo = document.createElement('p');
+            countInfo.textContent = `${files.length} image(s) selected`;
+            countInfo.style.cssText = 'margin: 0 0 1rem 0; font-size: 0.9rem; color: #059669; font-weight: 600;';
+            previewContainer.appendChild(countInfo);
+
             files.forEach((file, index) => {
                 if (file.size > 20 * 1024 * 1024) {
-                    this.showMessage(`Image ${index + 1} exceeds 20MB limit and will be skipped`, 'error');
+                    this.showMessage(`Image ${index + 1} "${file.name}" exceeds 20MB limit and will be skipped`, 'error');
                     return;
                 }
 
                 const reader = new FileReader();
                 reader.onload = (e) => {
                     const previewItem = document.createElement('div');
-                    previewItem.style.cssText = 'position: relative; border-radius: 6px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1);';
+                    previewItem.style.cssText = 'position: relative; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 2px solid #e5e7eb; transition: all 0.3s ease;';
                     
                     const img = document.createElement('img');
                     img.src = e.target.result;
                     img.alt = 'Preview';
-                    img.style.cssText = 'width: 100%; height: 80px; object-fit: cover; display: block;';
+                    img.style.cssText = 'width: 100%; height: 100px; object-fit: cover; display: block;';
+                    
+                    const overlay = document.createElement('div');
+                    overlay.style.cssText = 'position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.7)); color: white; padding: 0.5rem 0.25rem 0.25rem; text-align: center;';
                     
                     const fileName = document.createElement('p');
                     fileName.textContent = file.name.length > 15 ? file.name.substring(0, 12) + '...' : file.name;
-                    fileName.style.cssText = 'margin: 0.25rem; font-size: 0.65rem; color: #6b7280; text-align: center;';
+                    fileName.style.cssText = 'margin: 0; font-size: 0.65rem; font-weight: 600; text-shadow: 1px 1px 2px rgba(0,0,0,0.8);';
                     
+                    const fileSize = document.createElement('p');
+                    fileSize.textContent = `${Math.round(file.size / 1024)}KB`;
+                    fileSize.style.cssText = 'margin: 0; font-size: 0.6rem; opacity: 0.9; text-shadow: 1px 1px 2px rgba(0,0,0,0.8);';
+                    
+                    overlay.appendChild(fileName);
+                    overlay.appendChild(fileSize);
                     previewItem.appendChild(img);
-                    previewItem.appendChild(fileName);
+                    previewItem.appendChild(overlay);
                     previewContainer.appendChild(previewItem);
+
+                    // Add hover effect
+                    previewItem.onmouseover = () => {
+                        previewItem.style.borderColor = '#3b82f6';
+                        previewItem.style.transform = 'scale(1.05)';
+                    };
+                    previewItem.onmouseout = () => {
+                        previewItem.style.borderColor = '#e5e7eb';
+                        previewItem.style.transform = 'scale(1)';
+                    };
                 };
                 reader.readAsDataURL(file);
             });
@@ -113,8 +138,8 @@ class GalleryManager {
             return;
         }
 
-        const title = document.getElementById('galleryTitle').value;
-        const category = document.getElementById('galleryCategory').value || 'Uncategorized';
+        const title = document.getElementById('galleryTitle').value.trim();
+        const category = document.getElementById('galleryCategory').value.trim() || 'Uncategorized';
         const files = Array.from(document.getElementById('galleryImage').files);
 
         if (files.length === 0) {
@@ -122,12 +147,25 @@ class GalleryManager {
             return;
         }
 
-        // Filter files by size
+        if (!title) {
+            this.showMessage('Please enter a title for the photos', 'error');
+            return;
+        }
+
+        // Filter files by size and type
         const validFiles = files.filter(file => {
+            // Check file size
             if (file.size > 20 * 1024 * 1024) {
-                this.showMessage(`Skipping ${file.name} - exceeds 20MB limit`, 'error');
+                this.showMessage(`Skipping "${file.name}" - exceeds 20MB limit`, 'error');
                 return false;
             }
+            
+            // Check file type
+            if (!file.type.startsWith('image/')) {
+                this.showMessage(`Skipping "${file.name}" - not a valid image file`, 'error');
+                return false;
+            }
+            
             return true;
         });
 
@@ -136,27 +174,37 @@ class GalleryManager {
             return;
         }
 
-        // Show progress message
-        this.showMessage(`Uploading ${validFiles.length} image(s)...`, 'success');
-
-        // Upload images one at a time
+        // Create progress indicator
+        const progressMessage = this.createProgressMessage(validFiles.length);
+        
+        // Upload images one at a time with progress updates
         let successCount = 0;
         for (let i = 0; i < validFiles.length; i++) {
             const file = validFiles[i];
+            this.updateProgressMessage(progressMessage, i + 1, validFiles.length, file.name);
+            
             const success = await this.uploadSingleImage(file, title, category, i);
             if (success) successCount++;
-            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            // Small delay to prevent overwhelming the server
+            await new Promise(resolve => setTimeout(resolve, 300));
         }
+
+        // Remove progress indicator
+        document.body.removeChild(progressMessage);
 
         // Reload and display
         await this.loadPhotos();
         this.displayPhotos();
         this.resetForm();
 
+        // Show final result
         if (successCount === validFiles.length) {
-            this.showMessage(`Successfully uploaded ${successCount} photo(s)!`, 'success');
+            this.showMessage(`🎉 Successfully uploaded all ${successCount} photo(s) to "${category}"!`, 'success');
+        } else if (successCount > 0) {
+            this.showMessage(`⚠️ Uploaded ${successCount} of ${validFiles.length} photo(s). Some uploads failed.`, 'error');
         } else {
-            this.showMessage(`Uploaded ${successCount} of ${validFiles.length} photo(s)`, 'error');
+            this.showMessage(`❌ Failed to upload any photos. Please try again.`, 'error');
         }
     }
 
@@ -775,6 +823,56 @@ class GalleryManager {
         }
     }
 
+    createProgressMessage(totalFiles) {
+        const progressDiv = document.createElement('div');
+        progressDiv.className = 'upload-progress';
+        progressDiv.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            z-index: 10002;
+            min-width: 300px;
+            text-align: center;
+            border: 2px solid #3b82f6;
+        `;
+
+        progressDiv.innerHTML = `
+            <div style="margin-bottom: 1rem;">
+                <i class="fas fa-upload" style="font-size: 2rem; color: #3b82f6; margin-bottom: 0.5rem;"></i>
+                <h3 style="margin: 0; color: #1e40af;">Uploading Photos</h3>
+            </div>
+            <div class="progress-info" style="margin-bottom: 1rem;">
+                <p style="margin: 0; font-size: 0.9rem; color: #6b7280;">Preparing upload...</p>
+            </div>
+            <div style="width: 100%; height: 6px; background: #e5e7eb; border-radius: 3px; overflow: hidden;">
+                <div class="progress-bar" style="height: 100%; background: linear-gradient(90deg, #3b82f6, #1d4ed8); width: 0%; transition: width 0.3s ease;"></div>
+            </div>
+        `;
+
+        document.body.appendChild(progressDiv);
+        return progressDiv;
+    }
+
+    updateProgressMessage(progressDiv, current, total, fileName) {
+        const progressInfo = progressDiv.querySelector('.progress-info p');
+        const progressBar = progressDiv.querySelector('.progress-bar');
+        
+        const percentage = Math.round((current / total) * 100);
+        
+        if (progressInfo) {
+            progressInfo.textContent = `Uploading ${current} of ${total}: ${fileName}`;
+        }
+        
+        if (progressBar) {
+            progressBar.style.width = `${percentage}%`;
+        }
+    }
+
     showMessage(message, type) {
         const messageDiv = document.createElement('div');
         messageDiv.className = `admin-message ${type}`;
@@ -792,15 +890,10 @@ class GalleryManager {
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             animation: slideIn 0.3s ease-out;
             border: 3px solid ${type === 'success' ? '#059669' : '#dc2626'};
+            max-width: 400px;
         `;
 
-        const icon = document.createElement('i');
-        icon.className = `fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}`;
-        icon.style.cssText = 'margin-right: 0.5rem; font-size: 1.2rem;';
-
         const messageText = document.createTextNode(message);
-
-        messageDiv.appendChild(icon);
         messageDiv.appendChild(messageText);
 
         document.body.appendChild(messageDiv);
@@ -808,12 +901,16 @@ class GalleryManager {
         // Log to console for debugging
         console.log(`[Gallery ${type.toUpperCase()}]:`, message);
 
-        // Show for 6 seconds (increased from 4)
+        // Show for 5 seconds
         setTimeout(() => {
             messageDiv.style.opacity = '0';
             messageDiv.style.transition = 'opacity 0.3s ease-out';
-            setTimeout(() => messageDiv.remove(), 300);
-        }, 6000);
+            setTimeout(() => {
+                if (messageDiv.parentNode) {
+                    messageDiv.remove();
+                }
+            }, 300);
+        }, 5000);
     }
 }
 
