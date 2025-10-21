@@ -5,50 +5,6 @@ const sharp = require('sharp');
 
 const PORT = process.env.PORT || 5000;
 
-// Gallery write lock to prevent race conditions
-let galleryWriteLock = false;
-const galleryWriteQueue = [];
-
-async function safeWriteGallery(galleryFile, photoMetadata) {
-    return new Promise((resolve) => {
-        const writeTask = () => {
-            fs.readFile(galleryFile, 'utf8', (err, data) => {
-                let photos = [];
-                
-                if (!err && data) {
-                    try {
-                        photos = JSON.parse(data);
-                    } catch (parseError) {
-                        photos = [];
-                    }
-                }
-                
-                photos.unshift(photoMetadata);
-                
-                fs.writeFile(galleryFile, JSON.stringify(photos, null, 2), (writeErr) => {
-                    galleryWriteLock = false;
-                    
-                    // Process next item in queue
-                    if (galleryWriteQueue.length > 0) {
-                        const nextTask = galleryWriteQueue.shift();
-                        galleryWriteLock = true;
-                        nextTask();
-                    }
-                    
-                    resolve(!writeErr);
-                });
-            });
-        };
-        
-        if (galleryWriteLock) {
-            galleryWriteQueue.push(writeTask);
-        } else {
-            galleryWriteLock = true;
-            writeTask();
-        }
-    });
-}
-
 // MIME types for different file extensions
 const mimeTypes = {
     '.html': 'text/html',
@@ -427,15 +383,30 @@ function handleGalleryRequest(req, res) {
                                     dateCreated: newPhoto.dateCreated
                                 };
                             
-                            // Use safe write to prevent race conditions
-                            safeWriteGallery(galleryFile, photoMetadata).then(success => {
-                                if (success) {
+                            // Save metadata
+                            fs.readFile(galleryFile, 'utf8', (err, data) => {
+                                let photos = [];
+                                
+                                if (!err && data) {
+                                    try {
+                                        photos = JSON.parse(data);
+                                    } catch (parseError) {
+                                        photos = [];
+                                    }
+                                }
+                                
+                                photos.unshift(photoMetadata);
+                                
+                                fs.writeFile(galleryFile, JSON.stringify(photos, null, 2), (writeErr) => {
+                                    if (writeErr) {
+                                        res.writeHead(500, { 'Content-Type': 'application/json' });
+                                        res.end(JSON.stringify({ success: false, message: 'Failed to save' }));
+                                        return;
+                                    }
+                                    
                                     res.writeHead(200, { 'Content-Type': 'application/json' });
                                     res.end(JSON.stringify({ success: true, photo: photoMetadata }));
-                                } else {
-                                    res.writeHead(500, { 'Content-Type': 'application/json' });
-                                    res.end(JSON.stringify({ success: false, message: 'Failed to save photo metadata' }));
-                                }
+                                });
                             });
                         });
                     } else {

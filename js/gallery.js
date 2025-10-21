@@ -139,16 +139,13 @@ class GalleryManager {
         // Show progress message
         this.showMessage(`Uploading ${validFiles.length} image(s)...`, 'success');
 
-        // Upload all images sequentially to prevent race conditions
+        // Upload images one at a time
         let successCount = 0;
         for (let i = 0; i < validFiles.length; i++) {
             const file = validFiles[i];
             const success = await this.uploadSingleImage(file, title, category, i);
             if (success) successCount++;
-            // Add small delay between uploads to prevent server race conditions
-            if (i < validFiles.length - 1) {
-                await new Promise(resolve => setTimeout(resolve, 100));
-            }
+            await new Promise(resolve => setTimeout(resolve, 500));
         }
 
         // Reload and display
