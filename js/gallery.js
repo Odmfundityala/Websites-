@@ -478,10 +478,10 @@ class GalleryManager {
 
         // Content section
         const cardContent = document.createElement('div');
-        cardContent.style.cssText = 'flex: 1; display: flex; flex-direction: column; justify-content: space-between; min-width: 0;';
+        cardContent.style.cssText = 'flex: 1; display: flex; flex-direction: column; justify-content: center; min-width: 0; gap: 0.25rem;';
 
         const title = document.createElement('h3');
-        title.style.cssText = 'color: #000000; font-size: 1rem; margin: 0 0 0.25rem 0; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;';
+        title.style.cssText = 'color: #000000; font-size: 1rem; margin: 0; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;';
         title.textContent = photo.title;
         title.title = photo.title;
 
