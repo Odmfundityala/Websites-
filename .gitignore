@@ -2,5 +2,18 @@ node_modules/
 .env
 *.log
 .DS_Store
+
+# Gallery files (images stored separately)
 gallery_uploads/
 gallery.json.backup
+
+# Admin credentials (NEVER commit passwords!)
+admins.json
+
+# Development artifacts
+attached_assets/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
