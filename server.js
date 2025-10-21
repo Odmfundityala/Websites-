@@ -25,6 +25,38 @@ const server = http.createServer((req, res) => {
         return;
     }
 
+    // Handle gallery uploads directory
+    if (req.url.startsWith('/gallery_uploads/')) {
+        const fileName = req.url.replace('/gallery_uploads/', '');
+        const fullPath = path.join(__dirname, 'gallery_uploads', fileName);
+        
+        fs.access(fullPath, fs.constants.F_OK, (err) => {
+            if (err) {
+                res.writeHead(404, { 'Content-Type': 'text/html' });
+                res.end('<h1>404 - Image Not Found</h1>');
+                return;
+            }
+            
+            const ext = path.extname(fullPath).toLowerCase();
+            const contentType = mimeTypes[ext] || 'image/jpeg';
+            
+            fs.readFile(fullPath, (err, data) => {
+                if (err) {
+                    res.writeHead(500, { 'Content-Type': 'text/html' });
+                    res.end('<h1>500 - Error Loading Image</h1>');
+                    return;
+                }
+                
+                res.writeHead(200, { 
+                    'Content-Type': contentType,
+                    'Cache-Control': 'public, max-age=86400'
+                });
+                res.end(data);
+            });
+        });
+        return;
+    }
+
     // Remove query parameters and decode URL
     let filePath = decodeURIComponent(req.url.split('?')[0]);
 
