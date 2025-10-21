@@ -349,14 +349,14 @@ class GalleryManager {
             gap: 1rem;
         `;
 
-        // Smaller thumbnail image
+        // Thumbnail image - larger for easy identification
         const imgSrc = photo.imagePath || photo.image;
         const img = document.createElement('img');
         img.src = imgSrc;
         img.alt = photo.title;
         img.style.cssText = `
-            width: 120px; 
-            height: 120px; 
+            width: 200px; 
+            height: 150px; 
             object-fit: cover; 
             display: block;
             background-color: #f3f4f6;
@@ -388,13 +388,14 @@ class GalleryManager {
             background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); 
             color: white; 
             border: none; 
-            padding: 0.5rem 1rem; 
+            padding: 0.65rem 1.25rem; 
             border-radius: 6px; 
             font-weight: 600; 
             cursor: pointer; 
             transition: all 0.3s ease;
             flex: 1;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            min-width: 90px;
         `;
         editBtn.onmouseover = () => {
             editBtn.style.transform = 'translateY(-1px)';
@@ -413,13 +414,14 @@ class GalleryManager {
             background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); 
             color: white; 
             border: none; 
-            padding: 0.5rem 1rem; 
+            padding: 0.65rem 1.25rem; 
             border-radius: 6px; 
             font-weight: 600; 
             cursor: pointer; 
             transition: all 0.3s ease;
             flex: 1;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            min-width: 100px;
         `;
         deleteBtn.onmouseover = () => {
             deleteBtn.style.transform = 'translateY(-1px)';
