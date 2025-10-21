@@ -2381,17 +2381,24 @@
                                     
                                     <div class="form-group" style="margin-bottom: 0;">
                                         <label for="galleryCategory" style="font-size: 0.85rem; margin-bottom: 0.25rem;">Event Category</label>
-                                        <select id="galleryCategory" name="category" required style="padding: 0.5rem; font-size: 0.9rem; border: 1px solid #d1d5db; border-radius: 6px;">
-                                            <option value="">Select Event...</option>
-                                            <option value="Graduation Ceremonies">Graduation Ceremonies</option>
-                                            <option value="Sports Events">Sports Events</option>
-                                            <option value="Academic Activities">Academic Activities</option>
-                                            <option value="Cultural Events">Cultural Events</option>
-                                            <option value="School Assemblies">School Assemblies</option>
-                                            <option value="Field Trips">Field Trips</option>
-                                            <option value="Community Service">Community Service</option>
-                                            <option value="Other Events">Other Events</option>
-                                        </select>
+                                        <input 
+                                            type="text" 
+                                            id="galleryCategory" 
+                                            name="category" 
+                                            list="categorySuggestions"
+                                            placeholder="Type or select a category..."
+                                            required 
+                                            style="padding: 0.5rem; font-size: 0.9rem; border: 1px solid #d1d5db; border-radius: 6px; width: 100%;">
+                                        <datalist id="categorySuggestions">
+                                            <option value="Graduation Ceremonies">
+                                            <option value="Sports Events">
+                                            <option value="Academic Activities">
+                                            <option value="Cultural Events">
+                                            <option value="School Assemblies">
+                                            <option value="Field Trips">
+                                            <option value="Community Service">
+                                            <option value="Other Events">
+                                        </datalist>
                                     </div>
                                     
                                     <div class="form-group" style="margin-bottom: 0;">

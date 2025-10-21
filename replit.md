@@ -7,7 +7,7 @@ This is a static website for Siyabulela Senior Secondary School (S.S.S.), a high
 ## Recent Changes
 
 **October 21, 2025**: Implemented event categorization system and modern UI controls for gallery
-- Added event/category dropdown selection (School Events, Sports, Academics, Ceremonies, Other) to photo upload form
+- Added customizable event/category field - admins can type their own category names or select from suggestions (Graduation Ceremonies, Sports Events, Academic Activities, Cultural Events, School Assemblies, Field Trips, Community Service, Other Events)
 - Photos now organized by event categories in both public gallery and admin panel
 - Implemented collapsible category sections in admin panel with expandable/collapsible headers
 - Replaced traditional edit/delete buttons with modern three-dot kebab menu for cleaner UI
