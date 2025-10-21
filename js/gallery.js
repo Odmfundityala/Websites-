@@ -241,7 +241,7 @@ class GalleryManager {
     displayPhotos() {
         console.log('[Gallery] displayPhotos() called with', this.photos.length, 'photos');
         
-        // Display for public gallery page
+        // Display for public gallery page - grouped by categories
         const galleryGrid = document.getElementById('galleryGrid');
         if (galleryGrid) {
             console.log('[Gallery] Found galleryGrid element, displaying', this.photos.length, 'photos');
@@ -258,11 +258,37 @@ class GalleryManager {
                 return;
             }
 
-            this.photos.forEach((photo, index) => {
-                const item = this.createGalleryItem(photo, index);
-                galleryGrid.appendChild(item);
+            // Group photos by category for public view
+            const photosByCategory = {};
+            this.photos.forEach((photo, originalIndex) => {
+                const category = photo.category || 'Uncategorized';
+                if (!photosByCategory[category]) {
+                    photosByCategory[category] = [];
+                }
+                photosByCategory[category].push({ photo, originalIndex });
             });
-            console.log('[Gallery] Successfully displayed', this.photos.length, 'photos in public gallery');
+
+            // Display each category
+            Object.keys(photosByCategory).sort().forEach((category) => {
+                // Category header
+                const categoryHeader = document.createElement('div');
+                categoryHeader.style.cssText = 'grid-column: 1/-1; margin-top: 2rem; margin-bottom: 1rem;';
+                categoryHeader.innerHTML = `
+                    <h2 style="color: #1a365d; font-size: 1.75rem; font-weight: 700; margin: 0; padding-bottom: 0.75rem; border-bottom: 3px solid #fbbf24;">
+                        <i class="fas fa-folder-open" style="color: #fbbf24; margin-right: 0.5rem;"></i>
+                        ${category}
+                    </h2>
+                `;
+                galleryGrid.appendChild(categoryHeader);
+
+                // Photos in this category
+                photosByCategory[category].forEach(({ photo, originalIndex }) => {
+                    const item = this.createGalleryItem(photo, originalIndex);
+                    galleryGrid.appendChild(item);
+                });
+            });
+            
+            console.log('[Gallery] Successfully displayed', this.photos.length, 'photos in', Object.keys(photosByCategory).length, 'categories');
         }
 
         // Display for admin panel - grouped by categories
