@@ -114,16 +114,11 @@ class GalleryManager {
         }
 
         const title = document.getElementById('galleryTitle').value;
-        const category = document.getElementById('galleryCategory').value;
+        const category = document.getElementById('galleryCategory').value || 'Uncategorized';
         const files = Array.from(document.getElementById('galleryImage').files);
 
         if (files.length === 0) {
             this.showMessage('Please select at least one image to upload', 'error');
-            return;
-        }
-        
-        if (!category) {
-            this.showMessage('Please select an event category', 'error');
             return;
         }
 
