@@ -338,74 +338,67 @@ class GalleryManager {
         card.style.cssText = `
             background: white; 
             border-radius: 12px; 
+            margin-bottom: 1rem; 
             overflow: hidden; 
             box-shadow: 0 2px 12px rgba(26, 54, 93, 0.08); 
             border: 1px solid #e2e8f0;
             display: flex;
-            flex-direction: column;
-            transition: all 0.3s ease;
-            height: 100%;
+            flex-direction: row;
+            align-items: center;
+            padding: 1rem;
+            gap: 1rem;
         `;
 
-        // Hover effect for the entire card
-        card.onmouseover = () => {
-            card.style.boxShadow = '0 8px 24px rgba(26, 54, 93, 0.15)';
-            card.style.transform = 'translateY(-2px)';
-        };
-        card.onmouseout = () => {
-            card.style.boxShadow = '0 2px 12px rgba(26, 54, 93, 0.08)';
-            card.style.transform = 'translateY(0)';
-        };
-
-        // Thumbnail image
+        // Smaller thumbnail image
         const imgSrc = photo.imagePath || photo.image;
         const img = document.createElement('img');
         img.src = imgSrc;
         img.alt = photo.title;
         img.style.cssText = `
-            width: 100%; 
-            height: 180px; 
+            width: 120px; 
+            height: 120px; 
             object-fit: cover; 
             display: block;
             background-color: #f3f4f6;
+            border-radius: 8px;
+            flex-shrink: 0;
         `;
 
         // Content section
         const cardContent = document.createElement('div');
-        cardContent.style.cssText = 'padding: 1rem; display: flex; flex-direction: column; flex: 1;';
+        cardContent.style.cssText = 'flex: 1; display: flex; flex-direction: column; min-width: 0;';
 
         const title = document.createElement('h3');
-        title.style.cssText = 'color: #000000; font-size: 0.95rem; margin: 0 0 0.5rem 0; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;';
+        title.style.cssText = 'color: #000000; font-size: 1rem; margin: 0 0 0.25rem 0; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;';
         title.textContent = photo.title;
         title.title = photo.title;
 
         const date = document.createElement('p');
-        date.style.cssText = 'color: #6b7280; font-size: 0.8rem; margin: 0 0 1rem 0;';
+        date.style.cssText = 'color: #6b7280; font-size: 0.85rem; margin: 0 0 0.75rem 0;';
         date.innerHTML = `<i class="fas fa-calendar"></i> ${new Date(photo.date).toLocaleDateString()}`;
 
-        // Button container - now stacked vertically for better fit
+        // Button container
         const buttonContainer = document.createElement('div');
-        buttonContainer.style.cssText = 'display: flex; gap: 0.5rem; margin-top: auto;';
+        buttonContainer.style.cssText = 'display: flex; gap: 0.5rem;';
 
-        // Edit button - more compact
+        // Edit button
         const editBtn = document.createElement('button');
-        editBtn.innerHTML = '<i class="fas fa-edit"></i>';
-        editBtn.title = 'Edit photo title';
+        editBtn.innerHTML = '<i class="fas fa-edit"></i> Edit';
         editBtn.style.cssText = `
             background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); 
             color: white; 
             border: none; 
-            padding: 0.6rem; 
+            padding: 0.5rem 1rem; 
             border-radius: 6px; 
             font-weight: 600; 
             cursor: pointer; 
             transition: all 0.3s ease;
             flex: 1;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         `;
         editBtn.onmouseover = () => {
-            editBtn.style.transform = 'translateY(-2px)';
-            editBtn.style.boxShadow = '0 4px 12px rgba(59, 130, 246, 0.4)';
+            editBtn.style.transform = 'translateY(-1px)';
+            editBtn.style.boxShadow = '0 2px 8px rgba(59, 130, 246, 0.3)';
         };
         editBtn.onmouseout = () => {
             editBtn.style.transform = 'translateY(0)';
@@ -413,25 +406,24 @@ class GalleryManager {
         };
         editBtn.onclick = () => this.editPhoto(photo);
 
-        // Delete button - more compact
+        // Delete button
         const deleteBtn = document.createElement('button');
-        deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
-        deleteBtn.title = 'Delete photo';
+        deleteBtn.innerHTML = '<i class="fas fa-trash"></i> Delete';
         deleteBtn.style.cssText = `
             background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); 
             color: white; 
             border: none; 
-            padding: 0.6rem; 
+            padding: 0.5rem 1rem; 
             border-radius: 6px; 
             font-weight: 600; 
             cursor: pointer; 
             transition: all 0.3s ease;
             flex: 1;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         `;
         deleteBtn.onmouseover = () => {
-            deleteBtn.style.transform = 'translateY(-2px)';
-            deleteBtn.style.boxShadow = '0 4px 12px rgba(220, 38, 38, 0.4)';
+            deleteBtn.style.transform = 'translateY(-1px)';
+            deleteBtn.style.boxShadow = '0 2px 8px rgba(220, 38, 38, 0.3)';
         };
         deleteBtn.onmouseout = () => {
             deleteBtn.style.transform = 'translateY(0)';
