@@ -366,7 +366,7 @@ class GalleryManager {
 
         // Content section
         const cardContent = document.createElement('div');
-        cardContent.style.cssText = 'flex: 1; display: flex; flex-direction: column; min-width: 0;';
+        cardContent.style.cssText = 'flex: 1; display: flex; flex-direction: column; justify-content: space-between; min-width: 0;';
 
         const title = document.createElement('h3');
         title.style.cssText = 'color: #000000; font-size: 1rem; margin: 0 0 0.25rem 0; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;';
@@ -379,7 +379,7 @@ class GalleryManager {
 
         // Button container
         const buttonContainer = document.createElement('div');
-        buttonContainer.style.cssText = 'display: flex; gap: 0.5rem;';
+        buttonContainer.style.cssText = 'display: flex; gap: 0.5rem; flex-wrap: nowrap;';
 
         // Edit button
         const editBtn = document.createElement('button');
