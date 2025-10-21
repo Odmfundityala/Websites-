@@ -114,10 +114,16 @@ class GalleryManager {
         }
 
         const title = document.getElementById('galleryTitle').value;
+        const category = document.getElementById('galleryCategory').value;
         const files = Array.from(document.getElementById('galleryImage').files);
 
         if (files.length === 0) {
             this.showMessage('Please select at least one image to upload', 'error');
+            return;
+        }
+        
+        if (!category) {
+            this.showMessage('Please select an event category', 'error');
             return;
         }
 
@@ -142,7 +148,7 @@ class GalleryManager {
         let successCount = 0;
         for (let i = 0; i < validFiles.length; i++) {
             const file = validFiles[i];
-            const success = await this.uploadSingleImage(file, title, i);
+            const success = await this.uploadSingleImage(file, title, category, i);
             if (success) successCount++;
         }
 
@@ -158,13 +164,14 @@ class GalleryManager {
         }
     }
 
-    async uploadSingleImage(file, baseTitle, index) {
+    async uploadSingleImage(file, baseTitle, category, index) {
         return new Promise((resolve) => {
             const reader = new FileReader();
             reader.onload = async (e) => {
                 const photo = {
                     id: Date.now() + index,
                     title: index === 0 ? baseTitle : `${baseTitle} (${index + 1})`,
+                    category: category,
                     image: e.target.result,
                     date: new Date().toISOString().split('T')[0],
                     dateCreated: new Date().toISOString()
@@ -258,7 +265,7 @@ class GalleryManager {
             console.log('[Gallery] Successfully displayed', this.photos.length, 'photos in public gallery');
         }
 
-        // Display for admin panel
+        // Display for admin panel - grouped by categories
         const galleryList = document.getElementById('galleryList');
         if (galleryList) {
             console.log('[Gallery] Found galleryList element, displaying', this.photos.length, 'photos');
@@ -270,11 +277,23 @@ class GalleryManager {
                 return;
             }
 
+            // Group photos by category
+            const photosByCategory = {};
             this.photos.forEach((photo) => {
-                const card = this.createAdminPhotoCard(photo);
-                galleryList.appendChild(card);
+                const category = photo.category || 'Uncategorized';
+                if (!photosByCategory[category]) {
+                    photosByCategory[category] = [];
+                }
+                photosByCategory[category].push(photo);
             });
-            console.log('[Gallery] Successfully displayed', this.photos.length, 'photos in admin panel');
+
+            // Display each category section
+            Object.keys(photosByCategory).sort().forEach((category) => {
+                const categorySection = this.createCategorySection(category, photosByCategory[category]);
+                galleryList.appendChild(categorySection);
+            });
+            
+            console.log('[Gallery] Successfully displayed', this.photos.length, 'photos in', Object.keys(photosByCategory).length, 'categories');
         } else {
             console.log('[Gallery] galleryList element not found (not on admin page)');
         }
@@ -333,6 +352,73 @@ class GalleryManager {
         return item;
     }
 
+    createCategorySection(category, photos) {
+        const section = document.createElement('div');
+        section.style.cssText = 'margin-bottom: 2rem;';
+
+        // Category header with delete all
+        const header = document.createElement('div');
+        header.style.cssText = 'display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding: 0.75rem 1rem; background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%); border-radius: 8px; cursor: pointer;';
+        
+        const headerLeft = document.createElement('div');
+        headerLeft.style.cssText = 'display: flex; align-items: center; gap: 0.75rem;';
+        
+        const categoryIcon = document.createElement('i');
+        categoryIcon.className = 'fas fa-chevron-down';
+        categoryIcon.style.cssText = 'color: white; font-size: 0.9rem; transition: transform 0.3s ease;';
+        
+        const categoryTitle = document.createElement('h3');
+        categoryTitle.style.cssText = 'color: white; margin: 0; font-size: 1.05rem; font-weight: 600;';
+        categoryTitle.textContent = `${category} (${photos.length})`;
+        
+        headerLeft.appendChild(categoryIcon);
+        headerLeft.appendChild(categoryTitle);
+        
+        const deleteAllBtn = document.createElement('button');
+        deleteAllBtn.innerHTML = '<i class="fas fa-trash-alt"></i> Delete All';
+        deleteAllBtn.style.cssText = 'background: rgba(220, 38, 38, 0.9); color: white; border: none; padding: 0.4rem 0.85rem; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.8rem; transition: all 0.3s ease;';
+        deleteAllBtn.onclick = (e) => {
+            e.stopPropagation();
+            this.deleteCategory(category, photos);
+        };
+        deleteAllBtn.onmouseover = () => {
+            deleteAllBtn.style.background = 'rgba(220, 38, 38, 1)';
+            deleteAllBtn.style.transform = 'scale(1.05)';
+        };
+        deleteAllBtn.onmouseout = () => {
+            deleteAllBtn.style.background = 'rgba(220, 38, 38, 0.9)';
+            deleteAllBtn.style.transform = 'scale(1)';
+        };
+        
+        header.appendChild(headerLeft);
+        header.appendChild(deleteAllBtn);
+        
+        // Photos container (collapsible)
+        const photosContainer = document.createElement('div');
+        photosContainer.style.cssText = 'display: block;';
+        
+        photos.forEach((photo) => {
+            const card = this.createAdminPhotoCard(photo);
+            photosContainer.appendChild(card);
+        });
+        
+        // Toggle collapse
+        header.onclick = () => {
+            if (photosContainer.style.display === 'none') {
+                photosContainer.style.display = 'block';
+                categoryIcon.style.transform = 'rotate(0deg)';
+            } else {
+                photosContainer.style.display = 'none';
+                categoryIcon.style.transform = 'rotate(-90deg)';
+            }
+        };
+        
+        section.appendChild(header);
+        section.appendChild(photosContainer);
+        
+        return section;
+    }
+
     createAdminPhotoCard(photo) {
         const card = document.createElement('div');
         card.style.cssText = `
@@ -374,74 +460,117 @@ class GalleryManager {
         title.title = photo.title;
 
         const date = document.createElement('p');
-        date.style.cssText = 'color: #6b7280; font-size: 0.85rem; margin: 0 0 0.75rem 0;';
+        date.style.cssText = 'color: #6b7280; font-size: 0.85rem; margin: 0;';
         date.innerHTML = `<i class="fas fa-calendar"></i> ${new Date(photo.date).toLocaleDateString()}`;
-
-        // Button container
-        const buttonContainer = document.createElement('div');
-        buttonContainer.style.cssText = 'display: flex; gap: 0.5rem; flex-wrap: nowrap;';
-
-        // Edit button
-        const editBtn = document.createElement('button');
-        editBtn.innerHTML = '<i class="fas fa-edit"></i> Edit';
-        editBtn.style.cssText = `
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); 
-            color: white; 
-            border: none; 
-            padding: 0.65rem 1.25rem; 
-            border-radius: 6px; 
-            font-weight: 600; 
-            cursor: pointer; 
-            transition: all 0.3s ease;
-            flex: 1;
-            font-size: 0.9rem;
-            min-width: 90px;
-        `;
-        editBtn.onmouseover = () => {
-            editBtn.style.transform = 'translateY(-1px)';
-            editBtn.style.boxShadow = '0 2px 8px rgba(59, 130, 246, 0.3)';
-        };
-        editBtn.onmouseout = () => {
-            editBtn.style.transform = 'translateY(0)';
-            editBtn.style.boxShadow = 'none';
-        };
-        editBtn.onclick = () => this.editPhoto(photo);
-
-        // Delete button
-        const deleteBtn = document.createElement('button');
-        deleteBtn.innerHTML = '<i class="fas fa-trash"></i> Delete';
-        deleteBtn.style.cssText = `
-            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); 
-            color: white; 
-            border: none; 
-            padding: 0.65rem 1.25rem; 
-            border-radius: 6px; 
-            font-weight: 600; 
-            cursor: pointer; 
-            transition: all 0.3s ease;
-            flex: 1;
-            font-size: 0.9rem;
-            min-width: 100px;
-        `;
-        deleteBtn.onmouseover = () => {
-            deleteBtn.style.transform = 'translateY(-1px)';
-            deleteBtn.style.boxShadow = '0 2px 8px rgba(220, 38, 38, 0.3)';
-        };
-        deleteBtn.onmouseout = () => {
-            deleteBtn.style.transform = 'translateY(0)';
-            deleteBtn.style.boxShadow = 'none';
-        };
-        deleteBtn.onclick = () => this.deletePhoto(photo.id);
-
-        buttonContainer.appendChild(editBtn);
-        buttonContainer.appendChild(deleteBtn);
 
         cardContent.appendChild(title);
         cardContent.appendChild(date);
-        cardContent.appendChild(buttonContainer);
+
+        // Three-dot kebab menu
+        const menuContainer = document.createElement('div');
+        menuContainer.style.cssText = 'position: relative; flex-shrink: 0;';
+
+        const menuButton = document.createElement('button');
+        menuButton.innerHTML = '<i class="fas fa-ellipsis-v"></i>';
+        menuButton.style.cssText = `
+            background: #f3f4f6;
+            color: #6b7280;
+            border: none;
+            padding: 0.6rem 0.75rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        `;
+        menuButton.onmouseover = () => {
+            menuButton.style.background = '#e5e7eb';
+            menuButton.style.color = '#374151';
+        };
+        menuButton.onmouseout = () => {
+            menuButton.style.background = '#f3f4f6';
+            menuButton.style.color = '#6b7280';
+        };
+
+        // Dropdown menu
+        const dropdown = document.createElement('div');
+        dropdown.style.cssText = `
+            position: absolute;
+            right: 0;
+            top: 100%;
+            margin-top: 0.5rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            border: 1px solid #e5e7eb;
+            min-width: 140px;
+            display: none;
+            z-index: 1000;
+            overflow: hidden;
+        `;
+
+        // Edit option
+        const editOption = document.createElement('div');
+        editOption.innerHTML = '<i class="fas fa-edit"></i> Edit Title';
+        editOption.style.cssText = `
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #374151;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: background 0.2s ease;
+        `;
+        editOption.onmouseover = () => editOption.style.background = '#f3f4f6';
+        editOption.onmouseout = () => editOption.style.background = 'white';
+        editOption.onclick = () => {
+            dropdown.style.display = 'none';
+            this.editPhoto(photo);
+        };
+
+        // Delete option
+        const deleteOption = document.createElement('div');
+        deleteOption.innerHTML = '<i class="fas fa-trash-alt"></i> Delete';
+        deleteOption.style.cssText = `
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #dc2626;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-top: 1px solid #f3f4f6;
+            transition: background 0.2s ease;
+        `;
+        deleteOption.onmouseover = () => deleteOption.style.background = '#fee2e2';
+        deleteOption.onmouseout = () => deleteOption.style.background = 'white';
+        deleteOption.onclick = () => {
+            dropdown.style.display = 'none';
+            this.deletePhoto(photo.id);
+        };
+
+        dropdown.appendChild(editOption);
+        dropdown.appendChild(deleteOption);
+
+        // Toggle menu
+        menuButton.onclick = (e) => {
+            e.stopPropagation();
+            dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+        };
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!menuContainer.contains(e.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+
+        menuContainer.appendChild(menuButton);
+        menuContainer.appendChild(dropdown);
 
         card.appendChild(img);
         card.appendChild(cardContent);
+        card.appendChild(menuContainer);
 
         return card;
     }
@@ -493,6 +622,31 @@ class GalleryManager {
                 await this.loadPhotos();
                 this.displayPhotos();
                 this.showMessage('Photo deleted successfully!', 'success');
+            }
+        }
+    }
+
+    async deleteCategory(category, photos) {
+        if (!this.isAuthenticated()) {
+            this.showMessage('Please log in to delete photos', 'error');
+            return;
+        }
+
+        const count = photos.length;
+        if (confirm(`Are you sure you want to delete all ${count} photo(s) in "${category}"? This action cannot be undone.`)) {
+            let successCount = 0;
+            for (const photo of photos) {
+                const success = await this.deletePhotoFromServer(photo.id);
+                if (success) successCount++;
+            }
+            
+            await this.loadPhotos();
+            this.displayPhotos();
+            
+            if (successCount === count) {
+                this.showMessage(`Successfully deleted all ${count} photo(s) from "${category}"!`, 'success');
+            } else {
+                this.showMessage(`Deleted ${successCount} of ${count} photo(s) from "${category}"`, 'error');
             }
         }
     }

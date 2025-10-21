@@ -2373,10 +2373,25 @@
                                 <i class="fas fa-camera"></i> Upload Photo(s)
                             </h3>
                             <form id="galleryForm" class="announcement-form">
-                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 0.75rem;" class="gallery-form-grid">
+                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 0.75rem;" class="gallery-form-grid">
                                     <div class="form-group" style="margin-bottom: 0;">
                                         <label for="galleryTitle" style="font-size: 0.85rem; margin-bottom: 0.25rem;">Photo Title</label>
-                                        <input type="text" id="galleryTitle" name="title" required placeholder="e.g., Sports Day 2024" style="padding: 0.5rem; font-size: 0.9rem;">
+                                        <input type="text" id="galleryTitle" name="title" required placeholder="e.g., Graduation Ceremony" style="padding: 0.5rem; font-size: 0.9rem;">
+                                    </div>
+                                    
+                                    <div class="form-group" style="margin-bottom: 0;">
+                                        <label for="galleryCategory" style="font-size: 0.85rem; margin-bottom: 0.25rem;">Event Category</label>
+                                        <select id="galleryCategory" name="category" required style="padding: 0.5rem; font-size: 0.9rem; border: 1px solid #d1d5db; border-radius: 6px;">
+                                            <option value="">Select Event...</option>
+                                            <option value="Graduation Ceremonies">Graduation Ceremonies</option>
+                                            <option value="Sports Events">Sports Events</option>
+                                            <option value="Academic Activities">Academic Activities</option>
+                                            <option value="Cultural Events">Cultural Events</option>
+                                            <option value="School Assemblies">School Assemblies</option>
+                                            <option value="Field Trips">Field Trips</option>
+                                            <option value="Community Service">Community Service</option>
+                                            <option value="Other Events">Other Events</option>
+                                        </select>
                                     </div>
                                     
                                     <div class="form-group" style="margin-bottom: 0;">
@@ -2385,6 +2400,11 @@
                                     </div>
                                 </div>
                                 <style>
+                                    @media (max-width: 1024px) {
+                                        .gallery-form-grid {
+                                            grid-template-columns: 1fr 1fr !important;
+                                        }
+                                    }
                                     @media (max-width: 768px) {
                                         .gallery-form-grid {
                                             grid-template-columns: 1fr !important;
