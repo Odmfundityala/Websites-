@@ -139,12 +139,16 @@ class GalleryManager {
         // Show progress message
         this.showMessage(`Uploading ${validFiles.length} image(s)...`, 'success');
 
-        // Upload all images
+        // Upload all images sequentially to prevent race conditions
         let successCount = 0;
         for (let i = 0; i < validFiles.length; i++) {
             const file = validFiles[i];
             const success = await this.uploadSingleImage(file, title, category, i);
             if (success) successCount++;
+            // Add small delay between uploads to prevent server race conditions
+            if (i < validFiles.length - 1) {
+                await new Promise(resolve => setTimeout(resolve, 100));
+            }
         }
 
         // Reload and display
@@ -164,7 +168,7 @@ class GalleryManager {
             const reader = new FileReader();
             reader.onload = async (e) => {
                 const photo = {
-                    id: Date.now() + index,
+                    id: Date.now() + (index * 1000),
                     title: index === 0 ? baseTitle : `${baseTitle} (${index + 1})`,
                     category: category,
                     image: e.target.result,
