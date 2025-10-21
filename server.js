@@ -377,6 +377,7 @@ function handleGalleryRequest(req, res) {
                                 const photoMetadata = {
                                     id: newPhoto.id,
                                     title: newPhoto.title,
+                                    category: newPhoto.category,
                                     imagePath: `/gallery_uploads/${fileName}`,
                                     date: newPhoto.date,
                                     dateCreated: newPhoto.dateCreated
