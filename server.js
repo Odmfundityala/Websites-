@@ -86,7 +86,7 @@ function handleApiRequest(req, res) {
     
     // Set CORS headers
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     
     if (req.method === 'OPTIONS') {
@@ -104,6 +104,12 @@ function handleApiRequest(req, res) {
     // Handle gallery endpoints
     if (url.pathname === '/api/gallery') {
         handleGalleryRequest(req, res);
+        return;
+    }
+    
+    // Handle gallery update endpoint
+    if (url.pathname === '/api/gallery/update') {
+        handleGalleryUpdateRequest(req, res);
         return;
     }
     
@@ -454,6 +460,73 @@ function handleGalleryRequest(req, res) {
                 res.writeHead(200, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ success: true }));
             });
+        });
+    } else {
+        res.writeHead(405, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ message: 'Method not allowed' }));
+    }
+}
+
+// Gallery Update API handler
+function handleGalleryUpdateRequest(req, res) {
+    const galleryFile = path.join(__dirname, 'gallery.json');
+    
+    if (req.method === 'PUT') {
+        let body = '';
+        req.on('data', chunk => {
+            body += chunk.toString();
+        });
+        
+        req.on('end', () => {
+            try {
+                const { id, title } = JSON.parse(body);
+                
+                if (!id || !title) {
+                    res.writeHead(400, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ success: false, message: 'ID and title are required' }));
+                    return;
+                }
+                
+                // Read existing photos
+                fs.readFile(galleryFile, 'utf8', (err, data) => {
+                    let photos = [];
+                    
+                    if (!err && data) {
+                        try {
+                            photos = JSON.parse(data);
+                        } catch (parseError) {
+                            photos = [];
+                        }
+                    }
+                    
+                    // Find and update the photo
+                    const photoIndex = photos.findIndex(photo => parseInt(photo.id, 10) === parseInt(id, 10));
+                    
+                    if (photoIndex === -1) {
+                        res.writeHead(404, { 'Content-Type': 'application/json' });
+                        res.end(JSON.stringify({ success: false, message: 'Photo not found' }));
+                        return;
+                    }
+                    
+                    // Update the title
+                    photos[photoIndex].title = title;
+                    
+                    // Write back to file
+                    fs.writeFile(galleryFile, JSON.stringify(photos, null, 2), (writeErr) => {
+                        if (writeErr) {
+                            res.writeHead(500, { 'Content-Type': 'application/json' });
+                            res.end(JSON.stringify({ success: false, message: 'Failed to update photo' }));
+                            return;
+                        }
+                        
+                        res.writeHead(200, { 'Content-Type': 'application/json' });
+                        res.end(JSON.stringify({ success: true, photo: photos[photoIndex] }));
+                    });
+                });
+            } catch (error) {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: false, message: 'Invalid request data' }));
+            }
         });
     } else {
         res.writeHead(405, { 'Content-Type': 'application/json' });

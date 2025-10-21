@@ -284,12 +284,16 @@ class GalleryManager {
         const item = document.createElement('div');
         item.className = 'gallery-item';
         item.onclick = () => this.openLightbox(index);
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(20px)';
+        item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
 
         const img = document.createElement('img');
-        // Use imagePath if available, fallback to image for backwards compatibility
-        img.src = photo.imagePath || photo.image;
+        const imgSrc = photo.imagePath || photo.image;
+        img.dataset.src = imgSrc;
         img.alt = photo.title;
         img.loading = 'lazy';
+        img.style.backgroundColor = '#f3f4f6';
 
         const overlay = document.createElement('div');
         overlay.className = 'gallery-item-overlay';
@@ -308,6 +312,24 @@ class GalleryManager {
         item.appendChild(img);
         item.appendChild(overlay);
 
+        // Modern lazy loading with IntersectionObserver
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const lazyImg = entry.target.querySelector('img');
+                    if (lazyImg && lazyImg.dataset.src) {
+                        lazyImg.src = lazyImg.dataset.src;
+                        lazyImg.removeAttribute('data-src');
+                    }
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '50px' });
+
+        observer.observe(item);
+
         return item;
     }
 
@@ -316,57 +338,92 @@ class GalleryManager {
         card.style.cssText = `
             background: white; 
             border-radius: 12px; 
-            margin-bottom: 1.25rem; 
+            margin-bottom: 1rem; 
             overflow: hidden; 
             box-shadow: 0 2px 12px rgba(26, 54, 93, 0.08); 
             border: 1px solid #e2e8f0;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            align-items: center;
+            padding: 1rem;
+            gap: 1rem;
         `;
 
-        // Image container with proper display
+        // Smaller thumbnail image
         const imgSrc = photo.imagePath || photo.image;
         const img = document.createElement('img');
         img.src = imgSrc;
         img.alt = photo.title;
         img.style.cssText = `
-            width: 100%; 
-            height: 200px; 
+            width: 120px; 
+            height: 120px; 
             object-fit: cover; 
             display: block;
             background-color: #f3f4f6;
+            border-radius: 8px;
+            flex-shrink: 0;
         `;
 
         // Content section
         const cardContent = document.createElement('div');
-        cardContent.style.cssText = 'padding: 1.25rem; flex: 1; display: flex; flex-direction: column;';
+        cardContent.style.cssText = 'flex: 1; display: flex; flex-direction: column; min-width: 0;';
 
         const title = document.createElement('h3');
-        title.style.cssText = 'color: #000000; font-size: 1.1rem; margin: 0 0 0.5rem 0; font-weight: 600;';
+        title.style.cssText = 'color: #000000; font-size: 1rem; margin: 0 0 0.25rem 0; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;';
         title.textContent = photo.title;
+        title.title = photo.title;
 
         const date = document.createElement('p');
-        date.style.cssText = 'color: #6b7280; font-size: 0.9rem; margin: 0 0 1rem 0;';
+        date.style.cssText = 'color: #6b7280; font-size: 0.85rem; margin: 0 0 0.75rem 0;';
         date.innerHTML = `<i class="fas fa-calendar"></i> ${new Date(photo.date).toLocaleDateString()}`;
+
+        // Button container
+        const buttonContainer = document.createElement('div');
+        buttonContainer.style.cssText = 'display: flex; gap: 0.5rem;';
+
+        // Edit button
+        const editBtn = document.createElement('button');
+        editBtn.innerHTML = '<i class="fas fa-edit"></i> Edit';
+        editBtn.style.cssText = `
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); 
+            color: white; 
+            border: none; 
+            padding: 0.5rem 1rem; 
+            border-radius: 6px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: all 0.3s ease;
+            flex: 1;
+            font-size: 0.85rem;
+        `;
+        editBtn.onmouseover = () => {
+            editBtn.style.transform = 'translateY(-1px)';
+            editBtn.style.boxShadow = '0 2px 8px rgba(59, 130, 246, 0.3)';
+        };
+        editBtn.onmouseout = () => {
+            editBtn.style.transform = 'translateY(0)';
+            editBtn.style.boxShadow = 'none';
+        };
+        editBtn.onclick = () => this.editPhoto(photo);
 
         // Delete button
         const deleteBtn = document.createElement('button');
-        deleteBtn.innerHTML = '<i class="fas fa-trash"></i> Delete Photo';
+        deleteBtn.innerHTML = '<i class="fas fa-trash"></i> Delete';
         deleteBtn.style.cssText = `
             background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); 
             color: white; 
             border: none; 
-            padding: 0.75rem 1rem; 
-            border-radius: 8px; 
+            padding: 0.5rem 1rem; 
+            border-radius: 6px; 
             font-weight: 600; 
             cursor: pointer; 
             transition: all 0.3s ease;
-            margin-top: auto;
-            width: 100%;
+            flex: 1;
+            font-size: 0.85rem;
         `;
         deleteBtn.onmouseover = () => {
-            deleteBtn.style.transform = 'translateY(-2px)';
-            deleteBtn.style.boxShadow = '0 4px 12px rgba(220, 38, 38, 0.3)';
+            deleteBtn.style.transform = 'translateY(-1px)';
+            deleteBtn.style.boxShadow = '0 2px 8px rgba(220, 38, 38, 0.3)';
         };
         deleteBtn.onmouseout = () => {
             deleteBtn.style.transform = 'translateY(0)';
@@ -374,14 +431,52 @@ class GalleryManager {
         };
         deleteBtn.onclick = () => this.deletePhoto(photo.id);
 
+        buttonContainer.appendChild(editBtn);
+        buttonContainer.appendChild(deleteBtn);
+
         cardContent.appendChild(title);
         cardContent.appendChild(date);
-        cardContent.appendChild(deleteBtn);
+        cardContent.appendChild(buttonContainer);
 
         card.appendChild(img);
         card.appendChild(cardContent);
 
         return card;
+    }
+
+    editPhoto(photo) {
+        if (!this.isAuthenticated()) {
+            this.showMessage('Please log in to edit photos', 'error');
+            return;
+        }
+
+        const newTitle = prompt('Edit photo title:', photo.title);
+        if (newTitle && newTitle.trim() !== '' && newTitle !== photo.title) {
+            this.updatePhotoTitle(photo.id, newTitle.trim());
+        }
+    }
+
+    async updatePhotoTitle(id, newTitle) {
+        try {
+            const response = await fetch(`/api/gallery/update`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id, title: newTitle })
+            });
+
+            if (response.ok) {
+                await this.loadPhotos();
+                this.displayPhotos();
+                this.showMessage('Photo title updated successfully!', 'success');
+            } else {
+                this.showMessage('Failed to update photo title', 'error');
+            }
+        } catch (error) {
+            console.error('Error updating photo:', error);
+            this.showMessage('Error updating photo title', 'error');
+        }
     }
 
     async deletePhoto(id) {
