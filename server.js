@@ -1,6 +1,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const sharp = require('sharp');
 
 const PORT = process.env.PORT || 5000;
 
@@ -347,26 +348,39 @@ function handleGalleryRequest(req, res) {
                         const base64Data = matches[2];
                         const imageBuffer = Buffer.from(base64Data, 'base64');
                         
-                        // Create unique filename
-                        const fileName = `gallery_${newPhoto.id}.${imageType}`;
+                        // Create unique filename (always use .jpg for optimized output)
+                        const fileName = `gallery_${newPhoto.id}.jpg`;
                         const filePath = path.join(__dirname, 'gallery_uploads', fileName);
                         
-                        // Save image to disk
-                        fs.writeFile(filePath, imageBuffer, (imgErr) => {
-                            if (imgErr) {
-                                res.writeHead(500, { 'Content-Type': 'application/json' });
-                                res.end(JSON.stringify({ success: false, message: 'Failed to save image file' }));
-                                return;
-                            }
-                            
-                            // Store only the path, not base64 data
-                            const photoMetadata = {
-                                id: newPhoto.id,
-                                title: newPhoto.title,
-                                imagePath: `/gallery_uploads/${fileName}`,
-                                date: newPhoto.date,
-                                dateCreated: newPhoto.dateCreated
-                            };
+                        // Optimize and compress image using sharp
+                        sharp(imageBuffer)
+                            .resize(1920, 1920, { 
+                                fit: 'inside',
+                                withoutEnlargement: true
+                            })
+                            .jpeg({ 
+                                quality: 85,
+                                progressive: true,
+                                mozjpeg: true
+                            })
+                            .toFile(filePath, (sharpErr, info) => {
+                                if (sharpErr) {
+                                    console.error('Image optimization error:', sharpErr);
+                                    res.writeHead(500, { 'Content-Type': 'application/json' });
+                                    res.end(JSON.stringify({ success: false, message: 'Failed to optimize image' }));
+                                    return;
+                                }
+                                
+                                console.log(`Image optimized: ${info.size} bytes (${Math.round(info.size / 1024)}KB)`);
+                                
+                                // Store only the path, not base64 data
+                                const photoMetadata = {
+                                    id: newPhoto.id,
+                                    title: newPhoto.title,
+                                    imagePath: `/gallery_uploads/${fileName}`,
+                                    date: newPhoto.date,
+                                    dateCreated: newPhoto.dateCreated
+                                };
                             
                             // Read existing photos
                             fs.readFile(galleryFile, 'utf8', (err, data) => {

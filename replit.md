@@ -4,6 +4,15 @@
 
 This is a static website for Siyabulela Senior Secondary School (S.S.S.), a high school serving grades 10-12 located in Ngcisininde A/A Ndiki Location, Nqamakwe. The website serves as an informational portal for students, parents, and the community, showcasing the school's academic programs, admission processes, fee structure, sports activities, and contact information. The site emphasizes the school's mission of providing quality education and nurturing future leaders through transformative education.
 
+## Recent Changes
+
+**October 21, 2025**: Implemented automatic image optimization system for gallery photos
+- All uploaded photos are now automatically compressed using Sharp library
+- Images optimized to max 1920px with 85% JPEG quality for fast loading
+- Existing photos optimized: reduced from 11MB+ to under 350KB (97-98% reduction)
+- Modern lazy loading with IntersectionObserver for smooth scroll experience
+- Admin panel redesigned with compact 120px thumbnails and side-by-side edit/delete buttons
+
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
@@ -32,7 +41,8 @@ The site includes interactive features through vanilla JavaScript:
 
 - **Navigation Management**: Mobile menu toggle functionality with click-outside-to-close behavior
 - **Announcement System**: Dynamic announcement creation and management with server-side persistence
-- **Gallery Management**: Multiple image upload system with preview, lightbox viewer, and admin controls
+- **Gallery Management**: Multiple image upload system with preview, lightbox viewer, edit/delete controls, and modern lazy loading with IntersectionObserver
+- **Image Optimization**: Automatic compression of uploaded photos (max 1920px, 85% quality JPEG) for fast loading speeds
 - **Form Handling**: Client-side form processing with validation and file handling
 - **Responsive Behavior**: Automatic menu closing on window resize and active navigation highlighting
 - **Admin Authentication**: Secure login system with session management
@@ -57,6 +67,7 @@ A Node.js HTTP server handles static file serving and API endpoints:
 - **Node.js HTTP Module**: Built-in module for creating the web server
 - **File System Module**: Built-in Node.js module for file operations
 - **Path Module**: Built-in Node.js module for file path handling
+- **Sharp**: High-performance image processing library for automatic compression and optimization
 
 ### Browser APIs
 - **Local Storage**: For persisting announcement data on the client side
