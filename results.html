@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Results - Siyabulela S.S.S.</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .results-hero {
+            background: linear-gradient(135deg, rgba(26, 54, 93, 0.9), rgba(44, 82, 130, 0.9)), url('images/school-bg.jpg') center/cover;
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            color: white;
+            margin-top: 70px;
+        }
+
+        .results-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .results-container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .year-selector {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .year-btn {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid #1a365d;
+            background: white;
+            color: #1a365d;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .year-btn:hover, .year-btn.active {
+            background: #1a365d;
+            color: white;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .grade-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .grade-header {
+            background: linear-gradient(135deg, #1a365d, #2c5282);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .grade-header h3 {
+            margin: 0;
+            font-size: 1.3rem;
+        }
+
+        .grade-content {
+            padding: 1.5rem;
+        }
+
+        .subject-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .subject-row:last-child {
+            border-bottom: none;
+        }
+
+        .subject-name {
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .pass-rate {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .pass-high { background: #d1fae5; color: #047857; }
+        .pass-medium { background: #fef3c7; color: #b45309; }
+        .pass-low { background: #fee2e2; color: #dc2626; }
+
+        .comparison-section {
+            margin-top: 3rem;
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-section h2 {
+            color: #1a365d;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            color: #6b7280;
+        }
+
+        .no-results i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #d1d5db;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <img src="images/logo.png" alt="School Logo" class="logo-img">
+                <span class="logo-text"><span style="color:#fff;">Siyabulela</span><span style="color:#fbbf24;"> S.S.S.</span></span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="academics.html">Academics</a></li>
+                <li><a href="results.html" class="active">Results</a></li>
+                <li><a href="admissions.html">Admissions</a></li>
+                <li><a href="stakeholders.html">Stakeholders</a></li>
+                <li><a href="athletics.html">Athletics</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="announcements.html">Admin</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="results-hero">
+            <h1><i class="fas fa-chart-line"></i> Academic Results</h1>
+            <p>Track our school's academic performance and growth over the years</p>
+        </section>
+
+        <section class="results-container">
+            <div class="year-selector" id="yearSelector">
+                <button class="year-btn active" data-year="all">All Years</button>
+            </div>
+
+            <div class="results-grid" id="resultsGrid">
+                <div class="no-results">
+                    <i class="fas fa-chart-bar"></i>
+                    <h3>Loading Results...</h3>
+                </div>
+            </div>
+
+            <div class="comparison-section" id="comparisonSection" style="display: none;">
+                <h2><i class="fas fa-balance-scale"></i> Year-over-Year Comparison</h2>
+                <div id="comparisonContent"></div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        class PublicResultsViewer {
+            constructor() {
+                this.results = [];
+                this.selectedYear = 'all';
+                this.init();
+            }
+
+            async init() {
+                await this.loadResults();
+                this.setupYearSelector();
+            }
+
+            async loadResults() {
+                try {
+                    const response = await fetch('/api/results?t=' + Date.now());
+                    if (response.ok) {
+                        this.results = await response.json();
+                        this.displayResults();
+                        this.updateYearButtons();
+                        this.showComparison();
+                    }
+                } catch (error) {
+                    console.error('Error loading results:', error);
+                    this.showNoResults();
+                }
+            }
+
+            updateYearButtons() {
+                const container = document.getElementById('yearSelector');
+                const years = [...new Set(this.results.map(r => r.year))].sort((a, b) => b - a);
+                
+                container.innerHTML = '<button class="year-btn active" data-year="all">All Years</button>';
+                years.forEach(year => {
+                    container.innerHTML += `<button class="year-btn" data-year="${year}">${year}</button>`;
+                });
+
+                this.setupYearSelector();
+            }
+
+            setupYearSelector() {
+                document.querySelectorAll('.year-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        document.querySelectorAll('.year-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        this.selectedYear = btn.dataset.year;
+                        this.displayResults();
+                    });
+                });
+            }
+
+            displayResults() {
+                const container = document.getElementById('resultsGrid');
+                
+                let filtered = this.results;
+                if (this.selectedYear !== 'all') {
+                    filtered = filtered.filter(r => r.year == this.selectedYear);
+                }
+
+                if (filtered.length === 0) {
+                    this.showNoResults();
+                    return;
+                }
+
+                const grouped = {};
+                filtered.forEach(r => {
+                    const key = `${r.year}|${r.grade}`;
+                    if (!grouped[key]) {
+                        grouped[key] = { year: r.year, grade: r.grade, subjects: [] };
+                    }
+                    grouped[key].subjects.push(r);
+                });
+
+                let html = '';
+                Object.values(grouped).sort((a, b) => b.year - a.year || a.grade.localeCompare(b.grade)).forEach(group => {
+                    html += `
+                        <div class="grade-card">
+                            <div class="grade-header">
+                                <h3><i class="fas fa-graduation-cap"></i> ${group.grade} - ${group.year}</h3>
+                            </div>
+                            <div class="grade-content">
+                    `;
+                    
+                    group.subjects.sort((a, b) => a.subject.localeCompare(b.subject)).forEach(result => {
+                        const passClass = result.passRate >= 80 ? 'pass-high' : result.passRate >= 60 ? 'pass-medium' : 'pass-low';
+                        html += `
+                            <div class="subject-row">
+                                <span class="subject-name">${result.subject}</span>
+                                <span class="pass-rate ${passClass}">${result.passRate}%</span>
+                            </div>
+                        `;
+                    });
+                    
+                    html += '</div></div>';
+                });
+
+                container.innerHTML = html;
+            }
+
+            showComparison() {
+                const section = document.getElementById('comparisonSection');
+                const content = document.getElementById('comparisonContent');
+                
+                const years = [...new Set(this.results.map(r => r.year))].sort((a, b) => b - a);
+                
+                if (years.length < 2) {
+                    section.style.display = 'none';
+                    return;
+                }
+
+                section.style.display = 'block';
+                
+                const overallByYear = {};
+                this.results.filter(r => r.subject === 'Overall Pass Rate').forEach(r => {
+                    if (!overallByYear[r.year]) overallByYear[r.year] = [];
+                    overallByYear[r.year].push(r);
+                });
+
+                if (Object.keys(overallByYear).length === 0) {
+                    content.innerHTML = '<p style="text-align: center; color: #6b7280;">Add "Overall Pass Rate" entries to see year comparison.</p>';
+                    return;
+                }
+
+                let html = '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">';
+                
+                years.forEach(year => {
+                    const yearResults = overallByYear[year] || [];
+                    html += `
+                        <div style="background: #f8fafc; padding: 1.5rem; border-radius: 12px; text-align: center;">
+                            <h4 style="color: #1a365d; margin-bottom: 1rem;">${year}</h4>
+                    `;
+                    
+                    if (yearResults.length > 0) {
+                        yearResults.forEach(r => {
+                            const color = r.passRate >= 80 ? '#10b981' : r.passRate >= 60 ? '#f59e0b' : '#ef4444';
+                            html += `
+                                <div style="margin-bottom: 0.5rem;">
+                                    <span style="font-size: 0.9rem; color: #6b7280;">${r.grade}</span>
+                                    <div style="font-size: 2rem; font-weight: 700; color: ${color};">${r.passRate}%</div>
+                                </div>
+                            `;
+                        });
+                    } else {
+                        html += '<p style="color: #9ca3af;">No data</p>';
+                    }
+                    
+                    html += '</div>';
+                });
+                
+                html += '</div>';
+                content.innerHTML = html;
+            }
+
+            showNoResults() {
+                document.getElementById('resultsGrid').innerHTML = `
+                    <div class="no-results" style="grid-column: 1/-1;">
+                        <i class="fas fa-chart-bar"></i>
+                        <h3>No Results Yet</h3>
+                        <p>Academic results will be posted here by the school administration.</p>
+                    </div>
+                `;
+            }
+        }
+
+        new PublicResultsViewer();
+    </script>
+</body>
+</html>

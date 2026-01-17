@@ -146,6 +146,12 @@ function handleApiRequest(req, res) {
         return;
     }
     
+    // Handle results endpoints
+    if (url.pathname === '/api/results') {
+        handleResultsRequest(req, res);
+        return;
+    }
+    
     if (url.pathname === '/api/auth' && req.method === 'POST') {
         let body = '';
         req.on('data', chunk => {
@@ -837,6 +843,117 @@ function handleRemoveAdmin(req, res) {
             }));
         }
     });
+}
+
+// Handle results API requests
+function handleResultsRequest(req, res) {
+    const resultsFile = path.join(__dirname, 'results.json');
+    
+    if (req.method === 'GET') {
+        fs.readFile(resultsFile, 'utf8', (err, data) => {
+            if (err) {
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify([]));
+                return;
+            }
+            
+            try {
+                const results = JSON.parse(data);
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify(results));
+            } catch (parseError) {
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify([]));
+            }
+        });
+    } else if (req.method === 'POST') {
+        let body = '';
+        req.on('data', chunk => {
+            body += chunk.toString();
+        });
+        
+        req.on('end', () => {
+            try {
+                const newResult = JSON.parse(body);
+                newResult.id = Date.now();
+                newResult.dateCreated = new Date().toISOString();
+                
+                fs.readFile(resultsFile, 'utf8', (err, data) => {
+                    let results = [];
+                    
+                    if (!err && data) {
+                        try {
+                            results = JSON.parse(data);
+                        } catch (parseError) {
+                            results = [];
+                        }
+                    }
+                    
+                    results.unshift(newResult);
+                    
+                    fs.writeFile(resultsFile, JSON.stringify(results, null, 2), (writeErr) => {
+                        if (writeErr) {
+                            res.writeHead(500, { 'Content-Type': 'application/json' });
+                            res.end(JSON.stringify({ success: false, message: 'Failed to save result' }));
+                            return;
+                        }
+                        
+                        res.writeHead(200, { 'Content-Type': 'application/json' });
+                        res.end(JSON.stringify({ success: true, result: newResult }));
+                    });
+                });
+            } catch (error) {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: false, message: 'Invalid result data' }));
+            }
+        });
+    } else if (req.method === 'DELETE') {
+        const url = new URL(req.url, `http://${req.headers.host}`);
+        const resultId = url.searchParams.get('id');
+        
+        if (!resultId) {
+            res.writeHead(400, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ success: false, message: 'Result ID required' }));
+            return;
+        }
+        
+        fs.readFile(resultsFile, 'utf8', (err, data) => {
+            if (err) {
+                res.writeHead(404, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: false, message: 'No results found' }));
+                return;
+            }
+            
+            try {
+                let results = JSON.parse(data);
+                const initialLength = results.length;
+                results = results.filter(r => r.id !== parseInt(resultId));
+                
+                if (results.length === initialLength) {
+                    res.writeHead(404, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ success: false, message: 'Result not found' }));
+                    return;
+                }
+                
+                fs.writeFile(resultsFile, JSON.stringify(results, null, 2), (writeErr) => {
+                    if (writeErr) {
+                        res.writeHead(500, { 'Content-Type': 'application/json' });
+                        res.end(JSON.stringify({ success: false, message: 'Failed to delete result' }));
+                        return;
+                    }
+                    
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ success: true }));
+                });
+            } catch (parseError) {
+                res.writeHead(500, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: false, message: 'Failed to process results' }));
+            }
+        });
+    } else {
+        res.writeHead(405, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, message: 'Method not allowed' }));
+    }
 }
 
 server.listen(PORT, '0.0.0.0', () => {
