@@ -319,11 +319,11 @@ section:nth-child(even) {
 
 /* Hero Section - Home Page */
 .hero {
-    background: linear-gradient(rgba(26, 54, 93, 0.65), rgba(26, 54, 93, 0.75)), url('../images/scool buildings.jpg');
+    background: linear-gradient(160deg, rgba(26, 54, 93, 0.75) 0%, rgba(44, 82, 130, 0.7) 50%, rgba(26, 54, 93, 0.8) 100%), url('../images/scool buildings.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    height: 85vh;
+    min-height: 85vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -331,14 +331,25 @@ section:nth-child(even) {
     color: var(--text-light);
     margin-top: 70px;
     position: relative;
-    /* Removed background-attachment: fixed for better performance */
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at center, transparent 0%, rgba(26, 54, 93, 0.3) 100%);
+    pointer-events: none;
 }
 
 .hero-content {
-    padding: 2rem;
-    max-width: 900px;
+    padding: 3rem 2rem;
+    max-width: 950px;
     z-index: 2;
-    animation: fadeIn 1s ease-out;
+    animation: heroFadeIn 1.2s ease-out;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -348,15 +359,15 @@ section:nth-child(even) {
 
 .hero-content h1 {
     font-family: var(--font-primary);
-    font-size: 3.5rem;
-    font-weight: 800;
-    letter-spacing: 1px;
-    line-height: 1.2;
-    margin-bottom: 1.5rem;
+    font-size: 3.2rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    line-height: 1.15;
+    margin-bottom: 2rem;
     color: var(--text-light);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     position: relative;
-    padding-bottom: 1.5rem;
+    padding-bottom: 2rem;
     text-align: center;
     width: 100%;
 }
@@ -367,27 +378,37 @@ section:nth-child(even) {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 150px;
-    height: 4px;
-    background: var(--gold-accent);
+    width: 120px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold-accent), transparent);
     border-radius: 2px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
 .hero-content p {
     font-family: var(--font-secondary);
-    font-size: 1.4rem;
-    line-height: 1.6;
+    font-size: 1.25rem;
+    line-height: 1.8;
     font-weight: 400;
-    margin-bottom: 2.5rem;
-    color: var(--text-light);
-    opacity: 0.95;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+    margin-bottom: 0;
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     text-align: center;
     width: 100%;
-    max-width: 100%;
-    padding: 0 1rem;
+    max-width: 750px;
+    padding: 0 1.5rem;
     box-sizing: border-box;
+    letter-spacing: 0.3px;
+}
+
+@keyframes heroFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes fadeIn {
