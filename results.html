@@ -3,49 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academic Results - Siyabulela S.S.S.</title>
+    <title>Academic Results - Siyabulela SSS</title>
+    
+    <link rel="preload" href="styles/main.css" as="style" />
+    <link rel="preload" href="js/main.js" as="script" />
+    
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
     <style>
         .results-hero {
-            background: linear-gradient(135deg, rgba(26, 54, 93, 0.95), rgba(44, 82, 130, 0.9));
-            padding: 8rem 2rem 4rem;
+            background: linear-gradient(rgba(26, 54, 93, 0.65), rgba(26, 54, 93, 0.75)), url('images/scool buildings.jpg') center/cover;
+            color: var(--text-light);
+            height: 40vh;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            color: white;
             margin-top: 70px;
+            padding: 2rem;
+        }
+
+        .results-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .results-hero h1 {
-            font-size: 2.8rem;
+            font-family: var(--font-primary);
+            font-size: 2.5rem;
             margin-bottom: 1rem;
-            font-weight: 700;
+            color: var(--text-light);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+            font-weight: bold;
+            letter-spacing: 0.5px;
         }
 
         .results-hero p {
-            font-size: 1.2rem;
-            opacity: 0.9;
+            font-size: 1.1rem;
+            color: var(--text-light);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+            line-height: 1.6;
             max-width: 600px;
             margin: 0 auto;
         }
 
         .results-container {
-            max-width: 1100px;
-            margin: -2rem auto 4rem;
-            padding: 0 2rem;
-            position: relative;
-            z-index: 10;
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem 4rem;
         }
 
         .results-card {
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             margin-bottom: 2rem;
         }
 
         .card-header {
-            background: linear-gradient(135deg, #1a365d, #2c5282);
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
             color: white;
             padding: 1.5rem 2rem;
             display: flex;
@@ -57,11 +76,16 @@
             margin: 0;
             font-size: 1.5rem;
             font-weight: 600;
+            font-family: var(--font-primary);
         }
 
         .card-header i {
             font-size: 1.8rem;
-            color: #fbbf24;
+            color: var(--accent-color);
+        }
+
+        .results-table-wrapper {
+            overflow-x: auto;
         }
 
         .results-table {
@@ -80,6 +104,7 @@
             font-weight: 600;
             font-size: 1rem;
             letter-spacing: 0.5px;
+            font-family: var(--font-primary);
         }
 
         .results-table th:first-child {
@@ -114,10 +139,10 @@
         .results-table td:first-child {
             text-align: left;
             font-weight: 600;
-            color: #1a365d;
+            color: var(--primary-color);
         }
 
-        .pass-rate {
+        .pass-rate-badge {
             display: inline-block;
             padding: 0.5rem 1.2rem;
             border-radius: 8px;
@@ -135,17 +160,17 @@
             color: #b45309;
         }
 
-        .pass-needs-improvement {
+        .pass-needs-work {
             background: linear-gradient(135deg, #fee2e2, #fecaca);
             color: #dc2626;
         }
 
-        .highlights-section {
+        .highlights-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
             padding: 2rem;
-            background: #f8fafc;
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
         }
 
         .highlight-card {
@@ -160,14 +185,14 @@
 
         .highlight-card:hover {
             transform: translateY(-5px);
-            border-color: #1a365d;
+            border-color: var(--primary-color);
             box-shadow: 0 8px 25px rgba(26, 54, 93, 0.15);
         }
 
         .highlight-icon {
             width: 70px;
             height: 70px;
-            background: linear-gradient(135deg, #1a365d, #2c5282);
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -183,8 +208,9 @@
         .highlight-value {
             font-size: 2.5rem;
             font-weight: 700;
-            color: #1a365d;
+            color: var(--primary-color);
             margin-bottom: 0.5rem;
+            font-family: var(--font-primary);
         }
 
         .highlight-label {
@@ -196,19 +222,19 @@
             text-align: center;
             padding: 2rem;
             background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
-            border-top: 4px solid #1a365d;
+            border-top: 4px solid var(--primary-color);
         }
 
         .journey-message p {
             font-size: 1.2rem;
-            color: #1a365d;
+            color: var(--primary-color);
             max-width: 700px;
             margin: 0 auto;
             line-height: 1.6;
         }
 
         .journey-message strong {
-            color: #b45309;
+            color: var(--accent-color);
         }
 
         .no-results {
@@ -227,11 +253,17 @@
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
             color: #374151;
+            font-family: var(--font-primary);
+        }
+
+        .no-results p {
+            color: #6b7280;
+            font-size: 1.1rem;
         }
 
         @media (max-width: 768px) {
             .results-hero h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
 
             .results-table th,
@@ -242,6 +274,10 @@
 
             .highlight-value {
                 font-size: 2rem;
+            }
+
+            .highlights-grid {
+                padding: 1.5rem;
             }
         }
     </style>
@@ -266,7 +302,7 @@
                 <li><a href="results.html" class="active">Results</a></li>
                 <li><a href="admissions.html">Admissions</a></li>
                 <li><a href="stakeholders.html">Stakeholders</a></li>
-                <li><a href="athletics.html">Athletics</a></li>
+                <li><a href="uniform.html">Athletics</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
                 <li><a href="announcements.html">Admin</a></li>
@@ -276,8 +312,10 @@
 
     <main>
         <section class="results-hero">
-            <h1><i class="fas fa-chart-line"></i> Academic Results</h1>
-            <p>Track our school's academic excellence and growth through the years</p>
+            <div class="results-hero-content">
+                <h1><i class="fas fa-chart-line"></i> Academic Results</h1>
+                <p>Track our school's academic excellence and growth through the years</p>
+            </div>
         </section>
 
         <section class="results-container">
@@ -287,14 +325,14 @@
                     <h2>Grade 12 Matric Results Analysis</h2>
                 </div>
 
-                <div id="resultsTableContainer">
+                <div class="results-table-wrapper" id="resultsTableContainer">
                     <div class="no-results">
                         <i class="fas fa-spinner fa-spin"></i>
                         <h3>Loading Results...</h3>
                     </div>
                 </div>
 
-                <div class="highlights-section" id="highlightsSection" style="display: none;">
+                <div class="highlights-grid" id="highlightsSection" style="display: none;">
                 </div>
 
                 <div class="journey-message" id="journeyMessage" style="display: none;">
@@ -385,13 +423,13 @@
 
                 overallResults.forEach(result => {
                     const passClass = result.passRate >= 80 ? 'pass-excellent' : 
-                                     result.passRate >= 60 ? 'pass-good' : 'pass-needs-improvement';
+                                     result.passRate >= 60 ? 'pass-good' : 'pass-needs-work';
                     tableHtml += `
                         <tr>
                             <td>${result.year}</td>
                             <td>${result.enrolled || '-'}</td>
                             <td>${result.passed || '-'}</td>
-                            <td><span class="pass-rate ${passClass}">${result.passRate}%</span></td>
+                            <td><span class="pass-rate-badge ${passClass}">${result.passRate}%</span></td>
                         </tr>
                     `;
                 });
