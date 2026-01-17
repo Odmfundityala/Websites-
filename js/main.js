@@ -104,11 +104,10 @@ async function loadHomepageAnnouncements() {
         const announcementGrid = document.querySelector('.announcement-grid');
         if (announcementGrid) {
             if (announcements.length > 0) {
-                // Sort announcements by date (newest first) and display latest 2
+                // Sort announcements by date (newest first) and display ALL
                 const sortedAnnouncements = announcements.sort((a, b) => new Date(b.date) - new Date(a.date));
-                const latestAnnouncements = sortedAnnouncements.slice(0, 2);
 
-            announcementGrid.innerHTML = latestAnnouncements.map(ann => {
+            announcementGrid.innerHTML = sortedAnnouncements.map(ann => {
                 const cleanContent = formatContentForDisplay(ann.content);
                 const textContent = getPlainTextContent(ann.content);
 
