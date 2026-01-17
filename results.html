@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         .results-hero {
-            background: linear-gradient(135deg, rgba(26, 54, 93, 0.9), rgba(44, 82, 130, 0.9)), url('images/school-bg.jpg') center/cover;
+            background: linear-gradient(135deg, rgba(26, 54, 93, 0.95), rgba(44, 82, 130, 0.9));
             padding: 8rem 2rem 4rem;
             text-align: center;
             color: white;
@@ -16,132 +16,250 @@
         }
 
         .results-hero h1 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .results-hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         .results-container {
-            max-width: 1200px;
-            margin: 3rem auto;
+            max-width: 1100px;
+            margin: -2rem auto 4rem;
             padding: 0 2rem;
+            position: relative;
+            z-index: 10;
         }
 
-        .year-selector {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
+        .results-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
             margin-bottom: 2rem;
         }
 
-        .year-btn {
-            padding: 0.75rem 1.5rem;
-            border: 2px solid #1a365d;
-            background: white;
-            color: #1a365d;
-            border-radius: 30px;
-            cursor: pointer;
+        .card-header {
+            background: linear-gradient(135deg, #1a365d, #2c5282);
+            color: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .card-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
             font-weight: 600;
+        }
+
+        .card-header i {
+            font-size: 1.8rem;
+            color: #fbbf24;
+        }
+
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .results-table thead {
+            background: linear-gradient(135deg, #2c5282, #3182ce);
+        }
+
+        .results-table th {
+            padding: 1.2rem 1.5rem;
+            text-align: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .results-table th:first-child {
+            text-align: left;
+        }
+
+        .results-table tbody tr {
             transition: all 0.3s ease;
         }
 
-        .year-btn:hover, .year-btn.active {
-            background: #1a365d;
-            color: white;
+        .results-table tbody tr:nth-child(odd) {
+            background: #fffbeb;
         }
 
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
+        .results-table tbody tr:nth-child(even) {
+            background: #f0fdf4;
         }
 
-        .grade-card {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+        .results-table tbody tr:hover {
+            transform: scale(1.01);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .grade-header {
-            background: linear-gradient(135deg, #1a365d, #2c5282);
-            color: white;
-            padding: 1.5rem;
+        .results-table td {
+            padding: 1.2rem 1.5rem;
             text-align: center;
-        }
-
-        .grade-header h3 {
-            margin: 0;
-            font-size: 1.3rem;
-        }
-
-        .grade-content {
-            padding: 1.5rem;
-        }
-
-        .subject-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid #f1f5f9;
-        }
-
-        .subject-row:last-child {
-            border-bottom: none;
-        }
-
-        .subject-name {
-            font-weight: 500;
+            font-size: 1.1rem;
             color: #374151;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .results-table td:first-child {
+            text-align: left;
+            font-weight: 600;
+            color: #1a365d;
         }
 
         .pass-rate {
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            border-radius: 8px;
             font-weight: 700;
-            font-size: 0.9rem;
+            min-width: 80px;
         }
 
-        .pass-high { background: #d1fae5; color: #047857; }
-        .pass-medium { background: #fef3c7; color: #b45309; }
-        .pass-low { background: #fee2e2; color: #dc2626; }
+        .pass-excellent {
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            color: #047857;
+        }
 
-        .comparison-section {
-            margin-top: 3rem;
+        .pass-good {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            color: #b45309;
+        }
+
+        .pass-needs-improvement {
+            background: linear-gradient(135deg, #fee2e2, #fecaca);
+            color: #dc2626;
+        }
+
+        .highlights-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem;
+            background: #f8fafc;
+        }
+
+        .highlight-card {
             background: white;
             border-radius: 16px;
             padding: 2rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
         }
 
-        .comparison-section h2 {
+        .highlight-card:hover {
+            transform: translateY(-5px);
+            border-color: #1a365d;
+            box-shadow: 0 8px 25px rgba(26, 54, 93, 0.15);
+        }
+
+        .highlight-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #1a365d, #2c5282);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+
+        .highlight-icon i {
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .highlight-value {
+            font-size: 2.5rem;
+            font-weight: 700;
             color: #1a365d;
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight-label {
+            color: #6b7280;
+            font-size: 1rem;
+        }
+
+        .journey-message {
             text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            border-top: 4px solid #1a365d;
+        }
+
+        .journey-message p {
+            font-size: 1.2rem;
+            color: #1a365d;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .journey-message strong {
+            color: #b45309;
         }
 
         .no-results {
             text-align: center;
-            padding: 3rem;
+            padding: 4rem 2rem;
             color: #6b7280;
         }
 
         .no-results i {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
             color: #d1d5db;
+        }
+
+        .no-results h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #374151;
+        }
+
+        @media (max-width: 768px) {
+            .results-hero h1 {
+                font-size: 2rem;
+            }
+
+            .results-table th,
+            .results-table td {
+                padding: 1rem 0.75rem;
+                font-size: 0.95rem;
+            }
+
+            .highlight-value {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
     <header class="header">
         <nav class="navbar">
-            <a href="index.html" class="logo">
-                <img src="images/logo.png" alt="School Logo" class="logo-img">
-                <span class="logo-text"><span style="color:#fff;">Siyabulela</span><span style="color:#fbbf24;"> S.S.S.</span></span>
-            </a>
-            <ul class="nav-links">
+            <div class="logo">
+                <img src="images/Logo.jpg" alt="Siyabulela SSS Logo" class="logo-image">
+                <div class="logo-text">
+                    <h1>Siyabulela</h1>
+                    <span>S.S.S.</span>
+                </div>
+            </div>
+            <div class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links" id="navLinks">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="gallery.html">Gallery</a></li>
                 <li><a href="academics.html">Academics</a></li>
@@ -159,39 +277,70 @@
     <main>
         <section class="results-hero">
             <h1><i class="fas fa-chart-line"></i> Academic Results</h1>
-            <p>Track our school's academic performance and growth over the years</p>
+            <p>Track our school's academic excellence and growth through the years</p>
         </section>
 
         <section class="results-container">
-            <div class="year-selector" id="yearSelector">
-                <button class="year-btn active" data-year="all">All Years</button>
-            </div>
-
-            <div class="results-grid" id="resultsGrid">
-                <div class="no-results">
-                    <i class="fas fa-chart-bar"></i>
-                    <h3>Loading Results...</h3>
+            <div class="results-card">
+                <div class="card-header">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h2>Grade 12 Matric Results Analysis</h2>
                 </div>
-            </div>
 
-            <div class="comparison-section" id="comparisonSection" style="display: none;">
-                <h2><i class="fas fa-balance-scale"></i> Year-over-Year Comparison</h2>
-                <div id="comparisonContent"></div>
+                <div id="resultsTableContainer">
+                    <div class="no-results">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <h3>Loading Results...</h3>
+                    </div>
+                </div>
+
+                <div class="highlights-section" id="highlightsSection" style="display: none;">
+                </div>
+
+                <div class="journey-message" id="journeyMessage" style="display: none;">
+                </div>
             </div>
         </section>
     </main>
 
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="admissions.html">Admissions</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <p>Administrator: Ms. Sthabile Sobekwa</p>
+                <p><i class="fas fa-phone"></i> 074 948 6003</p>
+                <p><i class="fas fa-envelope"></i> siyabulelasss@gmail.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Location</h3>
+                <p>Ngcisininde A/A Ndiki Location</p>
+                <p>Nqamakwe, 4990</p>
+                <p>Eastern Cape Province, South Africa</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Siyabulela Senior Secondary School. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
     <script>
-        class PublicResultsViewer {
+        class ResultsDisplay {
             constructor() {
                 this.results = [];
-                this.selectedYear = 'all';
                 this.init();
             }
 
             async init() {
                 await this.loadResults();
-                this.setupYearSelector();
             }
 
             async loadResults() {
@@ -200,8 +349,6 @@
                     if (response.ok) {
                         this.results = await response.json();
                         this.displayResults();
-                        this.updateYearButtons();
-                        this.showComparison();
                     }
                 } catch (error) {
                     console.error('Error loading results:', error);
@@ -209,134 +356,89 @@
                 }
             }
 
-            updateYearButtons() {
-                const container = document.getElementById('yearSelector');
-                const years = [...new Set(this.results.map(r => r.year))].sort((a, b) => b - a);
-                
-                container.innerHTML = '<button class="year-btn active" data-year="all">All Years</button>';
-                years.forEach(year => {
-                    container.innerHTML += `<button class="year-btn" data-year="${year}">${year}</button>`;
-                });
-
-                this.setupYearSelector();
-            }
-
-            setupYearSelector() {
-                document.querySelectorAll('.year-btn').forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        document.querySelectorAll('.year-btn').forEach(b => b.classList.remove('active'));
-                        btn.classList.add('active');
-                        this.selectedYear = btn.dataset.year;
-                        this.displayResults();
-                    });
-                });
-            }
-
             displayResults() {
-                const container = document.getElementById('resultsGrid');
-                
-                let filtered = this.results;
-                if (this.selectedYear !== 'all') {
-                    filtered = filtered.filter(r => r.year == this.selectedYear);
-                }
+                const container = document.getElementById('resultsTableContainer');
+                const highlights = document.getElementById('highlightsSection');
+                const journey = document.getElementById('journeyMessage');
 
-                if (filtered.length === 0) {
+                const overallResults = this.results.filter(r => 
+                    r.subject === 'Overall' || r.subject === 'Overall Pass Rate' || r.subject === 'Matric'
+                ).sort((a, b) => b.year - a.year);
+
+                if (overallResults.length === 0) {
                     this.showNoResults();
                     return;
                 }
 
-                const grouped = {};
-                filtered.forEach(r => {
-                    const key = `${r.year}|${r.grade}`;
-                    if (!grouped[key]) {
-                        grouped[key] = { year: r.year, grade: r.grade, subjects: [] };
-                    }
-                    grouped[key].subjects.push(r);
-                });
+                let tableHtml = `
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>Year</th>
+                                <th>Students Wrote</th>
+                                <th>Students Passed</th>
+                                <th>Pass Rate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
 
-                let html = '';
-                Object.values(grouped).sort((a, b) => b.year - a.year || a.grade.localeCompare(b.grade)).forEach(group => {
-                    html += `
-                        <div class="grade-card">
-                            <div class="grade-header">
-                                <h3><i class="fas fa-graduation-cap"></i> ${group.grade} - ${group.year}</h3>
-                            </div>
-                            <div class="grade-content">
+                overallResults.forEach(result => {
+                    const passClass = result.passRate >= 80 ? 'pass-excellent' : 
+                                     result.passRate >= 60 ? 'pass-good' : 'pass-needs-improvement';
+                    tableHtml += `
+                        <tr>
+                            <td>${result.year}</td>
+                            <td>${result.enrolled || '-'}</td>
+                            <td>${result.passed || '-'}</td>
+                            <td><span class="pass-rate ${passClass}">${result.passRate}%</span></td>
+                        </tr>
                     `;
-                    
-                    group.subjects.sort((a, b) => a.subject.localeCompare(b.subject)).forEach(result => {
-                        const passClass = result.passRate >= 80 ? 'pass-high' : result.passRate >= 60 ? 'pass-medium' : 'pass-low';
-                        html += `
-                            <div class="subject-row">
-                                <span class="subject-name">${result.subject}</span>
-                                <span class="pass-rate ${passClass}">${result.passRate}%</span>
+                });
+
+                tableHtml += '</tbody></table>';
+                container.innerHTML = tableHtml;
+
+                if (overallResults.length >= 2) {
+                    const latest = overallResults[0];
+                    const oldest = overallResults[overallResults.length - 1];
+                    const peak = overallResults.reduce((max, r) => r.passRate > max.passRate ? r : max, overallResults[0]);
+
+                    highlights.innerHTML = `
+                        <div class="highlight-card">
+                            <div class="highlight-icon">
+                                <i class="fas fa-play"></i>
                             </div>
-                        `;
-                    });
-                    
-                    html += '</div></div>';
-                });
-
-                container.innerHTML = html;
-            }
-
-            showComparison() {
-                const section = document.getElementById('comparisonSection');
-                const content = document.getElementById('comparisonContent');
-                
-                const years = [...new Set(this.results.map(r => r.year))].sort((a, b) => b - a);
-                
-                if (years.length < 2) {
-                    section.style.display = 'none';
-                    return;
-                }
-
-                section.style.display = 'block';
-                
-                const overallByYear = {};
-                this.results.filter(r => r.subject === 'Overall Pass Rate').forEach(r => {
-                    if (!overallByYear[r.year]) overallByYear[r.year] = [];
-                    overallByYear[r.year].push(r);
-                });
-
-                if (Object.keys(overallByYear).length === 0) {
-                    content.innerHTML = '<p style="text-align: center; color: #6b7280;">Add "Overall Pass Rate" entries to see year comparison.</p>';
-                    return;
-                }
-
-                let html = '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">';
-                
-                years.forEach(year => {
-                    const yearResults = overallByYear[year] || [];
-                    html += `
-                        <div style="background: #f8fafc; padding: 1.5rem; border-radius: 12px; text-align: center;">
-                            <h4 style="color: #1a365d; margin-bottom: 1rem;">${year}</h4>
+                            <div class="highlight-value">${oldest.passRate}%</div>
+                            <div class="highlight-label">Starting Point (${oldest.year})</div>
+                        </div>
+                        <div class="highlight-card">
+                            <div class="highlight-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="highlight-value">${peak.passRate}%</div>
+                            <div class="highlight-label">Peak Achievement (${peak.year})</div>
+                        </div>
+                        <div class="highlight-card">
+                            <div class="highlight-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="highlight-value">${latest.passRate}%</div>
+                            <div class="highlight-label">Current Achievement (${latest.year})</div>
+                        </div>
                     `;
-                    
-                    if (yearResults.length > 0) {
-                        yearResults.forEach(r => {
-                            const color = r.passRate >= 80 ? '#10b981' : r.passRate >= 60 ? '#f59e0b' : '#ef4444';
-                            html += `
-                                <div style="margin-bottom: 0.5rem;">
-                                    <span style="font-size: 0.9rem; color: #6b7280;">${r.grade}</span>
-                                    <div style="font-size: 2rem; font-weight: 700; color: ${color};">${r.passRate}%</div>
-                                </div>
-                            `;
-                        });
-                    } else {
-                        html += '<p style="color: #9ca3af;">No data</p>';
-                    }
-                    
-                    html += '</div>';
-                });
-                
-                html += '</div>';
-                content.innerHTML = html;
+                    highlights.style.display = 'grid';
+
+                    journey.innerHTML = `
+                        <p><strong>From ${oldest.passRate}% to ${latest.passRate}%</strong> - Our journey proves that with determination, quality education, and unwavering support, every dream is achievable!</p>
+                    `;
+                    journey.style.display = 'block';
+                }
             }
 
             showNoResults() {
-                document.getElementById('resultsGrid').innerHTML = `
-                    <div class="no-results" style="grid-column: 1/-1;">
+                document.getElementById('resultsTableContainer').innerHTML = `
+                    <div class="no-results">
                         <i class="fas fa-chart-bar"></i>
                         <h3>No Results Yet</h3>
                         <p>Academic results will be posted here by the school administration.</p>
@@ -345,7 +447,9 @@
             }
         }
 
-        new PublicResultsViewer();
+        document.addEventListener('DOMContentLoaded', () => {
+            new ResultsDisplay();
+        });
     </script>
 </body>
 </html>

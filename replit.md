@@ -6,6 +6,14 @@ This is a static website for Siyabulela Senior Secondary School (S.S.S.), a high
 
 ## Recent Changes
 
+**January 17, 2026**: Added dynamic School Results Management system
+- Created elegant public Results page with table display matching school design (color-coded pass rates)
+- Removed hardcoded performance data from index.html - all results now admin-managed
+- Added Results API endpoints (GET, POST, DELETE) in server.js
+- Admin panel can add/delete results with year, grade, subject, pass rate, enrolled, passed fields
+- Public results page dynamically shows: table with year-over-year data, highlight cards (starting point, peak, current), inspirational journey message
+- Results data stored in results.json file
+
 **October 21, 2025**: Implemented event categorization system and modern UI controls for gallery
 - Added customizable event/category field - admins can type their own category names or select from suggestions (Graduation Ceremonies, Sports Events, Academic Activities, Cultural Events, School Assemblies, Field Trips, Community Service, Other Events)
 - Photos now organized by event categories in both public gallery and admin panel
@@ -56,8 +64,8 @@ The site includes interactive features through vanilla JavaScript:
 A Node.js HTTP server handles static file serving and API endpoints:
 
 - **Static File Server**: Serves HTML, CSS, JavaScript, and image assets
-- **API Endpoints**: RESTful endpoints for announcements and gallery management
-- **Data Storage**: JSON file-based storage for announcements and gallery photos
+- **API Endpoints**: RESTful endpoints for announcements, gallery, and results management
+- **Data Storage**: JSON file-based storage for announcements, gallery photos, and academic results
 - **MIME Type Handling**: Proper content-type headers for different file extensions
 - **Error Handling**: 404 and 500 error responses
 - **Port Configuration**: Configurable port with environment variable support

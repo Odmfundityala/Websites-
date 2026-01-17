@@ -1,1 +1,13 @@
-[]
+[
+  {
+    "year": 2018,
+    "grade": "Grade 12",
+    "subject": "English",
+    "passRate": 54,
+    "enrolled": 140,
+    "passed": 100,
+    "notes": "",
+    "id": 1768649603374,
+    "dateCreated": "2026-01-17T11:33:23.374Z"
+  }
+]
