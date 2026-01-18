@@ -7,158 +7,122 @@
         <link rel="stylesheet" href="styles/main.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
         <style>
-            .streams-container {
+            .academics-container {
                 max-width: 1200px;
                 margin: 0 auto;
                 padding: 3rem 1.5rem;
             }
 
-            .streams-intro {
+            .academics-intro {
                 text-align: center;
                 margin-bottom: 3rem;
             }
 
-            .streams-intro h2 {
+            .academics-intro h2 {
                 font-family: var(--font-primary);
                 font-size: 2rem;
                 color: var(--navy-primary);
                 margin-bottom: 1rem;
             }
 
-            .streams-intro p {
+            .academics-intro p {
                 font-size: 1.1rem;
                 color: #4b5563;
-                max-width: 700px;
+                max-width: 800px;
                 margin: 0 auto;
                 line-height: 1.7;
             }
 
-            .streams-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-                gap: 2rem;
+            .grade-section {
                 margin-bottom: 3rem;
             }
 
+            .grade-title {
+                font-family: var(--font-primary);
+                font-size: 1.5rem;
+                color: var(--navy-primary);
+                margin-bottom: 1.5rem;
+                padding-bottom: 0.75rem;
+                border-bottom: 3px solid var(--gold-accent);
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+            }
+
+            .grade-title i {
+                color: var(--gold-accent);
+            }
+
+            .streams-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+                gap: 1.5rem;
+            }
+
             .stream-card {
-                background: #ffffff;
-                border-radius: 16px;
+                background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+                border-radius: 20px;
+                box-shadow: 0 12px 40px rgba(26, 54, 93, 0.12);
+                border: 1px solid rgba(26, 54, 93, 0.08);
                 overflow: hidden;
-                box-shadow: 0 4px 20px rgba(26, 54, 93, 0.08);
-                border: 1px solid #e2e8f0;
                 transition: all 0.3s ease;
             }
 
             .stream-card:hover {
                 transform: translateY(-4px);
-                box-shadow: 0 8px 30px rgba(26, 54, 93, 0.12);
+                box-shadow: 0 16px 50px rgba(26, 54, 93, 0.16);
             }
 
             .stream-header {
                 background: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-secondary) 100%);
                 color: white;
-                padding: 1.5rem;
-                text-align: center;
+                padding: 1.25rem 1.5rem;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+            }
+
+            .stream-header i {
+                font-size: 1.3rem;
+                color: var(--gold-accent);
             }
 
             .stream-header h3 {
                 font-family: var(--font-primary);
-                font-size: 1.4rem;
+                font-size: 1.2rem;
                 font-weight: 700;
-                margin-bottom: 0.5rem;
-            }
-
-            .stream-header .grades-badge {
-                display: inline-block;
-                background: rgba(255, 255, 255, 0.2);
-                padding: 0.3rem 1rem;
-                border-radius: 20px;
-                font-size: 0.85rem;
-                font-weight: 500;
+                margin: 0;
             }
 
             .stream-body {
                 padding: 1.5rem;
             }
 
-            .stream-description {
-                color: #4b5563;
-                font-size: 0.95rem;
-                line-height: 1.6;
-                margin-bottom: 1.5rem;
-                padding-bottom: 1rem;
-                border-bottom: 1px solid #e5e7eb;
+            .subjects-list {
+                list-style: none;
+                padding: 0;
+                margin: 0;
             }
 
-            .subjects-section h4 {
-                font-family: var(--font-primary);
-                font-size: 0.9rem;
-                color: var(--navy-primary);
-                margin-bottom: 1rem;
-                text-transform: uppercase;
-                letter-spacing: 0.5px;
-            }
-
-            .subjects-grid {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 0.6rem;
-            }
-
-            .subject-item {
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-                font-size: 0.9rem;
-                color: #374151;
-                padding: 0.4rem 0;
-            }
-
-            .subject-item i {
-                color: var(--gold-accent);
-                font-size: 0.85rem;
-                width: 20px;
-            }
-
-            .core-subjects {
-                background: #f8fafc;
-                border-radius: 12px;
-                padding: 1.5rem;
-                margin-top: 2rem;
-            }
-
-            .core-subjects h3 {
-                font-family: var(--font-primary);
-                color: var(--navy-primary);
-                font-size: 1.2rem;
-                margin-bottom: 1rem;
-                text-align: center;
-            }
-
-            .core-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 1rem;
-            }
-
-            .core-item {
+            .subjects-list li {
                 display: flex;
                 align-items: center;
                 gap: 0.75rem;
-                background: white;
-                padding: 1rem;
-                border-radius: 8px;
-                border: 1px solid #e5e7eb;
-            }
-
-            .core-item i {
-                color: var(--navy-primary);
-                font-size: 1.2rem;
-            }
-
-            .core-item span {
-                font-size: 0.95rem;
+                padding: 0.6rem 0;
+                border-bottom: 1px solid #f1f5f9;
                 color: #374151;
+                font-size: 0.95rem;
+            }
+
+            .subjects-list li:last-child {
+                border-bottom: none;
+            }
+
+            .subjects-list li i {
+                color: var(--gold-accent);
+                font-size: 0.9rem;
+                width: 20px;
+                text-align: center;
             }
 
             @media (max-width: 768px) {
@@ -166,8 +130,8 @@
                     grid-template-columns: 1fr;
                 }
 
-                .subjects-grid {
-                    grid-template-columns: 1fr;
+                .grade-title {
+                    font-size: 1.3rem;
                 }
             }
         </style>
@@ -206,85 +170,114 @@
                 </div>
             </section>
 
-            <div class="streams-container">
-                <div class="streams-intro">
-                    <h2>Our Academic Streams</h2>
-                    <p>At Siya, we offer diverse learning pathways designed to match your strengths and aspirations. Choose the stream that ignites your passion and leads you to success.</p>
+            <div class="academics-container">
+                <div class="academics-intro">
+                    <h2>Subject Choices Per Grade</h2>
+                    <p>At Siya, we don't just teach subjects - we ignite passions, build character, and forge futures! Our diverse curriculum empowers learners to discover their strengths, pursue their dreams, and become the leaders our world needs.</p>
                 </div>
 
-                <div class="streams-grid">
-                    <div class="stream-card">
-                        <div class="stream-header">
-                            <h3><i class="fas fa-atom"></i> Science Stream</h3>
-                            <span class="grades-badge">Grade 8 - 12</span>
-                        </div>
-                        <div class="stream-body">
-                            <p class="stream-description">For future scientists, engineers, and healthcare professionals. This stream builds strong foundations in mathematics and sciences.</p>
-                            <div class="subjects-section">
-                                <h4>Stream Subjects</h4>
-                                <div class="subjects-grid">
-                                    <div class="subject-item"><i class="fas fa-atom"></i> Physical Science</div>
-                                    <div class="subject-item"><i class="fas fa-microscope"></i> Life Sciences</div>
-                                    <div class="subject-item"><i class="fas fa-calculator"></i> Mathematics</div>
-                                    <div class="subject-item"><i class="fas fa-seedling"></i> Agricultural Science</div>
-                                </div>
+                <div class="grade-section">
+                    <h2 class="grade-title">
+                        <i class="fas fa-graduation-cap"></i>
+                        Grade 12 - Matric Year
+                    </h2>
+                    <div class="streams-grid">
+                        <div class="stream-card">
+                            <div class="stream-header">
+                                <i class="fas fa-atom"></i>
+                                <h3>Science Stream</h3>
+                            </div>
+                            <div class="stream-body">
+                                <ul class="subjects-list">
+                                    <li><i class="fas fa-book"></i> IsiXhosa</li>
+                                    <li><i class="fas fa-book"></i> English</li>
+                                    <li><i class="fas fa-atom"></i> Physical Science</li>
+                                    <li><i class="fas fa-microscope"></i> Life Science</li>
+                                    <li><i class="fas fa-seedling"></i> Agricultural Science</li>
+                                    <li><i class="fas fa-calculator"></i> Mathematics</li>
+                                    <li><i class="fas fa-heart"></i> Life Orientation</li>
+                                </ul>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="stream-card">
-                        <div class="stream-header">
-                            <h3><i class="fas fa-briefcase"></i> Commerce Stream</h3>
-                            <span class="grades-badge">Grade 8 - 12</span>
-                        </div>
-                        <div class="stream-body">
-                            <p class="stream-description">For future business leaders and entrepreneurs. This stream develops financial literacy and business acumen.</p>
-                            <div class="subjects-section">
-                                <h4>Stream Subjects</h4>
-                                <div class="subjects-grid">
-                                    <div class="subject-item"><i class="fas fa-briefcase"></i> Business Studies</div>
-                                    <div class="subject-item"><i class="fas fa-chart-line"></i> Economics</div>
-                                    <div class="subject-item"><i class="fas fa-calculator"></i> Maths Literacy</div>
-                                    <div class="subject-item"><i class="fas fa-book-open"></i> Accounting</div>
-                                </div>
+                        <div class="stream-card">
+                            <div class="stream-header">
+                                <i class="fas fa-concierge-bell"></i>
+                                <h3>Services Stream</h3>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="stream-card">
-                        <div class="stream-header">
-                            <h3><i class="fas fa-concierge-bell"></i> Services Stream</h3>
-                            <span class="grades-badge">Grade 8 - 12</span>
-                        </div>
-                        <div class="stream-body">
-                            <p class="stream-description">For future hospitality and service industry professionals. This stream focuses on practical skills and customer service excellence.</p>
-                            <div class="subjects-section">
-                                <h4>Stream Subjects</h4>
-                                <div class="subjects-grid">
-                                    <div class="subject-item"><i class="fas fa-map-marked-alt"></i> Tourism</div>
-                                    <div class="subject-item"><i class="fas fa-shopping-cart"></i> Consumer Studies</div>
-                                    <div class="subject-item"><i class="fas fa-calculator"></i> Maths Literacy</div>
-                                    <div class="subject-item"><i class="fas fa-briefcase"></i> Business Studies</div>
-                                </div>
+                            <div class="stream-body">
+                                <ul class="subjects-list">
+                                    <li><i class="fas fa-book"></i> IsiXhosa</li>
+                                    <li><i class="fas fa-book"></i> English</li>
+                                    <li><i class="fas fa-briefcase"></i> Business Studies</li>
+                                    <li><i class="fas fa-map-marked-alt"></i> Tourism</li>
+                                    <li><i class="fas fa-shopping-cart"></i> Consumer Studies</li>
+                                    <li><i class="fas fa-calculator"></i> Maths Literacy</li>
+                                    <li><i class="fas fa-heart"></i> Life Orientation</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="core-subjects">
-                    <h3><i class="fas fa-star"></i> Core Subjects (All Students)</h3>
-                    <div class="core-grid">
-                        <div class="core-item">
-                            <i class="fas fa-book"></i>
-                            <span>English (Home/FAL)</span>
+                <div class="grade-section">
+                    <h2 class="grade-title">
+                        <i class="fas fa-user-graduate"></i>
+                        Grade 10 - 11
+                    </h2>
+                    <div class="streams-grid">
+                        <div class="stream-card">
+                            <div class="stream-header">
+                                <i class="fas fa-atom"></i>
+                                <h3>Science Stream</h3>
+                            </div>
+                            <div class="stream-body">
+                                <ul class="subjects-list">
+                                    <li><i class="fas fa-atom"></i> Physical Sciences</li>
+                                    <li><i class="fas fa-microscope"></i> Life Sciences</li>
+                                    <li><i class="fas fa-calculator"></i> Mathematics</li>
+                                    <li><i class="fas fa-book"></i> English</li>
+                                    <li><i class="fas fa-book"></i> IsiXhosa</li>
+                                    <li><i class="fas fa-heart"></i> Life Orientation</li>
+                                    <li><i class="fas fa-seedling"></i> Agricultural Sciences</li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="core-item">
-                            <i class="fas fa-book"></i>
-                            <span>IsiXhosa (Home/FAL)</span>
+
+                        <div class="stream-card">
+                            <div class="stream-header">
+                                <i class="fas fa-balance-scale"></i>
+                                <h3>Mixed Stream</h3>
+                            </div>
+                            <div class="stream-body">
+                                <ul class="subjects-list">
+                                    <li><i class="fas fa-chart-line"></i> Economics</li>
+                                    <li><i class="fas fa-seedling"></i> Agricultural Science</li>
+                                    <li><i class="fas fa-calculator"></i> Maths Literacy</li>
+                                    <li><i class="fas fa-microscope"></i> Life Science</li>
+                                    <li><i class="fas fa-book"></i> IsiXhosa</li>
+                                    <li><i class="fas fa-book"></i> English</li>
+                                    <li><i class="fas fa-heart"></i> Life Orientation</li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="core-item">
-                            <i class="fas fa-heart"></i>
-                            <span>Life Orientation</span>
+
+                        <div class="stream-card">
+                            <div class="stream-header">
+                                <i class="fas fa-concierge-bell"></i>
+                                <h3>Services Stream</h3>
+                            </div>
+                            <div class="stream-body">
+                                <ul class="subjects-list">
+                                    <li><i class="fas fa-calculator"></i> Maths Literacy</li>
+                                    <li><i class="fas fa-briefcase"></i> Business Studies</li>
+                                    <li><i class="fas fa-shopping-cart"></i> Consumer Studies</li>
+                                    <li><i class="fas fa-map-marked-alt"></i> Tourism</li>
+                                    <li><i class="fas fa-book"></i> English First Additional Language</li>
+                                    <li><i class="fas fa-book"></i> IsiXhosa Home Language</li>
+                                    <li><i class="fas fa-heart"></i> Life Orientation</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
