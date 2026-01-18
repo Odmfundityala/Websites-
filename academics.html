@@ -1,317 +1,273 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Study with us - Siyabulela Senior Secondary School</title>
-        <link rel="stylesheet" href="styles/main.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-        <style>
-            .academics-container {
-                max-width: 1200px;
-                margin: 0 auto;
-                padding: 3rem 1.5rem;
-            }
-
-            .academics-intro {
-                text-align: center;
-                margin-bottom: 3rem;
-            }
-
-            .academics-intro h2 {
-                font-family: var(--font-primary);
-                font-size: 2rem;
-                color: var(--navy-primary);
-                margin-bottom: 1rem;
-            }
-
-            .academics-intro p {
-                font-size: 1.1rem;
-                color: #4b5563;
-                max-width: 800px;
-                margin: 0 auto;
-                line-height: 1.7;
-            }
-
-            .grade-section {
-                margin-bottom: 3rem;
-            }
-
-            .grade-title {
-                font-family: var(--font-primary);
-                font-size: 1.5rem;
-                color: var(--navy-primary);
-                margin-bottom: 1.5rem;
-                padding-bottom: 0.75rem;
-                border-bottom: 3px solid var(--gold-accent);
-                display: flex;
-                align-items: center;
-                gap: 0.75rem;
-            }
-
-            .grade-title i {
-                color: var(--gold-accent);
-            }
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study with us - Siyabulela Senior Secondary School</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .academics-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+        .grade-section {
+            margin-bottom: 3rem;
+        }
+        .grade-title {
+            font-family: var(--font-primary);
+            font-size: 1.5rem;
+            color: var(--navy-primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 3px solid var(--gold-accent);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .grade-title i {
+            color: var(--gold-accent);
+        }
+        .streams-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+        .stream-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 20px;
+            box-shadow: 0 12px 40px rgba(26, 54, 93, 0.12);
+            border: 1px solid rgba(26, 54, 93, 0.08);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .stream-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 50px rgba(26, 54, 93, 0.16);
+        }
+        .stream-header {
+            background: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-secondary) 100%);
+            color: white;
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .stream-header i {
+            font-size: 1.3rem;
+            color: var(--gold-accent);
+        }
+        .stream-header h3 {
+            font-family: var(--font-primary);
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 0;
+        }
+        .stream-body {
+            padding: 1.5rem;
+        }
+        .subjects-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .subjects-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid #f1f5f9;
+            color: #374151;
+            font-size: 0.95rem;
+        }
+        .subjects-list li:last-child {
+            border-bottom: none;
+        }
+        .subjects-list li i {
+            color: var(--gold-accent);
+            font-size: 0.9rem;
+            width: 20px;
+            text-align: center;
+        }
+        @media (max-width: 768px) {
             .streams-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-                gap: 1.5rem;
+                grid-template-columns: 1fr;
             }
-
-            .stream-card {
-                background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-                border-radius: 20px;
-                box-shadow: 0 12px 40px rgba(26, 54, 93, 0.12);
-                border: 1px solid rgba(26, 54, 93, 0.08);
-                overflow: hidden;
-                transition: all 0.3s ease;
-            }
-
-            .stream-card:hover {
-                transform: translateY(-4px);
-                box-shadow: 0 16px 50px rgba(26, 54, 93, 0.16);
-            }
-
-            .stream-header {
-                background: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-secondary) 100%);
-                color: white;
-                padding: 1.25rem 1.5rem;
-                display: flex;
-                align-items: center;
-                gap: 0.75rem;
-            }
-
-            .stream-header i {
+            .grade-title {
                 font-size: 1.3rem;
-                color: var(--gold-accent);
             }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <img src="images/Logo.jpg" alt="Siyabulela SSS Logo" class="logo-image">
+                <div class="logo-text">
+                    <h1>Siyabulela</h1>
+                    <span>S.S.S.</span>
+                </div>
+            </div>
+            <div class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="academics.html" class="active">Study with us</a></li>
+                <li><a href="results.html">Results</a></li>
+                <li><a href="admissions.html">Admissions</a></li>
+                <li><a href="stakeholders.html">Stakeholders</a></li>
+                <li><a href="uniform.html">Uniform & Sports</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-            .stream-header h3 {
-                font-family: var(--font-primary);
-                font-size: 1.2rem;
-                font-weight: 700;
-                margin: 0;
-            }
+    <main>
+        <section class="page-header">
+            <div class="page-header-content">
+                <h1>Study with us</h1>
+                <p>We don't just teach subjects - we ignite passions, build character, and forge futures! Our diverse curriculum empowers learners to discover their strengths, pursue their dreams, and become the leaders our world needs.</p>
+            </div>
+        </section>
 
-            .stream-body {
-                padding: 1.5rem;
-            }
-
-            .subjects-list {
-                list-style: none;
-                padding: 0;
-                margin: 0;
-            }
-
-            .subjects-list li {
-                display: flex;
-                align-items: center;
-                gap: 0.75rem;
-                padding: 0.6rem 0;
-                border-bottom: 1px solid #f1f5f9;
-                color: #374151;
-                font-size: 0.95rem;
-            }
-
-            .subjects-list li:last-child {
-                border-bottom: none;
-            }
-
-            .subjects-list li i {
-                color: var(--gold-accent);
-                font-size: 0.9rem;
-                width: 20px;
-                text-align: center;
-            }
-
-            @media (max-width: 768px) {
-                .streams-grid {
-                    grid-template-columns: 1fr;
-                }
-
-                .grade-title {
-                    font-size: 1.3rem;
-                }
-            }
-        </style>
-    </head>
-    <body>
-        <header class="header">
-            <nav class="navbar">
-                <div class="logo">
-                    <img src="images/Logo.jpg" alt="Siyabulela SSS Logo" class="logo-image" />
-                    <div class="logo-text">
-                        <h1>Siyabulela</h1>
-                        <span>S.S.S.</span>
+        <div class="academics-container">
+            <div class="grade-section">
+                <h2 class="grade-title">
+                    <i class="fas fa-graduation-cap"></i>
+                    Grade 12 - Matric Year
+                </h2>
+                <div class="streams-grid">
+                    <div class="stream-card">
+                        <div class="stream-header">
+                            <i class="fas fa-atom"></i>
+                            <h3>Science Stream</h3>
+                        </div>
+                        <div class="stream-body">
+                            <ul class="subjects-list">
+                                <li><i class="fas fa-book"></i> IsiXhosa</li>
+                                <li><i class="fas fa-book"></i> English</li>
+                                <li><i class="fas fa-atom"></i> Physical Science</li>
+                                <li><i class="fas fa-microscope"></i> Life Science</li>
+                                <li><i class="fas fa-seedling"></i> Agricultural Science</li>
+                                <li><i class="fas fa-calculator"></i> Mathematics</li>
+                                <li><i class="fas fa-heart"></i> Life Orientation</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="stream-card">
+                        <div class="stream-header">
+                            <i class="fas fa-concierge-bell"></i>
+                            <h3>Services Stream</h3>
+                        </div>
+                        <div class="stream-body">
+                            <ul class="subjects-list">
+                                <li><i class="fas fa-book"></i> IsiXhosa</li>
+                                <li><i class="fas fa-book"></i> English</li>
+                                <li><i class="fas fa-briefcase"></i> Business Studies</li>
+                                <li><i class="fas fa-map-marked-alt"></i> Tourism</li>
+                                <li><i class="fas fa-shopping-cart"></i> Consumer Studies</li>
+                                <li><i class="fas fa-calculator"></i> Maths Literacy</li>
+                                <li><i class="fas fa-heart"></i> Life Orientation</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-                <div class="nav-toggle" id="navToggle">
-                    <i class="fas fa-bars"></i>
+            </div>
+
+            <div class="grade-section">
+                <h2 class="grade-title">
+                    <i class="fas fa-user-graduate"></i>
+                    Grade 10 - 11
+                </h2>
+                <div class="streams-grid">
+                    <div class="stream-card">
+                        <div class="stream-header">
+                            <i class="fas fa-atom"></i>
+                            <h3>Science Stream</h3>
+                        </div>
+                        <div class="stream-body">
+                            <ul class="subjects-list">
+                                <li><i class="fas fa-atom"></i> Physical Sciences</li>
+                                <li><i class="fas fa-microscope"></i> Life Sciences</li>
+                                <li><i class="fas fa-calculator"></i> Mathematics</li>
+                                <li><i class="fas fa-book"></i> English</li>
+                                <li><i class="fas fa-book"></i> IsiXhosa</li>
+                                <li><i class="fas fa-heart"></i> Life Orientation</li>
+                                <li><i class="fas fa-seedling"></i> Agricultural Sciences</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="stream-card">
+                        <div class="stream-header">
+                            <i class="fas fa-balance-scale"></i>
+                            <h3>Mixed Stream</h3>
+                        </div>
+                        <div class="stream-body">
+                            <ul class="subjects-list">
+                                <li><i class="fas fa-chart-line"></i> Economics</li>
+                                <li><i class="fas fa-seedling"></i> Agricultural Science</li>
+                                <li><i class="fas fa-calculator"></i> Maths Literacy</li>
+                                <li><i class="fas fa-microscope"></i> Life Science</li>
+                                <li><i class="fas fa-book"></i> IsiXhosa</li>
+                                <li><i class="fas fa-book"></i> English</li>
+                                <li><i class="fas fa-heart"></i> Life Orientation</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="stream-card">
+                        <div class="stream-header">
+                            <i class="fas fa-concierge-bell"></i>
+                            <h3>Services Stream</h3>
+                        </div>
+                        <div class="stream-body">
+                            <ul class="subjects-list">
+                                <li><i class="fas fa-calculator"></i> Maths Literacy</li>
+                                <li><i class="fas fa-briefcase"></i> Business Studies</li>
+                                <li><i class="fas fa-shopping-cart"></i> Consumer Studies</li>
+                                <li><i class="fas fa-map-marked-alt"></i> Tourism</li>
+                                <li><i class="fas fa-book"></i> English First Additional Language</li>
+                                <li><i class="fas fa-book"></i> IsiXhosa Home Language</li>
+                                <li><i class="fas fa-heart"></i> Life Orientation</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <ul class="nav-links" id="navLinks">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="academics.html" class="active">Study with us</a></li>
-                    <li><a href="results.html">Results</a></li>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="academics.html">Study with us</a></li>
                     <li><a href="admissions.html">Admissions</a></li>
-                    <li><a href="stakeholders.html">Stakeholders</a></li>
-                    <li><a href="uniform.html">Uniform & Sports</a></li>
-                    <li><a href="gallery.html">Gallery</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
-            </nav>
-        </header>
-
-        <main>
-            <section class="page-header">
-                <div class="page-header-content">
-                    <h1>Study with us</h1>
-                    <p>Siya - Where minds flourish and dreams take flight! Igniting potential through transformative education from Grade 8 to Grade 12</p>
-                </div>
-            </section>
-
-            <div class="academics-container">
-                <div class="academics-intro">
-                    <h2>Subject Choices Per Grade</h2>
-                    <p>At Siya, we don't just teach subjects - we ignite passions, build character, and forge futures! Our diverse curriculum empowers learners to discover their strengths, pursue their dreams, and become the leaders our world needs.</p>
-                </div>
-
-                <div class="grade-section">
-                    <h2 class="grade-title">
-                        <i class="fas fa-graduation-cap"></i>
-                        Grade 12 - Matric Year
-                    </h2>
-                    <div class="streams-grid">
-                        <div class="stream-card">
-                            <div class="stream-header">
-                                <i class="fas fa-atom"></i>
-                                <h3>Science Stream</h3>
-                            </div>
-                            <div class="stream-body">
-                                <ul class="subjects-list">
-                                    <li><i class="fas fa-book"></i> IsiXhosa</li>
-                                    <li><i class="fas fa-book"></i> English</li>
-                                    <li><i class="fas fa-atom"></i> Physical Science</li>
-                                    <li><i class="fas fa-microscope"></i> Life Science</li>
-                                    <li><i class="fas fa-seedling"></i> Agricultural Science</li>
-                                    <li><i class="fas fa-calculator"></i> Mathematics</li>
-                                    <li><i class="fas fa-heart"></i> Life Orientation</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="stream-card">
-                            <div class="stream-header">
-                                <i class="fas fa-concierge-bell"></i>
-                                <h3>Services Stream</h3>
-                            </div>
-                            <div class="stream-body">
-                                <ul class="subjects-list">
-                                    <li><i class="fas fa-book"></i> IsiXhosa</li>
-                                    <li><i class="fas fa-book"></i> English</li>
-                                    <li><i class="fas fa-briefcase"></i> Business Studies</li>
-                                    <li><i class="fas fa-map-marked-alt"></i> Tourism</li>
-                                    <li><i class="fas fa-shopping-cart"></i> Consumer Studies</li>
-                                    <li><i class="fas fa-calculator"></i> Maths Literacy</li>
-                                    <li><i class="fas fa-heart"></i> Life Orientation</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="grade-section">
-                    <h2 class="grade-title">
-                        <i class="fas fa-user-graduate"></i>
-                        Grade 10 - 11
-                    </h2>
-                    <div class="streams-grid">
-                        <div class="stream-card">
-                            <div class="stream-header">
-                                <i class="fas fa-atom"></i>
-                                <h3>Science Stream</h3>
-                            </div>
-                            <div class="stream-body">
-                                <ul class="subjects-list">
-                                    <li><i class="fas fa-atom"></i> Physical Sciences</li>
-                                    <li><i class="fas fa-microscope"></i> Life Sciences</li>
-                                    <li><i class="fas fa-calculator"></i> Mathematics</li>
-                                    <li><i class="fas fa-book"></i> English</li>
-                                    <li><i class="fas fa-book"></i> IsiXhosa</li>
-                                    <li><i class="fas fa-heart"></i> Life Orientation</li>
-                                    <li><i class="fas fa-seedling"></i> Agricultural Sciences</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="stream-card">
-                            <div class="stream-header">
-                                <i class="fas fa-balance-scale"></i>
-                                <h3>Mixed Stream</h3>
-                            </div>
-                            <div class="stream-body">
-                                <ul class="subjects-list">
-                                    <li><i class="fas fa-chart-line"></i> Economics</li>
-                                    <li><i class="fas fa-seedling"></i> Agricultural Science</li>
-                                    <li><i class="fas fa-calculator"></i> Maths Literacy</li>
-                                    <li><i class="fas fa-microscope"></i> Life Science</li>
-                                    <li><i class="fas fa-book"></i> IsiXhosa</li>
-                                    <li><i class="fas fa-book"></i> English</li>
-                                    <li><i class="fas fa-heart"></i> Life Orientation</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="stream-card">
-                            <div class="stream-header">
-                                <i class="fas fa-concierge-bell"></i>
-                                <h3>Services Stream</h3>
-                            </div>
-                            <div class="stream-body">
-                                <ul class="subjects-list">
-                                    <li><i class="fas fa-calculator"></i> Maths Literacy</li>
-                                    <li><i class="fas fa-briefcase"></i> Business Studies</li>
-                                    <li><i class="fas fa-shopping-cart"></i> Consumer Studies</li>
-                                    <li><i class="fas fa-map-marked-alt"></i> Tourism</li>
-                                    <li><i class="fas fa-book"></i> English First Additional Language</li>
-                                    <li><i class="fas fa-book"></i> IsiXhosa Home Language</li>
-                                    <li><i class="fas fa-heart"></i> Life Orientation</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
-        </main>
-
-        <footer>
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="academics.html">Study with us</a></li>
-                        <li><a href="admissions.html">Admissions</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Contact Info</h3>
-                    <p>Administrator: Ms. Sthabile Sobekwa</p>
-                    <p><i class="fas fa-phone"></i> 074 948 6003</p>
-                    <p><i class="fas fa-envelope"></i> siyabulelasss@gmail.com</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Location</h3>
-                    <p>Ngcisininde A/A Ndiki Location</p>
-                    <p>Nqamakwe, 4990</p>
-                    <p>Eastern Cape Province, South Africa</p>
-                </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <p>Administrator: Ms. Sthabile Sobekwa</p>
+                <p><i class="fas fa-phone"></i> 074 948 6003</p>
+                <p><i class="fas fa-envelope"></i> siyabulelasss@gmail.com</p>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Siyabulela Senior Secondary School. All rights reserved.</p>
+            <div class="footer-section">
+                <h3>Location</h3>
+                <p>Ngcisininde A/A Ndiki Location</p>
+                <p>Nqamakwe, 4990</p>
+                <p>Eastern Cape Province, South Africa</p>
             </div>
-        </footer>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Siyabulela Senior Secondary School. All rights reserved.</p>
+        </div>
+    </footer>
 
-        <script src="js/main.js"></script>
-    </body>
+    <script src="js/main.js"></script>
+</body>
 </html>
