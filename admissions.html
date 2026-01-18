@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +6,243 @@
     <title>Admissions - Siyabulela Senior Secondary School</title>
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .admissions-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        .admissions-intro {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .admissions-intro h2 {
+            font-family: var(--font-primary);
+            font-size: 2rem;
+            color: var(--navy-primary);
+            margin-bottom: 1rem;
+        }
+
+        .admissions-intro p {
+            font-size: 1.1rem;
+            color: #4b5563;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-secondary) 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .highlight-box h3 {
+            font-family: var(--font-primary);
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .highlight-box p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .highlight-box .grades-badge {
+            display: inline-block;
+            background: var(--gold-accent);
+            color: var(--navy-primary);
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+        }
+
+        .requirements-card {
+            background: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(26, 54, 93, 0.08);
+            border: 1px solid #e2e8f0;
+            margin-bottom: 2rem;
+        }
+
+        .requirements-header {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .requirements-header h3 {
+            font-family: var(--font-primary);
+            font-size: 1.3rem;
+            color: var(--navy-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .requirements-header h3 i {
+            color: var(--gold-accent);
+        }
+
+        .requirements-body {
+            padding: 1.5rem;
+        }
+
+        .requirement-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .requirement-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .requirement-list li:last-child {
+            border-bottom: none;
+        }
+
+        .requirement-list li i {
+            color: var(--navy-primary);
+            font-size: 1.1rem;
+            margin-top: 0.15rem;
+        }
+
+        .requirement-list li span {
+            color: #374151;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .note-box {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-top: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .note-box i {
+            color: #d97706;
+            font-size: 1.2rem;
+            margin-top: 0.1rem;
+        }
+
+        .note-box p {
+            color: #92400e;
+            font-size: 0.95rem;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .process-section {
+            margin-top: 3rem;
+        }
+
+        .process-section h2 {
+            font-family: var(--font-primary);
+            font-size: 1.5rem;
+            color: var(--navy-primary);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .step-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(26, 54, 93, 0.08);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(26, 54, 93, 0.12);
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-secondary) 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-primary);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 0 auto 1rem;
+        }
+
+        .step-card h3 {
+            font-family: var(--font-primary);
+            font-size: 1.1rem;
+            color: var(--navy-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .step-card p {
+            color: #6b7280;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .cta-section {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .cta-section h2 {
+            font-family: var(--font-primary);
+            font-size: 1.5rem;
+            color: var(--navy-primary);
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            color: #4b5563;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-section .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+    </style>
 </head>
 <body>
     <header class="header">
@@ -42,71 +278,87 @@
             </div>
         </section>
 
-        <section class="admissions-content">
-            <div class="admission-intro">
+        <div class="admissions-container">
+            <div class="admissions-intro">
                 <h2>Welcome to Your Future at Siya!</h2>
-                <p>At Siya, we don't just educate - we inspire, empower, and transform lives! Join our community of dreamers and achievers where every student's potential is unlocked and every dream is within reach. Your journey to greatness starts here!</p>
+                <p>At Siya, we nurture our students from the beginning of their journey. We believe in building strong foundations and guiding learners through their educational path to success.</p>
             </div>
 
-            
+            <div class="highlight-box">
+                <h3><i class="fas fa-graduation-cap"></i> We Accept Students</h3>
+                <p>Join our school family and grow with us through your educational journey</p>
+                <span class="grades-badge">Grade 8 to Grade 11</span>
+            </div>
 
-            <div class="requirements-section">
-                <h2>Admission Requirements - Your Path to Success</h2>
-                <div class="requirements-grid">
-                    <div class="requirement-item">
-                        <h3>Grade 8 Entry</h3>
-                        <ul>
-                            <li>Successful completion of Grade 7</li>
-                            <li>School report with satisfactory progress</li>
-                            <li>Birth certificate or ID document</li>
-                            <li>Recent passport-sized photographs</li>
-                            <li>Proof of residence</li>
-                        </ul>
-                    </div>
-                    <div class="requirement-item">
-                        <h3>Grade 11 & 12 Transfers</h3>
-                        <ul>
-                            <li>Previous school academic records</li>
-                            <li>Transfer letter from previous school</li>
-                            <li>Birth certificate or ID document</li>
-                            <li>Recent passport-sized photographs</li>
-                            <li>Proof of residence</li>
-                        </ul>
+            <div class="requirements-card">
+                <div class="requirements-header">
+                    <h3><i class="fas fa-file-alt"></i> Admission Requirements</h3>
+                </div>
+                <div class="requirements-body">
+                    <ul class="requirement-list">
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span><strong>Transfer Letter</strong> from previous school (primary requirement)</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span><strong>Birth Certificate</strong> or ID document (required if no transfer letter is available)</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span><strong>Previous School Report</strong> showing academic progress</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span><strong>Proof of Residence</strong> (utility bill or affidavit)</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span><strong>Passport-sized Photographs</strong> (2 recent photos)</span>
+                        </li>
+                    </ul>
+
+                    <div class="note-box">
+                        <i class="fas fa-info-circle"></i>
+                        <p><strong>Important:</strong> We do not admit Grade 12 students. At Siya, we believe in nurturing our learners from earlier grades, allowing us to build strong foundations and guide them through to their Matric year.</p>
                     </div>
                 </div>
             </div>
 
             <div class="process-section">
-                <h2>Your Journey to Siya - Simple Steps to Success</h2>
+                <h2>Your Journey to Siya</h2>
                 <div class="process-steps">
-                    <div class="step">
+                    <div class="step-card">
                         <div class="step-number">1</div>
                         <h3>Visit Our School</h3>
-                        <p>Come and experience the Siya difference! Visit our beautiful campus and meet our amazing team.</p>
+                        <p>Come and experience the Siya difference! Meet our team and tour our campus.</p>
                     </div>
-                    <div class="step">
+                    <div class="step-card">
                         <div class="step-number">2</div>
-                        <h3>Submit Application</h3>
-                        <p>Complete your application form and submit all required documents to begin your journey with us.</p>
+                        <h3>Submit Documents</h3>
+                        <p>Bring your transfer letter or birth certificate along with other required documents.</p>
                     </div>
-                    <div class="step">
+                    <div class="step-card">
                         <div class="step-number">3</div>
-                        <h3>Interview & Assessment</h3>
-                        <p>Meet with our admissions team to discuss your goals and aspirations - we're here to support you!</p>
+                        <h3>Meet Our Team</h3>
+                        <p>Have a conversation with our admissions team about your educational goals.</p>
                     </div>
-                    <div class="step">
+                    <div class="step-card">
                         <div class="step-number">4</div>
                         <h3>Welcome to Siya!</h3>
-                        <p>Receive your acceptance and begin your exciting educational journey with us!</p>
+                        <p>Receive your acceptance and begin your exciting journey with us!</p>
                     </div>
                 </div>
             </div>
 
-            <div class="contact-section">
+            <div class="cta-section">
                 <h2>Ready to Start Your Journey?</h2>
-                <p>Don't wait - your future begins today! Visit our <a href="contact.html" style="color: var(--navy-primary); font-weight: 600; text-decoration: underline;">Contact Page</a> to get in touch with us and secure your place at Siya where dreams come true and success is inevitable.</p>
+                <p>Don't wait - your future begins today! Get in touch with us to secure your place at Siya.</p>
+                <a href="contact.html" class="cta-button">
+                    <i class="fas fa-envelope"></i> Contact Us
+                </a>
             </div>
-        </section>
+        </div>
     </main>
 
     <footer>
@@ -114,7 +366,7 @@
             <div class="footer-section">
                 <h3>Quick Links</h3>
                 <ul>
-                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="academics.html">Study with us</a></li>
                     <li><a href="admissions.html">Admissions</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
