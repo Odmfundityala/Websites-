@@ -142,28 +142,19 @@ html {
 .nav-links {
     display: flex;
     flex-wrap: nowrap;
-    overflow: visible;
-    flex-shrink: 1;
     list-style: none;
-    gap: 0;
+    gap: 0.25rem;
     align-items: center;
     margin: 0;
     padding: 0;
     margin-left: auto;
     height: 100%;
-    width: auto;
-    max-width: calc(100vw - 200px);
-    background: none;
-    box-shadow: none;
 }
 
 .nav-links li {
     height: 100%;
     display: flex;
     align-items: center;
-    min-width: 0;
-    flex-shrink: 1;
-    flex-basis: auto;
 }
 
 .nav-links a {
@@ -171,23 +162,15 @@ html {
     color: var(--text-light);
     text-decoration: none;
     font-weight: 500;
-    padding: 0.3rem 0.4rem;
-    margin: 0;
+    padding: 0.4rem 0.6rem;
     border-radius: 4px;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     position: relative;
-    overflow: visible;
-    font-size: 0.8rem;
-    z-index: 1;
-    letter-spacing: 0.1px;
+    font-size: 0.82rem;
     display: flex;
     align-items: center;
-    justify-content: center;
-    height: 35px;
+    height: 36px;
     white-space: nowrap;
-    flex-shrink: 1;
-    min-width: 0;
-    box-sizing: border-box;
 }
 
 .nav-links a:before {
