@@ -5,7 +5,139 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - Siyabulela Senior Secondary School</title>
     <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .contact-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+        }
+        .section-title {
+            font-family: var(--font-primary);
+            font-size: 1.4rem;
+            color: var(--navy-primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--gold-accent);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .section-title i {
+            color: var(--gold-accent);
+        }
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 2.5rem;
+        }
+        .contact-card {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(26, 54, 93, 0.08);
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .contact-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(26, 54, 93, 0.12);
+        }
+        .card-header {
+            background: var(--navy-primary);
+            color: white;
+            padding: 0.9rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .card-header i {
+            font-size: 1rem;
+            color: var(--gold-accent);
+        }
+        .card-header h3 {
+            font-family: var(--font-primary);
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        .card-body {
+            padding: 1rem 1.25rem;
+        }
+        .contact-name {
+            font-weight: 600;
+            color: var(--navy-primary);
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+        }
+        .contact-position {
+            color: #6b7280;
+            font-size: 0.85rem;
+            margin-bottom: 0.75rem;
+        }
+        .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.3rem 0;
+            color: #4b5563;
+            font-size: 0.9rem;
+        }
+        .contact-info i {
+            color: var(--gold-accent);
+            font-size: 0.85rem;
+            width: 16px;
+        }
+        .contact-info a {
+            color: #4b5563;
+            text-decoration: none;
+        }
+        .contact-info a:hover {
+            color: var(--navy-primary);
+        }
+        .address-card {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(26, 54, 93, 0.08);
+            border: 1px solid #e2e8f0;
+            padding: 1.5rem;
+            display: flex;
+            gap: 1.25rem;
+            align-items: flex-start;
+        }
+        .address-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--navy-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .address-icon i {
+            color: var(--gold-accent);
+            font-size: 1.2rem;
+        }
+        .address-details h3 {
+            font-family: var(--font-primary);
+            font-size: 1rem;
+            color: var(--navy-primary);
+            margin-bottom: 0.5rem;
+        }
+        .address-details p {
+            color: #4b5563;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+        @media (max-width: 768px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <header class="header">
@@ -33,154 +165,132 @@
         </nav>
     </header>
 
-    <div class="page-header">
-        <div class="page-header-content">
-            <h1>Contact Us</h1>
-            <p>Siya - Connecting communities through educational excellence, Grades 8 to 12</p>
-        </div>
-    </div>
-
     <main>
-        <section class="contact-content">
-            <div class="contact-intro">
-                <h2 class="section-title">Our Team</h2>
-                <p class="section-subtitle">Reach out to our dedicated staff members for any inquiries</p>
-            </div>
-
-            <div class="contact-cards">
-                <!-- School Administrator - First -->
-                <div class="contact-card">
-                    <div class="contact-icon">
-                        <i class="fas fa-user-shield"></i>
-                    </div>
-                    <h3>School Administrator</h3>
-                    <div class="contact-details">
-                        <p class="contact-name">Ms. Sthabile Sobekwa</p>
-                        <p class="contact-position">Administrator</p>
-                        <p class="contact-phone">
-                            <i class="fas fa-phone"></i>
-                            <a href="tel:0749486003">074 948 6003</a>
-                        </p>
-                        <p class="contact-email">
-                            <i class="fas fa-envelope"></i>
-                            <a href="mailto:siyabulelasss@gmail.com">siyabulelasss@gmail.com</a>
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Principal - Second -->
-                <div class="contact-card">
-                    <div class="contact-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <h3>Principal</h3>
-                    <div class="contact-details">
-                        <p class="contact-name">Mr. Nomatyenge Siphiwo</p>
-                        <p class="contact-position">Principal</p>
-                        <p class="contact-phone">
-                            <i class="fas fa-phone"></i>
-                            <a href="tel:0715972377">071 597 2377</a>
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Science Department -->
-                <div class="contact-card">
-                    <div class="contact-icon">
-                        <i class="fas fa-flask"></i>
-                    </div>
-                    <h3>Science Department</h3>
-                    <div class="contact-details">
-                        <p class="contact-name">Ms. Nomevu Zizipo</p>
-                        <p class="contact-position">Departmental Head</p>
-                        <p class="contact-phone">
-                            <i class="fas fa-phone"></i>
-                            <a href="tel:0788403119">078 840 3119</a>
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Services Department -->
-                <div class="contact-card">
-                    <div class="contact-icon">
-                        <i class="fas fa-cogs"></i>
-                    </div>
-                    <h3>Services Department</h3>
-                    <div class="contact-details">
-                        <p class="contact-name">Ms. Sodo Zizipo</p>
-                        <p class="contact-position">Departmental Head</p>
-                        <p class="contact-phone">
-                            <i class="fas fa-phone"></i>
-                            <a href="tel:0788663360">078 866 3360</a>
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Business Department -->
-                <div class="contact-card">
-                    <div class="contact-icon">
-                        <i class="fas fa-briefcase"></i>
-                    </div>
-                    <h3>Business Department</h3>
-                    <div class="contact-details">
-                        <p class="contact-name">Mr. Mdongwe Siyanda</p>
-                        <p class="contact-position">Departmental Head</p>
-                        <p class="contact-phone">
-                            <i class="fas fa-phone"></i>
-                            <a href="tel:0605625028">060 562 5028</a>
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Language Department -->
-                <div class="contact-card">
-                    <div class="contact-icon">
-                        <i class="fas fa-book"></i>
-                    </div>
-                    <h3>Language Department</h3>
-                    <div class="contact-details">
-                        <p class="contact-name">Mr. Dyan Buyisile</p>
-                        <p class="contact-position">Departmental Head</p>
-                        <p class="contact-phone">
-                            <i class="fas fa-phone"></i>
-                            <a href="tel:0720831557">072 083 1557</a>
-                        </p>
-                    </div>
-                </div>
-
-                <!-- SMT Member -->
-                <div class="contact-card">
-                    <div class="contact-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3>School Management Team</h3>
-                    <div class="contact-details">
-                        <p class="contact-name">Ms. Sidyono Funiwe</p>
-                        <p class="contact-position">SMT Member</p>
-                        <p class="contact-phone">
-                            <i class="fas fa-phone"></i>
-                            <a href="tel:0724092591">072 409 2591</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="school-location">
-                <h2 class="section-title">Visit Us</h2>
-                <p class="section-subtitle">Find us at our campus in Ngcisininde A/A Ndiki Location, Nqamakwe</p>
-                <div class="address-card">
-                    <div class="address-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <div class="address-details">
-                        <p>Siyabulela Senior Secondary School</p>
-                        <p>Ngcisininde A/A Ndiki Location</p>
-                        <p>Nqamakwe</p>
-                        <p>Eastern Cape</p>
-                    </div>
-                </div>
+        <section class="page-header">
+            <div class="page-header-content">
+                <h1>Contact Us</h1>
+                <p>Reach out to our dedicated team for any inquiries</p>
             </div>
         </section>
+
+        <div class="contact-container">
+            <h2 class="section-title"><i class="fas fa-users"></i> Our Team</h2>
+            <div class="cards-grid">
+                <div class="contact-card">
+                    <div class="card-header">
+                        <i class="fas fa-user-shield"></i>
+                        <h3>Administrator</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="contact-name">Ms. Sthabile Sobekwa</p>
+                        <p class="contact-position">School Administrator</p>
+                        <div class="contact-info">
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:0749486003">074 948 6003</a>
+                        </div>
+                        <div class="contact-info">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:siyabulelasss@gmail.com">siyabulelasss@gmail.com</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <div class="card-header">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h3>Principal</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="contact-name">Mr. Nomatyenge Siphiwo</p>
+                        <p class="contact-position">School Principal</p>
+                        <div class="contact-info">
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:0715972377">071 597 2377</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <div class="card-header">
+                        <i class="fas fa-flask"></i>
+                        <h3>Science Dept</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="contact-name">Ms. Nomevu Zizipo</p>
+                        <p class="contact-position">Departmental Head</p>
+                        <div class="contact-info">
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:0788403119">078 840 3119</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <div class="card-header">
+                        <i class="fas fa-cogs"></i>
+                        <h3>Services Dept</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="contact-name">Ms. Sodo Zizipo</p>
+                        <p class="contact-position">Departmental Head</p>
+                        <div class="contact-info">
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:0788663360">078 866 3360</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <div class="card-header">
+                        <i class="fas fa-briefcase"></i>
+                        <h3>Business Dept</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="contact-name">Mr. Mdongwe Siyanda</p>
+                        <p class="contact-position">Departmental Head</p>
+                        <div class="contact-info">
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:0605625028">060 562 5028</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <div class="card-header">
+                        <i class="fas fa-book"></i>
+                        <h3>Language Dept</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="contact-name">Mr. Dyan Buyisile</p>
+                        <p class="contact-position">Departmental Head</p>
+                        <div class="contact-info">
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:0720831557">072 083 1557</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <div class="card-header">
+                        <i class="fas fa-users"></i>
+                        <h3>Management</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="contact-name">Ms. Sidyono Funiwe</p>
+                        <p class="contact-position">SMT Member</p>
+                        <div class="contact-info">
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:0724092591">072 409 2591</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="section-title"><i class="fas fa-map-marker-alt"></i> Visit Us</h2>
+            <div class="address-card">
+                <div class="address-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="address-details">
+                    <h3>School Address</h3>
+                    <p>Ngcisininde A/A Ndiki Location<br>Nqamakwe, 4990<br>Eastern Cape Province, South Africa</p>
+                </div>
+            </div>
+        </div>
     </main>
 
     <footer>
@@ -188,9 +298,9 @@
             <div class="footer-section">
                 <h3>Quick Links</h3>
                 <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
+                    <li><a href="academics.html">Study with us</a></li>
                     <li><a href="admissions.html">Admissions</a></li>
+                    <li><a href="contact.html">Contact</a></li>
                 </ul>
             </div>
             <div class="footer-section">
@@ -198,6 +308,12 @@
                 <p>Administrator: Ms. Sthabile Sobekwa</p>
                 <p><i class="fas fa-phone"></i> 074 948 6003</p>
                 <p><i class="fas fa-envelope"></i> siyabulelasss@gmail.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Location</h3>
+                <p>Ngcisininde A/A Ndiki Location</p>
+                <p>Nqamakwe, 4990</p>
+                <p>Eastern Cape Province, South Africa</p>
             </div>
         </div>
         <div class="footer-bottom">

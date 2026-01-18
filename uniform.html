@@ -6,6 +6,107 @@
     <title>Uniform & Sports - Siyabulela Senior Secondary School</title>
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .uniform-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+        }
+        .section-title {
+            font-family: var(--font-primary);
+            font-size: 1.4rem;
+            color: var(--navy-primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--gold-accent);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .section-title i {
+            color: var(--gold-accent);
+        }
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 2.5rem;
+        }
+        .info-card {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(26, 54, 93, 0.08);
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .info-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(26, 54, 93, 0.12);
+        }
+        .card-header {
+            background: var(--navy-primary);
+            color: white;
+            padding: 0.9rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .card-header i {
+            font-size: 1rem;
+            color: var(--gold-accent);
+        }
+        .card-header h3 {
+            font-family: var(--font-primary);
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        .card-body {
+            padding: 1rem 1.25rem;
+        }
+        .card-body ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .card-body li {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.4rem 0;
+            border-bottom: 1px solid #f1f5f9;
+            color: #4b5563;
+            font-size: 0.9rem;
+        }
+        .card-body li:last-child {
+            border-bottom: none;
+        }
+        .card-body li i {
+            color: var(--gold-accent);
+            font-size: 0.8rem;
+            width: 16px;
+        }
+        .card-body p {
+            color: #4b5563;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin: 0 0 0.75rem 0;
+        }
+        .note-text {
+            font-size: 0.85rem;
+            color: #6b7280;
+            font-style: italic;
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid #f1f5f9;
+        }
+        @media (max-width: 768px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <header class="header">
@@ -37,120 +138,119 @@
         <section class="page-header">
             <div class="page-header-content">
                 <h1>Uniform & Sports</h1>
-                <p>Siya - Building champions in the classroom and on the field, Grades 8 to 12</p>
+                <p>Building champions in the classroom and on the field</p>
             </div>
         </section>
 
-        <div class="uniform-content">
-            <div class="uniform-intro">
-                <h2 class="section-title">School Uniform</h2>
-                <p class="section-subtitle">Our uniform represents our school's identity and promotes a sense of unity and pride</p>
-            </div>
-
-            <div class="uniform-grid">
-                <div class="uniform-card">
-                    <div class="uniform-icon">
+        <div class="uniform-container">
+            <h2 class="section-title"><i class="fas fa-tshirt"></i> School Uniform</h2>
+            <div class="cards-grid">
+                <div class="info-card">
+                    <div class="card-header">
                         <i class="fas fa-female"></i>
+                        <h3>Girls Uniform</h3>
                     </div>
-                    <h3>Girls Uniform</h3>
-                    <ul>
-                        <li>Sky blue dresses</li>
-                        <li>Navy blazer (with white stripes or plain navy)</li>
-                        <li>White socks</li>
-                        <li>Black school shoes</li>
-                    </ul>
+                    <div class="card-body">
+                        <ul>
+                            <li><i class="fas fa-circle"></i> Sky blue dresses</li>
+                            <li><i class="fas fa-circle"></i> Navy blazer (with white stripes or plain)</li>
+                            <li><i class="fas fa-circle"></i> White socks</li>
+                            <li><i class="fas fa-circle"></i> Black school shoes</li>
+                        </ul>
+                    </div>
                 </div>
-
-                <div class="uniform-card">
-                    <div class="uniform-icon">
+                <div class="info-card">
+                    <div class="card-header">
                         <i class="fas fa-male"></i>
+                        <h3>Boys Uniform</h3>
                     </div>
-                    <h3>Boys Uniform</h3>
-                    <ul>
-                        <li>White shirts</li>
-                        <li>Grey trousers</li>
-                        <li>Navy blazer (with white stripes or plain navy)</li>
-                        <li>Black school shoes</li>
-                    </ul>
+                    <div class="card-body">
+                        <ul>
+                            <li><i class="fas fa-circle"></i> White shirts</li>
+                            <li><i class="fas fa-circle"></i> Grey trousers</li>
+                            <li><i class="fas fa-circle"></i> Navy blazer (with white stripes or plain)</li>
+                            <li><i class="fas fa-circle"></i> Black school shoes</li>
+                        </ul>
+                    </div>
                 </div>
-
-                <div class="uniform-card">
-                    <div class="uniform-icon">
-                        <i class="fas fa-tshirt"></i>
+                <div class="info-card">
+                    <div class="card-header">
+                        <i class="fas fa-snowflake"></i>
+                        <h3>Winter Items</h3>
                     </div>
-                    <h3>Additional Items</h3>
-                    <ul>
-                        <li>Navy school jersey (winter)</li>
-                        <li>School tie (optional)</li>
-                        <li>Navy school beanie (winter)</li>
-                        <li>School badge</li>
-                    </ul>
+                    <div class="card-body">
+                        <ul>
+                            <li><i class="fas fa-circle"></i> Navy school jersey</li>
+                            <li><i class="fas fa-circle"></i> School tie (optional)</li>
+                            <li><i class="fas fa-circle"></i> Navy school beanie</li>
+                            <li><i class="fas fa-circle"></i> School badge</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
-            <div class="sports-section">
-                <h2 class="section-title">Sports Activities</h2>
-                <p class="section-subtitle">We offer various sporting activities to promote physical fitness and team spirit</p>
-
-                <div class="sports-grid">
-                    <div class="sports-card">
-                        <div class="sports-icon">
-                            <i class="fas fa-futbol"></i>
-                        </div>
+            <h2 class="section-title"><i class="fas fa-running"></i> Sports Activities</h2>
+            <div class="cards-grid">
+                <div class="info-card">
+                    <div class="card-header">
+                        <i class="fas fa-futbol"></i>
                         <h3>Soccer</h3>
-                        <p>Our soccer teams participate in local and regional competitions, promoting teamwork and athletic excellence.</p>
-                        <div class="sports-details">
-                            <ul>
-                                <li>Boys and Girls Teams</li>
-                                <li>Regular Training Sessions</li>
-                                <li>Inter-school Competitions</li>
-                            </ul>
-                        </div>
                     </div>
-
-                    <div class="sports-card">
-                        <div class="sports-icon">
-                            <i class="fas fa-basketball-ball"></i>
-                        </div>
+                    <div class="card-body">
+                        <p>Our soccer teams participate in local and regional competitions.</p>
+                        <ul>
+                            <li><i class="fas fa-circle"></i> Boys and Girls Teams</li>
+                            <li><i class="fas fa-circle"></i> Regular Training</li>
+                            <li><i class="fas fa-circle"></i> Inter-school Competitions</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="card-header">
+                        <i class="fas fa-basketball-ball"></i>
                         <h3>Netball</h3>
-                        <p>Our netball program focuses on developing skills, strategy, and team coordination.</p>
-                        <div class="sports-details">
-                            <ul>
-                                <li>Girls Teams</li>
-                                <li>Professional Coaching</li>
-                                <li>Regional Tournaments</li>
-                            </ul>
-                        </div>
                     </div>
-
-                    <div class="sports-card">
-                        <div class="sports-icon">
-                            <i class="fas fa-football-ball"></i>
-                        </div>
+                    <div class="card-body">
+                        <p>Our netball program develops skills, strategy, and coordination.</p>
+                        <ul>
+                            <li><i class="fas fa-circle"></i> Girls Teams</li>
+                            <li><i class="fas fa-circle"></i> Professional Coaching</li>
+                            <li><i class="fas fa-circle"></i> Regional Tournaments</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="card-header">
+                        <i class="fas fa-football-ball"></i>
                         <h3>Rugby</h3>
-                        <p>Our rugby program builds strength, character, and sportsmanship through disciplined training and competitive play.</p>
-                        <div class="sports-details">
-                            <ul>
-                                <li>Boys and Girls Teams</li>
-                                <li>Strength & Conditioning</li>
-                                <li>Regional Championships</li>
-                            </ul>
-                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p>Our rugby program builds strength, character, and sportsmanship.</p>
+                        <ul>
+                            <li><i class="fas fa-circle"></i> Boys and Girls Teams</li>
+                            <li><i class="fas fa-circle"></i> Strength Training</li>
+                            <li><i class="fas fa-circle"></i> Regional Championships</li>
+                        </ul>
                     </div>
                 </div>
             </div>
 
-            <div class="sports-uniform-section">
-                <h2 class="section-title">Sports Uniform</h2>
-                <div class="sports-uniform-card">
-                    <h3>Required Sports Kit</h3>
-                    <ul>
-                        <li>School sports t-shirt (sky blue)</li>
-                        <li>Navy sports shorts/skirts</li>
-                        <li>Appropriate sports shoes</li>
-                        <li>Team jerseys (provided for matches)</li>
-                    </ul>
-                    <p class="note">Note: Specific sports equipment will be communicated by respective coaches</p>
+            <h2 class="section-title"><i class="fas fa-medal"></i> Sports Uniform</h2>
+            <div class="cards-grid">
+                <div class="info-card">
+                    <div class="card-header">
+                        <i class="fas fa-running"></i>
+                        <h3>Sports Kit</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li><i class="fas fa-circle"></i> Sky blue sports t-shirt</li>
+                            <li><i class="fas fa-circle"></i> Navy sports shorts/skirts</li>
+                            <li><i class="fas fa-circle"></i> Appropriate sports shoes</li>
+                            <li><i class="fas fa-circle"></i> Team jerseys (for matches)</li>
+                        </ul>
+                        <p class="note-text">Specific equipment will be communicated by coaches</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -161,7 +261,7 @@
             <div class="footer-section">
                 <h3>Quick Links</h3>
                 <ul>
-                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="academics.html">Study with us</a></li>
                     <li><a href="admissions.html">Admissions</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>

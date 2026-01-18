@@ -8,64 +8,64 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         .academics-container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 3rem 1.5rem;
+            padding: 2.5rem 1.5rem;
         }
         .grade-section {
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
         }
-        .grade-title {
+        .section-title {
             font-family: var(--font-primary);
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             color: var(--navy-primary);
             margin-bottom: 1.5rem;
-            padding-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
             border-bottom: 3px solid var(--gold-accent);
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.6rem;
         }
-        .grade-title i {
+        .section-title i {
             color: var(--gold-accent);
         }
         .streams-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
         }
         .stream-card {
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-            border-radius: 20px;
-            box-shadow: 0 12px 40px rgba(26, 54, 93, 0.12);
-            border: 1px solid rgba(26, 54, 93, 0.08);
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(26, 54, 93, 0.08);
+            border: 1px solid #e2e8f0;
             overflow: hidden;
             transition: all 0.3s ease;
         }
         .stream-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 16px 50px rgba(26, 54, 93, 0.16);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(26, 54, 93, 0.12);
         }
         .stream-header {
-            background: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-secondary) 100%);
+            background: var(--navy-primary);
             color: white;
-            padding: 1.25rem 1.5rem;
+            padding: 0.9rem 1.25rem;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.6rem;
         }
         .stream-header i {
-            font-size: 1.3rem;
+            font-size: 1rem;
             color: var(--gold-accent);
         }
         .stream-header h3 {
             font-family: var(--font-primary);
-            font-size: 1.2rem;
-            font-weight: 700;
+            font-size: 1rem;
+            font-weight: 600;
             margin: 0;
         }
         .stream-body {
-            padding: 1.5rem;
+            padding: 1rem 1.25rem;
         }
         .subjects-list {
             list-style: none;
@@ -75,27 +75,23 @@
         .subjects-list li {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            padding: 0.6rem 0;
+            gap: 0.6rem;
+            padding: 0.4rem 0;
             border-bottom: 1px solid #f1f5f9;
-            color: #374151;
-            font-size: 0.95rem;
+            color: #4b5563;
+            font-size: 0.9rem;
         }
         .subjects-list li:last-child {
             border-bottom: none;
         }
         .subjects-list li i {
             color: var(--gold-accent);
-            font-size: 0.9rem;
-            width: 20px;
-            text-align: center;
+            font-size: 0.8rem;
+            width: 16px;
         }
         @media (max-width: 768px) {
             .streams-grid {
                 grid-template-columns: 1fr;
-            }
-            .grade-title {
-                font-size: 1.3rem;
             }
         }
     </style>
@@ -130,16 +126,13 @@
         <section class="page-header">
             <div class="page-header-content">
                 <h1>Study with us</h1>
-                <p>We don't just teach subjects - we ignite passions, build character, and forge futures! Our diverse curriculum empowers learners to discover their strengths, pursue their dreams, and become the leaders our world needs.</p>
+                <p>We don't just teach subjects - we ignite passions, build character, and forge futures!</p>
             </div>
         </section>
 
         <div class="academics-container">
             <div class="grade-section">
-                <h2 class="grade-title">
-                    <i class="fas fa-graduation-cap"></i>
-                    Grade 12 - Matric Year
-                </h2>
+                <h2 class="section-title"><i class="fas fa-graduation-cap"></i> Grade 12 - Matric Year</h2>
                 <div class="streams-grid">
                     <div class="stream-card">
                         <div class="stream-header">
@@ -148,13 +141,13 @@
                         </div>
                         <div class="stream-body">
                             <ul class="subjects-list">
-                                <li><i class="fas fa-book"></i> IsiXhosa</li>
-                                <li><i class="fas fa-book"></i> English</li>
-                                <li><i class="fas fa-atom"></i> Physical Science</li>
-                                <li><i class="fas fa-microscope"></i> Life Science</li>
-                                <li><i class="fas fa-seedling"></i> Agricultural Science</li>
-                                <li><i class="fas fa-calculator"></i> Mathematics</li>
-                                <li><i class="fas fa-heart"></i> Life Orientation</li>
+                                <li><i class="fas fa-circle"></i> IsiXhosa</li>
+                                <li><i class="fas fa-circle"></i> English</li>
+                                <li><i class="fas fa-circle"></i> Physical Science</li>
+                                <li><i class="fas fa-circle"></i> Life Science</li>
+                                <li><i class="fas fa-circle"></i> Agricultural Science</li>
+                                <li><i class="fas fa-circle"></i> Mathematics</li>
+                                <li><i class="fas fa-circle"></i> Life Orientation</li>
                             </ul>
                         </div>
                     </div>
@@ -165,13 +158,13 @@
                         </div>
                         <div class="stream-body">
                             <ul class="subjects-list">
-                                <li><i class="fas fa-book"></i> IsiXhosa</li>
-                                <li><i class="fas fa-book"></i> English</li>
-                                <li><i class="fas fa-briefcase"></i> Business Studies</li>
-                                <li><i class="fas fa-map-marked-alt"></i> Tourism</li>
-                                <li><i class="fas fa-shopping-cart"></i> Consumer Studies</li>
-                                <li><i class="fas fa-calculator"></i> Maths Literacy</li>
-                                <li><i class="fas fa-heart"></i> Life Orientation</li>
+                                <li><i class="fas fa-circle"></i> IsiXhosa</li>
+                                <li><i class="fas fa-circle"></i> English</li>
+                                <li><i class="fas fa-circle"></i> Business Studies</li>
+                                <li><i class="fas fa-circle"></i> Tourism</li>
+                                <li><i class="fas fa-circle"></i> Consumer Studies</li>
+                                <li><i class="fas fa-circle"></i> Maths Literacy</li>
+                                <li><i class="fas fa-circle"></i> Life Orientation</li>
                             </ul>
                         </div>
                     </div>
@@ -179,10 +172,7 @@
             </div>
 
             <div class="grade-section">
-                <h2 class="grade-title">
-                    <i class="fas fa-user-graduate"></i>
-                    Grade 10 - 11
-                </h2>
+                <h2 class="section-title"><i class="fas fa-user-graduate"></i> Grade 10 - 11</h2>
                 <div class="streams-grid">
                     <div class="stream-card">
                         <div class="stream-header">
@@ -191,13 +181,13 @@
                         </div>
                         <div class="stream-body">
                             <ul class="subjects-list">
-                                <li><i class="fas fa-atom"></i> Physical Sciences</li>
-                                <li><i class="fas fa-microscope"></i> Life Sciences</li>
-                                <li><i class="fas fa-calculator"></i> Mathematics</li>
-                                <li><i class="fas fa-book"></i> English</li>
-                                <li><i class="fas fa-book"></i> IsiXhosa</li>
-                                <li><i class="fas fa-heart"></i> Life Orientation</li>
-                                <li><i class="fas fa-seedling"></i> Agricultural Sciences</li>
+                                <li><i class="fas fa-circle"></i> Physical Sciences</li>
+                                <li><i class="fas fa-circle"></i> Life Sciences</li>
+                                <li><i class="fas fa-circle"></i> Mathematics</li>
+                                <li><i class="fas fa-circle"></i> English</li>
+                                <li><i class="fas fa-circle"></i> IsiXhosa</li>
+                                <li><i class="fas fa-circle"></i> Life Orientation</li>
+                                <li><i class="fas fa-circle"></i> Agricultural Sciences</li>
                             </ul>
                         </div>
                     </div>
@@ -208,13 +198,13 @@
                         </div>
                         <div class="stream-body">
                             <ul class="subjects-list">
-                                <li><i class="fas fa-chart-line"></i> Economics</li>
-                                <li><i class="fas fa-seedling"></i> Agricultural Science</li>
-                                <li><i class="fas fa-calculator"></i> Maths Literacy</li>
-                                <li><i class="fas fa-microscope"></i> Life Science</li>
-                                <li><i class="fas fa-book"></i> IsiXhosa</li>
-                                <li><i class="fas fa-book"></i> English</li>
-                                <li><i class="fas fa-heart"></i> Life Orientation</li>
+                                <li><i class="fas fa-circle"></i> Economics</li>
+                                <li><i class="fas fa-circle"></i> Agricultural Science</li>
+                                <li><i class="fas fa-circle"></i> Maths Literacy</li>
+                                <li><i class="fas fa-circle"></i> Life Science</li>
+                                <li><i class="fas fa-circle"></i> IsiXhosa</li>
+                                <li><i class="fas fa-circle"></i> English</li>
+                                <li><i class="fas fa-circle"></i> Life Orientation</li>
                             </ul>
                         </div>
                     </div>
@@ -225,13 +215,13 @@
                         </div>
                         <div class="stream-body">
                             <ul class="subjects-list">
-                                <li><i class="fas fa-calculator"></i> Maths Literacy</li>
-                                <li><i class="fas fa-briefcase"></i> Business Studies</li>
-                                <li><i class="fas fa-shopping-cart"></i> Consumer Studies</li>
-                                <li><i class="fas fa-map-marked-alt"></i> Tourism</li>
-                                <li><i class="fas fa-book"></i> English First Additional Language</li>
-                                <li><i class="fas fa-book"></i> IsiXhosa Home Language</li>
-                                <li><i class="fas fa-heart"></i> Life Orientation</li>
+                                <li><i class="fas fa-circle"></i> Maths Literacy</li>
+                                <li><i class="fas fa-circle"></i> Business Studies</li>
+                                <li><i class="fas fa-circle"></i> Consumer Studies</li>
+                                <li><i class="fas fa-circle"></i> Tourism</li>
+                                <li><i class="fas fa-circle"></i> English FAL</li>
+                                <li><i class="fas fa-circle"></i> IsiXhosa HL</li>
+                                <li><i class="fas fa-circle"></i> Life Orientation</li>
                             </ul>
                         </div>
                     </div>
