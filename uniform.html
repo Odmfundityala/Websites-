@@ -10,60 +10,60 @@
         .uniform-container {
             max-width: 1000px;
             margin: 0 auto;
-            padding: 2.5rem 1.5rem;
+            padding: 2rem 1.5rem;
         }
         .section-title {
             font-family: var(--font-primary);
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             color: var(--navy-primary);
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.4rem;
             border-bottom: 3px solid var(--gold-accent);
             display: flex;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.5rem;
         }
         .section-title i {
             color: var(--gold-accent);
         }
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.25rem;
-            margin-bottom: 2.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
         }
         .info-card {
             background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(26, 54, 93, 0.08);
+            border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(26, 54, 93, 0.08);
             border: 1px solid #e2e8f0;
             overflow: hidden;
             transition: all 0.3s ease;
         }
         .info-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(26, 54, 93, 0.12);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26, 54, 93, 0.12);
         }
         .card-header {
             background: var(--navy-primary);
-            color: white;
-            padding: 0.9rem 1.25rem;
+            padding: 0.75rem 1rem;
             display: flex;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.5rem;
         }
         .card-header i {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: var(--gold-accent);
         }
         .card-header h3 {
             font-family: var(--font-primary);
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 600;
             margin: 0;
+            color: #ffffff;
         }
         .card-body {
-            padding: 1rem 1.25rem;
+            padding: 0.75rem 1rem;
         }
         .card-body ul {
             list-style: none;
@@ -73,32 +73,32 @@
         .card-body li {
             display: flex;
             align-items: center;
-            gap: 0.6rem;
-            padding: 0.4rem 0;
+            gap: 0.5rem;
+            padding: 0.3rem 0;
             border-bottom: 1px solid #f1f5f9;
             color: #4b5563;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
         .card-body li:last-child {
             border-bottom: none;
         }
         .card-body li i {
             color: var(--gold-accent);
-            font-size: 0.8rem;
-            width: 16px;
+            font-size: 0.7rem;
+            width: 14px;
         }
         .card-body p {
             color: #4b5563;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            margin: 0 0 0.75rem 0;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            margin: 0 0 0.5rem 0;
         }
         .note-text {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #6b7280;
             font-style: italic;
-            margin-top: 0.75rem;
-            padding-top: 0.75rem;
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
             border-top: 1px solid #f1f5f9;
         }
         @media (max-width: 768px) {
@@ -153,7 +153,7 @@
                     <div class="card-body">
                         <ul>
                             <li><i class="fas fa-circle"></i> Sky blue dresses</li>
-                            <li><i class="fas fa-circle"></i> Navy blazer (with white stripes or plain)</li>
+                            <li><i class="fas fa-circle"></i> Navy blazer</li>
                             <li><i class="fas fa-circle"></i> White socks</li>
                             <li><i class="fas fa-circle"></i> Black school shoes</li>
                         </ul>
@@ -168,7 +168,7 @@
                         <ul>
                             <li><i class="fas fa-circle"></i> White shirts</li>
                             <li><i class="fas fa-circle"></i> Grey trousers</li>
-                            <li><i class="fas fa-circle"></i> Navy blazer (with white stripes or plain)</li>
+                            <li><i class="fas fa-circle"></i> Navy blazer</li>
                             <li><i class="fas fa-circle"></i> Black school shoes</li>
                         </ul>
                     </div>
@@ -211,7 +211,7 @@
                         <h3>Netball</h3>
                     </div>
                     <div class="card-body">
-                        <p>Our netball program develops skills, strategy, and coordination.</p>
+                        <p>Our netball program develops skills and coordination.</p>
                         <ul>
                             <li><i class="fas fa-circle"></i> Girls Teams</li>
                             <li><i class="fas fa-circle"></i> Professional Coaching</li>
@@ -225,7 +225,7 @@
                         <h3>Rugby</h3>
                     </div>
                     <div class="card-body">
-                        <p>Our rugby program builds strength, character, and sportsmanship.</p>
+                        <p>Our rugby program builds strength and character.</p>
                         <ul>
                             <li><i class="fas fa-circle"></i> Boys and Girls Teams</li>
                             <li><i class="fas fa-circle"></i> Strength Training</li>
@@ -249,7 +249,7 @@
                             <li><i class="fas fa-circle"></i> Appropriate sports shoes</li>
                             <li><i class="fas fa-circle"></i> Team jerseys (for matches)</li>
                         </ul>
-                        <p class="note-text">Specific equipment will be communicated by coaches</p>
+                        <p class="note-text">Specific equipment communicated by coaches</p>
                     </div>
                 </div>
             </div>

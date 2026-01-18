@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +6,198 @@
     <title>Our Stakeholders - Siyabulela Senior Secondary School</title>
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .stakeholders-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+        .section-title {
+            font-family: var(--font-primary);
+            font-size: 1.2rem;
+            color: var(--navy-primary);
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 3px solid var(--gold-accent);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .section-title i {
+            color: var(--gold-accent);
+        }
+        .section-intro {
+            color: #4b5563;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1.25rem;
+        }
+        .stakeholder-section {
+            margin-bottom: 2rem;
+        }
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .stakeholder-card {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(26, 54, 93, 0.08);
+            border: 1px solid #e2e8f0;
+            padding: 1rem;
+            transition: all 0.3s ease;
+        }
+        .stakeholder-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26, 54, 93, 0.12);
+        }
+        .stakeholder-logo {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 0.6rem;
+        }
+        .stakeholder-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .stakeholder-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--navy-primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.6rem;
+        }
+        .stakeholder-icon i {
+            color: var(--gold-accent);
+            font-size: 1rem;
+        }
+        .stakeholder-card h3 {
+            font-family: var(--font-primary);
+            font-size: 0.9rem;
+            color: var(--navy-primary);
+            margin-bottom: 0.4rem;
+        }
+        .stakeholder-card p {
+            color: #4b5563;
+            font-size: 0.8rem;
+            line-height: 1.4;
+            margin-bottom: 0.6rem;
+        }
+        .stakeholder-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: var(--navy-primary);
+            font-size: 0.8rem;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .stakeholder-link:hover {
+            color: var(--gold-accent);
+        }
+        .stakeholder-link i {
+            font-size: 0.7rem;
+        }
+        .university-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.75rem;
+        }
+        .university-card {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(26, 54, 93, 0.06);
+            border: 1px solid #e2e8f0;
+            padding: 0.75rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .university-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(26, 54, 93, 0.1);
+        }
+        .university-logo {
+            width: 45px;
+            height: 45px;
+            margin: 0 auto 0.4rem;
+        }
+        .university-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .university-card h4 {
+            font-family: var(--font-primary);
+            font-size: 0.75rem;
+            color: var(--navy-primary);
+            margin-bottom: 0.3rem;
+            line-height: 1.2;
+        }
+        .university-link {
+            font-size: 0.7rem;
+            color: var(--navy-primary);
+            text-decoration: none;
+        }
+        .university-link:hover {
+            color: var(--gold-accent);
+        }
+        .bursary-tips {
+            background: #fef3c7;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        .bursary-tips h3 {
+            font-family: var(--font-primary);
+            font-size: 0.9rem;
+            color: #92400e;
+            margin-bottom: 0.6rem;
+        }
+        .bursary-tips ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .bursary-tips li {
+            color: #92400e;
+            font-size: 0.8rem;
+            padding: 0.25rem 0;
+            padding-left: 1rem;
+            position: relative;
+        }
+        .bursary-tips li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--gold-accent);
+            font-weight: bold;
+        }
+        .contact-info-small {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: #6b7280;
+            font-size: 0.75rem;
+        }
+        .contact-info-small i {
+            color: var(--gold-accent);
+            font-size: 0.7rem;
+        }
+        @media (max-width: 768px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            .university-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
 </head>
 <body>
     <header class="header">
@@ -37,139 +228,96 @@
     <main>
         <section class="page-header">
             <div class="page-header-content">
-                <h1>Our Valued Stakeholders</h1>
-                <p>Building bridges to excellence through strategic partnerships and collaborative relationships</p>
+                <h1>Our Stakeholders</h1>
+                <p>Building bridges to excellence through partnerships</p>
             </div>
         </section>
 
-        <section class="stakeholders-content">
-            <div class="stakeholders-intro">
-                <h2 class="section-title">Educational Excellence Through Partnership</h2>
-                <p class="section-subtitle">At Siya, we believe in the power of collaboration! Our success is built on strong partnerships with key educational stakeholders who share our vision of transforming lives through quality education. Together, we create pathways to success for every student.</p>
-            </div>
-
-            <!-- Government & Regulatory Bodies -->
+        <div class="stakeholders-container">
             <div class="stakeholder-section">
-                <h2 class="stakeholder-category-title">
-                    <i class="fas fa-landmark"></i>
-                    Government & Educational Authorities
-                </h2>
-                <div class="stakeholder-grid">
+                <h2 class="section-title"><i class="fas fa-landmark"></i> Government & Educational Authorities</h2>
+                <div class="cards-grid">
                     <div class="stakeholder-card">
                         <div class="stakeholder-logo">
-                            <img src="attached_assets/image_1759100531599.png" alt="Department of Basic Education Logo">
+                            <img src="attached_assets/image_1759100531599.png" alt="DBE Logo">
                         </div>
                         <h3>Department of Basic Education</h3>
-                        <p>Our primary partner in delivering quality education, providing curriculum guidance, resources, and support for our educational mission.</p>
+                        <p>Our primary partner providing curriculum guidance and resources.</p>
                         <a href="https://www.education.gov.za/" target="_blank" class="stakeholder-link">
-                            <i class="fas fa-external-link-alt"></i>
-                            Visit DBE Website
+                            <i class="fas fa-external-link-alt"></i> Visit DBE
                         </a>
                     </div>
-
                     <div class="stakeholder-card">
                         <div class="stakeholder-logo">
-                            <img src="attached_assets/image_1759100719871.png" alt="Eastern Cape DOE Logo">
+                            <img src="attached_assets/image_1759100719871.png" alt="EC DOE Logo">
                         </div>
                         <h3>Eastern Cape Department of Education</h3>
-                        <p>Our provincial education department ensuring quality standards and providing local support for our academic programs.</p>
+                        <p>Our provincial education department ensuring quality standards.</p>
                         <a href="https://ecdoe.gov.za/" target="_blank" class="stakeholder-link">
-                            <i class="fas fa-external-link-alt"></i>
-                            Visit EC DoE Website
+                            <i class="fas fa-external-link-alt"></i> Visit EC DoE
                         </a>
                     </div>
-
                     <div class="stakeholder-card">
                         <div class="stakeholder-logo">
                             <img src="attached_assets/image_1759100829190.png" alt="Umalusi Logo">
                         </div>
                         <h3>Umalusi Council</h3>
-                        <p>The quality assurance body ensuring our qualifications meet national standards and are internationally recognized.</p>
+                        <p>Quality assurance for nationally recognized qualifications.</p>
                         <a href="https://www.umalusi.org.za/" target="_blank" class="stakeholder-link">
-                            <i class="fas fa-external-link-alt"></i>
-                            Visit Umalusi Website
+                            <i class="fas fa-external-link-alt"></i> Visit Umalusi
                         </a>
                     </div>
                 </div>
             </div>
 
-            <!-- Financial Support -->
             <div class="stakeholder-section">
-                <h2 class="stakeholder-category-title">
-                    <i class="fas fa-hand-holding-usd"></i>
-                    Financial Support & Funding
-                </h2>
-                <div class="stakeholder-grid">
+                <h2 class="section-title"><i class="fas fa-hand-holding-usd"></i> Financial Support & Funding</h2>
+                <div class="cards-grid">
                     <div class="stakeholder-card">
                         <div class="stakeholder-logo">
                             <img src="attached_assets/image_1759100623593.png" alt="NSFAS Logo">
                         </div>
-                        <h3>National Student Financial Aid Scheme (NSFAS)</h3>
-                        <p>Empowering our graduates with financial support for higher education, ensuring no dream is limited by financial constraints.</p>
+                        <h3>NSFAS</h3>
+                        <p>Financial support for higher education opportunities.</p>
                         <a href="https://www.nsfas.org.za/" target="_blank" class="stakeholder-link">
-                            <i class="fas fa-external-link-alt"></i>
-                            Visit NSFAS Website
+                            <i class="fas fa-external-link-alt"></i> Visit NSFAS
                         </a>
                     </div>
-
                     <div class="stakeholder-card">
                         <div class="stakeholder-logo">
                             <img src="attached_assets/image_1759100531599.png" alt="Funza Lushaka Logo">
                         </div>
-                        <h3>Funza Lushaka Bursary Programme</h3>
-                        <p>Supporting our students who aspire to become teachers, fostering the next generation of educators.</p>
+                        <h3>Funza Lushaka Bursary</h3>
+                        <p>Supporting future teachers in their education journey.</p>
                         <a href="https://www.education.gov.za/Programmes/FunzaLushaka.aspx" target="_blank" class="stakeholder-link">
-                            <i class="fas fa-external-link-alt"></i>
-                            Learn More
+                            <i class="fas fa-external-link-alt"></i> Learn More
                         </a>
                     </div>
-
-                    
-                </div>
-            </div>
-
-            <!-- Major Bursary Portal -->
-            <div class="stakeholder-section">
-                <h2 class="stakeholder-category-title">
-                    <i class="fas fa-graduation-cap"></i>
-                    Bursary Portal & Financial Aid
-                </h2>
-                <p class="university-intro">Explore this trusted bursary portal to discover funding opportunities from various organizations, companies, and foundations across South Africa.</p>
-                
-                <div class="stakeholder-grid">
                     <div class="stakeholder-card">
-                        <div class="stakeholder-logo">
-                            <img src="https://logos-download.com/wp-content/uploads/2020/01/ZA_Bursaries_Logo.png" alt="ZA Bursaries Logo">
+                        <div class="stakeholder-icon">
+                            <i class="fas fa-search-dollar"></i>
                         </div>
                         <h3>ZA Bursaries</h3>
-                        <p>South Africa's premier bursary portal featuring comprehensive listings of scholarships, bursaries, and financial aid opportunities from trusted organizations nationwide.</p>
+                        <p>Premier portal for bursary and scholarship opportunities.</p>
                         <a href="https://www.zabursaries.co.za/" target="_blank" class="stakeholder-link">
-                            <i class="fas fa-external-link-alt"></i>
-                            Explore ZA Bursaries
+                            <i class="fas fa-external-link-alt"></i> Explore
                         </a>
                     </div>
                 </div>
-
                 <div class="bursary-tips">
-                    <h3>💡 Bursary Application Tips</h3>
+                    <h3>Bursary Application Tips</h3>
                     <ul>
-                        <li><strong>Start Early:</strong> Many bursaries have early deadlines - begin your search in Grade 11</li>
-                        <li><strong>Multiple Applications:</strong> Apply to several bursaries to increase your chances</li>
-                        <li><strong>Meet Requirements:</strong> Carefully read and meet all eligibility criteria</li>
-                        <li><strong>Strong Motivation:</strong> Write compelling motivation letters that showcase your passion</li>
-                        <li><strong>Keep Records:</strong> Maintain good academic records and keep certificates safe</li>
+                        <li><strong>Start Early:</strong> Begin your search in Grade 11</li>
+                        <li><strong>Multiple Applications:</strong> Apply to several bursaries</li>
+                        <li><strong>Meet Requirements:</strong> Read all eligibility criteria carefully</li>
+                        <li><strong>Strong Motivation:</strong> Write compelling motivation letters</li>
                     </ul>
                 </div>
             </div>
 
-            <!-- Universities -->
             <div class="stakeholder-section">
-                <h2 class="stakeholder-category-title">
-                    <i class="fas fa-university"></i>
-                    South African Universities
-                </h2>
-                <p class="university-intro">Our graduates continue their educational journey at these prestigious institutions across South Africa, pursuing diverse fields of study and contributing to national development. These partnerships open doors to endless possibilities, ensuring our students have access to quality higher education that transforms lives and builds futures.</p>
-                
+                <h2 class="section-title"><i class="fas fa-university"></i> South African Universities</h2>
+                <p class="section-intro">Our graduates continue their educational journey at these prestigious institutions.</p>
                 <div class="university-grid">
                     <div class="university-card">
                         <div class="university-logo">
@@ -178,15 +326,13 @@
                         <h4>University of Cape Town</h4>
                         <a href="https://www.uct.ac.za/" target="_blank" class="university-link">Visit UCT</a>
                     </div>
-
                     <div class="university-card">
                         <div class="university-logo">
                             <img src="https://images.seeklogo.com/logo-png/38/1/university-of-the-witwatersrand-johannesburg-logo-png_seeklogo-388205.png" alt="Wits Logo">
                         </div>
-                        <h4>University of the Witwatersrand</h4>
+                        <h4>Wits University</h4>
                         <a href="https://www.wits.ac.za/" target="_blank" class="university-link">Visit Wits</a>
                     </div>
-
                     <div class="university-card">
                         <div class="university-logo">
                             <img src="https://images.seeklogo.com/logo-png/20/2/university-of-pretoria-logo-png_seeklogo-208368.png" alt="UP Logo">
@@ -194,23 +340,20 @@
                         <h4>University of Pretoria</h4>
                         <a href="https://www.up.ac.za/" target="_blank" class="university-link">Visit UP</a>
                     </div>
-
                     <div class="university-card">
                         <div class="university-logo">
                             <img src="https://images.seeklogo.com/logo-png/25/9/universiteit-stellenbosch-university-logo-png_seeklogo-259175.png" alt="Stellenbosch Logo">
                         </div>
-                        <h4>Stellenbosch University</h4>
+                        <h4>Stellenbosch</h4>
                         <a href="https://www.sun.ac.za/" target="_blank" class="university-link">Visit SU</a>
                     </div>
-
                     <div class="university-card">
                         <div class="university-logo">
                             <img src="https://www.freelogovectors.net/wp-content/uploads/2023/11/ukzn_logo_freelogovectors.net_.png" alt="UKZN Logo">
                         </div>
-                        <h4>University of KwaZulu-Natal</h4>
+                        <h4>UKZN</h4>
                         <a href="https://www.ukzn.ac.za/" target="_blank" class="university-link">Visit UKZN</a>
                     </div>
-
                     <div class="university-card">
                         <div class="university-logo">
                             <img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/02/Rhodes_University_logo.png/200px-Rhodes_University_logo.png" alt="Rhodes Logo">
@@ -218,104 +361,87 @@
                         <h4>Rhodes University</h4>
                         <a href="https://www.ru.ac.za/" target="_blank" class="university-link">Visit Rhodes</a>
                     </div>
-
                     <div class="university-card">
                         <div class="university-logo">
                             <img src="attached_assets/image_1759098649366.png" alt="Fort Hare Logo">
                         </div>
-                        <h4>University of Fort Hare</h4>
+                        <h4>Fort Hare</h4>
                         <a href="https://www.ufh.ac.za/" target="_blank" class="university-link">Visit UFH</a>
                     </div>
-
                     <div class="university-card">
                         <div class="university-logo">
-                            <img src="attached_assets/image_1759100779142.png" alt="Nelson Mandela University Logo">
+                            <img src="attached_assets/image_1759100779142.png" alt="NMU Logo">
                         </div>
-                        <h4>Nelson Mandela University</h4>
+                        <h4>Nelson Mandela Uni</h4>
                         <a href="https://www.mandela.ac.za/" target="_blank" class="university-link">Visit NMU</a>
                     </div>
-
                     <div class="university-card">
                         <div class="university-logo">
-                            <img src="attached_assets/image_1759101159553.png" alt="Walter Sisulu University Logo">
+                            <img src="attached_assets/image_1759101159553.png" alt="WSU Logo">
                         </div>
-                        <h4>Walter Sisulu University</h4>
+                        <h4>Walter Sisulu</h4>
                         <a href="https://www.wsu.ac.za/" target="_blank" class="university-link">Visit WSU</a>
                     </div>
-
                     <div class="university-card">
                         <div class="university-logo">
                             <img src="https://logos-download.com/wp-content/uploads/2017/07/University_of_the_Free_State_logo_UFS.png" alt="UFS Logo">
                         </div>
-                        <h4>University of the Free State</h4>
+                        <h4>Free State</h4>
                         <a href="https://www.ufs.ac.za/" target="_blank" class="university-link">Visit UFS</a>
                     </div>
-
                     <div class="university-card">
                         <div class="university-logo">
                             <img src="https://logos-download.com/wp-content/uploads/2017/07/North-West_University_logo_NWU.png" alt="NWU Logo">
                         </div>
-                        <h4>North-West University</h4>
+                        <h4>North-West</h4>
                         <a href="https://www.nwu.ac.za/" target="_blank" class="university-link">Visit NWU</a>
                     </div>
-
                     <div class="university-card">
                         <div class="university-logo">
                             <img src="https://www.clipartmax.com/png/middle/289/2896445_university-of-limpopo-wikipedia-gucci-logo-svg-sport-university-of-limpopo-logo.png" alt="UL Logo">
                         </div>
-                        <h4>University of Limpopo</h4>
+                        <h4>Limpopo</h4>
                         <a href="https://www.ul.ac.za/" target="_blank" class="university-link">Visit UL</a>
                     </div>
                 </div>
-
             </div>
 
-            <!-- Community Partners -->
             <div class="stakeholder-section">
-                <h2 class="stakeholder-category-title">
-                    <i class="fas fa-hands-helping"></i>
-                    Community & Local Partners
-                </h2>
-                <div class="stakeholder-grid">
+                <h2 class="section-title"><i class="fas fa-hands-helping"></i> Community Partners</h2>
+                <div class="cards-grid">
                     <div class="stakeholder-card">
                         <div class="stakeholder-icon">
                             <i class="fas fa-users"></i>
                         </div>
                         <h3>School Governing Body</h3>
-                        <p>Our dedicated governance structure ensuring community involvement in school management and strategic decision-making.</p>
-                        <div class="contact-info">
-                            <i class="fas fa-info-circle"></i>
-                            Contact school for more information
+                        <p>Community involvement in school management and decisions.</p>
+                        <div class="contact-info-small">
+                            <i class="fas fa-info-circle"></i> Contact school for info
                         </div>
                     </div>
-
                     <div class="stakeholder-card">
                         <div class="stakeholder-icon">
                             <i class="fas fa-home"></i>
                         </div>
                         <h3>Parent Community</h3>
-                        <p>Our committed parents and guardians who partner with us in nurturing and supporting student success.</p>
-                        <div class="contact-info">
-                            <i class="fas fa-phone"></i>
-                            (+27) 827649705
+                        <p>Committed parents partnering with us for student success.</p>
+                        <div class="contact-info-small">
+                            <i class="fas fa-phone"></i> (+27) 827649705
                         </div>
                     </div>
-
                     <div class="stakeholder-card">
                         <div class="stakeholder-icon">
                             <i class="fas fa-map-marker-alt"></i>
                         </div>
                         <h3>Nqamakwe Community</h3>
-                        <p>The vibrant local community that supports our mission and benefits from our educational contributions.</p>
-                        <div class="contact-info">
-                            <i class="fas fa-envelope"></i>
-                            siyabulelasss@gmail.com
+                        <p>The local community supporting our educational mission.</p>
+                        <div class="contact-info-small">
+                            <i class="fas fa-envelope"></i> siyabulelasss@gmail.com
                         </div>
                     </div>
                 </div>
             </div>
-
-        </section>
+        </div>
     </main>
 
     <footer>
@@ -323,7 +449,7 @@
             <div class="footer-section">
                 <h3>Quick Links</h3>
                 <ul>
-                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="academics.html">Study with us</a></li>
                     <li><a href="admissions.html">Admissions</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>

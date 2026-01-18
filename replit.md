@@ -6,6 +6,17 @@ This is a static website for Siyabulela Senior Secondary School (S.S.S.), a high
 
 ## Recent Changes
 
+**January 18, 2026**: Comprehensive styling consistency update across all pages
+- Compact card sizing throughout (smaller padding, fonts, and heights)
+- Subject icons restored on Study with us page (unique icons per subject: flask, calculator, book, etc.)
+- Fixed text contrast on navy headers (white text instead of black)
+- Removed "Supporting Documents" card from Admissions (only transfer letter or birth certificate needed)
+- Stakeholders page redesigned with compact cards, smaller university logos, and efficient layout
+- Announcement cards reduced in size (smaller images, padding, and fonts)
+- Consistent card styling: 10px border radius, 0.75-1rem padding, navy headers with gold accent icons
+- Footer alignment standardized across all pages
+- Hero sections cleaned up (removed "Siya -" prefix)
+
 **January 17, 2026**: Added dynamic School Results Management system
 - Created elegant public Results page with table display matching school design (color-coded pass rates)
 - Removed hardcoded performance data from index.html - all results now admin-managed
