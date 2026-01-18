@@ -3457,8 +3457,7 @@ p {
     position: relative;
     display: flex;
     flex-direction: column;
-    height: 100%;
-    min-height: 280px;
+    height: auto;
 }
 
 .announcement-card.elegant-home:hover {
